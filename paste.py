@@ -17,3 +17,19 @@ class Paste(object):
 
     def set_body(self, body):
         self.body = body
+
+    def __str__(self):
+        paste_dict = {'scrape_url': self.scrape_url,
+                      'full_url': self.full_url,
+                      'date': self.date,
+                      'key': self.key,
+                      'size': self.size,
+                      'expire': self.expire,
+                      'title': self.title,
+                      'syntax': self.syntax,
+                      'user': self.user,
+                      'body': self.body}
+        return str(paste_dict)
+
+    def __repr__(self):
+        return self.__str__()
