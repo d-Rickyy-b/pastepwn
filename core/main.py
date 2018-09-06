@@ -5,7 +5,7 @@ import logging
 import logging.handlers
 
 logdir_path = os.path.dirname(os.path.abspath(__file__))
-logfile_path = os.path.join(logdir_path, "logs", "bot.log")
+logfile_path = os.path.join(logdir_path, "logs", "pastepwn.log")
 
 if not os.path.exists(os.path.join(logdir_path, "logs")):
     os.makedirs(os.path.join(logdir_path, "logs"))
