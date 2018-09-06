@@ -5,16 +5,18 @@ from queue import Queue
 from threading import Thread, Lock, current_thread, Event
 
 
-class ScrapeHandler(object):
+class ScrapingHandler(object):
     """Class to handle all the given scraping to fetch pastes from different sources"""
 
-    def __init__(self):
+    def __init__(self, scrapers):
         self.logger = logging.getLogger(__name__)
         self.running = False
+        self.scrapers = scrapers
         self.__exception_event = Event()
         self.paste_queue = Queue()
         self.__lock = Lock()
         self.__threads = []
+        self.paste_ids = []
 
     def _init_thread(self, target, name, *args, **kwargs):
         thr = Thread(target=self._thread_wrapper, name=name, args=(target,) + args, kwargs=kwargs)
@@ -38,9 +40,8 @@ class ScrapeHandler(object):
             if not self.running:
                 self.running = True
 
-                # Create & start threads
                 dispatcher_ready = Event()
-                self._init_thread(self._start_scraping, "updater")
+                self._init_thread(self._start_scraping, "ScrapingHandler")
 
                 dispatcher_ready.wait()
 
@@ -49,10 +50,12 @@ class ScrapeHandler(object):
 
     def _start_scraping(self):
         while self.running:
-            # for scraper in scrapers
-            # get pastes
-            # put them in the queue
-            # return True
-            pass
+            for scraper in self.scrapers:
+                pastes = scraper.scrape()
+                # Check if pastes are already known
+                # If they are known, do nothing. Else fetch the whole post
 
-# TODO idle
+                for paste in pastes:
+                    self.paste_queue.put(paste)
+
+# TODO implement idle for SIGINT, SIGTERM, SIGKILL
