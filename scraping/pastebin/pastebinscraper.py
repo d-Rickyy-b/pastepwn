@@ -4,6 +4,7 @@ import logging
 import time
 
 import urllib3
+import certifi
 
 from paste import Paste
 from scraping import BasicScraper
@@ -42,7 +43,7 @@ class PastebinScraper(BasicScraper):
         api_url = "{0}/{1}?limit={2}".format(self.api_base_url, endpoint, limit)
 
         try:
-            http = urllib3.PoolManager()
+            http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
             response = http.request('GET', api_url)
             response_data = response.data.decode("utf-8")
 
@@ -76,7 +77,7 @@ class PastebinScraper(BasicScraper):
         self.logger.debug("Downloading paste")
 
         try:
-            http = urllib3.PoolManager()
+            http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
             response = http.request('GET', api_url)
             response_data = response.data.decode("utf-8")
 
