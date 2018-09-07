@@ -8,15 +8,14 @@ from threading import Thread, Lock, current_thread, Event
 class ScrapingHandler(object):
     """Class to handle all the given scraping to fetch pastes from different sources"""
 
-    def __init__(self, scrapers):
+    def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.running = False
-        self.scrapers = scrapers
         self.__exception_event = Event()
         self.paste_queue = Queue()
         self.__lock = Lock()
         self.__threads = []
-        self.paste_ids = []
+        self.scrapers = []
 
     def _init_thread(self, target, name, *args, **kwargs):
         thr = Thread(target=self._thread_wrapper, name=name, args=(target,) + args, kwargs=kwargs)
@@ -34,11 +33,19 @@ class ScrapingHandler(object):
             raise
         self.logger.debug('{0} - ended'.format(thr_name))
 
+    def add_scraper(self, scraper):
+        self.scrapers.append(scraper)
+
     def start_scraping(self):
         """Starts scraping pastes from the provided sources"""
         with self.__lock:
             if not self.running:
                 self.running = True
+
+                # There needs to be at least one scraper
+                if len(self.scrapers) == 0:
+                    self.running = False
+                    return
 
                 # Start all scraper threads
                 for scraper in self.scrapers:
