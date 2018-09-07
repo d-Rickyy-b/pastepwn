@@ -93,11 +93,12 @@ class PastebinScraper(BasicScraper):
         while True:
             self._last_scrape_time = int(time.time())
             pastes = self._get_recent(limit=100)
-            for paste in pastes:
-                # check if paste is in list of known pastes
-                if paste.key in self._known_pastes:
-                    # Do nothing, if it's already known
-                    continue
+            if pastes is not None:
+                for paste in pastes:
+                    # check if paste is in list of known pastes
+                    if paste.key in self._known_pastes:
+                        # Do nothing, if it's already known
+                        continue
 
                 # if paste is not known, download the body and put it on the queue and into the list
                 # TODO this request must be limited! (1 per second)
