@@ -24,6 +24,7 @@ class PastebinScraper(BasicScraper):
         super().__init__()
         self.logger = logging.getLogger(__name__)
         self._last_scrape_time = 0
+        self.paste_queue = None
         self._known_pastes = []
         self._known_pastes_limit = 1000
 
@@ -85,7 +86,9 @@ class PastebinScraper(BasicScraper):
 
         return paste
 
-    def start(self):
+    def start(self, paste_queue):
+        self.paste_queue = paste_queue
+
         while True:
             self._last_scrape_time = int(time.time())
             pastes = self._get_recent(limit=100)
@@ -100,6 +103,7 @@ class PastebinScraper(BasicScraper):
                 # Maybe move into own thread
                 paste.set_body(self._get_paste(paste.key))
 
+                self.paste_queue.put(paste)
                 self._known_pastes.append(paste.key)
 
             # Delete some of the last pastes to not run into memory/performance issues

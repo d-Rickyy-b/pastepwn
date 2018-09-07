@@ -7,5 +7,5 @@ class BasicScraper(object):
     def __init__(self):
         pass
 
-    def start(self):
+    def start(self, paste_queue):
         raise NotImplementedError
