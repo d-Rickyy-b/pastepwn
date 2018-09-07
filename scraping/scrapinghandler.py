@@ -50,7 +50,7 @@ class ScrapingHandler(object):
 
                 # Start all scraper threads
                 for scraper in self.scrapers:
-                    self._init_thread(scraper.start, scraper.name)
+                    self._init_thread(scraper.start, scraper.name, paste_queue=self.paste_queue)
 
                 # Return the update queue so the main thread can insert updates
                 return self.paste_queue
