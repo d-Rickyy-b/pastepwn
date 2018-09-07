@@ -40,10 +40,9 @@ class ScrapingHandler(object):
             if not self.running:
                 self.running = True
 
-                dispatcher_ready = Event()
-                self._init_thread(self._start_scraping, "ScrapingHandler")
-
-                dispatcher_ready.wait()
+                # Start all scraper threads
+                for scraper in self.scrapers:
+                    self._init_thread(scraper.start, scraper.name)
 
                 # Return the update queue so the main thread can insert updates
                 return self.paste_queue
