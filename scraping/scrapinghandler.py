@@ -60,6 +60,8 @@ class ScrapingHandler(object):
             if self.running:
                 self.logger.debug("Stopping scrapers...")
                 self.running = False
+                for scraper in self.scrapers:
+                    scraper.stop()
                 self._join_threads()
 
     def _join_threads(self):
