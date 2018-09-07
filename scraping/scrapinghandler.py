@@ -44,7 +44,7 @@ class ScrapingHandler(object):
 
                 # There needs to be at least one scraper
                 if len(self.scrapers) == 0:
-                    self.logger.warning("No scrapers added!")
+                    self.logger.warning("No scrapers added! At least one scraper must be added prior to use!")
                     self.running = False
                     return
 
@@ -58,7 +58,7 @@ class ScrapingHandler(object):
     def stop(self):
         with self.__lock:
             if self.running:
-                self.logger.debug("Stopping scraping...")
+                self.logger.debug("Stopping scrapers...")
                 self.running = False
                 self._join_threads()
 
