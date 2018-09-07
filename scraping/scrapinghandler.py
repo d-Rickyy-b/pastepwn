@@ -47,12 +47,13 @@ class ScrapingHandler(object):
                 # Return the update queue so the main thread can insert updates
                 return self.paste_queue
 
-    def _start_scraping(self):
-        while self.running:
-            for scraper in self.scrapers:
-                pastes = scraper.scrape()
-                # Check if pastes are already known
-                # If they are known, do nothing. Else fetch the whole post
+    def stop(self):
+        with self.__lock:
+            if self.running:
+                self.logger.debug("Stopping scraping...")
+                self.running = False
+                self._join_threads()
+
     def _join_threads(self):
         """End all threads and join them back into the main thread"""
         for thread in self.__threads:
