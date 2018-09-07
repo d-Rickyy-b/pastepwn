@@ -3,4 +3,4 @@
 from .basicscraper import BasicScraper
 from .scrapinghandler import ScrapingHandler
 
-__all__ = ('BasicScraper',)
+__all__ = ('BasicScraper', 'ScrapingHandler')
