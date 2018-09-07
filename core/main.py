@@ -14,7 +14,7 @@ logfile_handler = logging.handlers.WatchedFileHandler(logfile_path, 'a', 'utf-8'
 
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO, handlers=[logfile_handler])
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG, handlers=[logfile_handler, logging.StreamHandler()])
 
 # Use long polling for fetching the pastes
 
