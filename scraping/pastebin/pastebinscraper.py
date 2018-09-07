@@ -23,7 +23,7 @@ class PastebinScraper(BasicScraper):
         self.logger = logging.getLogger(__name__)
 
     @staticmethod
-    def check_error(body):
+    def _check_error(body):
         """Checks if an error occurred and raises an exception if it did"""
         if body is None:
             raise EmptyBodyException()
@@ -31,7 +31,7 @@ class PastebinScraper(BasicScraper):
         if "DOES NOT HAVE ACCESS" in body:
             raise IPNotRegisteredError()
 
-    def get_recent(self, limit=10):
+    def _get_recent(self, limit=10):
         endpoint = "api_scraping.php"
         api_url = "{0}/{1}?limit={2}".format(self.api_base_url, endpoint, limit)
 
@@ -40,7 +40,7 @@ class PastebinScraper(BasicScraper):
             response = http.request('GET', api_url)
             response_data = response.data.decode("utf-8")
 
-            self.check_error(response_data)
+            self._check_error(response_data)
 
             pastes_dict = json.loads(response_data)
             pastes = []
@@ -61,7 +61,7 @@ class PastebinScraper(BasicScraper):
         except Exception as e:
             self.logger.error(e)
 
-    def get_paste(self, key):
+    def _get_paste(self, key):
         endpoint = "api_scrape_item.php"
         api_url = "{0}/{1}?i={2}".format(self.api_base_url, endpoint, key)
         paste = None
@@ -71,7 +71,7 @@ class PastebinScraper(BasicScraper):
             response = http.request('GET', api_url)
             response_data = response.data.decode("utf-8")
 
-            self.check_error(response_data)
+            self._check_error(response_data)
         except Exception as e:
             self.logger.error(e)
 
