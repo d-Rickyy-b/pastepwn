@@ -117,6 +117,11 @@ class PastebinScraper(BasicScraper):
                 start_index = len(self._known_pastes) - self._known_pastes_limit
                 self._known_pastes = self._known_pastes[start_index:]
 
+            if self._check_stop_event() or self._check_exception_event():
+                self.logger.debug('stopping {0}'.format(self.name))
+                self.running = False
+                break
+
             # check if time since last
             current_time = int(time.time())
             diff = current_time - self._last_scrape_time
