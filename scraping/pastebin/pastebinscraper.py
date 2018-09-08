@@ -100,13 +100,13 @@ class PastebinScraper(BasicScraper):
                         # Do nothing, if it's already known
                         continue
 
-                # if paste is not known, download the body and put it on the queue and into the list
-                # TODO this request must be limited! (1 per second)
-                # Maybe move into own thread
-                paste.set_body(self._get_paste(paste.key))
+                    # if paste is not known, download the body and put it on the queue and into the list
+                    # TODO this request must be limited! (1 per second)
+                    # Maybe move into own thread
+                    paste.set_body(self._get_paste(paste.key))
 
-                self.paste_queue.put(paste)
-                self._known_pastes.append(paste.key)
+                    self.paste_queue.put(paste)
+                    self._known_pastes.append(paste.key)
 
             # Delete some of the last pastes to not run into memory/performance issues
             if len(self._known_pastes) > 1000:
