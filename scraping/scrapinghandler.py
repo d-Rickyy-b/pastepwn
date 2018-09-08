@@ -6,7 +6,7 @@ from threading import Thread, Lock, current_thread, Event
 
 
 class ScrapingHandler(object):
-    """Class to handle all the given scraping to fetch pastes from different sources"""
+    """Class to handle all the given scrapers to fetch pastes from different sources"""
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)
