@@ -40,14 +40,12 @@ class ScrapingHandler(object):
         """Starts scraping pastes from the provided sources"""
         with self.__lock:
             if not self.running:
-                self.running = True
-
                 # There needs to be at least one scraper
                 if len(self.scrapers) == 0:
                     self.logger.warning("No scrapers added! At least one scraper must be added prior to use!")
-                    self.running = False
                     return
 
+                self.running = True
                 # Start all scraper threads
                 for scraper in self.scrapers:
                     self._init_thread(scraper.start, scraper.name, paste_queue=self.paste_queue)
