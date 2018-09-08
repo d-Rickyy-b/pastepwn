@@ -74,7 +74,7 @@ class PastebinScraper(BasicScraper):
         api_url = "{0}/{1}?i={2}".format(self.api_base_url, endpoint, key)
         paste = None
 
-        self.logger.debug("Downloading paste")
+        self.logger.debug("Downloading paste {0}".format(key))
 
         try:
             http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
