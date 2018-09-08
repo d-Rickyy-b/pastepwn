@@ -104,8 +104,6 @@ class PastebinScraper(BasicScraper):
                         continue
 
                     # if paste is not known, download the body and put it on the queue and into the list
-                    # TODO this request must be limited! (1 per second)
-                    # Maybe move into own thread
                     paste.set_body(self._get_paste(paste.key))
 
                     self.paste_queue.put(paste)
