@@ -89,8 +89,9 @@ class PastebinScraper(BasicScraper):
 
     def start(self, paste_queue):
         self.paste_queue = paste_queue
+        self.running = True
 
-        while True:
+        while self.running:
             self._last_scrape_time = int(time.time())
             pastes = self._get_recent(limit=100)
             if pastes is not None:
