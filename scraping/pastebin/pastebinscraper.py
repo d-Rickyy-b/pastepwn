@@ -94,6 +94,8 @@ class PastebinScraper(BasicScraper):
         while self.running:
             self._last_scrape_time = int(time.time())
             pastes = self._get_recent(limit=100)
+            counter = 0
+
             if pastes is not None:
                 for paste in pastes:
                     # check if paste is in list of known pastes
@@ -108,9 +110,13 @@ class PastebinScraper(BasicScraper):
 
                     self.paste_queue.put(paste)
                     self._known_pastes.append(paste.key)
+                    counter += 1
 
                     if self._check_stop_event() or self._check_exception_event():
                         break
+
+
+                self.logger.debug("{0} new pastes downloaded!".format(counter))
 
             # Delete some of the last pastes to not run into memory/performance issues
             if len(self._known_pastes) > 1000:
