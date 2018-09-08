@@ -21,8 +21,8 @@ class PastebinScraper(BasicScraper):
     name = "PastebinScraper"
     api_base_url = "https://scrape.pastebin.com"
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, exception_event=None):
+        super().__init__(exception_event)
         self.logger = logging.getLogger(__name__)
         self._last_scrape_time = 0
         self.paste_queue = None
@@ -108,6 +108,9 @@ class PastebinScraper(BasicScraper):
 
                     self.paste_queue.put(paste)
                     self._known_pastes.append(paste.key)
+
+                    if self._check_stop_event() or self._check_exception_event():
+                        break
 
             # Delete some of the last pastes to not run into memory/performance issues
             if len(self._known_pastes) > 1000:
