@@ -3,8 +3,8 @@ import json
 import logging
 import time
 
-import urllib3
 import certifi
+import urllib3
 
 from paste import Paste
 from scraping import BasicScraper
@@ -110,7 +110,7 @@ class PastebinScraper(BasicScraper):
 
             # Delete some of the last pastes to not run into memory/performance issues
             if len(self._known_pastes) > 1000:
-                start_index = len(self._known_pastes)-self._known_pastes_limit
+                start_index = len(self._known_pastes) - self._known_pastes_limit
                 self._known_pastes = self._known_pastes[start_index:]
 
             # check if time since last
