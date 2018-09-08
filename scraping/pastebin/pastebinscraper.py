@@ -115,6 +115,7 @@ class PastebinScraper(BasicScraper):
                     if self._check_stop_event() or self._check_exception_event():
                         break
 
+                    time.sleep(1)
 
                 self.logger.debug("{0} new pastes downloaded!".format(counter))
 
