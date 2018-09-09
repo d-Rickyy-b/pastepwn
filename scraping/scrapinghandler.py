@@ -8,11 +8,11 @@ from threading import Thread, Lock, current_thread, Event
 class ScrapingHandler(object):
     """Class to handle all the given scrapers to fetch pastes from different sources"""
 
-    def __init__(self):
+    def __init__(self, paste_queue=None):
         self.logger = logging.getLogger(__name__)
         self.running = False
         self.__exception_event = Event()
-        self.paste_queue = Queue()
+        self.paste_queue = paste_queue or Queue()
         self.__lock = Lock()
         self.__threads = []
         self.scrapers = []
