@@ -15,4 +15,4 @@ class RegexAnalyzer(BasicAnalyzer):
     def match(self, paste):
         """Match the content of a paste via regex. Return true if regex matches"""
         paste_content = paste.body
-        return self.regex.match(paste_content) is not None
+        return self.regex.search(paste_content) is not None
