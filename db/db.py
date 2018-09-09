@@ -25,4 +25,3 @@ class db:
     def countAll(self):
         return self.collection.count()
 
-
