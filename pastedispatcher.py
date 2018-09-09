@@ -1,63 +1,86 @@
 # -*- coding: utf-8 -*-
 
 import logging
-from threading import Event
 from queue import Empty
+from threading import Event
+from threading import Thread, Lock, current_thread
 
 
 class PasteDispatcher(object):
-
     logger = logging.getLogger(__name__)
 
-    def __init__(self, paste_queue, analyzers, exception_event=None):
+    def __init__(self, paste_queue, action_queue, exception_event=None):
         self.paste_queue = paste_queue
-        self.analyzers = analyzers
+        self.action_queue = action_queue
+        self.analyzers = []
         self.running = False
 
+        self.__lock = Lock()
+        self.__threads = []
+        self.__thread_pool = set()
         self.__exception_event = exception_event or Event()
         self.__stop_event = Event()
 
-    def start(self, ready=None):
-        if self.running:
-            self.logger.warning('PasteDispatcher is already running')
+    def _init_thread(self, target, name, *args, **kwargs):
+        thr = Thread(target=self._thread_wrapper, name=name, args=(target,) + args, kwargs=kwargs)
+        thr.start()
+        self.__threads.append(thr)
+
+    def _thread_wrapper(self, target, *args, **kwargs):
+        thr_name = current_thread().name
+        self.logger.debug('{0} - started'.format(thr_name))
+        try:
+            target(*args, **kwargs)
+        except Exception:
+            self.__exception_event.set()
+            self.logger.exception('unhandled exception in %s', thr_name)
+            raise
+        self.logger.debug('{0} - ended'.format(thr_name))
+
+
+    def add_analyzer(self, analyzer):
+        self.analyzers.append(analyzer)
+
+    def start(self, workers=4, ready=None):
+        """Starts dispatching the downloaded pastes to the list of analyzers"""
+        with self.__lock:
+            if not self.running:
+                if len(self.analyzers) == 0:
+                    self.logger.warning("No analyzers added! At least one analyzer must be added prior to use!")
+                    return None
+
+                self.running = True
+                self._init_thread(self._start_analyzing, "PasteDispatcher")
+
+                self.logger.debug("PasteDispatcher started")
+
             if ready is not None:
                 ready.set()
-            return
 
-        if self.__exception_event.is_set():
-            msg = 'reusing PasteDispatcher after exception event is forbidden'
-            self.logger.error(msg)
-            raise Exception(msg)
-
-        self.running = True
-        self.logger.debug('PasteDispatcher started')
-
-        if ready is not None:
-            ready.set()
-
-        while True:
+    def _start_analyzing(self):
+        while self.running:
             try:
                 # Get paste from queue
                 paste = self.paste_queue.get(True, 1)
+
+                # TODO implement thread pool to limit number of parallel executed threads
+                self._init_thread(self._process_paste, "process_paste", paste=paste)
+                self._process_paste(paste)
             except Empty:
                 if self.__stop_event.is_set():
-                    self.logger.debug('orderly stopping')
+                    self.logger.debug("orderly stopping")
+                    self.running = False
                     break
                 elif self.__exception_event.is_set():
-                    self.logger.critical('stopping due to exception in another thread')
+                    self.logger.critical("stopping due to exception in another thread")
+                    self.running = False
                     break
                 continue
 
-            self.logger.debug('Processing Paste: %s' % paste)
-            self.process_paste(paste)
-
-        self.running = False
-        self.logger.debug('PasteDispatcher thread stopped')
-
-    def process_paste(self, paste):
+    def _process_paste(self, paste):
+        self.logger.debug("Processing Paste: %s" % paste)
         for analyzer in self.analyzers:
+            # self.logger.debug("Using analyzer {0}".format(analyzer._type))
             if analyzer.match(paste):
-                # TODO add to action queue
-                # action = analyzer.action
-                # action_queue.put(action)
-                pass
+                action = analyzer.action
+                self.action_queue.put(action)
