@@ -69,7 +69,7 @@ class PastebinScraper(BasicScraper):
         except Exception as e:
             self.logger.error(e)
 
-    def _get_paste(self, key):
+    def _get_paste_content(self, key):
         endpoint = "api_scrape_item.php"
         api_url = "{0}/{1}?i={2}".format(self.api_base_url, endpoint, key)
         paste = None
@@ -104,7 +104,7 @@ class PastebinScraper(BasicScraper):
                         continue
 
                     # if paste is not known, download the body and put it on the queue and into the list
-                    paste.set_body(self._get_paste(paste.key))
+                    paste.set_body(self._get_paste_content(paste.key))
 
                     self.paste_queue.put(paste)
                     self._known_pastes.append(paste.key)
