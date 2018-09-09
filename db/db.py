@@ -7,7 +7,7 @@ class Database:
         self.db = pymongo.MongoClient(ip, port)
         self.db = self.db[dbname]
         self.collection = self.db[collectionname]
-        #self.logger = logging.getLogger(__name__)
+        self.logger = logging.getLogger(__name__)
 
 
     def insertData(self, dict):
