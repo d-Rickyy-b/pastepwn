@@ -72,20 +72,21 @@ class PastebinScraper(BasicScraper):
     def _get_paste_content(self, key):
         endpoint = "api_scrape_item.php"
         api_url = "{0}/{1}?i={2}".format(self.api_base_url, endpoint, key)
-        paste = None
+        content = ""
 
         self.logger.debug("Downloading paste {0}".format(key))
-
         try:
             http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
             response = http.request('GET', api_url)
             response_data = response.data.decode("utf-8")
 
             self._check_error(response_data)
+
+            content = response_data
         except Exception as e:
             self.logger.error(e)
 
-        return paste
+        return content
 
     def start(self, paste_queue):
         self.paste_queue = paste_queue
