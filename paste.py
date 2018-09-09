@@ -16,7 +16,9 @@ class Paste(object):
         self.body = None
 
     def set_body(self, body):
-        self.body = body
+        if body is None:
+            body = ""
+        self.body = str(body)
 
     def __str__(self):
         paste_dict = {'scrape_url': self.scrape_url,
