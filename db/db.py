@@ -1,13 +1,13 @@
 import pymongo
 
-class db:
+class Database:
 
-    def __init__(self, ip="127.0.0.1", port=27017, dbname="pastepwn", collectionname="col"):
+    def __init__(self, ip="127.0.0.1", port=27017, dbname="pastepwn", collectionname="pastes"):
         print("Database init")
         self.db = pymongo.MongoClient(ip, port)
         self.db = self.db[dbname]
         self.collection = self.db[collectionname]
-        self.logger = logging.getLogger(__name__)
+        #self.logger = logging.getLogger(__name__)
 
 
     def insertData(self, dict):
@@ -24,4 +24,6 @@ class db:
 
     def countAll(self):
         return self.collection.count()
+
+
 
