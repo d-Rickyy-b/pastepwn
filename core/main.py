@@ -2,8 +2,10 @@
 
 import logging.handlers
 import os
-import time
 
+from actions import SaveFileAction, LogAction
+from analyzers import MailAnalyzer, WordAnalyzer
+from pastedispatcher import PasteDispatcher
 from scraping import ScrapingHandler
 from scraping.pastebin import PastebinScraper
 
@@ -18,12 +20,15 @@ logfile_handler = logging.handlers.WatchedFileHandler(logfile_path, 'a', 'utf-8'
 logger = logging.getLogger(__name__)
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG, handlers=[logfile_handler, logging.StreamHandler()])
 
+# Framework code
 scraping_handler = ScrapingHandler()
 scraping_handler.add_scraper(PastebinScraper())
-scraping_handler.start_scraping()
+paste_queue = scraping_handler.start_scraping()
 
-while True:
-    logger.debug("Length of the queue: {0}".format((scraping_handler.paste_queue.qsize())))
-    time.sleep(2)
-    scraping_handler.stop()
-    break
+# Define analyzers
+mail_analyzer = MailAnalyzer(SaveFileAction(os.path.join(logdir_path, "test.json")))
+test_analyzer = WordAnalyzer(LogAction(), "main")
+
+pd = PasteDispatcher(paste_queue, action_queue=None, exception_event=None)
+pd.add_analyzer(mail_analyzer)
+pd.start()
