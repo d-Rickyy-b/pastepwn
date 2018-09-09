@@ -65,7 +65,6 @@ class PasteDispatcher(object):
 
                 # TODO implement thread pool to limit number of parallel executed threads
                 self._init_thread(self._process_paste, "process_paste", paste=paste)
-                self._process_paste(paste)
             except Empty:
                 if self.__stop_event.is_set():
                     self.logger.debug("orderly stopping")
