@@ -2,10 +2,12 @@
 import json
 import logging
 import time
+from threading import Thread, current_thread
 
 import certifi
 import urllib3
 
+from queue import Queue, Empty
 from paste import Paste
 from scraping import BasicScraper
 from scraping.pastebin.exceptions import IPNotRegisteredError, EmptyBodyException
@@ -26,8 +28,24 @@ class PastebinScraper(BasicScraper):
         self.logger = logging.getLogger(__name__)
         self._last_scrape_time = 0
         self.paste_queue = None
+        self._tmp_paste_queue = Queue()
         self._known_pastes = []
         self._known_pastes_limit = 1000
+
+    def _init_thread(self, target, name, *args, **kwargs):
+        thr = Thread(target=self._thread_wrapper, name=name, args=(target,) + args, kwargs=kwargs)
+        thr.start()
+
+    def _thread_wrapper(self, target, *args, **kwargs):
+        thr_name = current_thread().name
+        self.logger.debug('{0} - started'.format(thr_name))
+        try:
+            target(*args, **kwargs)
+        except Exception:
+            self.__exception_event.set()
+            self.logger.exception('unhandled exception in %s', thr_name)
+            raise
+        self.logger.debug('{0} - ended'.format(thr_name))
 
     @staticmethod
     def _check_error(body):
@@ -88,9 +106,42 @@ class PastebinScraper(BasicScraper):
 
         return content
 
+    def _body_downloader(self):
+        """Downloads the body of pastes from pastebin"""
+        while self.running:
+            try:
+                self.logger.info("Queue size: {}".format(self._tmp_paste_queue.qsize()))
+
+                if self._check_stop_event() or self._check_exception_event():
+                    self.running = False
+                    break
+
+                paste = self._tmp_paste_queue.get(True, 1)
+
+                # if paste is not known, download the body and put it on the queue and into the list
+                last_body_download_time = round(time.time(), 2)
+                body = self._get_paste_content(paste.key)
+
+                paste.set_body(body)
+                self.paste_queue.put(paste)
+
+                current_time = round(time.time(), 2)
+                diff = round(current_time - last_body_download_time, 2)
+
+                if diff >= 1:
+                    continue
+
+                sleep_diff = round(1 - diff, 3)
+                self.logger.debug("Sleep time is: {0}".format(sleep_diff))
+                time.sleep(sleep_diff)
+            except Empty:
+                continue
+
     def start(self, paste_queue):
+        """Start the scraping process and download the paste metadata"""
         self.paste_queue = paste_queue
         self.running = True
+        self._init_thread(self._body_downloader, "BodyDownloader")
 
         while self.running:
             self._last_scrape_time = int(time.time())
@@ -104,22 +155,19 @@ class PastebinScraper(BasicScraper):
                         # Do nothing, if it's already known
                         continue
 
-                    # if paste is not known, download the body and put it on the queue and into the list
-                    paste.set_body(self._get_paste_content(paste.key))
-
-                    self.paste_queue.put(paste)
+                    self.logger.info("Paste is unknown - adding ot to list {}".format(paste.key))
+                    self._tmp_paste_queue.put(paste)
                     self._known_pastes.append(paste.key)
                     counter += 1
 
                     if self._check_stop_event() or self._check_exception_event():
                         break
 
-                    time.sleep(1)
-
-                self.logger.debug("{0} new pastes downloaded!".format(counter))
+                self.logger.debug("{0} new pastes fetched!".format(counter))
 
             # Delete some of the last pastes to not run into memory/performance issues
             if len(self._known_pastes) > 1000:
+                self.logger.debug("known_pastes > 1000 - cleaning up!")
                 start_index = len(self._known_pastes) - self._known_pastes_limit
                 self._known_pastes = self._known_pastes[start_index:]
 

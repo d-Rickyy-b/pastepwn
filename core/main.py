@@ -31,4 +31,6 @@ test_analyzer = WordAnalyzer(LogAction(), "main")
 
 pd = PasteDispatcher(paste_queue, action_queue=None, exception_event=None)
 pd.add_analyzer(mail_analyzer)
-pd.start()
+action_queue = pd.start()
+
+
