@@ -6,7 +6,7 @@ from analyzers import BasicAnalyzer
 
 class RegexAnalyzer(BasicAnalyzer):
     """Analyzer to match the content of a paste via regular expressions"""
-    _type = "RegexAnalyzer"
+    name = "RegexAnalyzer"
 
     def __init__(self, action, regex):
         super().__init__(action)

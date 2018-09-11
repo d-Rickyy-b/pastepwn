@@ -5,7 +5,7 @@ from analyzers import BasicAnalyzer
 
 class WordAnalyzer(BasicAnalyzer):
     """Analyzer to match the content of a paste via regular expressions"""
-    _type = "WordAnalyzer"
+    name = "WordAnalyzer"
 
     def __init__(self, action, word):
         super().__init__(action)

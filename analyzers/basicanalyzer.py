@@ -3,7 +3,7 @@
 
 class BasicAnalyzer(object):
     """Basic analyzer class"""
-    _type = "BasicAnalyzer"
+    name = "BasicAnalyzer"
 
     def __init__(self, action):
         self.action = action

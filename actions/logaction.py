@@ -5,6 +5,7 @@ from actions.basicaction import BasicAction
 
 class LogAction(BasicAction):
     """Action to log a paste to console"""
+    name = "LogAction"
 
     def __init__(self):
         super().__init__()

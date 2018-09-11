@@ -3,7 +3,7 @@
 
 class BasicAction(object):
     """Base class for actions which can be performed on pastes"""
-    _type = "BasicAction"
+    name = "BasicAction"
 
     def __init__(self):
         pass

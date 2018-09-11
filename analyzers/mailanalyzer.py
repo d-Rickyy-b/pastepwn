@@ -4,7 +4,7 @@ from analyzers import RegexAnalyzer
 
 class MailAnalyzer(RegexAnalyzer):
     """Analyzer to match on email addresses via regex"""
-    _type = "MailAnalyzer"
+    name = "MailAnalyzer"
 
     def __init__(self, action):
         # Regex taken from http://emailregex.com/
