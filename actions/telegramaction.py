@@ -24,5 +24,5 @@ class TelegramAction(BasicAction):
 
     def perform(self, paste):
         """Send a message via a Telegram bot to a specified user, without checking for errors"""
-        api_url = "https://api.telegram.org/bot{0}/sendMessage?chat_id={1}".format(self.token, self.receiver)
+        api_url = "https://api.telegram.org/bot{0}/sendMessage?chat_id={1}&text={2}".format(self.token, self.receiver, paste.key)
         self.request.get(api_url)
