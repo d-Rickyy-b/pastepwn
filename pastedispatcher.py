@@ -79,9 +79,9 @@ class PasteDispatcher(object):
                 continue
 
     def _process_paste(self, paste):
-        self.logger.debug("Processing Paste: %s" % paste)
+        self.logger.debug("Analyzing Paste: {0}".format(paste.key))
         for analyzer in self.analyzers:
-            # self.logger.debug("Using analyzer {0}".format(analyzer._type))
             if analyzer.match(paste):
                 action = analyzer.action
+                self.logger.info("Performing action '{0}' on paste '{1}' matched by analyzer '{2}'!".format(action.name, paste.key, analyzer.name))
                 self.action_queue.put(action)
