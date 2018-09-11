@@ -36,7 +36,7 @@ class ScrapingHandler(object):
     def add_scraper(self, scraper):
         self.scrapers.append(scraper)
 
-    def start_scraping(self):
+    def start(self):
         """Starts scraping pastes from the provided sources"""
         with self.__lock:
             if not self.running:
