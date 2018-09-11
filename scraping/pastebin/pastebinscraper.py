@@ -2,6 +2,7 @@
 import json
 import logging
 import time
+from queue import Queue, Empty
 from threading import Thread, current_thread
 
 from paste import Paste
@@ -82,6 +83,7 @@ class PastebinScraper(BasicScraper):
             return pastes
         except Exception as e:
             self.logger.error(e)
+            return None
 
     def _get_paste_content(self, key):
         endpoint = "api_scrape_item.php"
@@ -149,7 +151,7 @@ class PastebinScraper(BasicScraper):
                         # Do nothing, if it's already known
                         continue
 
-                    self.logger.info("Paste is unknown - adding ot to list {}".format(paste.key))
+                    self.logger.debug("Paste is unknown - adding ot to list {}".format(paste.key))
                     self._tmp_paste_queue.put(paste)
                     self._known_pastes.append(paste.key)
                     counter += 1
