@@ -8,6 +8,8 @@ class TelegramAction(BasicAction):
 
     def __init__(self, token, receiver, custom_payload=None):
         super().__init__()
+        if not re.match("[0-9]+:[a-zA-Z0-9\-_]+", token) or token is None:
+            raise ValueError("Bot token not correct or None!")
         self.token = token
         self.receiver = receiver
         self.custom_payload = custom_payload
