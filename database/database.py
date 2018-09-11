@@ -1,6 +1,7 @@
 import pymongo
 import logging
 
+
 class Database:
 
     def __init__(self, ip="127.0.0.1", port=27017, dbname="pastepwn", collectionname="pastes"):
@@ -10,16 +11,16 @@ class Database:
         self.db = self.db[dbname]
         self.collection = self.db[collectionname]
 
-    def insertData(self, dict):
+    def insert_data(self, dict):
         self.collection.insert_one(dict)
 
-    #ToDo return key
-    def getData(self, key, value):
+    # TODO return key
+    def get_data(self, key, value):
         return self.collection.find({key: value})
 
-    #ToDo def updateData(self, )
+    # TODO def update_data(self, )
 
-    #ToDo def deleteData(self,)
+    # TODO def delete_data(self,)
 
     def count(self, key, value):
         return self.collection.find({key : value}).count()
