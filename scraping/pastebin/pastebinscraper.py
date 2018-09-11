@@ -4,13 +4,10 @@ import logging
 import time
 from threading import Thread, current_thread
 
-import certifi
-import urllib3
-
-from queue import Queue, Empty
 from paste import Paste
 from scraping import BasicScraper
 from scraping.pastebin.exceptions import IPNotRegisteredError, EmptyBodyException
+from util import Request
 
 
 # https://pastebin.com/doc_scraping_api#2
@@ -31,6 +28,7 @@ class PastebinScraper(BasicScraper):
         self._tmp_paste_queue = Queue()
         self._known_pastes = []
         self._known_pastes_limit = 1000
+        self.request = Request()
 
     def _init_thread(self, target, name, *args, **kwargs):
         thr = Thread(target=self._thread_wrapper, name=name, args=(target,) + args, kwargs=kwargs)
@@ -61,9 +59,7 @@ class PastebinScraper(BasicScraper):
         api_url = "{0}/{1}?limit={2}".format(self.api_base_url, endpoint, limit)
 
         try:
-            http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
-            response = http.request('GET', api_url)
-            response_data = response.data.decode("utf-8")
+            response_data = self.request.get(api_url)
 
             self._check_error(response_data)
 
@@ -94,9 +90,7 @@ class PastebinScraper(BasicScraper):
 
         self.logger.debug("Downloading paste {0}".format(key))
         try:
-            http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
-            response = http.request('GET', api_url)
-            response_data = response.data.decode("utf-8")
+            response_data = self.request.get(api_url)
 
             self._check_error(response_data)
 
