@@ -1,5 +1,6 @@
-import pymongo
 import logging
+
+import pymongo
 
 
 class Database:
@@ -11,8 +12,8 @@ class Database:
         self.db = self.db[dbname]
         self.collection = self.db[collectionname]
 
-    def insert_data(self, dict):
-        self.collection.insert_one(dict)
+    def insert_data(self, data):
+        self.collection.insert_one(data)
 
     # TODO return key
     def get_data(self, key, value):
@@ -23,10 +24,7 @@ class Database:
     # TODO def delete_data(self,)
 
     def count(self, key, value):
-        return self.collection.find({key : value}).count()
+        return self.collection.find({key: value}).count()
 
-    def countAll(self):
+    def count_all(self):
         return self.collection.count()
-
-
-
