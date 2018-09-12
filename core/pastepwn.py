@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
+import logging
+from queue import Queue
 from pastedispatcher import PasteDispatcher
 from scraping import ScrapingHandler
-from queue import Queue
-from scraping.pastebin import PastebinScraper
 
 
 class PastePwn(object):
 
     def __init__(self, mongo_ip=None, mongo_port=None):
+        self.logger = logging.getLogger(__name__)
         self.paste_queue = Queue()
         self.action_queue = Queue()
         self.scraping_handler = ScrapingHandler(self.paste_queue)
