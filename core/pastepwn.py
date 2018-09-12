@@ -7,7 +7,7 @@ from scraping.pastebin import PastebinScraper
 
 class PastePwn(object):
 
-    def __init__(self):
+    def __init__(self, mongo_ip=None, mongo_port=None):
         self.paste_queue = Queue()
         self.action_queue = Queue()
         self.scraping_handler = ScrapingHandler(self.paste_queue)
