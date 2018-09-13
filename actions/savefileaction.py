@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from actions.basicaction import BasicAction
+import os
 
 
 class SaveFileAction(BasicAction):
@@ -11,5 +12,5 @@ class SaveFileAction(BasicAction):
         self.path = path
 
     def perform(self, paste):
-        #TODO save paste to disk
-        pass
+        with open(os.path.join(self.path)) as file:
+            file.write(paste)
