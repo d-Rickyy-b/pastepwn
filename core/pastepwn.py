@@ -20,7 +20,7 @@ class PastePwn(object):
                                                 action_queue=self.action_queue,
                                                 exception_event=None)
 
-        # TODO more dynamic approach to be able to add different DBMS systems such as Mongo, sqlite, mysql
+        # TODO more dynamic approach to be able to add different DBMS such as Mongo, sqlite, mysql
         if mongo_ip is None or mongo_port is None:
             self.logger.warning("No MongoDB IP/Port specified. Not storing pastes in a database!")
             self.database = None
