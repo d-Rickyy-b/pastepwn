@@ -5,6 +5,8 @@ from queue import Queue
 from database import MongoDB
 from pastedispatcher import PasteDispatcher
 from scraping import ScrapingHandler
+from analyzers import AlwaysTrueAnalyzer
+from actions import DatabaseAction
 
 
 class PastePwn(object):
@@ -29,7 +31,11 @@ class PastePwn(object):
                 self.logger.error("Exception raised while connecting to the database: {0}".format(e))
                 self.database = None
 
-        # TODO add database action if database is not None
+        if self.database is not None:
+            # Save every paste to the database with the AlwaysTrueAnalyzer
+            database_action = DatabaseAction(self.database)
+            always_true = AlwaysTrueAnalyzer(database_action)
+            self.add_analyzer(always_true)
 
     def add_scraper(self, scraper):
         self.scraping_handler.add_scraper(scraper)

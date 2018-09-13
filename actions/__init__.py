@@ -5,5 +5,6 @@ from .savefileaction import SaveFileAction
 from .telegramaction import TelegramAction
 from .logaction import LogAction
 from .genericaction import GenericAction
+from .databaseaction import DatabaseAction
 
-__all__ = ('BasicAction', 'SaveFileAction', 'TelegramAction', 'LogAction', 'GenericAction')
+__all__ = ('BasicAction', 'SaveFileAction', 'TelegramAction', 'LogAction', 'GenericAction', 'DatabaseAction')
