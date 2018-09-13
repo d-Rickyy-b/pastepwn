@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from .database import Database
+from .mongodb import MongoDB
 
-__all__ = ('Database',)
+__all__ = ('MongoDB',)

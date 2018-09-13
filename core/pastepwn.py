@@ -2,7 +2,7 @@
 import logging
 from queue import Queue
 
-from database import Database
+from database import MongoDB
 from pastedispatcher import PasteDispatcher
 from scraping import ScrapingHandler
 
@@ -24,7 +24,7 @@ class PastePwn(object):
             self.database = None
         elif mongo_ip is not None and mongo_port is not None:
             try:
-                self.database = Database(ip=mongo_ip, port=mongo_port)
+                self.database = MongoDB(ip=mongo_ip, port=mongo_port)
             except Exception as e:
                 self.logger.error("Exception raised while connecting to the database: {0}".format(e))
                 self.database = None

@@ -3,11 +3,11 @@ import logging
 import pymongo
 
 
-class Database:
+class MongoDB:
 
     def __init__(self, ip="127.0.0.1", port=27017, dbname="pastepwn", collectionname="pastes"):
         self.logger = logging.getLogger(__name__)
-        self.logger.debug("Database init")
+        self.logger.debug("MongoDB init")
         self.db = pymongo.MongoClient(ip, port)
         self.db = self.db[dbname]
         self.collection = self.db[collectionname]
