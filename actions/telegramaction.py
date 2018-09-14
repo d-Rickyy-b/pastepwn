@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from actions.basicaction import BasicAction
-import re
 import logging
+import re
+
+from actions.basicaction import BasicAction
 from util import Request
 
 

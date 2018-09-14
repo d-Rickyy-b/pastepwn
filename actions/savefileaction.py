@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from actions import BasicAction
 import os
+
+from actions import BasicAction
 
 
 class SaveFileAction(BasicAction):

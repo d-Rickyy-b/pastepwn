@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from .mongodb import MongoDB
 from .abstractdb import AbstractDB
+from .mongodb import MongoDB
 
 __all__ = ('AbstractDB', 'MongoDB')

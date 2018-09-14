@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from actions import SaveFileAction
-import os
 import json
+import os
+
+from actions import SaveFileAction
 
 
 class SaveJSONAction(SaveFileAction):
