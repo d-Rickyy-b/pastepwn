@@ -12,5 +12,5 @@ class SaveFileAction(BasicAction):
         self.path = path
 
     def perform(self, paste):
-        with open(os.path.join(self.path)) as file:
-            file.write(paste)
+        with open(os.path.join(self.path), "w") as file:
+            file.write(str(paste))
