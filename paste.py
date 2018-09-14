@@ -21,6 +21,13 @@ class Paste(object):
         self.body = str(body)
 
     def __str__(self):
+        paste_dict = self.to_dict()
+        return str(paste_dict)
+
+    def __repr__(self):
+        return self.__str__()
+
+    def to_dict(self):
         paste_dict = {'scrape_url': self.scrape_url,
                       'full_url': self.full_url,
                       'date': self.date,
@@ -31,7 +38,4 @@ class Paste(object):
                       'syntax': self.syntax,
                       'user': self.user,
                       'body': self.body}
-        return str(paste_dict)
-
-    def __repr__(self):
-        return self.__str__()
+        return paste_dict
