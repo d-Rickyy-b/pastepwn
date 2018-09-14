@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from actions.basicaction import BasicAction
+from actions import BasicAction
 import os
 
 
