@@ -7,9 +7,9 @@ from threading import Thread, Lock, current_thread
 
 
 class PasteDispatcher(object):
-    logger = logging.getLogger(__name__)
 
     def __init__(self, paste_queue, action_queue=None, exception_event=None):
+        self.logger = logging.getLogger(__name__)
         self.paste_queue = paste_queue
         self.action_queue = action_queue or Queue()
         self.analyzers = []
