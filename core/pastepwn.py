@@ -16,10 +16,13 @@ class PastePwn(object):
         self.database = None
         self.paste_queue = Queue()
         self.action_queue = Queue()
-        self.scraping_handler = ScrapingHandler(self.paste_queue)
-        self.paste_dispatcher = PasteDispatcher(self.paste_queue,
+        self.__exception_event = Event()
+
+        self.scraping_handler = ScrapingHandler(paste_queue=self.paste_queue,
+                                                exception_event=self.__exception_event)
+        self.paste_dispatcher = PasteDispatcher(paste_queue=self.paste_queue,
                                                 action_queue=self.action_queue,
-                                                exception_event=None)
+                                                exception_event=self.__exception_event)
 
         # TODO more dynamic approach to be able to add different DBMS such as Mongo, sqlite, mysql
         if store_pastes:
