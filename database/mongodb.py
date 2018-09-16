@@ -2,6 +2,7 @@
 import logging
 
 import pymongo
+from pymongo.errors import ConnectionFailure
 
 from database import AbstractDB
 
@@ -13,6 +14,15 @@ class MongoDB(AbstractDB):
         self.logger = logging.getLogger(__name__)
         self.logger.debug("Initializing MongoDB - {0}:{1}".format(ip, port))
         self.db = pymongo.MongoClient(ip, port, serverSelectionTimeoutMS=5000)
+
+        try:
+            self.db.admin.command("ismaster")
+        except ConnectionFailure as e:
+            self.logger.error(e)
+            raise e
+
+        self.logger.debug("Connected to database!")
+
         self.db = self.db[dbname]
         self.collection = self.db[collectionname]
         self.collection.create_index([('key', pymongo.ASCENDING)], unique=True)
