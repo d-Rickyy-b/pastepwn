@@ -21,11 +21,11 @@ class PastebinScraper(BasicScraper):
     name = "PastebinScraper"
     api_base_url = "https://scrape.pastebin.com"
 
-    def __init__(self, exception_event=None):
+    def __init__(self, paste_queue=None, exception_event=None):
         super().__init__(exception_event)
         self.logger = logging.getLogger(__name__)
         self._last_scrape_time = 0
-        self.paste_queue = None
+        self.paste_queue = paste_queue or Queue()
         self._tmp_paste_queue = Queue()
         self._known_pastes = []
         self._known_pastes_limit = 1000
