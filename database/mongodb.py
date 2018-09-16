@@ -11,8 +11,8 @@ class MongoDB(AbstractDB):
     def __init__(self, ip="127.0.0.1", port=27017, dbname="pastepwn", collectionname="pastes"):
         super().__init__()
         self.logger = logging.getLogger(__name__)
-        self.logger.debug("Initializing MongoDB")
         self.db = pymongo.MongoClient(ip, port)
+        self.logger.debug("Initializing MongoDB - {0}:{1}".format(ip, port))
         self.db = self.db[dbname]
         self.collection = self.db[collectionname]
 
@@ -34,6 +34,7 @@ class MongoDB(AbstractDB):
 
     def store(self, paste):
         self._insert_data(paste)
+        self.logger.info("Storing paste {0}".format(paste.key))
 
     def get(self, key):
         return self._get_data("key", key)
