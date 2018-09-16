@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 import logging
 from queue import Queue
+from threading import Event
 
+from actions import DatabaseAction
+from analyzers import AlwaysTrueAnalyzer
+from core import ScrapingHandler, ActionHandler
 from database import MongoDB
 from pastedispatcher import PasteDispatcher
-from scraping import ScrapingHandler
-from analyzers import AlwaysTrueAnalyzer
-from actions import DatabaseAction
 
 
 class PastePwn(object):
@@ -23,6 +24,8 @@ class PastePwn(object):
         self.paste_dispatcher = PasteDispatcher(paste_queue=self.paste_queue,
                                                 action_queue=self.action_queue,
                                                 exception_event=self.__exception_event)
+        self.action_handler = ActionHandler(action_queue=self.action_queue,
+                                            exception_event=self.__exception_event)
 
         # TODO more dynamic approach to be able to add different DBMS such as Mongo, sqlite, mysql
         if store_pastes:
@@ -53,5 +56,6 @@ class PastePwn(object):
         if not self.__exception_event.is_set():
             self.scraping_handler.start()
             self.paste_dispatcher.start()
+            self.action_handler.start()
         else:
             self.logger.error("An exception occured. Aborting the start of PastePwn!")

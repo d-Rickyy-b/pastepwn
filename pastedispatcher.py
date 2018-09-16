@@ -83,6 +83,4 @@ class PasteDispatcher(object):
         for analyzer in self.analyzers:
             if analyzer.match(paste):
                 action = analyzer.action
-                self.logger.info("Performing action '{0}' on paste '{1}' matched by analyzer '{2}'!".format(action.name, paste.key, analyzer.name))
-                self.action_queue.put(action)
-                action.perform(paste)  # TODO remove as soon as some kind of ActionHandler is implemented
+                self.action_queue.put((action, paste, analyzer))
