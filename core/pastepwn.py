@@ -7,7 +7,7 @@ from actions import DatabaseAction
 from analyzers import AlwaysTrueAnalyzer
 from core import ScrapingHandler, ActionHandler
 from database import MongoDB
-from pastedispatcher import PasteDispatcher
+from core.pastedispatcher import PasteDispatcher
 
 
 class PastePwn(object):

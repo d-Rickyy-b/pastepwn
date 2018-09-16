@@ -37,6 +37,9 @@ class PasteDispatcher(object):
             raise
         self.logger.debug('{0} - ended'.format(thr_name))
 
+    def _pool_thread(self):
+        while True:
+            pass
 
     def add_analyzer(self, analyzer):
         self.analyzers.append(analyzer)
@@ -52,6 +55,11 @@ class PasteDispatcher(object):
                 self.running = True
                 self._init_thread(self._start_analyzing, "PasteDispatcher")
 
+                # Start thread pool with worker threads
+                # for i in range(workers):
+                #    thread = Thread(target=self._pool_thread, name="analyzer_{0}".format(i))
+                #    self.__thread_pool.add(thread)
+                #    thread.start()
 
             if ready is not None:
                 ready.set()
@@ -83,3 +91,6 @@ class PasteDispatcher(object):
             if analyzer.match(paste):
                 action = analyzer.action
                 self.action_queue.put((action, paste, analyzer))
+
+    def stop(self):
+        pass
