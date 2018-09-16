@@ -8,6 +8,6 @@ class BasicAction(object):
     def __init__(self):
         pass
 
-    def perform(self, paste):
+    def perform(self, paste, analyzer_name=None):
         """Perform the action on the passed paste"""
         raise NotImplementedError

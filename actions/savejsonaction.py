@@ -12,7 +12,7 @@ class SaveJSONAction(SaveFileAction):
     def __init__(self, path):
         super().__init__(path)
 
-    def perform(self, paste):
+    def perform(self, paste, analyzer_name=None):
         if not os.path.exists(self.path):
             os.makedirs(self.path)
 

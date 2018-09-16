@@ -12,7 +12,7 @@ class SaveFileAction(BasicAction):
         super().__init__()
         self.path = path
 
-    def perform(self, paste):
+    def perform(self, paste, analyzer_name=None):
         if not os.path.exists(self.path):
             os.makedirs(self.path)
 

@@ -10,5 +10,5 @@ class DatabaseAction(BasicAction):
         super().__init__()
         self.database = database
 
-    def perform(self, paste):
+    def perform(self, paste, analyzer_name=None):
         self.database.store(paste)
