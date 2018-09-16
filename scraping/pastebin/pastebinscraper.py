@@ -41,7 +41,7 @@ class PastebinScraper(BasicScraper):
         try:
             target(*args, **kwargs)
         except Exception:
-            self.__exception_event.set()
+            self._set_exception_even()
             self.logger.exception('unhandled exception in %s', thr_name)
             raise
         self.logger.debug('{0} - ended'.format(thr_name))

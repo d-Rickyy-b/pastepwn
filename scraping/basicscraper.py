@@ -17,6 +17,9 @@ class BasicScraper(object):
     def _check_exception_event(self):
         return self.__exception_event.is_set()
 
+    def _set_exception_even(self):
+        self.__exception_event.set()
+
     def start(self, paste_queue):
         raise NotImplementedError
 
