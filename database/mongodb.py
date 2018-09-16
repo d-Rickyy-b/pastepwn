@@ -15,6 +15,7 @@ class MongoDB(AbstractDB):
         self.db = pymongo.MongoClient(ip, port, serverSelectionTimeoutMS=5000)
         self.db = self.db[dbname]
         self.collection = self.db[collectionname]
+        self.collection.create_index([('key', pymongo.ASCENDING)], unique=True)
 
     def _insert_data(self, data):
         self.collection.insert_one(data)
@@ -33,8 +34,12 @@ class MongoDB(AbstractDB):
         return self.collection.count()
 
     def store(self, paste):
-        self._insert_data(paste)
         self.logger.info("Storing paste {0}".format(paste.key))
+
+        try:
+            self._insert_data(paste.to_dict())
+        except pymongo.errors.DuplicateKeyError:
+            self.logger.info("Duplicate key '{0}' - Not storing paste".format(paste.key))
 
     def get(self, key):
         return self._get_data("key", key)
