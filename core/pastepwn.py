@@ -47,6 +47,7 @@ class PastePwn(object):
                 self.add_analyzer(always_true)
 
     def add_scraper(self, scraper):
+        scraper.init_exception_event(self.__exception_event)
         self.scraping_handler.add_scraper(scraper)
 
     def add_analyzer(self, analyzer):
