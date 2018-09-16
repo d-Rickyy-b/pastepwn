@@ -44,12 +44,12 @@ class MongoDB(AbstractDB):
         return self.collection.count()
 
     def store(self, paste):
-        self.logger.info("Storing paste {0}".format(paste.key))
+        self.logger.debug("Storing paste {0}".format(paste.key))
 
         try:
             self._insert_data(paste.to_dict())
         except pymongo.errors.DuplicateKeyError:
-            self.logger.info("Duplicate key '{0}' - Not storing paste".format(paste.key))
+            self.logger.debug("Duplicate key '{0}' - Not storing paste".format(paste.key))
 
     def get(self, key):
         return self._get_data("key", key)
