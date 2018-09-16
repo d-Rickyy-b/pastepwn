@@ -52,7 +52,6 @@ class PasteDispatcher(object):
                 self.running = True
                 self._init_thread(self._start_analyzing, "PasteDispatcher")
 
-                self.logger.debug("PasteDispatcher started")
 
             if ready is not None:
                 ready.set()
