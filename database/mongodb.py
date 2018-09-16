@@ -11,8 +11,8 @@ class MongoDB(AbstractDB):
     def __init__(self, ip="127.0.0.1", port=27017, dbname="pastepwn", collectionname="pastes"):
         super().__init__()
         self.logger = logging.getLogger(__name__)
-        self.db = pymongo.MongoClient(ip, port)
         self.logger.debug("Initializing MongoDB - {0}:{1}".format(ip, port))
+        self.db = pymongo.MongoClient(ip, port, serverSelectionTimeoutMS=5000)
         self.db = self.db[dbname]
         self.collection = self.db[collectionname]
 
