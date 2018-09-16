@@ -8,7 +8,7 @@ class WordAnalyzer(BasicAnalyzer):
     name = "WordAnalyzer"
 
     def __init__(self, action, word, case_sensitive=False):
-        super().__init__(action)
+        super().__init__(action, "{0} ({1})".format(self.name, word))
         self.word = word
         self.case_sensitive = case_sensitive
 
