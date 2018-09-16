@@ -46,13 +46,13 @@ class PastebinScraper(BasicScraper):
             raise
         self.logger.debug('{0} - ended'.format(thr_name))
 
-    @staticmethod
-    def _check_error(body):
+    def _check_error(self, body):
         """Checks if an error occurred and raises an exception if it did"""
         if body is None:
             raise EmptyBodyException()
 
         if "DOES NOT HAVE ACCESS" in body:
+            self._set_exception_even()
             raise IPNotRegisteredError()
 
     def _get_recent(self, limit=10):
