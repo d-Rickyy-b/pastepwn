@@ -13,5 +13,8 @@ class SaveJSONAction(SaveFileAction):
         super().__init__(path)
 
     def perform(self, paste):
+        if not os.path.exists(self.path):
+            os.makedirs(self.path)
+
         with open(os.path.join(self.path, "{0}.json".format(paste.key)), "w") as file:
             file.write(json.dumps(paste.to_dict()))

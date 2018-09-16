@@ -13,5 +13,8 @@ class SaveFileAction(BasicAction):
         self.path = path
 
     def perform(self, paste):
+        if not os.path.exists(self.path):
+            os.makedirs(self.path)
+
         with open(os.path.join(self.path), "w") as file:
             file.write(str(paste))
