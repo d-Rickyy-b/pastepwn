@@ -3,7 +3,7 @@
 import logging.handlers
 import os
 
-from actions import SaveFileAction, LogAction
+from actions import TelegramAction
 from analyzers import MailAnalyzer, WordAnalyzer
 from core.pastepwn import PastePwn
 from scraping.pastebin import PastebinScraper
@@ -20,15 +20,15 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG, handlers=[logfile_handler, logging.StreamHandler()])
 
 # Framework code
-pastepwn = PastePwn()
+pastepwn = PastePwn(db_ip="192.168.240.128")
 pastepwn.add_scraper(PastebinScraper())
 
-# Define analyzers
-mail_analyzer = MailAnalyzer(SaveFileAction(os.path.join(logdir_path, "test.json")))
-test_analyzer = WordAnalyzer(LogAction(), "main")
+telegram_action = TelegramAction(token="token", receiver="-1001348376474")
+
+mail_analyzer = MailAnalyzer(telegram_action)
+premium_analyzer = WordAnalyzer(telegram_action, "premium")
 
 pastepwn.add_analyzer(mail_analyzer)
-pastepwn.add_analyzer(test_analyzer)
-pastepwn.add_analyzer(generic_analyzer)
+pastepwn.add_analyzer(premium_analyzer)
 
 pastepwn.start()
