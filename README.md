@@ -11,11 +11,14 @@
 To use the pastepwn framework you need to follow these simple steps:
 
 1) **Make sure** to have a [Pastebin premium](https://pastebin.com/pro) account!
-2) Clone the repository with `git clone https://github.com/d-Rickyy-b/pastepwn.git`
-3) Create a file (e.g. `main.py`) in the project root, where you put your code in
-4) Fill that file with content - add analyzers and actions. Check the [example](https://github.com/d-Rickyy-b/pastepwn/tree/master/examples/example.py) implementation.
+2) Install dependencies with `pip install -r requirements.txt`¹
+3) Clone the repository with `git clone https://github.com/d-Rickyy-b/pastepwn.git`²
+4) Create a file (e.g. `main.py`) in the project root, where you put your code in
+5) Fill that file with content - add analyzers and actions. Check the [example](https://github.com/d-Rickyy-b/pastepwn/tree/master/examples/example.py) implementation.
 
-*(There will be a pypi module for installation with pip soon)*
+¹ *(There will be a pypi module for installation with pip soon)*
+
+² *(If you want to store all pastes, make sure to setup a `mongodb` instance)*
 
 
 ### ToDos
