@@ -5,7 +5,7 @@ import os
 
 from actions import TelegramAction
 from analyzers import MailAnalyzer, WordAnalyzer
-from core.pastepwn import PastePwn
+from core import PastePwn
 from scraping.pastebin import PastebinScraper
 
 logdir_path = os.path.dirname(os.path.abspath(__file__))
