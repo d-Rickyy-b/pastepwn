@@ -60,3 +60,4 @@ class PastePwn(object):
             self.action_handler.start()
         else:
             self.logger.error("An exception occured. Aborting the start of PastePwn!")
+            exit(1)
