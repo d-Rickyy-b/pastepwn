@@ -41,7 +41,7 @@ class PastebinScraper(BasicScraper):
             self._exception_event.set()
             raise IPNotRegisteredError()
 
-    def _get_recent(self, limit=10):
+    def _get_recent(self, limit=100):
         """Downloads a list of the most recent pastes - the amount is limited by the <limit> parameter"""
         endpoint = "api_scraping.php"
         api_url = "{0}/{1}?limit={2}".format(self.api_base_url, endpoint, limit)
