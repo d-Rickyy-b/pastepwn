@@ -42,6 +42,7 @@ class PastebinScraper(BasicScraper):
             raise IPNotRegisteredError()
 
     def _get_recent(self, limit=10):
+        """Downloads a list of the most recent pastes - the amount is limited by the <limit> parameter"""
         endpoint = "api_scraping.php"
         api_url = "{0}/{1}?limit={2}".format(self.api_base_url, endpoint, limit)
 
@@ -72,6 +73,7 @@ class PastebinScraper(BasicScraper):
             return None
 
     def _get_paste_content(self, key):
+        """Downloads the content of a certain paste"""
         endpoint = "api_scrape_item.php"
         api_url = "{0}/{1}?i={2}".format(self.api_base_url, endpoint, key)
         content = ""
@@ -89,7 +91,7 @@ class PastebinScraper(BasicScraper):
         return content
 
     def _body_downloader(self):
-        """Downloads the body of pastes from pastebin"""
+        """Downloads the body of pastes from pastebin, which have been put into the queue"""
         while self.running:
             try:
                 self.logger.debug("Queue size: {}".format(self._tmp_paste_queue.qsize()))
