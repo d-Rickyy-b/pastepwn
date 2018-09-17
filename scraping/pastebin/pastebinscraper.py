@@ -27,6 +27,7 @@ class PastebinScraper(BasicScraper):
         self._last_scrape_time = 0
         self.paste_queue = paste_queue or Queue()
         self._tmp_paste_queue = Queue()
+
         self._known_pastes = []
         self._known_pastes_limit = 1000
         self.request = Request()
@@ -52,7 +53,7 @@ class PastebinScraper(BasicScraper):
             raise EmptyBodyException()
 
         if "DOES NOT HAVE ACCESS" in body:
-            self._set_exception_even()
+            self._exception_event.set()
             raise IPNotRegisteredError()
 
     def _get_recent(self, limit=10):
@@ -108,7 +109,7 @@ class PastebinScraper(BasicScraper):
             try:
                 self.logger.debug("Queue size: {}".format(self._tmp_paste_queue.qsize()))
 
-                if self._check_stop_event() or self._check_exception_event():
+                if self._stop_event.is_set() or self._exception_event.is_set():
                     self.running = False
                     break
 
@@ -156,7 +157,7 @@ class PastebinScraper(BasicScraper):
                     self._known_pastes.append(paste.key)
                     counter += 1
 
-                    if self._check_stop_event() or self._check_exception_event():
+                    if self._stop_event.is_set() or self._exception_event.is_set():
                         break
 
                 self.logger.debug("{0} new pastes fetched!".format(counter))
@@ -167,7 +168,7 @@ class PastebinScraper(BasicScraper):
                 start_index = len(self._known_pastes) - self._known_pastes_limit
                 self._known_pastes = self._known_pastes[start_index:]
 
-            if self._check_stop_event() or self._check_exception_event():
+            if self._stop_event.is_set() or self._exception_event.is_set():
                 self.logger.debug('stopping {0}'.format(self.name))
                 self.running = False
                 break
