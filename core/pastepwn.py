@@ -32,7 +32,7 @@ class PastePwn(object):
             if db_ip is None or db_port is None:
                 self.logger.warning("No DB IP/Port specified. Not storing pastes in a database!")
             elif db_ip is not None and db_port is not None:
-                self.logger.info("Initalizing database")
+                self.logger.debug("Initalizing database")
                 try:
                     self.database = MongoDB(ip=db_ip, port=db_port)
                 except Exception as e:

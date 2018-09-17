@@ -46,7 +46,7 @@ class ActionHandler(object):
             try:
                 # Get paste from queue
                 action, paste, analyzer = self.action_queue.get(True, 1)
-                self.logger.info("Performing action '{0}' on paste '{1}' matched by analyzer '{2}'!".format(action.name, paste.key, analyzer.identifier))
+                self.logger.debug("Performing action '{0}' on paste '{1}' matched by analyzer '{2}'!".format(action.name, paste.key, analyzer.identifier))
                 action.perform(paste, analyzer.name)
             except Empty:
                 if self.__stop_event.is_set():

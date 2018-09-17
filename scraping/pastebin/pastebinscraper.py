@@ -106,7 +106,7 @@ class PastebinScraper(BasicScraper):
         """Downloads the body of pastes from pastebin"""
         while self.running:
             try:
-                self.logger.info("Queue size: {}".format(self._tmp_paste_queue.qsize()))
+                self.logger.debug("Queue size: {}".format(self._tmp_paste_queue.qsize()))
 
                 if self._check_stop_event() or self._check_exception_event():
                     self.running = False

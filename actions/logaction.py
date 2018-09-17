@@ -13,4 +13,4 @@ class LogAction(BasicAction):
         self.logger = logging.getLogger(__name__)
 
     def perform(self, paste, analyzer_name=None):
-        self.logger.info("New Paste matched: {0}".format(paste))
+        self.logger.debug("New Paste matched: {0}".format(paste))
