@@ -3,12 +3,11 @@ import json
 import logging
 import time
 from queue import Queue, Empty
-from threading import Thread, current_thread
 
 from core import Paste
 from scraping import BasicScraper
 from scraping.pastebin.exceptions import IPNotRegisteredError, EmptyBodyException
-from util import Request
+from util import Request, start_thread
 
 
 # https://pastebin.com/doc_scraping_api#2
@@ -30,22 +29,8 @@ class PastebinScraper(BasicScraper):
 
         self._known_pastes = []
         self._known_pastes_limit = 1000
+
         self.request = Request()
-
-    def _init_thread(self, target, name, *args, **kwargs):
-        thr = Thread(target=self._thread_wrapper, name=name, args=(target,) + args, kwargs=kwargs)
-        thr.start()
-
-    def _thread_wrapper(self, target, *args, **kwargs):
-        thr_name = current_thread().name
-        self.logger.debug('{0} - started'.format(thr_name))
-        try:
-            target(*args, **kwargs)
-        except Exception:
-            self._set_exception_even()
-            self.logger.exception('unhandled exception in %s', thr_name)
-            raise
-        self.logger.debug('{0} - ended'.format(thr_name))
 
     def _check_error(self, body):
         """Checks if an error occurred and raises an exception if it did"""
@@ -138,7 +123,7 @@ class PastebinScraper(BasicScraper):
         """Start the scraping process and download the paste metadata"""
         self.paste_queue = paste_queue
         self.running = True
-        self._init_thread(self._body_downloader, "BodyDownloader")
+        start_thread(self._body_downloader, "BodyDownloader", self._exception_event)
 
         while self.running:
             self._last_scrape_time = int(time.time())

@@ -2,8 +2,9 @@
 
 import logging
 from queue import Empty, Queue
-from threading import Event
-from threading import Thread, Lock, current_thread
+from threading import Event, Lock
+
+from util import start_thread
 
 
 class PasteDispatcher(object):
@@ -21,22 +22,6 @@ class PasteDispatcher(object):
         self.__exception_event = exception_event or Event()
         self.__stop_event = Event()
 
-    def _init_thread(self, target, name, *args, **kwargs):
-        thr = Thread(target=self._thread_wrapper, name=name, args=(target,) + args, kwargs=kwargs)
-        thr.start()
-        self.__threads.append(thr)
-
-    def _thread_wrapper(self, target, *args, **kwargs):
-        thr_name = current_thread().name
-        self.logger.debug('{0} - started'.format(thr_name))
-        try:
-            target(*args, **kwargs)
-        except Exception:
-            self.__exception_event.set()
-            self.logger.exception('unhandled exception in %s', thr_name)
-            raise
-        self.logger.debug('{0} - ended'.format(thr_name))
-
     def _pool_thread(self):
         while True:
             pass
@@ -53,7 +38,7 @@ class PasteDispatcher(object):
                     return None
 
                 self.running = True
-                self._init_thread(self._start_analyzing, "PasteDispatcher")
+                start_thread(self._start_analyzing, "PasteDispatcher", exception_event=self.__exception_event)
 
                 # Start thread pool with worker threads
                 # for i in range(workers):
@@ -73,7 +58,7 @@ class PasteDispatcher(object):
                 paste = self.paste_queue.get(True, 1)
 
                 # TODO implement thread pool to limit number of parallel executed threads
-                self._init_thread(self._process_paste, "process_paste", paste=paste)
+                start_thread(self._process_paste, "process_paste", paste=paste, exception_event=self.__exception_event)
             except Empty:
                 if self.__stop_event.is_set():
                     self.logger.debug("orderly stopping")
