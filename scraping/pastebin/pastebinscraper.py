@@ -145,6 +145,7 @@ class PastebinScraper(BasicScraper):
                     counter += 1
 
                     if self._stop_event.is_set() or self._exception_event.is_set():
+                        self.running = False
                         break
 
                 self.logger.debug("{0} new pastes fetched!".format(counter))
