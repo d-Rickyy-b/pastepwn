@@ -5,7 +5,7 @@ import time
 from queue import Queue, Empty
 from threading import Thread, current_thread
 
-from paste import Paste
+from core import Paste
 from scraping import BasicScraper
 from scraping.pastebin.exceptions import IPNotRegisteredError, EmptyBodyException
 from util import Request
