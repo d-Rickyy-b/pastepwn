@@ -9,7 +9,10 @@ class Request(object):
         self.http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
 
     def _request_wrapper(self, *args, **kwargs):
-        response = self.http.request(*args, **kwargs)
+        headers = {
+            'User-Agent': 'pastepwn (https://github.com/d-Rickyy-b/pastepwn)'
+        }
+        response = self.http.request(headers=headers, *args, **kwargs)
         response_data = response.data.decode("utf-8")
 
         return response_data
