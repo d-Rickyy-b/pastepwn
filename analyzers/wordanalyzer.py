@@ -17,6 +17,6 @@ class WordAnalyzer(BasicAnalyzer):
         paste_content = paste.body
 
         if self.case_sensitive:
-            return self.word.lower() in paste_content.lower()
-        else:
             return self.word in paste_content
+        else:
+            return self.word.lower() in paste_content.lower()
