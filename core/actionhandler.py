@@ -44,4 +44,3 @@ class ActionHandler(object):
                     self.logger.critical("stopping ActionHandler due to exception in another thread")
                     self.running = False
                     break
-                continue
