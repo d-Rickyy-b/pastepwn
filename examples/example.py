@@ -7,6 +7,7 @@ from actions import TelegramAction
 from analyzers import MailAnalyzer, WordAnalyzer
 from core import PastePwn
 from scraping.pastebin import PastebinScraper
+from database import MongoDB
 
 logdir_path = os.path.dirname(os.path.abspath(__file__))
 logfile_path = os.path.join(logdir_path, "logs", "pastepwn.log")
@@ -20,7 +21,9 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.DEBUG, handlers=[logfile_handler, logging.StreamHandler()])
 
 # Framework code
-pastepwn = PastePwn(db_ip="192.168.240.128")
+database = MongoDB(ip="192.168.240.128")
+
+pastepwn = PastePwn(database)
 pastepwn.add_scraper(PastebinScraper())
 
 telegram_action = TelegramAction(token="token", receiver="-1001348376474")
