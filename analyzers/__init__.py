@@ -6,5 +6,6 @@ from .genericanalyzer import GenericAnalyzer
 from .wordanalyzer import WordAnalyzer
 from .mailanalyzer import MailAnalyzer
 from .alwaystrueanalyzer import AlwaysTrueAnalyzer
+from .creditcardanalyzer import CreditCardAnalyzer
 
-__all__ = ('BasicAnalyzer', 'RegexAnalyzer', 'GenericAnalyzer', 'WordAnalyzer', 'MailAnalyzer', 'AlwaysTrueAnalyzer')
+__all__ = ('BasicAnalyzer', 'RegexAnalyzer', 'GenericAnalyzer', 'WordAnalyzer', 'MailAnalyzer', 'AlwaysTrueAnalyzer', 'CreditCardAnalyzer')
