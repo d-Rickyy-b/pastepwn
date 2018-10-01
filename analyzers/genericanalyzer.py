@@ -4,7 +4,7 @@ from analyzers import BasicAnalyzer
 
 class GenericAnalyzer(BasicAnalyzer):
     """Analyzer to pass a function pointer to, in order to create an analyzer on the fly"""
-    _type = "GenericAnalyzer"
+    name = "GenericAnalyzer"
 
     def __init__(self, action, match_func):
         super().__init__(action)

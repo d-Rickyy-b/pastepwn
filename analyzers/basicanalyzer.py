@@ -3,10 +3,12 @@
 
 class BasicAnalyzer(object):
     """Basic analyzer class"""
-    _type = "BasicAnalyzer"
+    name = "BasicAnalyzer"
 
-    def __init__(self, action):
+    def __init__(self, action, identifier=None):
+        # The identifier parameter is being used to explicitly identify an analyzer
         self.action = action
+        self.identifier = identifier or self.name
 
     def match(self, paste):
         raise NotImplementedError

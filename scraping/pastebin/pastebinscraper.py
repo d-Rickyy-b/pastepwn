@@ -2,13 +2,12 @@
 import json
 import logging
 import time
+from queue import Queue, Empty
 
-import certifi
-import urllib3
-
-from paste import Paste
+from core import Paste
 from scraping import BasicScraper
 from scraping.pastebin.exceptions import IPNotRegisteredError, EmptyBodyException
+from util import Request, start_thread
 
 
 # https://pastebin.com/doc_scraping_api#2
@@ -21,31 +20,34 @@ class PastebinScraper(BasicScraper):
     name = "PastebinScraper"
     api_base_url = "https://scrape.pastebin.com"
 
-    def __init__(self, exception_event=None):
+    def __init__(self, paste_queue=None, exception_event=None):
         super().__init__(exception_event)
         self.logger = logging.getLogger(__name__)
         self._last_scrape_time = 0
-        self.paste_queue = None
+        self.paste_queue = paste_queue or Queue()
+        self._tmp_paste_queue = Queue()
+
         self._known_pastes = []
         self._known_pastes_limit = 1000
 
-    @staticmethod
-    def _check_error(body):
+        self.request = Request()
+
+    def _check_error(self, body):
         """Checks if an error occurred and raises an exception if it did"""
         if body is None:
             raise EmptyBodyException()
 
         if "DOES NOT HAVE ACCESS" in body:
+            self._exception_event.set()
             raise IPNotRegisteredError()
 
-    def _get_recent(self, limit=10):
+    def _get_recent(self, limit=100):
+        """Downloads a list of the most recent pastes - the amount is limited by the <limit> parameter"""
         endpoint = "api_scraping.php"
         api_url = "{0}/{1}?limit={2}".format(self.api_base_url, endpoint, limit)
 
         try:
-            http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
-            response = http.request('GET', api_url)
-            response_data = response.data.decode("utf-8")
+            response_data = self.request.get(api_url)
 
             self._check_error(response_data)
 
@@ -68,28 +70,62 @@ class PastebinScraper(BasicScraper):
             return pastes
         except Exception as e:
             self.logger.error(e)
+            return None
 
-    def _get_paste(self, key):
+    def _get_paste_content(self, key):
+        """Downloads the content of a certain paste"""
         endpoint = "api_scrape_item.php"
         api_url = "{0}/{1}?i={2}".format(self.api_base_url, endpoint, key)
-        paste = None
+        content = ""
 
         self.logger.debug("Downloading paste {0}".format(key))
-
         try:
-            http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
-            response = http.request('GET', api_url)
-            response_data = response.data.decode("utf-8")
+            response_data = self.request.get(api_url)
 
             self._check_error(response_data)
+
+            content = response_data
         except Exception as e:
             self.logger.error(e)
 
-        return paste
+        return content
+
+    def _body_downloader(self):
+        """Downloads the body of pastes from pastebin, which have been put into the queue"""
+        while self.running:
+            try:
+                self.logger.debug("Queue size: {}".format(self._tmp_paste_queue.qsize()))
+
+                if self._stop_event.is_set() or self._exception_event.is_set():
+                    self.running = False
+                    break
+
+                paste = self._tmp_paste_queue.get(True, 1)
+
+                # if paste is not known, download the body and put it on the queue and into the list
+                last_body_download_time = round(time.time(), 2)
+                body = self._get_paste_content(paste.key)
+
+                paste.set_body(body)
+                self.paste_queue.put(paste)
+
+                current_time = round(time.time(), 2)
+                diff = round(current_time - last_body_download_time, 2)
+
+                if diff >= 1:
+                    continue
+
+                sleep_diff = round(1 - diff, 3)
+                self.logger.debug("Sleep time is: {0}".format(sleep_diff))
+                time.sleep(sleep_diff)
+            except Empty:
+                continue
 
     def start(self, paste_queue):
+        """Start the scraping process and download the paste metadata"""
         self.paste_queue = paste_queue
         self.running = True
+        start_thread(self._body_downloader, "BodyDownloader", self._exception_event)
 
         while self.running:
             self._last_scrape_time = int(time.time())
@@ -103,26 +139,24 @@ class PastebinScraper(BasicScraper):
                         # Do nothing, if it's already known
                         continue
 
-                    # if paste is not known, download the body and put it on the queue and into the list
-                    paste.set_body(self._get_paste(paste.key))
-
-                    self.paste_queue.put(paste)
+                    self.logger.debug("Paste is unknown - adding ot to list {}".format(paste.key))
+                    self._tmp_paste_queue.put(paste)
                     self._known_pastes.append(paste.key)
                     counter += 1
 
-                    if self._check_stop_event() or self._check_exception_event():
+                    if self._stop_event.is_set() or self._exception_event.is_set():
+                        self.running = False
                         break
 
-                    time.sleep(1)
-
-                self.logger.debug("{0} new pastes downloaded!".format(counter))
+                self.logger.debug("{0} new pastes fetched!".format(counter))
 
             # Delete some of the last pastes to not run into memory/performance issues
             if len(self._known_pastes) > 1000:
+                self.logger.debug("known_pastes > 1000 - cleaning up!")
                 start_index = len(self._known_pastes) - self._known_pastes_limit
                 self._known_pastes = self._known_pastes[start_index:]
 
-            if self._check_stop_event() or self._check_exception_event():
+            if self._stop_event.is_set() or self._exception_event.is_set():
                 self.logger.debug('stopping {0}'.format(self.name))
                 self.running = False
                 break
