@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 
-from analyzers import BasicAnalyzer
+from .basicanalyzer import BasicAnalyzer
 
 
 class RegexAnalyzer(BasicAnalyzer):
