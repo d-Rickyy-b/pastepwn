@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from .alwaystrueanalyzer import AlwaysTrueAnalyzer
 from .basicanalyzer import BasicAnalyzer
+from .bcrypthashanalyzer import BcryptHashAnalyzer
+from .md5hashanalyzer import MD5HashAnalyzer
+from .shahashanalyzer import SHAHashAnalyzer
 from .creditcardanalyzer import CreditCardAnalyzer
 from .genericanalyzer import GenericAnalyzer
 from .mailanalyzer import MailAnalyzer
@@ -9,10 +12,12 @@ from .regexanalyzer import RegexAnalyzer
 from .urlanalyzer import URLAnalyzer
 from .wordanalyzer import WordAnalyzer
 
-
 __all__ = (
     'AlwaysTrueAnalyzer',
     'BasicAnalyzer',
+    'BcryptHashAnalyzer',
+    'MD5HashAnalyzer',
+    'SHAHashAnalyzer',
     'CreditCardAnalyzer',
     'GenericAnalyzer',
     'MailAnalyzer',
