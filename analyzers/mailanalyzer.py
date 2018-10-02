@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from analyzers import RegexAnalyzer
+from .regexanalyzer import RegexAnalyzer
 
 
 class MailAnalyzer(RegexAnalyzer):

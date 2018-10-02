@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from analyzers import BasicAnalyzer
+from .basicanalyzer import BasicAnalyzer
 
 
 class GenericAnalyzer(BasicAnalyzer):
