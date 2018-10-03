@@ -4,7 +4,7 @@ import logging.handlers
 from .basicaction import BasicAction
 
 
-class SyslogAction():
+class SyslogAction(BasicAction):
     """Action to log a paste to the syslog"""
     name = "SyslogAction"
 
@@ -20,6 +20,7 @@ class SyslogAction():
         super().__init__()
         self.logger = logging.getLogger('SyslogLogger')
         self.logger.setLevel(logging.DEBUG)
+
         handler = logging.handlers.SysLogHandler(address=syslog_address)
         self.logger.addHandler(handler)
 
