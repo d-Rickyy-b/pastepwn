@@ -1,4 +1,4 @@
 certifi==2018.8.24
 pymongo==3.7.1
-urllib3==1.23
 mysql-connector-python==8.0.12
+requests==2.19.1
