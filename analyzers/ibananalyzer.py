@@ -6,11 +6,9 @@ from .regexanalyzer import RegexAnalyzer
 
 class IBANAnalyzer(RegexAnalyzer):
     def __init__(self, action, validate=False):
-        # Regex taken from https://stackoverflow.com/a/44657292/3621482
-        regex = "([A-Z]{2}[ \-]?[0-9]{2})" \
-                "(?=(?:[ \-]?[A-Z0-9]){9,30}$)" \
-                "((?:[ \-]?[A-Z0-9]{3,5}){2,7})" \
-                "([ \-]?[A-Z0-9]{1,3})?$"
+        # Regex adapted from https://stackoverflow.com/a/44657292/3621482
+        regex = r"([A-Z]{2}[ \-]?[0-9]{2})(?!=(?:[ \-]?[A-Z0-9]){9,30}$)" \
+                r"((?:[ \-]?[A-Z0-9]{3,5}){2,7})([ \-]?[A-Z0-9]{1,3})?"
         super().__init__(action, regex)
         self.validate = validate
 
@@ -22,30 +20,30 @@ class IBANAnalyzer(RegexAnalyzer):
             return False
 
         if self.validate:
-            matched_string = ''.join(search_result.groups())
+            matched_string = search_result.group()
             return self._validate_iban(matched_string)
 
         return True
 
     def _validate_iban(self, potential_iban):
-        """From https://rosettacode.org/wiki/IBAN#Python"""
+        """Checks if the given string could be a valid IBAN. Adapted from https://rosettacode.org/wiki/IBAN#Python."""
 
-        # Ensure upper alphanumeric input.
+        # Ensure upper alphanumeric input
         potential_iban = potential_iban.replace(' ', '').replace('\t', '').replace('-', '')
-        if not re.match(r'^[\dA-Z]+$', potential_iban):
+        if not re.match(r"^[\dA-Z]+$", potential_iban):
             return False
 
-        # Validate country code against expected length.
+        # Validate if length matches the expected length based on the country code
         country_code = potential_iban[:2]
-        if country_code not in self._country2length.keys() or len(potential_iban) != self._country2length[country_code]:
+        if len(potential_iban) != self._iban_length_by_country.get(country_code, None):
             return False
 
-        # Shift and convert.
-        potential_iban = potential_iban[4:] + potential_iban[:4]
-        digits = int(''.join(str(int(ch, 36)) for ch in potential_iban))  # BASE 36: 0..9,A..Z -> 0..35
-        return digits % 97 == 1
+        # Official validation ( https://en.wikipedia.org/wiki/International_Bank_Account_Number#Validating_the_IBAN )
+        rearranged_iban = potential_iban[4:] + potential_iban[:4]
+        integer_iban = int(''.join(str(int(ch, 36)) for ch in rearranged_iban))  # BASE 36: 0..9,A..Z -> 0..35
+        return integer_iban % 97 == 1
 
-    _country2length = dict(
+    _iban_length_by_country = dict(
         AL=28, AD=24, AT=20, AZ=28, BE=16, BH=22, BA=20, BR=29,
         BG=22, CR=21, HR=21, CY=28, CZ=24, DK=18, DO=28, EE=20,
         FO=18, FI=18, FR=27, GE=22, DE=22, GI=23, GR=27, GL=18,
