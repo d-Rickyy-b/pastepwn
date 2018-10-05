@@ -26,8 +26,11 @@ class TelegramAction(BasicAction):
 
     def perform(self, paste, analyzer_name=None):
         """Send a message via a Telegram bot to a specified user, without checking for errors"""
-        # if self.template:
-        #    text = self.template.format()
-        text = "New paste matched by analyzer '{0}' - Link: {1}".format(analyzer_name, paste.full_url)
+        if self.template is None:
+            self.template = "New paste matched by analyzer '{analyzer_name}' - Link: {url}"
+
+        Template_args = {"analyzer_name": analyzer_name, "url": paste.full_url}  # move the definition of the
+        # dictionary in init and add later the parameters passed into perform?
+        text = self.template.format(**Template_args)
         api_url = "https://api.telegram.org/bot{0}/sendMessage?chat_id={1}&text={2}".format(self.token, self.receiver, text)
         self.request.get(api_url)
