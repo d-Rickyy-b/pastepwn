@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from actions.basicaction import BasicAction
+from .basicaction import BasicAction
 
 
 class LogAction(BasicAction):
