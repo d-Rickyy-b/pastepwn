@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from actions import BasicAction
+from .basicaction import BasicAction
 from util import Request
 
 

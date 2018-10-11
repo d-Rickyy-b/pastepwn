@@ -2,7 +2,7 @@
 import json
 import os
 
-from actions import SaveFileAction
+from .savefileaction import SaveFileAction
 
 
 class SaveJSONAction(SaveFileAction):

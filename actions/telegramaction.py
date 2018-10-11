@@ -2,7 +2,7 @@
 import logging
 import re
 
-from actions.basicaction import BasicAction
+from .basicaction import BasicAction
 from util import Request
 
 
