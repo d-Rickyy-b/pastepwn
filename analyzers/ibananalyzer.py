@@ -5,6 +5,9 @@ from .regexanalyzer import RegexAnalyzer
 
 
 class IBANAnalyzer(RegexAnalyzer):
+    """Analyzer to match International Bank Account Numbers (IBAN)"""
+    name = "IBANAnalyzer"
+
     def __init__(self, action, validate=False):
         # Regex adapted from https://stackoverflow.com/a/44657292/3621482
         regex = r"([A-Z]{2}[ \-]?[0-9]{2})(?!=(?:[ \-]?[A-Z0-9]){9,30}$)" \
