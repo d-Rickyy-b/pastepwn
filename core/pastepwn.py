@@ -19,6 +19,7 @@ class PastePwn(object):
         self.action_queue = Queue()
         self.__exception_event = Event()
         self.__request = Request()  # initialize singleton
+        # TODO initialize Request object with proxy parameters, which will be passed to the PastePwn class!
 
         self.scraping_handler = ScrapingHandler(paste_queue=self.paste_queue,
                                                 exception_event=self.__exception_event)
