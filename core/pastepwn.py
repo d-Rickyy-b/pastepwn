@@ -6,8 +6,8 @@ from threading import Event
 from actions import DatabaseAction
 from analyzers import AlwaysTrueAnalyzer
 from core import ScrapingHandler, ActionHandler
-from database import MongoDB
 from core.pastedispatcher import PasteDispatcher
+from util.request import Request
 
 
 class PastePwn(object):
@@ -18,6 +18,7 @@ class PastePwn(object):
         self.paste_queue = Queue()
         self.action_queue = Queue()
         self.__exception_event = Event()
+        self.__request = Request()  # initialize singleton
 
         self.scraping_handler = ScrapingHandler(paste_queue=self.paste_queue,
                                                 exception_event=self.__exception_event)
