@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
 from threading import Lock
-from requests import Session
 
+from requests import Session, utils
 from requests.exceptions import Timeout
 
 
@@ -25,6 +25,8 @@ class Request(object):
             self.logger = logging.getLogger(__name__)
             self.session = Session()
             self.proxies = proxies
+            self.logger.info("Using the following custom proxies: {}".format(proxies))
+            self.logger.info("Using the following system proxies: {}".format(utils.get_environ_proxies("https://example.com")))
             self._initialized = True
 
     def _request_wrapper(self, timeout, *args, **kwargs):
