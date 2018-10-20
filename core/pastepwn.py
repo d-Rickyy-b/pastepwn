@@ -20,6 +20,11 @@ class PastePwn(object):
         self.__exception_event = Event()
         self.__request = Request(proxies)  # initialize singleton
 
+        # Usage of ipify to get the IP - Uses the X-Forwarded-For Header which might
+        # lead to issues with proxies
+        ip = self.__request.get("https://api.ipify.org")
+        self.logger.info("Your public IP is {0}".format(ip))
+
         self.scraping_handler = ScrapingHandler(paste_queue=self.paste_queue,
                                                 exception_event=self.__exception_event)
         self.paste_dispatcher = PasteDispatcher(paste_queue=self.paste_queue,
