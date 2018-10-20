@@ -12,14 +12,13 @@ from util.request import Request
 
 class PastePwn(object):
 
-    def __init__(self, database=None):
+    def __init__(self, database=None, proxies=None):
         self.logger = logging.getLogger(__name__)
         self.database = database
         self.paste_queue = Queue()
         self.action_queue = Queue()
         self.__exception_event = Event()
-        self.__request = Request()  # initialize singleton
-        # TODO initialize Request object with proxy parameters, which will be passed to the PastePwn class!
+        self.__request = Request(proxies)  # initialize singleton
 
         self.scraping_handler = ScrapingHandler(paste_queue=self.paste_queue,
                                                 exception_event=self.__exception_event)

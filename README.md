@@ -4,7 +4,7 @@
 
 *Pastepwn* is a framework to scrape pastes and scan them for certain indicators. There are several analyzers and actions to be used out-of-the-box, but it is also easily extensible - you can create your own analyzers and actions on the fly.
 
-**Please note:** This framework is **not** to be used for illegal actions. It can be used for querying public Pastebin pastes for e.g. your username or email address in order to increase your own security. 
+**Please note:** This framework is **not** to be used for illegal actions. It can be used for querying public Pastebin pastes for e.g. your username or email address in order to increase your own security.
 
 ### Setup pastepwn
 
@@ -20,6 +20,12 @@ To use the pastepwn framework you need to follow these simple steps:
 
 ² *(If you want to store all pastes, make sure to setup a `mongodb` instance)*
 
+### Behind a proxy
+
+There is 2 ways to use this tool behind a proxy:
+
+* Define the following environment variables: `HTTP_PROXY`, `HTTPS_PROXY`, `NO_PROXY`.
+* When initializing the PastePwn object, use the `proxies` argument. `proxies` is a dict as defined in [requests' documentation](http://docs.python-requests.org/en/master/user/advanced/#proxies).
 
 ### ToDos
 There are quite some features which will be implemented in the (near) future.

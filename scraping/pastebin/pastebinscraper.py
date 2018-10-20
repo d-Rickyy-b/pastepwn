@@ -30,8 +30,6 @@ class PastebinScraper(BasicScraper):
         self._known_pastes = []
         self._known_pastes_limit = 1000
 
-        self.request = Request()
-
     def _check_error(self, body):
         """Checks if an error occurred and raises an exception if it did"""
         if body is None:
@@ -43,11 +41,12 @@ class PastebinScraper(BasicScraper):
 
     def _get_recent(self, limit=100):
         """Downloads a list of the most recent pastes - the amount is limited by the <limit> parameter"""
+        r = Request()
         endpoint = "api_scraping.php"
         api_url = "{0}/{1}?limit={2}".format(self.api_base_url, endpoint, limit)
 
         try:
-            response_data = self.request.get(api_url)
+            response_data = r.get(api_url)
 
             self._check_error(response_data)
 
@@ -74,13 +73,14 @@ class PastebinScraper(BasicScraper):
 
     def _get_paste_content(self, key):
         """Downloads the content of a certain paste"""
+        r = Request()
         endpoint = "api_scrape_item.php"
         api_url = "{0}/{1}?i={2}".format(self.api_base_url, endpoint, key)
         content = ""
 
         self.logger.debug("Downloading paste {0}".format(key))
         try:
-            response_data = self.request.get(api_url)
+            response_data = r.get(api_url)
 
             self._check_error(response_data)
 

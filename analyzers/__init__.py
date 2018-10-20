@@ -11,6 +11,7 @@ from .pastebinurlanalyzer import PastebinURLAnalyzer
 from .regexanalyzer import RegexAnalyzer
 from .urlanalyzer import URLAnalyzer
 from .wordanalyzer import WordAnalyzer
+from .ibananalyzer import IBANAnalyzer
 
 __all__ = (
     'AlwaysTrueAnalyzer',
@@ -25,4 +26,5 @@ __all__ = (
     'RegexAnalyzer',
     'URLAnalyzer',
     'WordAnalyzer',
+    'IBANAnalyzer'
 )
