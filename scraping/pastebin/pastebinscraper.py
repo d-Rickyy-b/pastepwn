@@ -37,7 +37,7 @@ class PastebinScraper(BasicScraper):
 
         if "DOES NOT HAVE ACCESS" in body:
             self._exception_event.set()
-            raise IPNotRegisteredError()
+            raise IPNotRegisteredError(body)
 
     def _get_recent(self, limit=100):
         """Downloads a list of the most recent pastes - the amount is limited by the <limit> parameter"""
