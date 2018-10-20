@@ -3,6 +3,8 @@ import logging
 from threading import Lock
 from requests import Session
 
+from requests.exceptions import Timeout
+
 
 class Request(object):
     _instance = None
@@ -25,23 +27,28 @@ class Request(object):
             self.proxies = proxies
             self._initialized = True
 
-    def _request_wrapper(self, *args, **kwargs):
+    def _request_wrapper(self, timeout, *args, **kwargs):
         headers = {
             "User-Agent": "pastepwn (https://github.com/d-Rickyy-b/pastepwn)"
         }
-        response = self.session.request(headers=headers, proxies=self.proxies, *args, **kwargs)
-        response_data = response.content.decode("utf-8")
+
+        try:
+            response = self.session.request(headers=headers, proxies=self.proxies, timeout=timeout, *args, **kwargs)
+            response_data = response.content.decode("utf-8")
+        except Timeout:
+            self.logger.warning("Timeout while requesting {0}!".format(kwargs.get("url")))
+            return ""
 
         return response_data
 
-    def get(self, url):
-        return self._request_wrapper("GET", url)
+    def get(self, url, timeout=5):
+        return self._request_wrapper(method="GET", url=url, timeout=timeout)
 
-    def post(self, url):
-        return self._request_wrapper("POST", url)
+    def post(self, url, timeout=5):
+        return self._request_wrapper(method="POST", url=url, timeout=timeout)
 
-    def put(self, url):
-        return self._request_wrapper("PUT", url)
+    def put(self, url, timeout=5):
+        return self._request_wrapper(method="PUT", url=url, timeout=timeout)
 
-    def delete(self, url):
-        return self._request_wrapper("DELETE", url)
+    def delete(self, url, timeout=5):
+        return self._request_wrapper(method="DELETE", url=url, timeout=timeout)
