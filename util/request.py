@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import logging
 from threading import Lock
 from requests import Session
 
@@ -19,6 +20,7 @@ class Request(object):
 
     def __init__(self, proxies=None):
         if not self._initialized:
+            self.logger = logging.getLogger(__name__)
             self.session = Session()
             self.proxies = proxies
             self._initialized = True
