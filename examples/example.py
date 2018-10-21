@@ -19,7 +19,7 @@ if not os.path.exists(os.path.join(logdir_path, "logs")):
 logfile_handler = logging.handlers.WatchedFileHandler(logfile_path, "a", "utf-8")
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.DEBUG, handlers=[logfile_handler, logging.StreamHandler()])
+logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO, handlers=[logfile_handler, logging.StreamHandler()])
 
 # Framework code
 database = MongoDB(ip="192.168.240.128")
@@ -27,6 +27,7 @@ database = MongoDB(ip="192.168.240.128")
 pastepwn = PastePwn(database)
 pastepwn.add_scraper(PastebinScraper())
 
+# Generic action to send Telegram messages on new matched pastes
 telegram_action = TelegramAction(token="token", receiver="-1001348376474")
 
 mail_analyzer = MailAnalyzer(telegram_action)
