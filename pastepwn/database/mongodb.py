@@ -4,7 +4,7 @@ import logging
 import pymongo
 from pymongo.errors import ConnectionFailure
 
-from database import AbstractDB
+from .abstractdb import AbstractDB
 
 
 class MongoDB(AbstractDB):
