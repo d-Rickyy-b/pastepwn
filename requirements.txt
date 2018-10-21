@@ -1,4 +1,3 @@
-certifi
 pymongo
 mysql-connector-python
 requests
