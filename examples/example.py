@@ -3,12 +3,13 @@
 import logging.handlers
 import os
 
-from actions import TelegramAction
-from analyzers import MailAnalyzer, WordAnalyzer
-from core import PastePwn
-from scraping.pastebin import PastebinScraper
-from database import MongoDB
+from pastepwn import PastePwn
+from pastepwn.actions import TelegramAction
+from pastepwn.analyzers import MailAnalyzer, WordAnalyzer
+from pastepwn.database import MongoDB
+from pastepwn.scraping.pastebin import PastebinScraper
 
+# Setting up the logging
 logdir_path = os.path.dirname(os.path.abspath(__file__))
 logfile_path = os.path.join(logdir_path, "logs", "pastepwn.log")
 
