@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from .basicaction import BasicAction
-from util import Request
+from pastepwn.util import Request
 
 
 class WebhookAction(BasicAction):

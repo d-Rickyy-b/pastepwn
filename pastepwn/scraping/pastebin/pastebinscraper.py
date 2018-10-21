@@ -4,10 +4,10 @@ import logging
 import time
 from queue import Queue, Empty
 
-from core import Paste
-from scraping import BasicScraper
-from scraping.pastebin.exceptions import IPNotRegisteredError, EmptyBodyException
-from util import Request, start_thread
+from pastepwn.core import Paste
+from pastepwn.scraping import BasicScraper
+from pastepwn.scraping.pastebin.exceptions import IPNotRegisteredError, EmptyBodyException
+from pastepwn.util import Request, start_thread
 
 
 # https://pastebin.com/doc_scraping_api#2

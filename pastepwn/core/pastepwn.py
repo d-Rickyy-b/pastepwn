@@ -3,11 +3,11 @@ import logging
 from queue import Queue
 from threading import Event
 
-from actions import DatabaseAction
-from analyzers import AlwaysTrueAnalyzer
-from core import ScrapingHandler, ActionHandler
-from core.pastedispatcher import PasteDispatcher
-from util.request import Request
+from pastepwn.actions import DatabaseAction
+from pastepwn.analyzers import AlwaysTrueAnalyzer
+from pastepwn.core import ScrapingHandler, ActionHandler
+from pastepwn.core.pastedispatcher import PasteDispatcher
+from pastepwn.util.request import Request
 
 
 class PastePwn(object):

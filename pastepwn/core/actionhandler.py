@@ -4,7 +4,7 @@ import logging
 from queue import Empty, Queue
 from threading import Event, Lock
 
-from util import start_thread
+from pastepwn.util import start_thread
 
 
 class ActionHandler(object):
