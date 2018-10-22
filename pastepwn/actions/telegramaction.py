@@ -3,7 +3,7 @@ import logging
 import re
 
 from .basicaction import BasicAction
-from util import Request
+from pastepwn.util import Request
 
 
 class TelegramAction(BasicAction):

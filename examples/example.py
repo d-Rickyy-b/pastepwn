@@ -3,12 +3,13 @@
 import logging.handlers
 import os
 
-from actions import TelegramAction
-from analyzers import MailAnalyzer, WordAnalyzer
-from core import PastePwn
-from scraping.pastebin import PastebinScraper
-from database import MongoDB
+from pastepwn import PastePwn
+from pastepwn.actions import TelegramAction
+from pastepwn.analyzers import MailAnalyzer, WordAnalyzer
+from pastepwn.database import MongoDB
+from pastepwn.scraping.pastebin import PastebinScraper
 
+# Setting up the logging
 logdir_path = os.path.dirname(os.path.abspath(__file__))
 logfile_path = os.path.join(logdir_path, "logs", "pastepwn.log")
 
@@ -18,7 +19,7 @@ if not os.path.exists(os.path.join(logdir_path, "logs")):
 logfile_handler = logging.handlers.WatchedFileHandler(logfile_path, "a", "utf-8")
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.DEBUG, handlers=[logfile_handler, logging.StreamHandler()])
+logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO, handlers=[logfile_handler, logging.StreamHandler()])
 
 # Framework code
 database = MongoDB(ip="192.168.240.128")
@@ -26,6 +27,7 @@ database = MongoDB(ip="192.168.240.128")
 pastepwn = PastePwn(database)
 pastepwn.add_scraper(PastebinScraper())
 
+# Generic action to send Telegram messages on new matched pastes
 telegram_action = TelegramAction(token="token", receiver="-1001348376474")
 
 mail_analyzer = MailAnalyzer(telegram_action)

@@ -4,10 +4,10 @@ import logging
 import time
 from queue import Queue, Empty
 
-from core import Paste
-from scraping import BasicScraper
-from scraping.pastebin.exceptions import IPNotRegisteredError, EmptyBodyException
-from util import Request, start_thread
+from pastepwn.core import Paste
+from pastepwn.scraping import BasicScraper
+from pastepwn.scraping.pastebin.exceptions import IPNotRegisteredError, EmptyBodyException
+from pastepwn.util import Request, start_thread
 
 
 # https://pastebin.com/doc_scraping_api#2
@@ -37,7 +37,7 @@ class PastebinScraper(BasicScraper):
 
         if "DOES NOT HAVE ACCESS" in body:
             self._exception_event.set()
-            raise IPNotRegisteredError()
+            raise IPNotRegisteredError(body)
 
     def _get_recent(self, limit=100):
         """Downloads a list of the most recent pastes - the amount is limited by the <limit> parameter"""

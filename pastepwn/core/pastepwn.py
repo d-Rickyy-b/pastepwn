@@ -3,11 +3,11 @@ import logging
 from queue import Queue
 from threading import Event
 
-from actions import DatabaseAction
-from analyzers import AlwaysTrueAnalyzer
-from core import ScrapingHandler, ActionHandler
-from core.pastedispatcher import PasteDispatcher
-from util.request import Request
+from pastepwn.actions import DatabaseAction
+from pastepwn.analyzers import AlwaysTrueAnalyzer
+from pastepwn.core import ScrapingHandler, ActionHandler
+from pastepwn.core.pastedispatcher import PasteDispatcher
+from pastepwn.util.request import Request
 
 
 class PastePwn(object):
@@ -19,6 +19,11 @@ class PastePwn(object):
         self.action_queue = Queue()
         self.__exception_event = Event()
         self.__request = Request(proxies)  # initialize singleton
+
+        # Usage of ipify to get the IP - Uses the X-Forwarded-For Header which might
+        # lead to issues with proxies
+        ip = self.__request.get("https://api.ipify.org")
+        self.logger.info("Your public IP is {0}".format(ip))
 
         self.scraping_handler = ScrapingHandler(paste_queue=self.paste_queue,
                                                 exception_event=self.__exception_event)

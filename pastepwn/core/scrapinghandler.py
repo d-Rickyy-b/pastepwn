@@ -4,7 +4,7 @@ import logging
 from queue import Queue
 from threading import Lock, Event
 
-from util import start_thread
+from pastepwn.util import start_thread
 
 
 class ScrapingHandler(object):
