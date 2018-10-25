@@ -11,7 +11,7 @@ install:
 # command to run tests
 script:
   - python -m compileall ./
-  - coverage run -m unittest discover -s . -v -p "*_test.py" --omit=virtualenv/*
+  - coverage run -m unittest discover -s . -v -p "*_test.py" --omit='*/virtualenv/*,*/site-packages/*'
 
 after_success:
   - coveralls
