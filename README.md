@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/d-Rickyy-b/pastepwn.svg?branch=master)](https://travis-ci.org/d-Rickyy-b/pastepwn)
+
 # pastepwn - Paste-Scraping Python Framework
 
 [Pastebin](https://pastebin.com) is a very helpful tool to store or rather share ascii encoded data online. In the world of OSINT, pastebin is being used by [researchers all around the world](https://www.troyhunt.com/introducing-paste-searches-and/) to retreive e.g. leaked account data, in order to find indicators about security breaches.
@@ -11,13 +13,11 @@
 To use the pastepwn framework you need to follow these simple steps:
 
 1) **Make sure** to have a [Pastebin premium](https://pastebin.com/pro) account!
-2) Clone the repository with `git clone https://github.com/d-Rickyy-b/pastepwn.git`
-3) Install dependencies with `pip install -r requirements.txt`¹
-4) Create a file (e.g. `main.py`) in the project root, where you put your code in²
-5) Fill that file with content - add analyzers and actions. Check the [example](https://github.com/d-Rickyy-b/pastepwn/tree/master/examples/example.py) implementation.
+2) Install pastepwn via pip (`pip install pastepwn`)
+3) Create a file (e.g. `main.py`) in your project root, where you put your code in¹
+4) Fill that file with content - add analyzers and actions. Check the [example](https://github.com/d-Rickyy-b/pastepwn/tree/master/examples/example.py) implementation.
 
-¹ *(There will be a pypi module for installation with pip soon)*  
-² *(If you want to store all pastes, make sure to setup a `mongodb` instance)*
+¹ *(If you want to store all pastes, make sure to setup a `mongodb`, `mysql` or `sylite` instance)*
 
 ### Behind a proxy
 
