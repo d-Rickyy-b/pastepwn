@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 from setuptools import setup, find_packages
 
 packages = find_packages(exclude=['tests*'])
@@ -19,9 +20,12 @@ def requirements():
 with open("README.md", "r", encoding="utf-8") as file:
     readme = file.read()
 
+version_file = os.path.join('pastepwn', 'version.txt')
+with open(version_file, "r", encoding="utf-8") as file:
+    version = file.readline()
 
 setup(name='pastepwn',
-      version='1.0.8',
+      version=version,
       install_requires=requirements(),
       keywords='python pastebin scraping osint framework',
       description='Python framework to scrape PasteBin pastes and analyze them',
