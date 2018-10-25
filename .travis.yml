@@ -1,0 +1,32 @@
+language: python
+sudo: require
+python:
+  - "3.4"
+  - "3.6"
+# command to install dependencies
+install:
+  - pip install -r requirements.txt
+  - pip install python-coveralls
+
+# command to run tests
+script:
+  - python -m compileall ./
+  - coverage run -m unittest discover -s . -v -p "*_test.py"
+
+after_success:
+  - coveralls
+
+notifications:
+  email: false
+
+deploy:
+  provider: pypi
+  user: d-Rickyy-b
+  password:
+    secure: qAzojtB2Dp8tLmz2fKgESL/pRNgO2Lx/C3gsuiSCZ1eCa71c1T+pnK4hbl1oB3rWLUTXNMY3xCkTjtqIr/+7ppFatrtV/iJ+LnkkwtGYFEy4+BZlEjKWUU1WwfuNzdxXqvx9peUdGP12OwsZgccvevZQFtTEUPdXwHQ0muvAg9QufaOMubV5kwz+RKJr2r44xwujv7bpbNgfS+NJsxw8xLn+Bd/3uyRDTvr3P9PjpGj6OCkf3nMH0QuBOPF04kddce6NzfOO4VZ018uRmlCpK68dpwJAjxipRp79MpAycVbeN5LGo8hLmJvG8g8b9DA71gYa1yZRhDtP+pfsbwc51Ndy7mycyOxxlJhpd06Je2LS7NfWXyxhs6pAMuvBrDlx7EcRLeCnCbEX8LogG7YA/OZAlNubCyAby0XybzHMKFFRttlie3IlfE9VfCm0KCC0RW6mr2AEoq5hRhT48axBHxs5WwnKNH6y0AMdOAg75pDGM9xgIPQllXM/uf8WFusYMp15aGhLU/nhNYeQNW4Od25ZyV/kQ7qrO2C5ZRoq74vzfDo+p6Vm65nGapXAAHoAfCEPpK+zQd1Y/oGvJwruKoqHeGxEpMZYUfgdAZi7eHx0eUyJwgITqA0aM4Q7SFNntFdHMR9fVaZKFzQBffxIlws0rxU8iSQHVzVKqPn1nWM=
+  distributions: sdist bdist_wheel
+  skip_cleanup: true
+  on:
+    repo: d-Rickyy-b/pastepwn
+    tags: true
+    branch: master
