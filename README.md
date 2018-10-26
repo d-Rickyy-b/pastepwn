@@ -17,7 +17,7 @@ To use the pastepwn framework you need to follow these simple steps:
 3) Create a file (e.g. `main.py`) in your project root, where you put your code in¹
 4) Fill that file with content - add analyzers and actions. Check the [example](https://github.com/d-Rickyy-b/pastepwn/tree/master/examples/example.py) implementation.
 
-¹ *(If you want to store all pastes, make sure to setup a `mongodb`, `mysql` or `sylite` instance)*
+¹ *(If you want to store all pastes, make sure to setup a `mongodb`, `mysql` or `sqlite` instance)*
 
 ### Behind a proxy
 
