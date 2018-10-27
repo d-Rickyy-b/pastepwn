@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 import logging
 import re
+from string import Template
 
-from .basicaction import BasicAction
 from pastepwn.util import Request, DictWrapper
+from .basicaction import BasicAction
 
 
 class TelegramAction(BasicAction):
@@ -20,8 +21,10 @@ class TelegramAction(BasicAction):
         self.token = token
         self.receiver = receiver
         self.custom_payload = custom_payload
-        self.template = template
-        # TODO add possibility to send a template message and inject the paste data into the template
+        if template is not None:
+            self.template = Template(template)
+        else:
+            self.template = None
 
     def perform(self, paste, analyzer_name=None):
         """Send a message via a Telegram bot to a specified user, without checking for errors"""
@@ -31,7 +34,7 @@ class TelegramAction(BasicAction):
         else:
             paste_dict = paste.to_dict()
             paste_dict["analyzer_name"] = analyzer_name
-            text = self.template.format_map(DictWrapper(paste_dict))
+            text = self.template.safe_substitute(DictWrapper(paste_dict))
 
         api_url = "https://api.telegram.org/bot{0}/sendMessage?chat_id={1}&text={2}".format(self.token, self.receiver, text)
         r.get(api_url)
