@@ -58,3 +58,8 @@ class PastePwn(object):
         self.paste_dispatcher.start()
         self.action_handler.start()
 
+    def stop(self):
+        self.scraping_handler.stop()
+        self.paste_dispatcher.stop()
+        self.action_handler.stop()
+
