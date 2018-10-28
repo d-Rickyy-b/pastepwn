@@ -50,10 +50,11 @@ class PastePwn(object):
         self.paste_dispatcher.add_analyzer(analyzer)
 
     def start(self):
-        if not self.__exception_event.is_set():
-            self.scraping_handler.start()
-            self.paste_dispatcher.start()
-            self.action_handler.start()
-        else:
+        if self.__exception_event.is_set():
             self.logger.error("An exception occured. Aborting the start of PastePwn!")
             exit(1)
+
+        self.scraping_handler.start()
+        self.paste_dispatcher.start()
+        self.action_handler.start()
+
