@@ -34,7 +34,8 @@ class ScrapingHandler(object):
                 self.running = True
                 # Start all scraper threads
                 for scraper in self.scrapers:
-                    start_thread(scraper.start, scraper.name, paste_queue=self.paste_queue, exception_event=self.__exception_event)
+                    thread = start_thread(scraper.start, scraper.name, paste_queue=self.paste_queue, exception_event=self.__exception_event)
+                    self.__threads.append(thread)
 
                 # Return the update queue so the main thread can insert updates
                 return self.paste_queue
