@@ -3,8 +3,9 @@
 import logging
 from queue import Empty, Queue
 from threading import Event, Lock
+from time import sleep
 
-from pastepwn.util import start_thread
+from pastepwn.util import start_thread, join_threads
 
 
 class ActionHandler(object):
@@ -14,6 +15,7 @@ class ActionHandler(object):
         self.action_queue = action_queue or Queue()
         self.__exception_event = exception_event or Event()
         self.__stop_event = stop_event or Event()
+        self.__threads = []
 
         self.running = False
         self.__lock = Lock()
@@ -23,10 +25,20 @@ class ActionHandler(object):
             if not self.running:
                 self.running = True
 
-                start_thread(self._start, "ActionHandler", self.__exception_event)
+                thread = start_thread(self._start, "ActionHandler", self.__exception_event)
+                self.__threads.append(thread)
 
             if ready is not None:
                 ready.set()
+
+    def stop(self):
+        self.__stop_event.set()
+        while self.running:
+            sleep(0.1)
+        self.__stop_event.clear()
+
+        join_threads(self.__threads)
+        self.__threads = []
 
     def _start(self):
         while self.running:
