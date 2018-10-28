@@ -17,7 +17,7 @@ class PasteTest(unittest.TestCase):
              "title": "Once we all know when we goto function",
              "syntax": "java",
              "user": "admin",
-             "body": "this is a test paste"}
+             "body": "This is a test for pastepwn"}
 
         self.p = p
         self.paste = Paste(p.get("key"),
@@ -49,3 +49,10 @@ class PasteTest(unittest.TestCase):
         my_body = "This is a test for pastepwn"
         self.paste.set_body(my_body)
         self.assertEqual(my_body, self.paste.body)
+
+    def test_to_dict(self):
+        my_body = "This is a test for pastepwn"
+        self.paste.set_body(my_body)
+
+        paste_dict = self.paste.to_dict()
+        self.assertEqual(self.p, paste_dict)
