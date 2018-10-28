@@ -42,12 +42,14 @@ class ScrapingHandler(object):
 
     def stop(self):
         with self.__lock:
-            if self.running:
-                self.logger.debug("Stopping scrapers...")
-                self.running = False
-                for scraper in self.scrapers:
-                    scraper.stop()
-                self._join_threads()
+            if not self.running:
+                return
+
+            self.logger.debug("Stopping scrapers...")
+            self.running = False
+            for scraper in self.scrapers:
+                scraper.stop()
+            self._join_threads()
 
     def _join_threads(self):
         """End all threads and join them back into the main thread"""
