@@ -20,3 +20,11 @@ def thread_wrapper(target, exception_event, *args, **kwargs):
         logger.exception('unhandled exception in %s', thread_name)
         raise
     logger.debug('{0} - thread ended'.format(thread_name))
+
+
+def join_threads(self, threads):
+    """End all threads and join them back into the main thread"""
+    for thread in threads:
+        self.logger.debug("Joining thread {0}".format(thread.name))
+        thread.join()
+        self.logger.debug("Thread {0} has ended".format(thread.name))
