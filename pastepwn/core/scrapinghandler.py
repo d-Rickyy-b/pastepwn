@@ -59,5 +59,3 @@ class ScrapingHandler(object):
             self.logger.debug("Thread {0} has ended".format(thread.name))
 
         self.__threads = []
-
-# TODO implement idle for SIGINT, SIGTERM, SIGKILL
