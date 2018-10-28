@@ -38,7 +38,8 @@ class PasteDispatcher(object):
                     return None
 
                 self.running = True
-                start_thread(self._start_analyzing, "PasteDispatcher", exception_event=self.__exception_event)
+                thread = start_thread(self._start_analyzing, "PasteDispatcher", exception_event=self.__exception_event)
+                self.__threads.append(thread)
 
                 # Start thread pool with worker threads
                 # for i in range(workers):
@@ -58,6 +59,7 @@ class PasteDispatcher(object):
                 paste = self.paste_queue.get(True, 1)
 
                 # TODO implement thread pool to limit number of parallel executed threads
+                # Don't add these threads to the list. Otherwise they will just block the list
                 start_thread(self._process_paste, "process_paste", paste=paste, exception_event=self.__exception_event)
             except Empty:
                 if self.__stop_event.is_set():
