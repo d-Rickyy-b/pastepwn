@@ -3,6 +3,7 @@
 import logging
 from queue import Empty, Queue
 from threading import Event, Lock
+from time import sleep
 
 from pastepwn.util import start_thread, join_threads
 
@@ -80,5 +81,10 @@ class PasteDispatcher(object):
                 self.action_queue.put((action, paste, analyzer))
 
     def stop(self):
+        self.__stop_event.set()
+        while self.running:
+            sleep(0.1)
+        self.__stop_event.clear()
+
         join_threads(self.__threads)
         self.__threads = []
