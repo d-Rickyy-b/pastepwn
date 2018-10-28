@@ -6,6 +6,7 @@ import logging
 def start_thread(target, name, exception_event, *args, **kwargs):
     thread = Thread(target=thread_wrapper, name=name, args=(target, exception_event) + args, kwargs=kwargs)
     thread.start()
+    return thread
 
 
 def thread_wrapper(target, exception_event, *args, **kwargs):
