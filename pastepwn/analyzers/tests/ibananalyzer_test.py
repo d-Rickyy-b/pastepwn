@@ -2,7 +2,7 @@
 import unittest
 from unittest import mock
 
-from analyzers.ibananalyzer import IBANAnalyzer
+from pastepwn.analyzers.ibananalyzer import IBANAnalyzer
 
 
 class TestIBANAnalyzer(unittest.TestCase):
