@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/d-Rickyy-b/pastepwn.svg?branch=master)](https://travis-ci.org/d-Rickyy-b/pastepwn)
+[![PyPI version](https://badge.fury.io/py/pastepwn.svg)](https://badge.fury.io/py/pastepwn)
+[![Coverage Status](https://coveralls.io/repos/github/d-Rickyy-b/pastepwn/badge.svg?branch=master)](https://coveralls.io/github/d-Rickyy-b/pastepwn?branch=master)
 
 # pastepwn - Paste-Scraping Python Framework
 
