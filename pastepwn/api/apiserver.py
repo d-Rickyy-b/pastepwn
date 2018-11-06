@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import asyncio
 import logging
+import socket
 from threading import Event, Lock
 
 from sanic import Sanic
@@ -31,6 +32,10 @@ class APIServer(object):
         self.loop = None
         self._api_thread = None
         self.app = Sanic("APIServer")
+
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.sock.bind((host, port))
+
         self._init_routes()
 
     def _init_routes(self):
@@ -73,7 +78,7 @@ class APIServer(object):
 
     def _start_server(self):
         asyncio.set_event_loop(asyncio.new_event_loop())
-        server = self.app.create_server(host=self.host, port=self.port)
+        server = self.app.create_server(sock=self.sock)
         self.loop = asyncio.get_event_loop()
         asyncio.ensure_future(server)
 
