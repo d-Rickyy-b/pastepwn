@@ -26,22 +26,22 @@ class MysqlDB(AbstractDB):
         self.logger.debug("Connected to database!")
 
     def _create_tables(self):
-        self.cursor.execute("""CREATE TABLE 'pastes' (
-                                    'key'	TEXT NOT NULL UNIQUE,
-                                    'title'	TEXT,
-                                    'user'	TEXT,
-                                    'size'	INTEGER,
-                                    'date'	INTEGER,
-                                    'expire'	INTEGER,
-                                    'scrape_url'	TEXT,
-                                    'full_url'	TEXT,
-                                    'body'	TEXT,
-                                    PRIMARY KEY('key'))""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS `pastes` (
+                                            `key` TEXT NOT NULL UNIQUE,
+                                            `title` TEXT,
+                                            `user` TEXT,
+                                            `size` INTEGER,
+                                            `date` INTEGER,
+                                            `expire` INTEGER,
+                                            `scrape_url` TEXT,
+                                            `full_url` TEXT,
+                                            `body` TEXT,
+                                            PRIMARY KEY(`key`));""")
         self.db.commit()
 
     def _insert_data(self, paste):
-        self.cursor.execute("INSERT INTO pastes (key, title, user, size, date, expire, syntax, scrape_url, full_url, body) "
-                            "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+        self.cursor.execute("INSERT INTO `pastes` (`key`, `title`, `user`, `size`, `date`, `expire`, `syntax`, `scrape_url`, `full_url`, `body`) "
+                            "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",
                             (paste.key,
                              paste.title,
                              paste.user,
