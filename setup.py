@@ -24,6 +24,7 @@ with open("README.md", "r", encoding="utf-8") as file:
 version = {}
 version_file = os.path.join('pastepwn', 'version.py')
 with open(version_file, "r", encoding="utf-8") as file:
+    exec(file.read(), version)
 
     setup(name='pastepwn',
           version=version['__version__'],
