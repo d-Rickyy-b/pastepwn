@@ -17,7 +17,7 @@ from .apiroutes import get_paste_by_id, get_pastes_by_date, scrape_paste, defaul
 
 class APIServer(object):
 
-    def __init__(self, host, port=8080, base_url="", exception_event=None):
+    def __init__(self, host="0.0.0.0", port=8080, base_url="", exception_event=None):
         self.logger = logging.getLogger(__name__)
         self.host = host
         self.port = port
