@@ -22,8 +22,11 @@ class PastePwn(object):
 
         # Usage of ipify to get the IP - Uses the X-Forwarded-For Header which might
         # lead to issues with proxies
-        ip = self.__request.get("https://api.ipify.org")
-        self.logger.info("Your public IP is {0}".format(ip))
+        try:
+            ip = self.__request.get("https://api.ipify.org")
+            self.logger.info("Your public IP is {0}".format(ip))
+        except Exception as e:
+            self.logger.warning("Could not fetch public IP via ipify: {0}".format(e))
 
         self.scraping_handler = ScrapingHandler(paste_queue=self.paste_queue,
                                                 exception_event=self.__exception_event)
