@@ -8,7 +8,7 @@ from .abstractdb import AbstractDB
 
 class MysqlDB(AbstractDB):
 
-    def __init__(self, ip="127.0.0.1", port=27017, dbname="pastepwn", username=None, password=None):
+    def __init__(self, ip="127.0.0.1", port=3306, dbname="pastepwn", username=None, password=None):
         super().__init__()
         self.logger = logging.getLogger(__name__)
         self.logger.debug("Initializing MySQLDB - {0}:{1}".format(ip, port))
@@ -27,12 +27,13 @@ class MysqlDB(AbstractDB):
 
     def _create_tables(self):
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS `pastes` (
-                                    `key` TEXT NOT NULL UNIQUE,
+                                    `key` VARCHAR(30) NOT NULL UNIQUE,
                                     `title` TEXT,
                                     `user` TEXT,
                                     `size` INTEGER,
                                     `date` INTEGER,
                                     `expire` INTEGER,
+                                    `syntax` TEXT,
                                     `scrape_url` TEXT,
                                     `full_url` TEXT,
                                     `body` TEXT,
