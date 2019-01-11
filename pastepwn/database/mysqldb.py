@@ -8,17 +8,27 @@ from .abstractdb import AbstractDB
 
 class MysqlDB(AbstractDB):
 
-    def __init__(self, ip="127.0.0.1", port=3306, dbname="pastepwn", username=None, password=None):
+    def __init__(self, ip="127.0.0.1", port=3306, unix_socket=None, dbname="pastepwn", username=None, password=None, timeout=10):
         super().__init__()
         self.logger = logging.getLogger(__name__)
         self.logger.debug("Initializing MySQLDB - {0}:{1}".format(ip, port))
 
-        self.db = mysql.connector.connect(
-            host=ip,
-            user=username,
-            passwd=password,
-            database=dbname
-        )
+        if unix_socket:
+            self.db = mysql.connector.connect(
+                host=ip,
+                user=username,
+                passwd=password,
+                unix_socket=unix_socket,
+                connection_timeout=timeout
+            )
+        else:
+            self.db = mysql.connector.connect(
+                host=ip,
+                user=username,
+                passwd=password,
+                database=dbname,
+                connection_timeout=timeout
+            )
 
         self.cursor = self.db.cursor()
         self._create_tables()
