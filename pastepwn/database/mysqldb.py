@@ -24,6 +24,7 @@ class MysqlDB(AbstractDB):
         else:
             self.db = mysql.connector.connect(
                 host=ip,
+                port=port,
                 user=username,
                 passwd=password,
                 database=dbname,
