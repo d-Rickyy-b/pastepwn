@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import logging
+
 from .basicanalyzer import BasicAnalyzer
 
 
@@ -16,4 +18,10 @@ class GenericAnalyzer(BasicAnalyzer):
 
     def match(self, paste):
         """Run the passed function and return its return value"""
-        return self.match_func(paste)
+        try:
+            result = self.match_func(paste)
+        except Exception as e:
+            result = False
+            logging.getLogger(__name__).warning("Executing custom match function raised an exception! {}".format(e))
+
+        return result
