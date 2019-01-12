@@ -23,6 +23,10 @@ class TestAlwaysTrueAnalyzer(unittest.TestCase):
         self.obj = None
         self.assertTrue(self.analyzer.match(self.obj))
 
+    def test_actions_present(self):
+        analyzer = AlwaysTrueAnalyzer(self.obj)
+        self.assertEqual([self.obj], analyzer.actions)
+
 
 if __name__ == '__main__':
     unittest.main()
