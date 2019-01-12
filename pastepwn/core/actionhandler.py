@@ -44,9 +44,13 @@ class ActionHandler(object):
         while self.running:
             try:
                 # Get paste from queue
-                action, paste, analyzer = self.action_queue.get(True, 1)
-                self.logger.debug("Performing action '{0}' on paste '{1}' matched by analyzer '{2}'!".format(action.name, paste.key, analyzer.identifier))
-                action.perform(paste, analyzer.identifier)
+                actions, paste, analyzer = self.action_queue.get(True, 1)
+                if actions is None:
+                    continue
+
+                for action in actions:
+                    self.logger.debug("Performing action '{0}' on paste '{1}' matched by analyzer '{2}'!".format(action.name, paste.key, analyzer.identifier))
+                    action.perform(paste, analyzer.identifier)
             except Empty:
                 if self.__stop_event.is_set():
                     self.logger.debug("orderly stopping ActionHandler")

@@ -17,9 +17,23 @@ class TestBasicAnalyzer(unittest.TestCase):
 
     def test_initialization(self):
         """Check if the initialization of the BasicAnalyzer works as intended"""
-        action = mock.Mock()
-        analyzer = BasicAnalyzer(action)
-        self.assertEqual(action, analyzer.action)
+        actions = mock.Mock()
+        analyzer = BasicAnalyzer(actions)
+        self.assertEqual([actions], analyzer.actions)
+
+    def test_empty_initialization(self):
+        analyzer = BasicAnalyzer(None)
+        self.assertEqual([], analyzer.actions)
+
+    def test_single_initialization(self):
+        analyzer = BasicAnalyzer(self.obj)
+        self.assertEqual([self.obj], analyzer.actions)
+
+    def test_multi_initialization(self):
+        obj2 = mock.Mock()
+        actions = [self.obj, obj2]
+        analyzer = BasicAnalyzer(actions)
+        self.assertEqual([self.obj, obj2], analyzer.actions)
 
 
 if __name__ == '__main__':

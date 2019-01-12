@@ -14,8 +14,8 @@ class URLAnalyzer(BasicAnalyzer):
     """
     name = "URLAnalyzer"
 
-    def __init__(self, action, regex, resolve=False):
-        super().__init__(action, regex)
+    def __init__(self, actions, regex, resolve=False):
+        super().__init__(actions, regex)
         self.regex = re.compile(regex)
         self.resolve = resolve  # Should we try to resolve the URLs?
 

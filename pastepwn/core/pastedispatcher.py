@@ -77,8 +77,8 @@ class PasteDispatcher(object):
         self.logger.debug("Analyzing Paste: {0}".format(paste.key))
         for analyzer in self.analyzers:
             if analyzer.match(paste):
-                action = analyzer.action
-                self.action_queue.put((action, paste, analyzer))
+                actions = analyzer.actions
+                self.action_queue.put((actions, paste, analyzer))
 
     def stop(self):
         self.__stop_event.set()

@@ -6,6 +6,6 @@ class BcryptHashAnalyzer(RegexAnalyzer):
     """Analyzer to match bcrypt password hashes via regex"""
     name = "BcryptHashAnalyzer"
 
-    def __init__(self, action):
+    def __init__(self, actions):
         regex = "\$2[ayb]\$.{56}"
-        super().__init__(action, regex)
+        super().__init__(actions, regex)

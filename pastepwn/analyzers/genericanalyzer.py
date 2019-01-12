@@ -6,8 +6,8 @@ class GenericAnalyzer(BasicAnalyzer):
     """Analyzer to pass a function pointer to, in order to create an analyzer on the fly"""
     name = "GenericAnalyzer"
 
-    def __init__(self, action, match_func):
-        super().__init__(action)
+    def __init__(self, actions, match_func):
+        super().__init__(actions)
 
         if match_func is None:
             raise ValueError("Function to be called cannot be None")

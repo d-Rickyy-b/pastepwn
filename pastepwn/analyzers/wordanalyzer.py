@@ -6,8 +6,8 @@ class WordAnalyzer(BasicAnalyzer):
     """Analyzer to match the content of a paste via regular expressions"""
     name = "WordAnalyzer"
 
-    def __init__(self, action, word, blacklist=None, case_sensitive=False):
-        super().__init__(action, "{0} ({1})".format(self.name, word))
+    def __init__(self, actions, word, blacklist=None, case_sensitive=False):
+        super().__init__(actions, "{0} ({1})".format(self.name, word))
         self.word = word
         self.blacklist = blacklist or []
         self.case_sensitive = case_sensitive

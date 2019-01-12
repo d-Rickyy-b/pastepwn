@@ -8,8 +8,8 @@ class RegexAnalyzer(BasicAnalyzer):
     """Analyzer to match the content of a paste via regular expressions"""
     name = "RegexAnalyzer"
 
-    def __init__(self, action, regex):
-        super().__init__(action)
+    def __init__(self, actions, regex):
+        super().__init__(actions)
         self.regex = re.compile(regex)
 
     def match(self, paste):
