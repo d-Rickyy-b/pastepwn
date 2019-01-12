@@ -6,7 +6,11 @@ class BasicAnalyzer(object):
     name = "BasicAnalyzer"
 
     def __init__(self, actions, identifier=None):
-        # The identifier parameter is being used to explicitly identify an analyzer
+        """
+        Basic analyzer which is extended to create other analyzer subclasses
+        :param actions: A single action or a list of actions to be executed on every paste
+        :param identifier: The name or unique identifier for this specific analyzer
+        """
         if actions is None:
             self.actions = []
         elif isinstance(actions, list):
@@ -16,4 +20,9 @@ class BasicAnalyzer(object):
         self.identifier = identifier or self.name
 
     def match(self, paste):
+        """
+        Checks if a certain paste is matched by the conditions set for this analyzer
+        :param paste: A :class:`pastepwn.core.paste` object which should be matched
+        :return: :obj:`bool` if the paste has been matched
+        """
         raise NotImplementedError
