@@ -19,6 +19,14 @@ class BasicAnalyzer(object):
             self.actions = [actions]
         self.identifier = identifier or self.name
 
+    def add_action(self, action):
+        """
+        Adds a new action to the already present actions
+        :param action: New action to add to the present actions
+        :return: None
+        """
+        self.actions.append(action)
+
     def match(self, paste):
         """
         Checks if a certain paste is matched by the conditions set for this analyzer
