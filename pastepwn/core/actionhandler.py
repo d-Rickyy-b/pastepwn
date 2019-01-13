@@ -9,6 +9,7 @@ from pastepwn.util import start_thread, join_threads
 
 
 class ActionHandler(object):
+    """Handler to execute all the actions, if an analyzer matches a paste"""
 
     def __init__(self, action_queue=None, exception_event=None, stop_event=None):
         self.logger = logging.getLogger(__name__)
@@ -21,6 +22,11 @@ class ActionHandler(object):
         self.__lock = Lock()
 
     def start(self, ready=None):
+        """
+        Starts the actionhandler to execute actions if pastes are matched
+        :param ready: Event to check from the outside if the actionhandler has been started
+        :return: None
+        """
         with self.__lock:
             if not self.running:
                 self.running = True
@@ -32,6 +38,10 @@ class ActionHandler(object):
                 ready.set()
 
     def stop(self):
+        """
+        Stops the actionhandler
+        :return: None
+        """
         self.__stop_event.set()
         while self.running:
             sleep(0.1)
