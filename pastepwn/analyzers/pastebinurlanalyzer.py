@@ -7,5 +7,5 @@ class PastebinURLAnalyzer(URLAnalyzer):
     name = "PastebinURLAnalyzer"
 
     def __init__(self, actions, resolve=False):
-        regex = "((?:https?:\/\/)?pastebin.com\/\S+)"
+        regex = r"((?:https?:\/\/)?pastebin.com\/\S+)"
         super().__init__(actions, regex, resolve)

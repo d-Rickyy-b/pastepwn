@@ -7,5 +7,5 @@ class SHAHashAnalyzer(RegexAnalyzer):
     name = "SHAHashAnalyzer"
 
     def __init__(self, actions):
-        regex = "[a-f0-9]{40}"
+        regex = r"[a-f0-9]{40}"
         super().__init__(actions, regex)
