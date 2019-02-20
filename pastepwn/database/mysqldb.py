@@ -13,6 +13,7 @@ class MysqlDB(AbstractDB):
         self.logger = logging.getLogger(__name__)
         self.logger.debug("Initializing MySQLDB - {0}:{1}".format(ip, port))
 
+        # https://dev.mysql.com/doc/connector-python/en/connector-python-connectargs.html
         if unix_socket:
             self.db = mysql.connector.connect(
                 host=ip,
@@ -32,11 +33,23 @@ class MysqlDB(AbstractDB):
             )
 
         self.cursor = self.db.cursor()
+        # self._create_db(dbname) # Not used because of possible SQLI
         self._create_tables()
 
         self.logger.debug("Connected to database!")
 
+    def _create_db(self, dbname):
+        # Currently I found no other way to insert the database name into the sql statement
+        # With the following code a simple SQL Injection would be possible - question is, why would a user do this to his own database?
+        # Nevertheless I don't want to put this into production that way. I'll keep the code but remove the call to it.
+        self.logger.info("Creating database '{0}' (if not exists)".format(self.dbname))
+        self.cursor.execute("""CREATE DATABASE IF NOT EXISTS %s;""" % self.dbname)
+        self.cursor.execute("""USE %s;""" % self.dbname)
+        self.db.commit()
+
     def _create_tables(self):
+        # Although the length of 'key' should never exceed 8 chars,
+        # making it longer prevents from future issues.
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS `pastes` (
                                     `key` VARCHAR(30) NOT NULL UNIQUE,
                                     `title` TEXT,
@@ -67,7 +80,7 @@ class MysqlDB(AbstractDB):
         self.db.commit()
 
     def _get_data(self, key, value):
-        pass
+        raise NotImplementedError
 
     def count(self, key, value):
         # TODO add filter to counting
