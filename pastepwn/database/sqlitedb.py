@@ -34,7 +34,7 @@ class SQLiteDB(AbstractDB):
     def _create_tables(self):
         open(self.dbpath, "a").close()
 
-        self.cursor.execute("""CREATE TABLE 'pastes' (
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS 'pastes' (
                             'key'	TEXT NOT NULL UNIQUE,
                             'title'	TEXT,
                             'user'	TEXT,
