@@ -80,7 +80,7 @@ class MysqlDB(AbstractDB):
         self.db.commit()
 
     def _get_data(self, key, value):
-        pass
+        raise NotImplementedError
 
     def count(self, key, value):
         # TODO add filter to counting
