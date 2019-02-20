@@ -13,6 +13,7 @@ class MysqlDB(AbstractDB):
         self.logger = logging.getLogger(__name__)
         self.logger.debug("Initializing MySQLDB - {0}:{1}".format(ip, port))
 
+        # https://dev.mysql.com/doc/connector-python/en/connector-python-connectargs.html
         if unix_socket:
             self.db = mysql.connector.connect(
                 host=ip,
@@ -47,6 +48,8 @@ class MysqlDB(AbstractDB):
         self.db.commit()
 
     def _create_tables(self):
+        # Although the length of 'key' should never exceed 8 chars,
+        # making it longer prevents from future issues.
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS `pastes` (
                                     `key` VARCHAR(30) NOT NULL UNIQUE,
                                     `title` TEXT,
