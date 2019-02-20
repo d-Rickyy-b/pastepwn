@@ -29,13 +29,13 @@ class Request(object):
             self.logger.info("Using the following system proxies: {}".format(utils.get_environ_proxies("https://example.com")))
             self._initialized = True
 
-    def _request_wrapper(self, timeout, *args, **kwargs):
+    def _request_wrapper(self, data, timeout, *args, **kwargs):
         headers = {
             "User-Agent": "pastepwn (https://github.com/d-Rickyy-b/pastepwn)"
         }
 
         try:
-            response = self.session.request(headers=headers, proxies=self.proxies, timeout=timeout, *args, **kwargs)
+            response = self.session.request(headers=headers, proxies=self.proxies, data=data, timeout=timeout, *args, **kwargs)
             response_data = response.content.decode("utf-8")
         except Timeout:
             self.logger.warning("Timeout while requesting {0}!".format(kwargs.get("url")))
@@ -43,14 +43,14 @@ class Request(object):
 
         return response_data
 
-    def get(self, url, timeout=5):
-        return self._request_wrapper(method="GET", url=url, timeout=timeout)
+    def get(self, url, data=None, timeout=5):
+        return self._request_wrapper(method="GET", url=url, data=data, timeout=timeout)
 
-    def post(self, url, timeout=5):
-        return self._request_wrapper(method="POST", url=url, timeout=timeout)
+    def post(self, url, data=None, timeout=5):
+        return self._request_wrapper(method="POST", url=url, data=data, timeout=timeout)
 
-    def put(self, url, timeout=5):
-        return self._request_wrapper(method="PUT", url=url, timeout=timeout)
+    def put(self, url, data=None, timeout=5):
+        return self._request_wrapper(method="PUT", url=url, data=data, timeout=timeout)
 
-    def delete(self, url, timeout=5):
-        return self._request_wrapper(method="DELETE", url=url, timeout=timeout)
+    def delete(self, url, data=None, timeout=5):
+        return self._request_wrapper(method="DELETE", url=url, data=data, timeout=timeout)

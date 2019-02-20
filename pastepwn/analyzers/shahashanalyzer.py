@@ -6,6 +6,6 @@ class SHAHashAnalyzer(RegexAnalyzer):
     """Analyzer to match SHA password hashes via regex"""
     name = "SHAHashAnalyzer"
 
-    def __init__(self, action):
-        regex = "[a-f0-9]{40}"
-        super().__init__(action, regex)
+    def __init__(self, actions):
+        regex = r"[a-f0-9]{40}"
+        super().__init__(actions, regex)

@@ -22,8 +22,11 @@ class PastePwn(object):
 
         # Usage of ipify to get the IP - Uses the X-Forwarded-For Header which might
         # lead to issues with proxies
-        ip = self.__request.get("https://api.ipify.org")
-        self.logger.info("Your public IP is {0}".format(ip))
+        try:
+            ip = self.__request.get("https://api.ipify.org")
+            self.logger.info("Your public IP is {0}".format(ip))
+        except Exception as e:
+            self.logger.warning("Could not fetch public IP via ipify: {0}".format(e))
 
         self.scraping_handler = ScrapingHandler(paste_queue=self.paste_queue,
                                                 exception_event=self.__exception_event)
@@ -50,10 +53,16 @@ class PastePwn(object):
         self.paste_dispatcher.add_analyzer(analyzer)
 
     def start(self):
-        if not self.__exception_event.is_set():
-            self.scraping_handler.start()
-            self.paste_dispatcher.start()
-            self.action_handler.start()
-        else:
+        if self.__exception_event.is_set():
             self.logger.error("An exception occured. Aborting the start of PastePwn!")
             exit(1)
+
+        self.scraping_handler.start()
+        self.paste_dispatcher.start()
+        self.action_handler.start()
+
+    def stop(self):
+        self.scraping_handler.stop()
+        self.paste_dispatcher.stop()
+        self.action_handler.stop()
+

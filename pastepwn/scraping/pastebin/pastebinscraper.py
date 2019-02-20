@@ -20,7 +20,7 @@ class PastebinScraper(BasicScraper):
     name = "PastebinScraper"
     api_base_url = "https://scrape.pastebin.com"
 
-    def __init__(self, paste_queue=None, exception_event=None):
+    def __init__(self, paste_queue=None, exception_event=None, api_hit_rate=None):
         super().__init__(exception_event)
         self.logger = logging.getLogger(__name__)
         self._last_scrape_time = 0
@@ -29,6 +29,9 @@ class PastebinScraper(BasicScraper):
 
         self._known_pastes = []
         self._known_pastes_limit = 1000
+
+        # The hit rate describes the interval between two requests in seconds
+        self._api_hit_rate = api_hit_rate or 1
 
     def _check_error(self, body):
         """Checks if an error occurred and raises an exception if it did"""
@@ -94,7 +97,8 @@ class PastebinScraper(BasicScraper):
         """Downloads the body of pastes from pastebin, which have been put into the queue"""
         while self.running:
             try:
-                self.logger.debug("Queue size: {}".format(self._tmp_paste_queue.qsize()))
+                if self._tmp_paste_queue.qsize() > 0:
+                    self.logger.debug("Queue size: {}".format(self._tmp_paste_queue.qsize()))
 
                 if self._stop_event.is_set() or self._exception_event.is_set():
                     self.running = False
@@ -112,10 +116,10 @@ class PastebinScraper(BasicScraper):
                 current_time = round(time.time(), 2)
                 diff = round(current_time - last_body_download_time, 2)
 
-                if diff >= 1:
+                if diff >= self._api_hit_rate:
                     continue
 
-                sleep_diff = round(1 - diff, 3)
+                sleep_diff = round(self._api_hit_rate - diff, 3)
                 self.logger.debug("Sleep time is: {0}".format(sleep_diff))
                 time.sleep(sleep_diff)
             except Empty:

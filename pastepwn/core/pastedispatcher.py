@@ -3,8 +3,9 @@
 import logging
 from queue import Empty, Queue
 from threading import Event, Lock
+from time import sleep
 
-from pastepwn.util import start_thread
+from pastepwn.util import start_thread, join_threads
 
 
 class PasteDispatcher(object):
@@ -38,7 +39,8 @@ class PasteDispatcher(object):
                     return None
 
                 self.running = True
-                start_thread(self._start_analyzing, "PasteDispatcher", exception_event=self.__exception_event)
+                thread = start_thread(self._start_analyzing, "PasteDispatcher", exception_event=self.__exception_event)
+                self.__threads.append(thread)
 
                 # Start thread pool with worker threads
                 # for i in range(workers):
@@ -58,6 +60,7 @@ class PasteDispatcher(object):
                 paste = self.paste_queue.get(True, 1)
 
                 # TODO implement thread pool to limit number of parallel executed threads
+                # Don't add these threads to the list. Otherwise they will just block the list
                 start_thread(self._process_paste, "process_paste", paste=paste, exception_event=self.__exception_event)
             except Empty:
                 if self.__stop_event.is_set():
@@ -74,8 +77,14 @@ class PasteDispatcher(object):
         self.logger.debug("Analyzing Paste: {0}".format(paste.key))
         for analyzer in self.analyzers:
             if analyzer.match(paste):
-                action = analyzer.action
-                self.action_queue.put((action, paste, analyzer))
+                actions = analyzer.actions
+                self.action_queue.put((actions, paste, analyzer))
 
     def stop(self):
-        pass
+        self.__stop_event.set()
+        while self.running:
+            sleep(0.1)
+        self.__stop_event.clear()
+
+        join_threads(self.__threads)
+        self.__threads = []

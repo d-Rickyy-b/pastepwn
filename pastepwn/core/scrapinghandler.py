@@ -34,19 +34,22 @@ class ScrapingHandler(object):
                 self.running = True
                 # Start all scraper threads
                 for scraper in self.scrapers:
-                    start_thread(scraper.start, scraper.name, paste_queue=self.paste_queue, exception_event=self.__exception_event)
+                    thread = start_thread(scraper.start, scraper.name, paste_queue=self.paste_queue, exception_event=self.__exception_event)
+                    self.__threads.append(thread)
 
                 # Return the update queue so the main thread can insert updates
                 return self.paste_queue
 
     def stop(self):
         with self.__lock:
-            if self.running:
-                self.logger.debug("Stopping scrapers...")
-                self.running = False
-                for scraper in self.scrapers:
-                    scraper.stop()
-                self._join_threads()
+            if not self.running:
+                return
+
+            self.logger.debug("Stopping scrapers...")
+            self.running = False
+            for scraper in self.scrapers:
+                scraper.stop()
+            self._join_threads()
 
     def _join_threads(self):
         """End all threads and join them back into the main thread"""
@@ -56,5 +59,3 @@ class ScrapingHandler(object):
             self.logger.debug("Thread {0} has ended".format(thread.name))
 
         self.__threads = []
-
-# TODO implement idle for SIGINT, SIGTERM, SIGKILL
