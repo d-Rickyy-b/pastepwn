@@ -43,6 +43,9 @@ class TestWordAnalyzer(unittest.TestCase):
         self.assertTrue(analyzer.match(self.obj))
 
     def test_multiple_words(self):
+        analyzer = WordAnalyzer(None, None)
+        self.assertEqual(analyzer.words, [])
+
         analyzer = WordAnalyzer(None, ["My", "first", "Test"])
         self.obj.body = "This is a little test for something"
         self.assertTrue(analyzer.match(self.obj))
