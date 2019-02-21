@@ -6,9 +6,16 @@ class WordAnalyzer(BasicAnalyzer):
     """Analyzer to match the content of a paste via regular expressions"""
     name = "WordAnalyzer"
 
-    def __init__(self, actions, word, blacklist=None, case_sensitive=False):
-        super().__init__(actions, "{0} ({1})".format(self.name, word))
-        self.word = word
+    def __init__(self, actions, words, blacklist=None, case_sensitive=False):
+        super().__init__(actions, "{0} ({1})".format(self.name, words))
+
+        if words is None:
+            self.words = []
+        elif isinstance(words, list):
+            self.words = words
+        else:
+            self.words = [words]
+
         self.blacklist = blacklist or []
         self.case_sensitive = case_sensitive
 
@@ -23,8 +30,12 @@ class WordAnalyzer(BasicAnalyzer):
 
         return False
 
+    def add_word(self, word):
+        """Add a word to the analyzer"""
+        self.words.append(word)
+
     def match(self, paste):
-        """Check if the specified word is part of the paste text"""
+        """Check if the specified words are part of the paste text"""
         if paste is None:
             return False
 
@@ -34,6 +45,11 @@ class WordAnalyzer(BasicAnalyzer):
             return False
 
         if self.case_sensitive:
-            return self.word in paste_content
+            for word in self.words:
+                return word in paste_content
         else:
-            return self.word.lower() in paste_content.lower()
+            for word in self.words:
+                if word.lower() in paste_content.lower():
+                    return True
+
+        return False
