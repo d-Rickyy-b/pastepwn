@@ -7,5 +7,5 @@ class BcryptHashAnalyzer(RegexAnalyzer):
     name = "BcryptHashAnalyzer"
 
     def __init__(self, actions):
-        regex = r"\$2[ayb]\$.{56}"
+        regex = r"\$2[ayb]\$[\d]{2}\$[./A-Za-z0-9]{53}"
         super().__init__(actions, regex)
