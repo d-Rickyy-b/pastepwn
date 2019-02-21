@@ -13,7 +13,7 @@ class WordAnalyzer(BasicAnalyzer):
         self.case_sensitive = case_sensitive
 
     def _blacklist_word_found(self, text):
-        if self.case_sensitive:
+        if not self.case_sensitive:
             text = text.lower()
             self.blacklist = [x.lower() for x in self.blacklist]
 
