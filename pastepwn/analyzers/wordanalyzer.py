@@ -25,10 +25,10 @@ class WordAnalyzer(BasicAnalyzer):
 
     def match(self, paste):
         """Check if the specified word is part of the paste text"""
-        paste_content = paste.body
         if paste is None:
             return False
 
+        paste_content = paste.body or ""
 
         if self._blacklist_word_found(paste_content):
             return False
