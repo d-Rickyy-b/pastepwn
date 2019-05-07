@@ -24,6 +24,6 @@ class GenericAnalyzer(BasicAnalyzer):
             result = self.match_func(paste)
         except Exception as e:
             result = False
-            logging.getLogger(__name__).warning("Executing custom match function raised an exception! {}".format(e))
+            logging.getLogger(__name__).warning("Executing custom match function '{}' raised an exception! {}".format(self.match_func.__name__, e))
 
         return result

@@ -101,6 +101,7 @@ class PastebinScraper(BasicScraper):
                     self.logger.debug("Queue size: {}".format(self._tmp_paste_queue.qsize()))
 
                 if self._stop_event.is_set() or self._exception_event.is_set():
+                    self.logger.debug("Stop or exception event is set!")
                     self.running = False
                     break
 
