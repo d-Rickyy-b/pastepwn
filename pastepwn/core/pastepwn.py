@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import logging
 from queue import Queue
+from signal import signal, SIGINT, SIGTERM, SIGABRT
 from threading import Event
+from time import sleep
 
 from pastepwn.actions import DatabaseAction
 from pastepwn.analyzers import AlwaysTrueAnalyzer
@@ -15,9 +17,11 @@ class PastePwn(object):
 
     def __init__(self, database=None, proxies=None):
         self.logger = logging.getLogger(__name__)
+        self.is_idle = False
         self.database = database
         self.paste_queue = Queue()
         self.action_queue = Queue()
+        self.error_handlers = list()
         self.__exception_event = Event()
         self.__request = Request(proxies)  # initialize singleton
 
@@ -70,4 +74,34 @@ class PastePwn(object):
         self.scraping_handler.stop()
         self.paste_dispatcher.stop()
         self.action_handler.stop()
+        self.is_idle = False
 
+    def signal_handler(self, signum, frame):
+        """Handler method to handle signals"""
+        self.is_idle = False
+        self.logger.info("Received signal {}, stopping...".format(signum))
+        self.stop()
+
+    def idle(self, stop_signals=(SIGINT, SIGTERM, SIGABRT)):
+        """
+        Blocks until one of the signals are received and stops the updater.
+        Thanks to the python-telegram-bot developers - https://github.com/python-telegram-bot/python-telegram-bot/blob/2cde878d1e5e0bb552aaf41d5ab5df695ec4addb/telegram/ext/updater.py#L514-L529
+        :param stop_signals: The signals to which the code reacts to
+        """
+        self.is_idle = True
+        self.logger.info("In Idle!")
+
+        for sig in stop_signals:
+            signal(sig, self.signal_handler)
+
+        while self.is_idle:
+            if self.__exception_event.is_set():
+                self.logger.warning("An exception occurred. Calling exception handlers and going down!")
+                for handler in self.error_handlers:
+                    # call the error handlers in case of an exception
+                    handler()
+                self.is_idle = False
+                self.stop()
+                return
+
+            sleep(1)
