@@ -11,6 +11,7 @@ from pastepwn.util.request import Request
 
 
 class PastePwn(object):
+    """Represents an instance of the pastepwn core module"""
 
     def __init__(self, database=None, proxies=None):
         self.logger = logging.getLogger(__name__)
@@ -46,6 +47,7 @@ class PastePwn(object):
             self.logger.info("No database provided!")
 
     def add_scraper(self, scraper):
+        """Adds a scraper to the list of scrapers"""
         scraper.init_exception_event(self.__exception_event)
         self.scraping_handler.add_scraper(scraper)
 

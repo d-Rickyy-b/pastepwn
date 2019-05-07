@@ -3,7 +3,7 @@ from .basicanalyzer import BasicAnalyzer
 
 
 class WordAnalyzer(BasicAnalyzer):
-    """Analyzer to match the content of a paste via regular expressions"""
+    """Analyzer to match the content of a paste by words"""
     name = "WordAnalyzer"
 
     def __init__(self, actions, words, blacklist=None, case_sensitive=False):

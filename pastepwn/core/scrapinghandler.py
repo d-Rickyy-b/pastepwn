@@ -20,6 +20,7 @@ class ScrapingHandler(object):
         self.scrapers = []
 
     def add_scraper(self, scraper):
+        """Adds a scraper to the list of scrapers"""
         self.scrapers.append(scraper)
 
     def start(self):
@@ -41,6 +42,7 @@ class ScrapingHandler(object):
                 return self.paste_queue
 
     def stop(self):
+        """Stops scraping pastes"""
         with self.__lock:
             if not self.running:
                 return
