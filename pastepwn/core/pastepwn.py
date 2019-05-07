@@ -59,6 +59,18 @@ class PastePwn(object):
         """Adds a new analyzer to the list of analyzers"""
         self.paste_dispatcher.add_analyzer(analyzer)
 
+    def add_error_handler(self, error_handler):
+        """
+        Adds an error handler which will be called when an error happens
+        :param error_handler: Callable to be called when an error happens
+        :return: None
+        """
+        if not callable(error_handler):
+            self.logger.error("The error handler you passed is not a function!")
+            return
+
+        self.error_handlers.append(error_handler)
+
     def start(self):
         """Starts the pastepwn instance"""
         if self.__exception_event.is_set():
