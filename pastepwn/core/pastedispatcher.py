@@ -29,8 +29,9 @@ class PasteDispatcher(object):
             pass
 
     def add_analyzer(self, analyzer):
-        self.analyzers.append(analyzer)
         """Adds an analyzer to the list of analyzers"""
+        with self.__lock:
+            self.analyzers.append(analyzer)
 
     def start(self, workers=4, ready=None):
         """Starts dispatching the downloaded pastes to the list of analyzers"""
