@@ -51,12 +51,22 @@ class PastePwn(object):
             self.logger.info("No database provided!")
 
     def add_scraper(self, scraper, restart_scraping=False):
-        """Adds a scraper to the list of scrapers. Scraping handler must be restarted for this to take effect."""
+        """
+        Adds a scraper to the list of scrapers. Scraping handler must be restarted for this to take effect.
+        :param scraper: Instance of a BasicScraper
+        :param restart_scraping: Indicates if the scraping handler should be restarted. Not setting this option results in your scraper not being started.
+        :return: None
+         """
         scraper.init_exception_event(self.__exception_event)
         self.scraping_handler.add_scraper(scraper, restart_scraping)
 
     def add_analyzer(self, analyzer):
-        """Adds a new analyzer to the list of analyzers"""
+        """
+        Adds a new analyzer to the list of analyzers
+        :param analyzer: Instance of an BasicAnalyzer
+        :return: None
+        """
+
         self.paste_dispatcher.add_analyzer(analyzer)
 
     def add_error_handler(self, error_handler):
