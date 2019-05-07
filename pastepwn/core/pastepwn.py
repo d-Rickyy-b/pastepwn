@@ -47,14 +47,16 @@ class PastePwn(object):
             self.logger.info("No database provided!")
 
     def add_scraper(self, scraper, restart_scraping=False):
-        """Adds a scraper to the list of scrapers"""
+        """Adds a scraper to the list of scrapers. Scraping handler must be restarted for this to take effect."""
         scraper.init_exception_event(self.__exception_event)
         self.scraping_handler.add_scraper(scraper, restart_scraping)
 
     def add_analyzer(self, analyzer):
+        """Adds a new analyzer to the list of analyzers"""
         self.paste_dispatcher.add_analyzer(analyzer)
 
     def start(self):
+        """Starts the pastepwn instance"""
         if self.__exception_event.is_set():
             self.logger.error("An exception occured. Aborting the start of PastePwn!")
             exit(1)
@@ -64,6 +66,7 @@ class PastePwn(object):
         self.action_handler.start()
 
     def stop(self):
+        """Stops the pastepwn instance"""
         self.scraping_handler.stop()
         self.paste_dispatcher.stop()
         self.action_handler.stop()
