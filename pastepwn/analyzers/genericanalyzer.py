@@ -13,6 +13,8 @@ class GenericAnalyzer(BasicAnalyzer):
 
         if match_func is None:
             raise ValueError("Function to be called cannot be None")
+        elif not callable(match_func):
+            raise ValueError("Function you provided isn't callable")
 
         self.match_func = match_func
 
