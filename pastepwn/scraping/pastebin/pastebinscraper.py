@@ -165,12 +165,13 @@ class PastebinScraper(BasicScraper):
                 self.running = False
                 break
 
-            # check if time since last
-            current_time = int(time.time())
-            diff = current_time - self._last_scrape_time
+            while self.running:
+                current_time = int(time.time())
+                diff = current_time - self._last_scrape_time
 
-            # if the last scraping happened less than 60 seconds ago,
-            # wait until the 60 seconds passed
-            if diff < 60:
-                sleep_time = 60 - diff
-                time.sleep(sleep_time)
+                if diff > 60:
+                    break
+
+                # if the last scraping happened less than 60 seconds ago,
+                # wait 2 seconds and check again
+                time.sleep(2)
