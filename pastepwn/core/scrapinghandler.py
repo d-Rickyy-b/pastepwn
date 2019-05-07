@@ -19,9 +19,14 @@ class ScrapingHandler(object):
         self.__threads = []
         self.scrapers = []
 
-    def add_scraper(self, scraper):
+    def add_scraper(self, scraper, restart_scraping=False):
         """Adds a scraper to the list of scrapers"""
         self.scrapers.append(scraper)
+
+        if restart_scraping:
+            logging.info("Restarting scrapers...")
+            self.stop()
+            self.start()
 
     def start(self):
         """Starts scraping pastes from the provided sources"""

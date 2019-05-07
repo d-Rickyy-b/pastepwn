@@ -46,10 +46,10 @@ class PastePwn(object):
         else:
             self.logger.info("No database provided!")
 
-    def add_scraper(self, scraper):
+    def add_scraper(self, scraper, restart_scraping=False):
         """Adds a scraper to the list of scrapers"""
         scraper.init_exception_event(self.__exception_event)
-        self.scraping_handler.add_scraper(scraper)
+        self.scraping_handler.add_scraper(scraper, restart_scraping)
 
     def add_analyzer(self, analyzer):
         self.paste_dispatcher.add_analyzer(analyzer)
