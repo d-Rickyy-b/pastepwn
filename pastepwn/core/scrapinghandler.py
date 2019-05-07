@@ -23,7 +23,7 @@ class ScrapingHandler(object):
         """Adds a scraper to the list of scrapers"""
         self.scrapers.append(scraper)
 
-        if restart_scraping:
+        if self.running and restart_scraping:
             logging.info("Restarting scrapers...")
             self.stop()
             self.start()
