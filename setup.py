@@ -18,7 +18,9 @@ def requirements():
         return requirements_list
 
 
-with open("README.md", "r", encoding="utf-8") as file:
+setup_path = os.path.dirname(os.path.abspath(__file__))
+
+with open(os.path.join(setup_path, "README.md"), "r", encoding="utf-8") as file:
     readme = file.read()
 
 # If present, take tag from travis and not locally
@@ -30,7 +32,7 @@ if travis_tag is not None:
 else:
     # Taken from https://packaging.python.org/guides/single-sourcing-package-version/
     version_dict = {}
-    version_file = os.path.join('pastepwn', 'version.py')
+    version_file = os.path.join(setup_path, 'pastepwn', 'version.py')
     with open(version_file, "r", encoding="utf-8") as file:
         exec(file.read(), version_dict)
     version = version_dict['__version__']
