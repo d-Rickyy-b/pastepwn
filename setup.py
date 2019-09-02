@@ -3,6 +3,7 @@ import os
 
 from setuptools import setup, find_packages
 
+setup_path = os.path.dirname(os.path.abspath(__file__))
 packages = find_packages(exclude=['tests*'])
 
 
@@ -17,8 +18,6 @@ def requirements():
 
         return requirements_list
 
-
-setup_path = os.path.dirname(os.path.abspath(__file__))
 
 with open(os.path.join(setup_path, "README.md"), "r", encoding="utf-8") as file:
     readme = file.read()
