@@ -21,7 +21,7 @@ class SQLiteDB(AbstractDB):
             open(self.dbpath, "a").close()
 
         try:
-            self.db = sqlite3.connect(dbpath)
+            self.db = sqlite3.connect(dbpath, check_same_thread=False)
             self.db.text_factory = lambda x: str(x, 'utf-8', "ignore")
             self.cursor = self.db.cursor()
             self._create_tables()
