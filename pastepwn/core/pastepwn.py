@@ -15,7 +15,13 @@ from pastepwn.util.request import Request
 class PastePwn(object):
     """Represents an instance of the pastepwn core module"""
 
-    def __init__(self, database=None, proxies=None):
+    def __init__(self, database=None, proxies=None, store_all_pastes=True):
+        """
+        Basic PastePwn object handling the connection to pastebin and all the analyzers and actions
+        :param database: Database object extending AbstractDB
+        :param proxies: Dict of proxies as defined in the requests documentation
+        :param store_all_pastes: Bool to decide if all pastes should be stored into the db
+        """
         self.logger = logging.getLogger(__name__)
         self.is_idle = False
         self.database = database
@@ -41,14 +47,16 @@ class PastePwn(object):
         self.action_handler = ActionHandler(action_queue=self.action_queue,
                                             exception_event=self.__exception_event)
 
-        if self.database is not None:
+        if self.database is not None and store_all_pastes:
             # Save every paste to the database with the AlwaysTrueAnalyzer
             self.logger.info("Database provided! Storing pastes in there.")
             database_action = DatabaseAction(self.database)
             always_true = AlwaysTrueAnalyzer(database_action)
             self.add_analyzer(always_true)
-        else:
+        elif store_all_pastes:
             self.logger.info("No database provided!")
+        else:
+            self.logger.info("Not storing all pastes!")
 
     def add_scraper(self, scraper, restart_scraping=False):
         """
