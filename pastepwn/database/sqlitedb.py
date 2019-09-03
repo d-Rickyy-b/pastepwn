@@ -41,6 +41,7 @@ class SQLiteDB(AbstractDB):
                             'size'	INTEGER,
                             'date'	INTEGER,
                             'expire'	INTEGER,
+                            'syntax'	TEXT,
                             'scrape_url'	TEXT,
                             'full_url'	TEXT,
                             'body'	TEXT,
