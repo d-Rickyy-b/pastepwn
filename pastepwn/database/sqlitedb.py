@@ -21,7 +21,7 @@ class SQLiteDB(AbstractDB):
             open(self.dbpath, "a").close()
 
         try:
-            self.db = sqlite3.connect(dbpath)
+            self.db = sqlite3.connect(dbpath, check_same_thread=False)
             self.db.text_factory = lambda x: str(x, 'utf-8', "ignore")
             self.cursor = self.db.cursor()
             self._create_tables()
@@ -41,6 +41,7 @@ class SQLiteDB(AbstractDB):
                             'size'	INTEGER,
                             'date'	INTEGER,
                             'expire'	INTEGER,
+                            'syntax'	TEXT,
                             'scrape_url'	TEXT,
                             'full_url'	TEXT,
                             'body'	TEXT,
@@ -49,7 +50,7 @@ class SQLiteDB(AbstractDB):
 
     def _insert_data(self, paste):
         self.cursor.execute("INSERT INTO pastes (key, title, user, size, date, expire, syntax, scrape_url, full_url, body) "
-                            "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                             (paste.key,
                              paste.title,
                              paste.user,
