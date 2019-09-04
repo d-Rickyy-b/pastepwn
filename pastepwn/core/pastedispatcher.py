@@ -9,6 +9,7 @@ from pastepwn.util import start_thread, join_threads
 
 
 class PasteDispatcher(object):
+    """The PasteDispatcher dispatches the downloaded pastes to the analyzers"""
 
     def __init__(self, paste_queue, action_queue=None, exception_event=None):
         self.logger = logging.getLogger(__name__)
@@ -28,7 +29,9 @@ class PasteDispatcher(object):
             pass
 
     def add_analyzer(self, analyzer):
-        self.analyzers.append(analyzer)
+        """Adds an analyzer to the list of analyzers"""
+        with self.__lock:
+            self.analyzers.append(analyzer)
 
     def start(self, workers=4, ready=None):
         """Starts dispatching the downloaded pastes to the list of analyzers"""
@@ -81,6 +84,7 @@ class PasteDispatcher(object):
                 self.action_queue.put((actions, paste, analyzer))
 
     def stop(self):
+        """Stops dispatching pastes to the analyzers"""
         self.__stop_event.set()
         while self.running:
             sleep(0.1)

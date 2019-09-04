@@ -13,6 +13,8 @@ class GenericAnalyzer(BasicAnalyzer):
 
         if match_func is None:
             raise ValueError("Function to be called cannot be None")
+        elif not callable(match_func):
+            raise ValueError("Function you provided isn't callable")
 
         self.match_func = match_func
 
@@ -22,6 +24,6 @@ class GenericAnalyzer(BasicAnalyzer):
             result = self.match_func(paste)
         except Exception as e:
             result = False
-            logging.getLogger(__name__).warning("Executing custom match function raised an exception! {}".format(e))
+            logging.getLogger(__name__).warning("Executing custom match function '{}' raised an exception! {}".format(self.match_func.__name__, e))
 
         return result

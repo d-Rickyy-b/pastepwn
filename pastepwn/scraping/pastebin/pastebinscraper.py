@@ -101,6 +101,7 @@ class PastebinScraper(BasicScraper):
                     self.logger.debug("Queue size: {}".format(self._tmp_paste_queue.qsize()))
 
                 if self._stop_event.is_set() or self._exception_event.is_set():
+                    self.logger.debug("Stop or exception event is set!")
                     self.running = False
                     break
 
@@ -165,12 +166,13 @@ class PastebinScraper(BasicScraper):
                 self.running = False
                 break
 
-            # check if time since last
-            current_time = int(time.time())
-            diff = current_time - self._last_scrape_time
+            while self.running:
+                current_time = int(time.time())
+                diff = current_time - self._last_scrape_time
 
-            # if the last scraping happened less than 60 seconds ago,
-            # wait until the 60 seconds passed
-            if diff < 60:
-                sleep_time = 60 - diff
-                time.sleep(sleep_time)
+                if diff > 60:
+                    break
+
+                # if the last scraping happened less than 60 seconds ago,
+                # wait 2 seconds and check again
+                time.sleep(2)
