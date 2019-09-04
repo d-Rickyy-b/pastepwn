@@ -99,6 +99,21 @@ class TestWordAnalyzer(unittest.TestCase):
         self.obj.body = "This is a tE1st for case sensitivity"
         self.assertTrue(analyzer2.match(self.obj))
 
+    def test_multiple_case_sensitive(self):
+        """Test if it's possible to match any of multiple words in a wordanalyzer when case sensitivty is activated"""
+        analyzer = WordAnalyzer(None, ["My", "first", "Test"], case_sensitive=True)
+        self.obj.body = "This is a little test for something"
+        self.assertFalse(analyzer.match(self.obj))
+
+        self.obj.body = "You are my best friend so far!"
+        self.assertFalse(analyzer.match(self.obj))
+
+        self.obj.body = "This is a Test for case sensitivity"
+        self.assertTrue(analyzer.match(self.obj))
+
+        self.obj.body = "This is a test for case sensitivity. It's the first of its kind."
+        self.assertTrue(analyzer.match(self.obj))
+
     def test_match_none(self):
         analyzer = WordAnalyzer(None, "Test")
         self.obj.body = None

@@ -46,7 +46,10 @@ class WordAnalyzer(BasicAnalyzer):
 
         if self.case_sensitive:
             for word in self.words:
-                return word in paste_content
+                # Never use 'return word in paste_content' - otherwise you will
+                # return false before all words have been checked
+                if word in paste_content:
+                    return True
         else:
             for word in self.words:
                 if word.lower() in paste_content.lower():
