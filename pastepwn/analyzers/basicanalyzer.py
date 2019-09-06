@@ -33,4 +33,4 @@ class BasicAnalyzer(object):
         :param paste: A :class:`pastepwn.core.paste` object which should be matched
         :return: :obj:`bool` if the paste has been matched
         """
-        raise NotImplementedError
+        raise NotImplementedError("Your analyzer must implement the match method!")
