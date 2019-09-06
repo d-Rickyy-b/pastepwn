@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from .emptybodyexception import EmptyBodyException
 from .ipnotregisterederror import IPNotRegisteredError
+from .pastenotreadyexception import PasteNotReadyException
+from .pastedeletedexception import PasteDeletedException
+from .pasteemptyexception import PasteEmptyException
 
-__all__ = ('IPNotRegisteredError', 'EmptyBodyException')
+__all__ = ('IPNotRegisteredError', 'PasteNotReadyException', 'PasteDeletedException', 'PasteEmptyException')
