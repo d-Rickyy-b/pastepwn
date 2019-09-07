@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 import json
 import logging
+import re
 import time
 from queue import Queue, Empty
 
 from pastepwn.core import Paste
 from pastepwn.scraping import BasicScraper
-from pastepwn.scraping.pastebin.exceptions import IPNotRegisteredError, EmptyBodyException
+from pastepwn.scraping.pastebin.exceptions import IPNotRegisteredError, PasteDeletedException, PasteNotReadyException, PasteEmptyException
 from pastepwn.util import Request, start_thread
 
 
@@ -17,6 +18,7 @@ from pastepwn.util import Request, start_thread
 
 
 class PastebinScraper(BasicScraper):
+    """Scraper class for pastebin"""
     name = "PastebinScraper"
     api_base_url = "https://scrape.pastebin.com"
 
@@ -33,14 +35,24 @@ class PastebinScraper(BasicScraper):
         # The hit rate describes the interval between two requests in seconds
         self._api_hit_rate = api_hit_rate or 1
 
-    def _check_error(self, body):
+    def _check_error(self, body, key=None):
         """Checks if an error occurred and raises an exception if it did"""
-        if body is None:
-            raise EmptyBodyException()
+        pattern = r"YOUR IP: \d{1,3}.\d{1,3}.\d{1,3}.\d{1,3} DOES NOT HAVE ACCESS\.\s+VISIT: https:\/\/pastebin\.com\/doc_scraping_api TO GET ACCESS!"
 
-        if "DOES NOT HAVE ACCESS" in body:
+        if 107 >= len(body) >= 99 and re.match(pattern, body):
             self._exception_event.set()
             raise IPNotRegisteredError(body)
+
+        if body is None or body == "":
+            raise PasteEmptyException("The paste '{0}' or its body was set to None!".format(key))
+        if body == "File is not ready for scraping yet. Try again in 1 minute.":
+            # The pastebin API was not ready yet to deliver this paste -
+            # We raise an exception to re-download it again after some time has passed
+            raise PasteNotReadyException("The paste '{0}' could not be fetched yet!".format(key))
+        elif body == "Error, we cannot find this paste.":
+            # The paste has been deleted before we could download it.
+            # We raise an exception to delete the paste from the queue
+            raise PasteDeletedException("The paste '{0}' has been deleted!".format(key))
 
     def _get_recent(self, limit=100):
         """Downloads a list of the most recent pastes - the amount is limited by the <limit> parameter"""
@@ -79,19 +91,17 @@ class PastebinScraper(BasicScraper):
         r = Request()
         endpoint = "api_scrape_item.php"
         api_url = "{0}/{1}?i={2}".format(self.api_base_url, endpoint, key)
-        content = ""
 
         self.logger.debug("Downloading paste {0}".format(key))
         try:
             response_data = r.get(api_url)
-
-            self._check_error(response_data)
-
-            content = response_data
         except Exception as e:
             self.logger.error(e)
+            raise e
 
-        return content
+        self._check_error(response_data, key)
+
+        return response_data
 
     def _body_downloader(self):
         """Downloads the body of pastes from pastebin, which have been put into the queue"""
@@ -109,22 +119,48 @@ class PastebinScraper(BasicScraper):
 
                 # if paste is not known, download the body and put it on the queue and into the list
                 last_body_download_time = round(time.time(), 2)
-                body = self._get_paste_content(paste.key)
+
+                try:
+                    body = self._get_paste_content(paste.key)
+                except PasteNotReadyException:
+                    self.logger.debug("Paste '{0}' is not ready for downloading yet. Enqueuing it again.".format(paste.key))
+                    # Make sure to wait a certain time. If only one element in the queue, this can lead to loops
+                    self._rate_limit_sleep(last_body_download_time)
+                    self._tmp_paste_queue.put(paste)
+                    continue
+                except PasteDeletedException:
+                    # We don't add a sleep here, because this can't lead to loops
+                    self.logger.info("Paste '{0}' has been deleted before we could download it! Skipping paste.".format(paste.key))
+                    continue
+                except PasteEmptyException:
+                    self.logger.info("Paste '{0}' is set to None! Skipping paste.".format(paste.key))
+                    continue
+                except Exception as e:
+                    self.logger.error("An exception occurred while downloading the paste '{0}'. Skipping this paste! Exception is: {1}".format(paste.key, e))
+                    continue
 
                 paste.set_body(body)
                 self.paste_queue.put(paste)
 
-                current_time = round(time.time(), 2)
-                diff = round(current_time - last_body_download_time, 2)
-
-                if diff >= self._api_hit_rate:
-                    continue
-
-                sleep_diff = round(self._api_hit_rate - diff, 3)
-                self.logger.debug("Sleep time is: {0}".format(sleep_diff))
-                time.sleep(sleep_diff)
+                self._rate_limit_sleep(last_body_download_time)
             except Empty:
                 continue
+
+    def _rate_limit_sleep(self, last_body_download_time):
+        """
+        Sleeps a certain amount of seconds to prevent hitting API rate limits
+        :param last_body_download_time: The time when the last paste was downloaded
+        :return:
+        """
+        current_time = round(time.time(), 2)
+        diff = round(current_time - last_body_download_time, 2)
+
+        if diff >= self._api_hit_rate:
+            return
+
+        sleep_diff = round(self._api_hit_rate - diff, 3)
+        self.logger.debug("Sleep time is: {0}".format(sleep_diff))
+        time.sleep(sleep_diff)
 
     def start(self, paste_queue):
         """Start the scraping process and download the paste metadata"""

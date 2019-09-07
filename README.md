@@ -1,4 +1,4 @@
-![Logo](documentation/pastepwn_logo.png)
+![Logo](https://raw.githubusercontent.com/d-Rickyy-b/pastepwn/master/documentation/pastepwn_logo.png)
 
 
 
@@ -27,7 +27,7 @@ To use the pastepwn framework you need to follow these simple steps:
 
 ### Behind a proxy
 
-There is 2 ways to use this tool behind a proxy:
+There are 2 ways to use this tool behind a proxy:
 
 * Define the following environment variables: `HTTP_PROXY`, `HTTPS_PROXY`, `NO_PROXY`.
 * When initializing the PastePwn object, use the `proxies` argument. `proxies` is a dict as defined in [requests' documentation](http://docs.python-requests.org/en/master/user/advanced/#proxies).

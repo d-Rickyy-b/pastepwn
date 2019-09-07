@@ -31,7 +31,11 @@ class WordAnalyzer(BasicAnalyzer):
         return False
 
     def add_word(self, word):
-        """Add a word to the analyzer"""
+        """
+        Add a word to the analyzer
+        :param word: Word to be added
+        :return:
+        """
         self.words.append(word)
 
     def match(self, paste):
