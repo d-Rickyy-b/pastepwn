@@ -18,6 +18,7 @@ from pastepwn.util import Request, start_thread
 
 
 class PastebinScraper(BasicScraper):
+    """Scraper class for pastebin"""
     name = "PastebinScraper"
     api_base_url = "https://scrape.pastebin.com"
 
