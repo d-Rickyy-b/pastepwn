@@ -15,10 +15,10 @@ class TwitterAction(BasicAction):
 
     def __init__(
         self,
-        consumer_key,
-        consumer_secret,
-        access_token_key,
-        access_token_secret,
+        consumer_key=None,
+        consumer_secret=None,
+        access_token_key=None,
+        access_token_secret=None,
         template=None,
     ):
         super().__init__()
