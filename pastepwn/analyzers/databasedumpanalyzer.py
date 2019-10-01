@@ -3,16 +3,15 @@ from .basicanalyzer import BasicAnalyzer
 
 
 class DatabaseDumpAnalyzer(BasicAnalyzer):
-    """Analyzer which always matches a paste to perform actions on every paste"""
+    """Analyzer to match database dump"""
     name = "DatabaseDumpAnalyzer"
 
     def __init__(self, actions):
         """
-        Analyzer which always matches a paste to perform actions on every paste
+        Analyzer to match database dump
         :param actions: A single action or a list of actions to be executed on every paste
         """
-        super().__init__(actions)
-
-    def match(self, paste):
-        """Always returns True to match every paste available"""
-        return True
+        # This regex match the columns of a database
+        regex = r"[(]((`\w+`|\d), )+(`\w+`|\d)[)]"
+        
+        super().__init__(actions, regex)
