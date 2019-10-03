@@ -12,7 +12,7 @@ from .regexanalyzer import RegexAnalyzer
 from .urlanalyzer import URLAnalyzer
 from .wordanalyzer import WordAnalyzer
 from .ibananalyzer import IBANAnalyzer
-from .dbconnstringanalyser import DBConnAnalyser
+from .dbconnstringanalyzer import DBConnAnalyzer
 
 __all__ = (
     'AlwaysTrueAnalyzer',
@@ -28,5 +28,5 @@ __all__ = (
     'URLAnalyzer',
     'WordAnalyzer',
     'IBANAnalyzer',
-    'DBConnAnalyser'
+    'DBConnAnalyzer'
 )

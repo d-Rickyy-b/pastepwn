@@ -2,12 +2,12 @@
 import unittest
 from unittest import mock
 
-from pastepwn.analyzers.dbconnstringanalyser import DBConnAnalyser
+from pastepwn.analyzers.dbconnstringanalyzer import DBConnAnalyzer
 
 
-class TestDBConnAnalyser(unittest.TestCase):
+class TestDBConnAnalyzer(unittest.TestCase):
     def setUp(self):
-        self.analyzer = DBConnAnalyser(None)
+        self.analyzer = DBConnAnalyzer(None)
         self.paste = mock.Mock()
 
     def test_match_positive(self):
@@ -26,6 +26,8 @@ class TestDBConnAnalyser(unittest.TestCase):
         self.paste.body = None
         self.assertFalse(self.analyzer.match(self.paste))
         self.paste.body = "https://www.google.com"
+        self.assertFalse(self.analyzer.match(self.paste))
+        self.paste.body = "http://www.google.com"
         self.assertFalse(self.analyzer.match(self.paste))
 
 
