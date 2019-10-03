@@ -13,6 +13,7 @@ from .urlanalyzer import URLAnalyzer
 from .wordanalyzer import WordAnalyzer
 from .ibananalyzer import IBANAnalyzer
 from .dbconnstringanalyzer import DBConnAnalyzer
+from .privatekeyanalyzer import PrivateKeyAnalyzer
 
 __all__ = (
     'AlwaysTrueAnalyzer',
@@ -29,4 +30,5 @@ __all__ = (
     'WordAnalyzer',
     'IBANAnalyzer',
     'DBConnAnalyzer'
+    'PrivateKeyAnalyzer'
 )
