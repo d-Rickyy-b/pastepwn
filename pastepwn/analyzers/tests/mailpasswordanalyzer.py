@@ -44,7 +44,7 @@ class TestMailPasswordAnalyzer(unittest.TestCase):
         for positive in positives:
             self.paste.body = positive
             self.assertTrue(
-                self.analyzer.match(self.paste), f"{positive} do not match."
+                self.analyzer.match(self.paste), "{0} do not match.".format(positive)
             )
 
     def test_match_negative(self):
@@ -61,7 +61,9 @@ class TestMailPasswordAnalyzer(unittest.TestCase):
 
         for negative in negatives:
             self.paste.body = negative
-            self.assertFalse(self.analyzer.match(self.paste), f"{negative} matches.")
+            self.assertFalse(
+                self.analyzer.match(self.paste), "{0} matches.".format(negatives)
+            )
 
 
 if __name__ == "__main__":
