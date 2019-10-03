@@ -2,33 +2,35 @@
 from .alwaystrueanalyzer import AlwaysTrueAnalyzer
 from .basicanalyzer import BasicAnalyzer
 from .bcrypthashanalyzer import BcryptHashAnalyzer
-from .md5hashanalyzer import MD5HashAnalyzer
-from .shahashanalyzer import SHAHashAnalyzer
 from .creditcardanalyzer import CreditCardAnalyzer
+from .dbconnstringanalyzer import DBConnAnalyzer
 from .genericanalyzer import GenericAnalyzer
+from .ibananalyzer import IBANAnalyzer
 from .mailanalyzer import MailAnalyzer
+from .mailpasswordanalyzer import MailPasswordAnalyzer
+from .md5hashanalyzer import MD5HashAnalyzer
 from .pastebinurlanalyzer import PastebinURLAnalyzer
+from .privatekeyanalyzer import PrivateKeyAnalyzer
 from .regexanalyzer import RegexAnalyzer
+from .shahashanalyzer import SHAHashAnalyzer
 from .urlanalyzer import URLAnalyzer
 from .wordanalyzer import WordAnalyzer
-from .ibananalyzer import IBANAnalyzer
-from .dbconnstringanalyzer import DBConnAnalyzer
-from .privatekeyanalyzer import PrivateKeyAnalyzer
 
 __all__ = (
-    'AlwaysTrueAnalyzer',
-    'BasicAnalyzer',
-    'BcryptHashAnalyzer',
-    'MD5HashAnalyzer',
-    'SHAHashAnalyzer',
-    'CreditCardAnalyzer',
-    'GenericAnalyzer',
-    'MailAnalyzer',
-    'PastebinURLAnalyzer',
-    'RegexAnalyzer',
-    'URLAnalyzer',
-    'WordAnalyzer',
-    'IBANAnalyzer',
-    'DBConnAnalyzer'
-    'PrivateKeyAnalyzer'
+    "AlwaysTrueAnalyzer",
+    "BasicAnalyzer",
+    "BcryptHashAnalyzer",
+    "MD5HashAnalyzer",
+    "SHAHashAnalyzer",
+    "CreditCardAnalyzer",
+    "GenericAnalyzer",
+    "MailAnalyzer",
+    "PastebinURLAnalyzer",
+    "RegexAnalyzer",
+    "URLAnalyzer",
+    "WordAnalyzer",
+    "IBANAnalyzer",
+    "DBConnAnalyzer",
+    "PrivateKeyAnalyzer",
+    "MailPasswordAnalyzer",
 )

@@ -2,7 +2,7 @@
 import unittest
 from unittest import mock
 
-from pastepwn.analyzers.mailpasswordanalyzer import MailPasswordAnalyzer
+from pastepwn.analyzers import MailPasswordAnalyzer
 
 
 class TestMailPasswordAnalyzer(unittest.TestCase):
