@@ -13,5 +13,4 @@ class DatabaseDumpAnalyzer(RegexAnalyzer):
         """
         # This regex match the columns of a database
         regex = r"\(((`\w+`|\d)(\s?)+,(\s?)+)+(`\w+`|\d)\)"
-        
         super().__init__(actions, regex)
