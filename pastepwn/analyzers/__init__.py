@@ -14,6 +14,7 @@ from .wordanalyzer import WordAnalyzer
 from .ibananalyzer import IBANAnalyzer
 from .dbconnstringanalyzer import DBConnAnalyzer
 from .privatekeyanalyzer import PrivateKeyAnalyzer
+from .emailpasswordpairanalyzer import EmailPasswordPairAnalyzer
 
 __all__ = (
     'AlwaysTrueAnalyzer',
@@ -29,6 +30,7 @@ __all__ = (
     'URLAnalyzer',
     'WordAnalyzer',
     'IBANAnalyzer',
-    'DBConnAnalyzer'
-    'PrivateKeyAnalyzer'
+    'DBConnAnalyzer',
+    'PrivateKeyAnalyzer',
+    'EmailPasswordPairAnalyzer',
 )
