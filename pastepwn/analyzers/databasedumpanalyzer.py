@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from .basicanalyzer import BasicAnalyzer
+from .regexanalyzer import RegexAnalyzer
 
 
-class DatabaseDumpAnalyzer(BasicAnalyzer):
+class DatabaseDumpAnalyzer(RegexAnalyzer):
     """Analyzer to match database dump"""
     name = "DatabaseDumpAnalyzer"
 
@@ -12,6 +12,6 @@ class DatabaseDumpAnalyzer(BasicAnalyzer):
         :param actions: A single action or a list of actions to be executed on every paste
         """
         # This regex match the columns of a database
-        regex = r"[(]((`\w+`|\d), )+(`\w+`|\d)[)]"
+        regex = r"\(((`\w+`|\d)(\s?)+,(\s?)+)+(`\w+`|\d)\)"
         
         super().__init__(actions, regex)
