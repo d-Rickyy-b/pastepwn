@@ -31,7 +31,7 @@ class SlackAction(BasicAction):
         else:
             self.template = None
 
-    def perform(self, paste, analyzer_name):
+    def perform(self, paste, analyzer_name="None"):
         """Send a message to a specified Slack channel without post-assertion"""
 
         if self.template is None:
