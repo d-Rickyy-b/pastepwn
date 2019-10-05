@@ -10,7 +10,7 @@ from pastepwn.analyzers import AlwaysTrueAnalyzer
 from pastepwn.core import ScrapingHandler, ActionHandler
 from pastepwn.core.pastedispatcher import PasteDispatcher
 from pastepwn.util.request import Request
-from pastepwn.scraping.pastebin import PastebinScraper
+from pastepwn.scraping.pastebin.pastebinscraper import PastebinScraper
 
 
 class PastePwn(object):
