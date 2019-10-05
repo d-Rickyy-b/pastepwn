@@ -15,22 +15,28 @@ from .regexanalyzer import RegexAnalyzer
 from .shahashanalyzer import SHAHashAnalyzer
 from .urlanalyzer import URLAnalyzer
 from .wordanalyzer import WordAnalyzer
+from .databasedumpanalyzer import DatabaseDumpAnalyzer
+from .dbconnstringanalyzer import DBConnAnalyzer
+from .privatekeyanalyzer import PrivateKeyAnalyzer
+from .phonenumberanalyzer import PhoneNumberAnalyzer
 
 __all__ = (
-    "AlwaysTrueAnalyzer",
-    "BasicAnalyzer",
-    "BcryptHashAnalyzer",
-    "CreditCardAnalyzer",
-    "DBConnAnalyzer",
-    "GenericAnalyzer",
-    "IBANAnalyzer",
-    "MailAnalyzer",
-    "MailPasswordAnalyzer",
-    "MD5HashAnalyzer",
-    "PastebinURLAnalyzer",
-    "PrivateKeyAnalyzer",
-    "RegexAnalyzer",
-    "SHAHashAnalyzer",
-    "URLAnalyzer",
-    "WordAnalyzer",
+    'AlwaysTrueAnalyzer',
+    'BasicAnalyzer',
+    'BcryptHashAnalyzer',
+    'MD5HashAnalyzer',
+    'SHAHashAnalyzer',
+    'CreditCardAnalyzer',
+    'GenericAnalyzer',
+    'MailAnalyzer',
+    'MailPasswordAnalyzer',
+    'PastebinURLAnalyzer',
+    'RegexAnalyzer',
+    'URLAnalyzer',
+    'WordAnalyzer',
+    'IBANAnalyzer',
+    'DatabaseDumpAnalyzer',
+    'DBConnAnalyzer',
+    'PrivateKeyAnalyzer',
+    'PhoneNumberAnalyzer'
 )
