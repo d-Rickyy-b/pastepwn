@@ -30,7 +30,7 @@ __all__ = (
     'URLAnalyzer',
     'WordAnalyzer',
     'IBANAnalyzer',
-    'DBConnAnalyzer'
-    'PrivateKeyAnalyzer'
+    'DBConnAnalyzer',
+    'PrivateKeyAnalyzer',
     'PhoneNumberAnalyzer'
 )
