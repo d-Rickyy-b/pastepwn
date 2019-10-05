@@ -12,6 +12,7 @@ from .regexanalyzer import RegexAnalyzer
 from .urlanalyzer import URLAnalyzer
 from .wordanalyzer import WordAnalyzer
 from .ibananalyzer import IBANAnalyzer
+from .databasedumpanalyzer import DatabaseDumpAnalyzer
 from .dbconnstringanalyzer import DBConnAnalyzer
 from .privatekeyanalyzer import PrivateKeyAnalyzer
 from .phonenumberanalyzer import PhoneNumberAnalyzer
@@ -30,6 +31,7 @@ __all__ = (
     'URLAnalyzer',
     'WordAnalyzer',
     'IBANAnalyzer',
+    'DatabaseDumpAnalyzer',
     'DBConnAnalyzer',
     'PrivateKeyAnalyzer',
     'PhoneNumberAnalyzer'
