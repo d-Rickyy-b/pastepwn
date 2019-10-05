@@ -97,7 +97,7 @@ class PastePwn(object):
             exit(1)
         if self.scraping_handler.scrapers == []:
             pastebinscraper = PastebinScraper()
-            self.add_scraper(pastebinscraper, true)
+            self.add_scraper(pastebinscraper, True)
         self.scraping_handler.start()
         self.paste_dispatcher.start()
         self.action_handler.start()
