@@ -7,5 +7,15 @@ from .logaction import LogAction
 from .genericaction import GenericAction
 from .databaseaction import DatabaseAction
 from .savejsonaction import SaveJSONAction
+from .slackaction import SlackAction
 
-__all__ = ('BasicAction', 'SaveFileAction', 'TelegramAction', 'LogAction', 'GenericAction', 'DatabaseAction', 'SaveJSONAction')
+__all__ = (
+    'BasicAction', 
+    'SaveFileAction', 
+    'TelegramAction', 
+    'LogAction', 
+    'GenericAction', 
+    'DatabaseAction', 
+    'SaveJSONAction', 
+    'SlackAction'
+)
