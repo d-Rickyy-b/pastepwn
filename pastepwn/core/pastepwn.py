@@ -10,8 +10,7 @@ from pastepwn.analyzers import AlwaysTrueAnalyzer
 from pastepwn.core import ScrapingHandler, ActionHandler
 from pastepwn.core.pastedispatcher import PasteDispatcher
 from pastepwn.util.request import Request
-from pastepwn.scraping.pastebin.pastebinscraper import PastebinScraper
-
+import pastepwn
 
 class PastePwn(object):
     """Represents an instance of the pastepwn core module"""
@@ -96,7 +95,7 @@ class PastePwn(object):
             self.logger.error("An exception occured. Aborting the start of PastePwn!")
             exit(1)
         if self.scraping_handler.scrapers == []:
-            pastebinscraper = PastebinScraper()
+            pastebinscraper = pastepwn.scraping.pastebin.pastebinscraper.PastebinScraper()
             self.add_scraper(pastebinscraper, True)
         self.scraping_handler.start()
         self.paste_dispatcher.start()
