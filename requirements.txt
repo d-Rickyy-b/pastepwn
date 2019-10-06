@@ -1,3 +1,4 @@
 pymongo
 mysql-connector-python
 requests
+python-twitter
