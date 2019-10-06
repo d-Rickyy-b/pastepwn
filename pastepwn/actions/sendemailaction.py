@@ -16,7 +16,7 @@ class SendEmailAction(BasicAction):
         self.username = username
         self.password=password
         self.reciever_email=reciever_email
-        self.hostname="smtp."+hostname+".com"
+        self.hostname=hostname
         self.port=port
 
 
