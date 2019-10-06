@@ -20,11 +20,12 @@ class Request(object):
                     Request._instance = super(Request, cls).__new__(cls)
         return Request._instance
 
-    def __init__(self, proxies=None):
+    def __init__(self, proxies=None, headers=None):
         if not self._initialized:
             self.logger = logging.getLogger(__name__)
             self.session = Session()
             self.proxies = proxies
+            self.headers = headers
             self.logger.info("Using the following custom proxies: {}".format(proxies))
             self.logger.info("Using the following system proxies: {}".format(utils.get_environ_proxies("https://example.com")))
             self._initialized = True
@@ -33,6 +34,9 @@ class Request(object):
         headers = {
             "User-Agent": "pastepwn (https://github.com/d-Rickyy-b/pastepwn)"
         }
+
+        if self.headers is not None:
+            headers.update(self.headers)
 
         try:
             response = self.session.request(headers=headers, proxies=self.proxies, data=data, timeout=timeout, *args, **kwargs)
