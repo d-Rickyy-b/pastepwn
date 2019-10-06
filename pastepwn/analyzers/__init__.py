@@ -12,8 +12,12 @@ from .regexanalyzer import RegexAnalyzer
 from .urlanalyzer import URLAnalyzer
 from .wordanalyzer import WordAnalyzer
 from .ibananalyzer import IBANAnalyzer
+from .databasedumpanalyzer import DatabaseDumpAnalyzer
 from .dbconnstringanalyzer import DBConnAnalyzer
 from .privatekeyanalyzer import PrivateKeyAnalyzer
+from .phonenumberanalyzer import PhoneNumberAnalyzer
+from .steamkeyanalyzer import SteamKeyAnalyzer
+from .uplaykeyanalyzer import UplayKeyAnalyzer
 
 __all__ = (
     'AlwaysTrueAnalyzer',
@@ -29,6 +33,10 @@ __all__ = (
     'URLAnalyzer',
     'WordAnalyzer',
     'IBANAnalyzer',
-    'DBConnAnalyzer'
-    'PrivateKeyAnalyzer'
+    'DatabaseDumpAnalyzer',
+    'DBConnAnalyzer',
+    'PrivateKeyAnalyzer',
+    'PhoneNumberAnalyzer',
+    'SteamKeyAnalyzer',
+    'UplayKeyAnalyzer'
 )

@@ -7,6 +7,17 @@ from .logaction import LogAction
 from .genericaction import GenericAction
 from .databaseaction import DatabaseAction
 from .savejsonaction import SaveJSONAction
+from .twitteraction import TwitterAction
 from .discordaction import DiscordAction
 
-__all__ = ('BasicAction', 'SaveFileAction', 'TelegramAction', 'LogAction', 'GenericAction', 'DatabaseAction', 'SaveJSONAction', 'DiscordAction')
+__all__ = (
+    "BasicAction",
+    "SaveFileAction",
+    "TelegramAction",
+    "LogAction",
+    "GenericAction",
+    "DatabaseAction",
+    "SaveJSONAction",
+    "TwitterAction",
+    "DiscordAction",
+)
