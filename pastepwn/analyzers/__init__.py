@@ -16,6 +16,7 @@ from .databasedumpanalyzer import DatabaseDumpAnalyzer
 from .dbconnstringanalyzer import DBConnAnalyzer
 from .privatekeyanalyzer import PrivateKeyAnalyzer
 from .phonenumberanalyzer import PhoneNumberAnalyzer
+from .steamkeyanalyzer import SteamKeyAnalyzer
 
 __all__ = (
     'AlwaysTrueAnalyzer',
@@ -34,5 +35,6 @@ __all__ = (
     'DatabaseDumpAnalyzer',
     'DBConnAnalyzer',
     'PrivateKeyAnalyzer',
-    'PhoneNumberAnalyzer'
+    'PhoneNumberAnalyzer',
+    'SteamKeyAnalyzer'
 )
