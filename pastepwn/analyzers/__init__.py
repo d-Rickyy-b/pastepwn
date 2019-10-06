@@ -18,7 +18,7 @@ from .privatekeyanalyzer import PrivateKeyAnalyzer
 from .phonenumberanalyzer import PhoneNumberAnalyzer
 from .steamkeyanalyzer import SteamKeyAnalyzer
 from .uplaykeyanalyzer import UplayKeyAnalyzer
-from .battlenetanalyzer import BattleNetKeyAnalyzer
+from .battlenetkeyanalyzer import BattleNetKeyAnalyzer
 
 __all__ = (
     'AlwaysTrueAnalyzer',
