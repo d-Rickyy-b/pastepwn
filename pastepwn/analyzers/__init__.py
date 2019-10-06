@@ -34,5 +34,6 @@ __all__ = (
     'DatabaseDumpAnalyzer',
     'DBConnAnalyzer',
     'PrivateKeyAnalyzer',
-    'PhoneNumberAnalyzer'
+    'PhoneNumberAnalyzer',
+    'SteamKeyAnalyzer'
 )
