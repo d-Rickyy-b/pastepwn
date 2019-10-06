@@ -9,5 +9,5 @@ class SteamKeyAnalyzer(RegexAnalyzer):
     name = "SteamKeyAnalyzer"
 
     def __init__(self, actions):
-        regex = r"\b[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{5}\b"
+        regex = r"\b([A-Z0-9]{5}\-[A-Z0-9]{5}\-[A-Z0-9]{5}\-[A-Z0-9]{5}\-[A-Z0-9]{5}|[A-Z0-9]{5}\-[A-Z0-9]{5}\-[A-Z0-9]{5})\b"
         super().__init__(actions, regex)
