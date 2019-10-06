@@ -12,7 +12,7 @@ class TestUplayKeyAnalyzer(unittest.TestCase):
 
     def test_match_positive(self):
         """Test if positives are recognized"""
-        # steam key dump
+        # working uplay key
         self.paste.body = "MB9C-LV3C-4RG8-FME8"
         self.assertTrue(self.analyzer.match(self.paste))
 
@@ -20,7 +20,7 @@ class TestUplayKeyAnalyzer(unittest.TestCase):
         self.paste.body = "Hey, I have your key right here: MB9C-LV3C-4RG8-FME8!"
         self.assertTrue(self.analyzer.match(self.paste))
 
-        # Newline seperated steam key
+        # Newline seperated uplay key
         self.paste.body = "MB9C-LV3C-4RG8-FME8\nMB9C-LV3C-4RG8-FME8"
         self.assertTrue(self.analyzer.match(self.paste))
 
