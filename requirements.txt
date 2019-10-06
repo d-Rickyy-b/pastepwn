@@ -1,4 +1,4 @@
-certifi==2018.8.24
-pymongo==3.7.1
-urllib3==1.23
-
+pymongo
+mysql-connector-python
+requests
+python-twitter
