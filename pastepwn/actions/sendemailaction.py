@@ -14,7 +14,7 @@ class SendEmailAction(BasicAction):
         if not re.match(r"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$", reciever_email) or reciever_email is None:
             raise ValueError("reciever_email not correct or None!")
         self.username = username
-        self.password =password
+        self.password = password
         self.reciever_email = reciever_email
         self.hostname = hostname
         self.port = port
