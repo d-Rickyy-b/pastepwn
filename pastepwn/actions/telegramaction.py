@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
 import re
-from string import Template
 
-from pastepwn.util import Request, DictWrapper
+from pastepwn.util import Request, TemplatingEngine
 from .basicaction import BasicAction
 
 
@@ -21,10 +20,7 @@ class TelegramAction(BasicAction):
         self.token = token
         self.receiver = receiver
         self.custom_payload = custom_payload
-        if template is not None:
-            self.template = Template(template)
-        else:
-            self.template = None
+        self.template = template
 
     def perform(self, paste, analyzer_name=None):
         """Send a message via a Telegram bot to a specified user, without checking for errors"""
@@ -32,9 +28,7 @@ class TelegramAction(BasicAction):
         if self.template is None:
             text = "New paste matched by analyzer '{0}' - Link: {1}".format(analyzer_name, paste.full_url)
         else:
-            paste_dict = paste.to_dict()
-            paste_dict["analyzer_name"] = analyzer_name
-            text = self.template.safe_substitute(DictWrapper(paste_dict))
+            text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template)
 
         api_url = "https://api.telegram.org/bot{0}/sendMessage?chat_id={1}&text={2}".format(self.token, self.receiver, text)
         r.get(api_url)
