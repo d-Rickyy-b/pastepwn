@@ -114,9 +114,14 @@ class DiscordAction(BasicAction):
             url = 'https://discordapp.com/api/channels/{0}/messages'.format(self.channel_id)
             r.headers = {'Authorization': 'Bot {}'.format(self.token)}
 
-        res = json.loads(r.post(url, {"content": text}))
+        res = r.post(url, {"content": text})
+        if res == "":
+            # If the response is empty, skip further execution
+            return
 
-        if res.get('code') == 40001 and self.webhook is None and not self.identified:
+        res = json.loads(res)
+
+        if res.get('code') == 40001 and self.bot_available and self.webhook is None and not self.identified:
             # Unauthorized access, bot token hasn't been identified to Discord Gateway
             self.logger.info('Accessing Discord Gateway to initialize token')
             self.initialize_gateway()
