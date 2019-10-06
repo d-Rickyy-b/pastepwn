@@ -93,7 +93,9 @@ class DiscordAction(BasicAction):
         ws_url = res.get('url')
 
         # Start websocket client
-        asyncio.get_event_loop().run_until_complete(self._identify(ws_url))
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(self._identify(ws_url))
         self.identified = True
 
     def perform(self, paste, analyzer_name=None):
