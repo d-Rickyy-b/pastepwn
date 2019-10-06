@@ -18,6 +18,7 @@ from .privatekeyanalyzer import PrivateKeyAnalyzer
 from .phonenumberanalyzer import PhoneNumberAnalyzer
 from .steamkeyanalyzer import SteamKeyAnalyzer
 from .uplaykeyanalyzer import UplayKeyAnalyzer
+from .battlenetanalyzer import BattleNetKeyAnalyzer
 
 __all__ = (
     'AlwaysTrueAnalyzer',
@@ -38,5 +39,6 @@ __all__ = (
     'PrivateKeyAnalyzer',
     'PhoneNumberAnalyzer',
     'SteamKeyAnalyzer',
-    'UplayKeyAnalyzer'
+    'UplayKeyAnalyzer',
+    'BattleNetKeyAnalyzer'
 )
