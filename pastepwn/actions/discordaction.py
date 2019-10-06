@@ -3,7 +3,6 @@ import asyncio
 import json
 import logging
 import sys
-import websockets
 from string import Template
 
 from pastepwn.util import Request, DictWrapper
@@ -14,18 +13,29 @@ class DiscordAction(BasicAction):
     """Action to send a Discord message to a certain webhook or channel."""
     name = "DiscordAction"
 
-    def __init__(self, webhook=None, token=None, channel_id=None, custom_payload=None, template=None):
+    def __init__(self, webhook=None, token=None, channel_id=None, template=None):
         super().__init__()
         self.logger = logging.getLogger(__name__)
+        self.bot_available = True
+
+        try:
+            import websockets
+        except ImportError:
+            self.logger.warning("Could not import 'websockets' module. So you can only use webhooks for discord.")
+            self.bot_available = False
 
         self.webhook = webhook
         if webhook is None:
             if token is None or channel_id is None:
                 raise ValueError('Invalid arguments: requires either webhook or token+channel_id arguments')
+
+            if not self.bot_available:
+                raise NotImplementedError("You can't use bot functionality without the 'websockets' module. Please import it or use webhooks!")
+
             self.token = token
             self.channel_id = channel_id
             self.identified = False
-        self.custom_payload = custom_payload
+
         if template is not None:
             self.template = Template(template)
         else:
@@ -83,7 +93,9 @@ class DiscordAction(BasicAction):
         ws_url = res.get('url')
 
         # Start websocket client
-        asyncio.get_event_loop().run_until_complete(self._identify(ws_url))
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(self._identify(ws_url))
         self.identified = True
 
     def perform(self, paste, analyzer_name=None):
@@ -104,9 +116,14 @@ class DiscordAction(BasicAction):
             url = 'https://discordapp.com/api/channels/{0}/messages'.format(self.channel_id)
             r.headers = {'Authorization': 'Bot {}'.format(self.token)}
 
-        res = json.loads(r.post(url, {"content": text}))
+        res = r.post(url, {"content": text})
+        if res == "":
+            # If the response is empty, skip further execution
+            return
 
-        if res.get('code') == 40001 and self.webhook is None and not self.identified:
+        res = json.loads(res)
+
+        if res.get('code') == 40001 and self.bot_available and self.webhook is None and not self.identified:
             # Unauthorized access, bot token hasn't been identified to Discord Gateway
             self.logger.info('Accessing Discord Gateway to initialize token')
             self.initialize_gateway()
