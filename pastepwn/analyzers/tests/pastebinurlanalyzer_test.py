@@ -18,7 +18,7 @@ class TestPastebinURLAnalyzer(unittest.TestCase):
         self.assertTrue(self.analyzer.match(self.paste))
         self.paste.body = "http://pastebin.com/xyz/"
         self.assertTrue(self.analyzer.match(self.paste))
-        self.paste.body = "https://www.pastebin.com/xyz  "
+        self.paste.body = "https://pastebin.com/xyz  "
         self.assertTrue(self.analyzer.match(self.paste))
 
     def test_match_negative(self):
