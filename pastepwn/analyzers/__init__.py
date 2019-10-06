@@ -17,6 +17,8 @@ from .dbconnstringanalyzer import DBConnAnalyzer
 from .privatekeyanalyzer import PrivateKeyAnalyzer
 from .phonenumberanalyzer import PhoneNumberAnalyzer
 from .originkeyanalyzer import OriginKeyAnalyzer
+from .steamkeyanalyzer import SteamKeyAnalyzer
+from .uplaykeyanalyzer import UplayKeyAnalyzer
 
 __all__ = (
     'AlwaysTrueAnalyzer',
@@ -36,5 +38,7 @@ __all__ = (
     'DBConnAnalyzer',
     'PrivateKeyAnalyzer',
     'PhoneNumberAnalyzer',
-    'OriginKeyAnalyzer'
+    'OriginKeyAnalyzer',
+    'SteamKeyAnalyzer',
+    'UplayKeyAnalyzer'
 )
