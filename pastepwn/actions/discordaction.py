@@ -3,7 +3,6 @@ import asyncio
 import json
 import logging
 import sys
-import websockets
 from string import Template
 
 from pastepwn.util import Request, DictWrapper
@@ -17,11 +16,22 @@ class DiscordAction(BasicAction):
     def __init__(self, webhook=None, token=None, channel_id=None, template=None):
         super().__init__()
         self.logger = logging.getLogger(__name__)
+        self.bot_available = True
+
+        try:
+            import websockets
+        except ImportError:
+            self.logger.warning("Could not import 'websockets' module. So you can only use webhooks for discord.")
+            self.bot_available = False
 
         self.webhook = webhook
         if webhook is None:
             if token is None or channel_id is None:
                 raise ValueError('Invalid arguments: requires either webhook or token+channel_id arguments')
+
+            if not self.bot_available:
+                raise NotImplementedError("You can't use bot functionality without the 'websockets' module. Please import it or use webhooks!")
+
             self.token = token
             self.channel_id = channel_id
             self.identified = False
