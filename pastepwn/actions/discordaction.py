@@ -14,7 +14,7 @@ class DiscordAction(BasicAction):
     """Action to send a Discord message to a certain webhook or channel."""
     name = "DiscordAction"
 
-    def __init__(self, webhook=None, token=None, channel_id=None, custom_payload=None, template=None):
+    def __init__(self, webhook=None, token=None, channel_id=None, template=None):
         super().__init__()
         self.logger = logging.getLogger(__name__)
 
@@ -25,7 +25,7 @@ class DiscordAction(BasicAction):
             self.token = token
             self.channel_id = channel_id
             self.identified = False
-        self.custom_payload = custom_payload
+
         if template is not None:
             self.template = Template(template)
         else:
