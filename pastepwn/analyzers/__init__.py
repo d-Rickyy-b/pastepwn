@@ -26,6 +26,7 @@ from .ibananalyzer import IBANAnalyzer
 from .dbconnstringanalyzer import DBConnAnalyzer
 from .privatekeyanalyzer import PrivateKeyAnalyzer
 from .adobekeyanalyzer import AdobeKeyAnalyzer
+from .base64analyzer import Base64Analyzer
 
 __all__ = (
     'AlwaysTrueAnalyzer',
