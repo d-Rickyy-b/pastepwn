@@ -22,6 +22,10 @@ from .steamkeyanalyzer import SteamKeyAnalyzer
 from .uplaykeyanalyzer import UplayKeyAnalyzer
 from .urlanalyzer import URLAnalyzer
 from .wordanalyzer import WordAnalyzer
+from .ibananalyzer import IBANAnalyzer
+from .dbconnstringanalyzer import DBConnAnalyzer
+from .privatekeyanalyzer import PrivateKeyAnalyzer
+from .emailpasswordpairanalyzer import EmailPasswordPairAnalyzer
 
 __all__ = (
     'AlwaysTrueAnalyzer',
