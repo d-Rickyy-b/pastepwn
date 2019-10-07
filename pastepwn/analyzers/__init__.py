@@ -21,6 +21,7 @@ from .steamkeyanalyzer import SteamKeyAnalyzer
 from .uplaykeyanalyzer import UplayKeyAnalyzer
 from .battlenetkeyanalyzer import BattleNetKeyAnalyzer
 from .microsoftkeyanalyzer import MicrosoftKeyAnalyzer
+from .adobekeyanalyzer import AdobeKeyAnalyzer
 
 __all__ = (
     'AlwaysTrueAnalyzer',
@@ -44,5 +45,6 @@ __all__ = (
     'SteamKeyAnalyzer',
     'UplayKeyAnalyzer',
     'BattleNetKeyAnalyzer',
-    'MicrosoftKeyAnalyzer'
+    'MicrosoftKeyAnalyzer',
+    'AdobeKeyAnalyzer'
 )
