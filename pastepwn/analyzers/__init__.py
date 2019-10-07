@@ -27,6 +27,7 @@ from .dbconnstringanalyzer import DBConnAnalyzer
 from .privatekeyanalyzer import PrivateKeyAnalyzer
 from .adobekeyanalyzer import AdobeKeyAnalyzer
 from .facebookaccesstokenanalyzer import FacebookAccessTokenAnalyzer
+from .base64analyzer import Base64Analyzer
 
 __all__ = (
     'AlwaysTrueAnalyzer',
@@ -55,5 +56,6 @@ __all__ = (
     'DBConnAnalyzer',
     'PrivateKeyAnalyzer',
     'EmailPasswordPairAnalyzer',
-    'FacebookAccessTokenAnalyzer'
+    'FacebookAccessTokenAnalyzer',
+    'Base64Analyzer'
 )
