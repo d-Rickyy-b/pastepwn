@@ -2,3 +2,4 @@ pymongo
 mysql-connector-python
 requests
 python-twitter
+websockets>=7.0,<8
