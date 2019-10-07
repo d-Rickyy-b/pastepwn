@@ -53,5 +53,6 @@ __all__ = (
     'AdobeKeyAnalyzer',
     'DBConnAnalyzer',
     'PrivateKeyAnalyzer',
-    'EmailPasswordPairAnalyzer'
+    'EmailPasswordPairAnalyzer',
+    'Base64Analyzer'
 )
