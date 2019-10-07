@@ -1,26 +1,31 @@
 # -*- coding: utf-8 -*-
 from .alwaystrueanalyzer import AlwaysTrueAnalyzer
 from .basicanalyzer import BasicAnalyzer
+from .battlenetkeyanalyzer import BattleNetKeyAnalyzer
 from .bcrypthashanalyzer import BcryptHashAnalyzer
-from .md5hashanalyzer import MD5HashAnalyzer
-from .shahashanalyzer import SHAHashAnalyzer
 from .creditcardanalyzer import CreditCardAnalyzer
+from .databasedumpanalyzer import DatabaseDumpAnalyzer
+from .dbconnstringanalyzer import DBConnAnalyzer
+from .emailpasswordpairanalyzer import EmailPasswordPairAnalyzer
 from .genericanalyzer import GenericAnalyzer
+from .ibananalyzer import IBANAnalyzer
 from .mailanalyzer import MailAnalyzer
+from .md5hashanalyzer import MD5HashAnalyzer
+from .microsoftkeyanalyzer import MicrosoftKeyAnalyzer
+from .originkeyanalyzer import OriginKeyAnalyzer
 from .pastebinurlanalyzer import PastebinURLAnalyzer
+from .phonenumberanalyzer import PhoneNumberAnalyzer
+from .privatekeyanalyzer import PrivateKeyAnalyzer
 from .regexanalyzer import RegexAnalyzer
+from .shahashanalyzer import SHAHashAnalyzer
+from .steamkeyanalyzer import SteamKeyAnalyzer
+from .uplaykeyanalyzer import UplayKeyAnalyzer
 from .urlanalyzer import URLAnalyzer
 from .wordanalyzer import WordAnalyzer
 from .ibananalyzer import IBANAnalyzer
-from .databasedumpanalyzer import DatabaseDumpAnalyzer
 from .dbconnstringanalyzer import DBConnAnalyzer
 from .privatekeyanalyzer import PrivateKeyAnalyzer
-from .phonenumberanalyzer import PhoneNumberAnalyzer
-from .originkeyanalyzer import OriginKeyAnalyzer
-from .steamkeyanalyzer import SteamKeyAnalyzer
-from .uplaykeyanalyzer import UplayKeyAnalyzer
-from .battlenetkeyanalyzer import BattleNetKeyAnalyzer
-from .microsoftkeyanalyzer import MicrosoftKeyAnalyzer
+from .emailpasswordpairanalyzer import EmailPasswordPairAnalyzer
 
 __all__ = (
     'AlwaysTrueAnalyzer',
@@ -44,5 +49,8 @@ __all__ = (
     'SteamKeyAnalyzer',
     'UplayKeyAnalyzer',
     'BattleNetKeyAnalyzer',
-    'MicrosoftKeyAnalyzer'
+    'MicrosoftKeyAnalyzer',
+    'DBConnAnalyzer',
+    'PrivateKeyAnalyzer',
+    'EmailPasswordPairAnalyzer',
 )
