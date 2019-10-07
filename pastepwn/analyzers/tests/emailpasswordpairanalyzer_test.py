@@ -15,7 +15,39 @@ class TestWordAnalyzer(unittest.TestCase):
         self.assertFalse(analyzer.match(self.obj))
 
         analyzer = EmailPasswordPairAnalyzer(None)
+        self.obj.body = "{a: 'b'}"
+        self.assertFalse(analyzer.match(self.obj))
+
+        analyzer = EmailPasswordPairAnalyzer(None)
+        self.obj.body = ""
+        self.assertFalse(analyzer.match(self.obj))
+
+        analyzer = EmailPasswordPairAnalyzer(None)
+        self.obj.body = "\t\n"
+        self.assertFalse(analyzer.match(self.obj))
+
+        analyzer = EmailPasswordPairAnalyzer(None)
+        self.obj.body = "\n\n"
+        self.assertFalse(analyzer.match(self.obj))
+
+        analyzer = EmailPasswordPairAnalyzer(None)
         self.obj.body = "estocanam2@gmail.com:Firebird1@"
+        self.assertTrue(analyzer.match(self.obj))
+
+        analyzer = EmailPasswordPairAnalyzer(None)
+        self.obj.body = "test+test@gmail.com:abcd"
+        self.assertTrue(analyzer.match(self.obj))
+
+        analyzer = EmailPasswordPairAnalyzer(None)
+        self.obj.body = "estocanam2@gmail.com:aq12ws"
+        self.assertTrue(analyzer.match(self.obj))
+
+        analyzer = EmailPasswordPairAnalyzer(None)
+        self.obj.body = "estocanam2@apple.com:Fireb§"
+        self.assertTrue(analyzer.match(self.obj))
+
+        analyzer = EmailPasswordPairAnalyzer(None)
+        self.obj.body = "g@bb.com:Firebird1@"
         self.assertTrue(analyzer.match(self.obj))
 
 
