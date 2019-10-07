@@ -12,6 +12,6 @@ class EpicKeyAnalyzer(RegexAnalyzer):
         """
         # Applied general A-Z or 0-9 based on example provided
         # Regex can be adjusted if certain characters are not valid
-        regex = r"(([A-Z0-9]{5}\-){3}([A-Z0-9]{5}))"
+        regex = r"\b(?<!-)[A-Z0-9]{5}\-[A-Z0-9]{5}\-[A-Z0-9]{5}\-[A-Z0-9]{5}\b(?!-)"
 
         super().__init__(action, regex)
