@@ -25,14 +25,7 @@ from .wordanalyzer import WordAnalyzer
 from .ibananalyzer import IBANAnalyzer
 from .dbconnstringanalyzer import DBConnAnalyzer
 from .privatekeyanalyzer import PrivateKeyAnalyzer
-from .phonenumberanalyzer import PhoneNumberAnalyzer
-from .originkeyanalyzer import OriginKeyAnalyzer
-from .steamkeyanalyzer import SteamKeyAnalyzer
-from .uplaykeyanalyzer import UplayKeyAnalyzer
-from .battlenetkeyanalyzer import BattleNetKeyAnalyzer
-from .microsoftkeyanalyzer import MicrosoftKeyAnalyzer
 from .adobekeyanalyzer import AdobeKeyAnalyzer
-from .emailpasswordpairanalyzer import EmailPasswordPairAnalyzer
 
 __all__ = (
     'AlwaysTrueAnalyzer',
@@ -57,7 +50,7 @@ __all__ = (
     'UplayKeyAnalyzer',
     'BattleNetKeyAnalyzer',
     'MicrosoftKeyAnalyzer',
-    'AdobeKeyAnalyzer'
+    'AdobeKeyAnalyzer',
     'DBConnAnalyzer',
     'PrivateKeyAnalyzer',
     'EmailPasswordPairAnalyzer'
