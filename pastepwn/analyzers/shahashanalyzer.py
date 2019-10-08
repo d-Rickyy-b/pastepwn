@@ -11,5 +11,5 @@ class SHAHashAnalyzer(RegexAnalyzer):
     name = "SHAHashAnalyzer"
 
     def __init__(self, actions):
-        regex = r"\b([a-f0-9]{40}|[a-f0-9]{56}|[a-f0-9]{64}|[a-f0-9]{96}|[a-f0-9]{128})\b"
+        regex = r"\b(?<!-)([a-f0-9]{40}|[a-f0-9]{56}|[a-f0-9]{64}|[a-f0-9]{96}|[a-f0-9]{128})\b(?!-)"
         super().__init__(actions, regex)

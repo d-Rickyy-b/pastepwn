@@ -48,6 +48,10 @@ class TestEpicKeyAnalyzer(unittest.TestCase):
         self.paste.body = "Q8A5QT-APFT3F-MO74QU-KPEL96"
         self.assertFalse(self.analyzer.match(self.paste))
 
+        # Too many segments
+        self.paste.body = "1GZJQ-DW7QX-SB4DC-THDW2-1A2B3"
+        self.assertFalse(self.analyzer.match(self.paste))
+
         # No separator
         self.paste.body = "OAPMCSEU6N7FFZ72AM5E"
         self.assertFalse(self.analyzer.match(self.paste))
