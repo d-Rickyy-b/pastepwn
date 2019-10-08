@@ -9,5 +9,5 @@ class MegaLinkAnalyzer(RegexAnalyzer):
     name = "MegaLinkAnalyzer"
 
     def __init__(self, actions):
-        regex = r"(https?:\/\/)?mega\.nz\/#F![\w-]{8}(![\w-]{22}(![\w-]{8})?)?"
+        regex = r"\b(https?:\/\/)?mega\.nz\/#F![\w-]{8}(![\w-]{22}(![\w-]{8})?)?\b"
         super().__init__(actions, regex)
