@@ -28,6 +28,7 @@ from .privatekeyanalyzer import PrivateKeyAnalyzer
 from .adobekeyanalyzer import AdobeKeyAnalyzer
 from .facebookaccesstokenanalyzer import FacebookAccessTokenAnalyzer
 from .base64analyzer import Base64Analyzer
+from .mailchimpapikeyanalyzer import MailChimpApiKeyAnalyzer
 
 __all__ = (
     'AlwaysTrueAnalyzer',
@@ -57,5 +58,6 @@ __all__ = (
     'PrivateKeyAnalyzer',
     'EmailPasswordPairAnalyzer',
     'FacebookAccessTokenAnalyzer',
-    'Base64Analyzer'
+    'Base64Analyzer',
+    'MailChimpApiKeyAnalyzer'
 )
