@@ -8,5 +8,4 @@ class MD5HashAnalyzer(RegexAnalyzer):
 
     def __init__(self, actions):
         regex = r"\b(?<!-)[a-f0-9]{32}\b(?!-)"
-
         super().__init__(actions, regex)
