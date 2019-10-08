@@ -5,7 +5,7 @@ from unittest import mock
 from pastepwn.analyzers.slacktokenanalyzer import SlackTokenAnalyzer
 
 
-class SlackTokenAnalyzer(unittest.TestCase):
+class TestSlackTokenAnalyzer(unittest.TestCase):
     def setUp(self):
         self.analyzer = SlackTokenAnalyzer(None)
         self.paste = mock.Mock()
