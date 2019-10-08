@@ -26,6 +26,7 @@ from .ibananalyzer import IBANAnalyzer
 from .dbconnstringanalyzer import DBConnAnalyzer
 from .privatekeyanalyzer import PrivateKeyAnalyzer
 from .adobekeyanalyzer import AdobeKeyAnalyzer
+from .awssecretkeyanalyzer import AWSSecretKeyAnalyzer
 
 __all__ = (
     'AlwaysTrueAnalyzer',
@@ -53,5 +54,6 @@ __all__ = (
     'AdobeKeyAnalyzer',
     'DBConnAnalyzer',
     'PrivateKeyAnalyzer',
-    'EmailPasswordPairAnalyzer'
+    'EmailPasswordPairAnalyzer',
+    'AWSSecretKeyAnalyzer'
 )
