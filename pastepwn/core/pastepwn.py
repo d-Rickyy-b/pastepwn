@@ -28,6 +28,7 @@ class PastePwn(object):
         self.paste_queue = Queue()
         self.action_queue = Queue()
         self.error_handlers = list()
+        self.onstart_handlers = list()
         self.__exception_event = Event()
         self.__request = Request(proxies)  # initialize singleton
 
@@ -89,6 +90,13 @@ class PastePwn(object):
 
         self.error_handlers.append(error_handler)
 
+    def add_onstart_handler(self, onstart_handler):
+        if not callable(onstart_handler):
+            self.logger.error("The onstart handler you passed is not a function!")
+            return
+        
+        self.onstart_handlers.append(onstart_handler)
+
     def start(self):
         """Starts the pastepwn instance"""
         if self.__exception_event.is_set():
@@ -101,6 +109,12 @@ class PastePwn(object):
         self.scraping_handler.start()
         self.paste_dispatcher.start()
         self.action_handler.start()
+
+        for onstart_handler in self.onstart_handlers:
+            try:
+                onstart_handler()
+            except as e:
+                self.logger.error("Onstart hander %s failed with error: %s. Pastepwn is still running." % (onstart_handler.__name__, e))
 
     def stop(self):
         """Stops the pastepwn instance"""
