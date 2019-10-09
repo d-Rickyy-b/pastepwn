@@ -29,6 +29,7 @@ from .adobekeyanalyzer import AdobeKeyAnalyzer
 from .facebookaccesstokenanalyzer import FacebookAccessTokenAnalyzer
 from .base64analyzer import Base64Analyzer
 from .awsaccesskeyanalyzer import AWSAccessKeyAnalyzer
+from .googleoauthkeyanalyzer import GoogleOAuthKeyAnalyzer
 from .slackwebhookanalyzer import SlackWebhookAnalyzer
 
 __all__ = (
@@ -61,5 +62,6 @@ __all__ = (
     'FacebookAccessTokenAnalyzer',
     'Base64Analyzer',
     'AWSAccessKeyAnalyzer',
+    'GoogleOAuthKeyAnalyzer',
     'SlackWebhookAnalyzer'
 )
