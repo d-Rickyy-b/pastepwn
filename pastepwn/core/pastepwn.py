@@ -114,7 +114,7 @@ class PastePwn(object):
             try:
                 onstart_handler()
             except Exception as e:
-                self.logger.error("Onstart hander %s failed with error: %s. Pastepwn is still running." % (onstart_handler.__name__, e))
+                self.logger.error("Onstart handler %s failed with error: %s. Pastepwn is still running." % (onstart_handler.__name__, e))
 
     def stop(self):
         """Stops the pastepwn instance"""
