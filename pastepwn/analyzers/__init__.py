@@ -33,6 +33,7 @@ from .awssecretkeyanalyzer import AWSSecretKeyAnalyzer
 from .awsaccesskeyanalyzer import AWSAccessKeyAnalyzer
 from .googleoauthkeyanalyzer import GoogleOAuthKeyAnalyzer
 from .slackwebhookanalyzer import SlackWebhookAnalyzer
+from .megalinkanalyzer import MegaLinkAnalyzer
 
 
 __all__ = (
@@ -64,9 +65,10 @@ __all__ = (
     'EmailPasswordPairAnalyzer',
     'FacebookAccessTokenAnalyzer',
     'Base64Analyzer',
-    'StripeApiKeyAnalyzer',
+    'SlackWebhookAnalyzer',
+    'MegaLinkAnalyzer',
     'AWSSecretKeyAnalyzer',
     'AWSAccessKeyAnalyzer',
     'GoogleOAuthKeyAnalyzer',
-    'SlackWebhookAnalyzer'
+    'StripeApiKeyAnalyzer'
 )
