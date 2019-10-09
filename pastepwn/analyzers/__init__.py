@@ -29,6 +29,13 @@ from .adobekeyanalyzer import AdobeKeyAnalyzer
 from .facebookaccesstokenanalyzer import FacebookAccessTokenAnalyzer
 from .base64analyzer import Base64Analyzer
 from .mailchimpapikeyanalyzer import MailChimpApiKeyAnalyzer
+from .stripeapikeyanalyzer import StripeApiKeyAnalyzer
+from .awssecretkeyanalyzer import AWSSecretKeyAnalyzer
+from .awsaccesskeyanalyzer import AWSAccessKeyAnalyzer
+from .googleoauthkeyanalyzer import GoogleOAuthKeyAnalyzer
+from .slackwebhookanalyzer import SlackWebhookAnalyzer
+from .megalinkanalyzer import MegaLinkAnalyzer
+
 
 __all__ = (
     'AlwaysTrueAnalyzer',
@@ -59,5 +66,11 @@ __all__ = (
     'EmailPasswordPairAnalyzer',
     'FacebookAccessTokenAnalyzer',
     'Base64Analyzer',
-    'MailChimpApiKeyAnalyzer'
+    'MailChimpApiKeyAnalyzer',
+    'SlackWebhookAnalyzer',
+    'MegaLinkAnalyzer',
+    'AWSSecretKeyAnalyzer',
+    'AWSAccessKeyAnalyzer',
+    'GoogleOAuthKeyAnalyzer',
+    'StripeApiKeyAnalyzer'
 )
