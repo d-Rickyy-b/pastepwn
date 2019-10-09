@@ -10,7 +10,7 @@ class MISPAction(BasicAction):
     """Action to add an event to a MISP instance on a matched paste"""
     name = "MISPAction"
 
-    def __init__(self, url: str, access_key: str, transformer=None, attributes=None):
+    def __init__(self, url, access_key, transformer=None, attributes=None):
         """
         Init method for the MISPAction
         :param url:         string      URL of the MISP instance (complete with protocol and port)
@@ -30,7 +30,7 @@ class MISPAction(BasicAction):
         self.attributes = attributes
 
     @staticmethod
-    def default_transformer(paste, analyzer_name=None) -> dict:
+    def default_transformer(paste, analyzer_name=None):
         timestamp = time.gmtime(int(paste.date))
         attrs = []
         # Build event
