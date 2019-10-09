@@ -7,7 +7,21 @@ from .basicaction import BasicAction
 
 
 class MISPAction(BasicAction):
-    """Action to add an event to a MISP instance on a matched paste"""
+    """
+    Action to add an event to a MISP instance on a matched paste
+    
+    Documentation for adding events:
+    https://www.circl.lu/doc/misp/automation/#post-events
+
+    The MISPAction objects can take a `transformer` function as a constructor parameter.
+    This function (by default MISPAction.default_transformer) should take a Paste and an
+    optional analyzer name as parameters (just like BasicAction.perform), and return a
+    dictionary representing a MISP event, which will then be sent to the API.
+
+    Additional attributes can be sent with each event, specified by the `attributes`
+    parameter. Here is the documentation regarding types and categories:
+    https://www.circl.lu/doc/misp/categories-and-types/
+    """
     name = "MISPAction"
 
     def __init__(self, url, access_key, transformer=None, attributes=None):
@@ -40,7 +54,7 @@ class MISPAction(BasicAction):
             "threat_level_id": 4,   # Undefined
             "published": False,     # Unpublished
             "analysis": 0,          # Not yet analyzed
-            "distribution": 0,      # Shared within organization
+            "distribution": 0,      # Shared with organization only
             "Attribute": []
         }
         # Add link to the paste
@@ -98,9 +112,9 @@ class MISPAction(BasicAction):
         else:
             res = json.loads(res)
             if 'Event' in res:
-                self.logger.info('Event #%s successfully added to MIPS', res['Event']['id'])
+                self.logger.info('Event #%s successfully added to MISP', res['Event']['id'])
             else:
-                # An error has happend, but the 'errors' field is not always present
+                # An error has happened, but the 'errors' field is not always present
                 if 'errors' in res:
                     self.logger.error('Error when adding event: %s', res['errors'])
                 self.logger.warning('Failed to add event: %s', res.get('message'))
