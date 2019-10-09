@@ -28,6 +28,7 @@ from .privatekeyanalyzer import PrivateKeyAnalyzer
 from .adobekeyanalyzer import AdobeKeyAnalyzer
 from .facebookaccesstokenanalyzer import FacebookAccessTokenAnalyzer
 from .base64analyzer import Base64Analyzer
+from .slacktokenanalyzer import SlackTokenAnalyzer
 from .mailchimpapikeyanalyzer import MailChimpApiKeyAnalyzer
 from .stripeapikeyanalyzer import StripeApiKeyAnalyzer
 from .awssecretkeyanalyzer import AWSSecretKeyAnalyzer
@@ -66,6 +67,7 @@ __all__ = (
     'EmailPasswordPairAnalyzer',
     'FacebookAccessTokenAnalyzer',
     'Base64Analyzer',
+    'SlackTokenAnalyzer',
     'MailChimpApiKeyAnalyzer',
     'SlackWebhookAnalyzer',
     'MegaLinkAnalyzer',
