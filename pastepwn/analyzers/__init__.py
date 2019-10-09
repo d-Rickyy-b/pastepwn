@@ -28,6 +28,7 @@ from .privatekeyanalyzer import PrivateKeyAnalyzer
 from .adobekeyanalyzer import AdobeKeyAnalyzer
 from .facebookaccesstokenanalyzer import FacebookAccessTokenAnalyzer
 from .base64analyzer import Base64Analyzer
+from .stripeapikeyanalyzer import StripeApiKeyAnalyzer
 from .awssecretkeyanalyzer import AWSSecretKeyAnalyzer
 from .awsaccesskeyanalyzer import AWSAccessKeyAnalyzer
 from .googleoauthkeyanalyzer import GoogleOAuthKeyAnalyzer
@@ -68,5 +69,6 @@ __all__ = (
     'MegaLinkAnalyzer',
     'AWSSecretKeyAnalyzer',
     'AWSAccessKeyAnalyzer',
-    'GoogleOAuthKeyAnalyzer'
+    'GoogleOAuthKeyAnalyzer',
+    'StripeApiKeyAnalyzer'
 )
