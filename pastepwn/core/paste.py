@@ -15,8 +15,8 @@ class Paste(object):
         self.full_url = full_url
         self.body = None
 
-    def set_body(self, body=""):
-        self.body = str(body)
+    def set_body(self, body):
+        self.body = str(body or "")
 
     def __str__(self):
         return str(self.to_dict())
