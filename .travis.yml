@@ -5,6 +5,21 @@ python:
   - "3.5"
   - "3.6"
   - "3.7"
+# matrix to create one coverage report on coveralls
+matrix:
+  include:
+    - python: "3.7"
+      # command to install dependencies
+      install:
+        - pip install -r requirements.txt
+        - pip install python-coveralls
+      # command to run tests
+      script:
+        - python -m compileall ./
+        - coverage run --omit='*/virtualenv/*,*/site-packages/*' -m unittest discover -s . -v -p "*_test.py"
+      after_success:
+        - coveralls
+
 # command to install dependencies
 install:
   - pip install -r requirements.txt
@@ -14,9 +29,6 @@ install:
 script:
   - python -m compileall ./
   - coverage run --omit='*/virtualenv/*,*/site-packages/*' -m unittest discover -s . -v -p "*_test.py"
-
-after_success:
-  - coveralls
 
 notifications:
   email: false
