@@ -16,26 +16,12 @@ class Paste(object):
         self.body = None
 
     def set_body(self, body):
-        if body is None:
-            body = ""
-        self.body = str(body)
+        self.body = str(body or "")
 
     def __str__(self):
-        paste_dict = self.to_dict()
-        return str(paste_dict)
+        return str(self.to_dict())
 
-    def __repr__(self):
-        return self.__str__()
+    __repr__ = __str__
 
     def to_dict(self):
-        paste_dict = {'scrape_url': self.scrape_url,
-                      'full_url': self.full_url,
-                      'date': self.date,
-                      'key': self.key,
-                      'size': self.size,
-                      'expire': self.expire,
-                      'title': self.title,
-                      'syntax': self.syntax,
-                      'user': self.user,
-                      'body': self.body}
-        return paste_dict
+        return self.__dict__.copy()
