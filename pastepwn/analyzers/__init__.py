@@ -8,6 +8,7 @@ from .databasedumpanalyzer import DatabaseDumpAnalyzer
 from .dbconnstringanalyzer import DBConnAnalyzer
 from .emailpasswordpairanalyzer import EmailPasswordPairAnalyzer
 from .genericanalyzer import GenericAnalyzer
+from .hashanalyzer import HashAnalyzer
 from .ibananalyzer import IBANAnalyzer
 from .mailanalyzer import MailAnalyzer
 from .md5hashanalyzer import MD5HashAnalyzer
@@ -74,5 +75,6 @@ __all__ = (
     'AWSSecretKeyAnalyzer',
     'AWSAccessKeyAnalyzer',
     'GoogleOAuthKeyAnalyzer',
-    'StripeApiKeyAnalyzer'
+    'StripeApiKeyAnalyzer',
+    'HashAnalyzer',
 )
