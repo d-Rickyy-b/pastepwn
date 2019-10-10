@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from pastepwn.util import listify
+import logging
 
 
 class BasicAnalyzer(object):
@@ -14,6 +15,7 @@ class BasicAnalyzer(object):
         """
         self.actions = listify(actions)
         self.identifier = identifier or self.name
+        self.logger = logging.getLogger(self.name)
 
     def add_action(self, action):
         """
