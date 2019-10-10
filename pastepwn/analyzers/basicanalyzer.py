@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from pastepwn.util import listify
 
 
 class BasicAnalyzer(object):
@@ -11,12 +12,7 @@ class BasicAnalyzer(object):
         :param actions: A single action or a list of actions to be executed on every paste
         :param identifier: The name or unique identifier for this specific analyzer
         """
-        if actions is None:
-            self.actions = []
-        elif isinstance(actions, list):
-            self.actions = actions
-        else:
-            self.actions = [actions]
+        self.actions = listify(actions)
         self.identifier = identifier or self.name
 
     def add_action(self, action):
