@@ -17,4 +17,4 @@ script:
   - coverage run --omit='*/virtualenv/*,*/site-packages/*' -m unittest discover -s . -v -p "*_test.py"
 
 after_success:
-  - [[ $TRAVIS_PYTHON_VERSION == "3.7" ]] && coveralls
+  - test $TRAVIS_PYTHON_VERSION == "3.7" && coveralls
