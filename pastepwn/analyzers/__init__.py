@@ -4,6 +4,7 @@ from .alwaystrueanalyzer import AlwaysTrueAnalyzer
 from .awsaccesskeyanalyzer import AWSAccessKeyAnalyzer
 from .awssecretkeyanalyzer import AWSSecretKeyAnalyzer
 from .awssessiontokenanalyzer import AWSSessionTokenAnalyzer
+from .azuresubscriptionkeyanalyzer import AzureSubscriptionKeyAnalyzer
 from .base64analyzer import Base64Analyzer
 from .basicanalyzer import BasicAnalyzer
 from .battlenetkeyanalyzer import BattleNetKeyAnalyzer
@@ -45,6 +46,7 @@ __all__ = (
     'AWSSecretKeyAnalyzer',
     'AWSAccessKeyAnalyzer',
     'AWSSessionTokenAnalyzer',
+    'AzureSubscriptionKeyAnalyzer',
     'Base64Analyzer',
     'BasicAnalyzer',
     'BattleNetKeyAnalyzer',
