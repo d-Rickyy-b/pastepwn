@@ -16,7 +16,12 @@ class IBANAnalyzer(RegexAnalyzer):
         self.validate = validate
 
     def match(self, paste):
-        paste_content = paste.body
+        """
+        Matches any IBAN contained in a paste
+        :param paste: A :class:`pastepwn.core.paste` object which should be matched
+        :return: :obj:`bool` if an IBAN was found in the paste
+        """
+        paste_content = paste.body or ""
         search_result = self.regex.search(paste_content)
 
         if search_result is None:

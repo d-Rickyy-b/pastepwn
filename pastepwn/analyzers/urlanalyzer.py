@@ -44,7 +44,7 @@ class URLAnalyzer(BasicAnalyzer):
 
     def match(self, paste):
         """ Check if the URL matches a certain regex, and then optionally try to resolve it. """
-        paste_content = paste.body
+        paste_content = paste.body or ""
         match = self.regex.search(paste_content)
         is_regex = match is not None
 
