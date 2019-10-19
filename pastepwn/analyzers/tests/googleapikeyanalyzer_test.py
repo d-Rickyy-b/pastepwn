@@ -29,6 +29,10 @@ class TestGoogleApiKeyAnalyzer(unittest.TestCase):
         self.paste.body = "AIza00000000000000000000000000000000000"
         self.assertTrue(self.analyzer.match(self.paste))
 
+        # key in the middle of a string
+        self.paste.body = "api key: AIza00000000000000000000000000000000000"
+        self.assertTrue(self.analyzer.match(self.paste))
+
     def test_match_negative(self):
         """Test if negatives are not recognized"""
         self.paste.body = ""

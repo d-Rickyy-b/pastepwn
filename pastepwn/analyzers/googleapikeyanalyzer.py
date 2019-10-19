@@ -6,5 +6,5 @@ class GoogleApiKeyAnalyzer(RegexAnalyzer):
 
     def __init__(self, actions):
         # https://cloud.google.com/docs/authentication/api-keys
-        regex = r"^AIza[0-9A-Za-z_-]{35}$"
+        regex = r"\bAIza[0-9A-Za-z_-]{35}\b"
         super().__init__(actions, regex)
