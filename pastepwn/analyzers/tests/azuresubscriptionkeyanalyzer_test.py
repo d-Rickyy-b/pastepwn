@@ -29,6 +29,10 @@ class TestAzureSubscriptionKeyAnalyzer(unittest.TestCase):
         self.paste.body = "a32324343543bcdea32324343543bcde"
         self.assertTrue(self.analyzer.match(self.paste))
 
+        # key appearing in the middle of a string
+        self.paste.body = "my azure key is: a32324343543bcdea32324343543bcde, aaaa"
+        self.assertTrue(self.analyzer.match(self.paste))
+
     def test_match_negative(self):
         """Test if negatives are not recognized"""
         self.paste.body = ""
