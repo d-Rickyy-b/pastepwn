@@ -9,6 +9,7 @@ from .databaseaction import DatabaseAction
 from .savejsonaction import SaveJSONAction
 from .twitteraction import TwitterAction
 from .discordaction import DiscordAction
+from .ircaction import IrcActtion
 
 __all__ = (
     "BasicAction",
@@ -20,4 +21,5 @@ __all__ = (
     "SaveJSONAction",
     "TwitterAction",
     "DiscordAction",
+    "IrcAction",
 )
