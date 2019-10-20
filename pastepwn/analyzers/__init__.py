@@ -15,6 +15,7 @@ from .dbconnstringanalyzer import DBConnAnalyzer
 from .emailpasswordpairanalyzer import EmailPasswordPairAnalyzer
 from .facebookaccesstokenanalyzer import FacebookAccessTokenAnalyzer
 from .genericanalyzer import GenericAnalyzer
+from .googleapikeyanalyzer import GoogleApiKeyAnalyzer
 from .googleoauthkeyanalyzer import GoogleOAuthKeyAnalyzer
 from .ibananalyzer import IBANAnalyzer
 from .logicalanalyzers import AndAnalyzer
@@ -57,6 +58,7 @@ __all__ = (
     'EmailPasswordPairAnalyzer',
     'FacebookAccessTokenAnalyzer',
     'GenericAnalyzer',
+    'GoogleApiKeyAnalyzer',
     'GoogleOAuthKeyAnalyzer',
     'IBANAnalyzer',
     'LogicalBaseAnalyzer',
