@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 
+import os
+import random
+import string
 import unittest
-import random, string
 
 from pastepwn import Paste
 from pastepwn.database import MongoDB
 
 
+@unittest.skipIf("TRAVIS" in os.environ and os.environ["TRAVIS"] == "true", "Skipping this test on Travis CI.")
 class MongoDBTest(unittest.TestCase):
 
     def setUp(self):
