@@ -1,0 +1,25 @@
+version: '3'
+services:
+  pastepwn:
+    build:
+      context: . 
+    env_file:
+     - .env
+    environment:
+      - HTTP_PROXY=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - NO_PROXY=${NO_PROXY}
+      - PATH_TO_START_PY=${PATH_TO_START_PY}
+    volumes:
+      - "${PATH_TO_START_PY}:/pastepwn/start.py:ro"
+    depends_on:
+      - db
+    links:
+      - db
+  db:
+    image: mysql
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+
