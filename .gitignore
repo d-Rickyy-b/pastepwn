@@ -109,3 +109,5 @@ venv
 .vscode/*
 
 *.db
+
+start.py
