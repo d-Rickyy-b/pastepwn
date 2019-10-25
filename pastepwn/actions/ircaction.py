@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import socket
 
+from pastepwn.util import TemplatingEngine
 from .basicaction import BasicAction
 
 
