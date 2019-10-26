@@ -9,7 +9,7 @@ from .databaseaction import DatabaseAction
 from .savejsonaction import SaveJSONAction
 from .twitteraction import TwitterAction
 from .discordaction import DiscordAction
-from .ircaction import IrcActtion
+from .ircaction import IrcAction
 
 __all__ = (
     "BasicAction",
