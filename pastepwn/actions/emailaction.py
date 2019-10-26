@@ -5,6 +5,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 from .basicaction import BasicAction
+from pastepwn.util import TemplatingEngine
 
 
 class EmailAction(BasicAction):
@@ -36,11 +37,7 @@ class EmailAction(BasicAction):
         :param analyzer_name: The name of the analyzer which matched the paste
         :return: None
         """
-        if self.template is None:
-            text = "New paste matched by analyzer '{0}' - Link: {1}".format(analyzer_name, paste.full_url)
-        else:
-            text = paste.body
-            # text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template)
+        text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template)
 
         email = MIMEMultipart()
         email['From'] = self.username
