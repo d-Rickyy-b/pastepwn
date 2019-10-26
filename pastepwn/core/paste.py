@@ -14,7 +14,7 @@ class Paste(object):
         self.syntax = syntax
         self.scrape_url = scrape_url
         self.full_url = full_url
-        self.body = None
+        self.body = ""
 
     def set_body(self, body):
         """
