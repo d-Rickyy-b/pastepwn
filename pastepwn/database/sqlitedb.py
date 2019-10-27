@@ -15,10 +15,14 @@ class SQLiteDB(AbstractDB):
         self.logger.debug("Initializing SQLite - {0}".format(dbpath))
 
         # Check if the folder path exists
-        if not os.path.exists(os.path.dirname(dbpath)):
+        if not os.path.exists(dbpath):
             # If not, create the path and the file
-            os.mkdir(os.path.dirname(dbpath))
+            dbdir = os.path.dirname(dbpath)
+            if dbdir != '':
+                os.mkdir(dbdir)
             open(self.dbpath, "a").close()
+        elif os.path.isdir(dbpath):
+            raise ValueError('\'{0}\' is a directory. Use different path/name for database.'.format(dbpath))
 
         try:
             self.db = sqlite3.connect(dbpath, check_same_thread=False)
