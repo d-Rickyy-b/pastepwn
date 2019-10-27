@@ -25,4 +25,10 @@ class SyslogAction(BasicAction):
         self.logger.addHandler(handler)
 
     def perform(self, paste, analyzer_name=None):
+        """
+        Logs a paste to the syslog
+        :param paste:
+        :param analyzer_name:
+        :return:
+        """
         self.logger.debug("New Paste matched: {0}".format(paste))

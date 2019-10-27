@@ -2,6 +2,7 @@
 
 
 class Paste(object):
+    """Representation of a paste object used for example by pastebin"""
 
     def __init__(self, key, title, user, size, date, expire, syntax, scrape_url, full_url):
         self.key = key
@@ -13,29 +14,24 @@ class Paste(object):
         self.syntax = syntax
         self.scrape_url = scrape_url
         self.full_url = full_url
-        self.body = None
+        self.body = ""
 
     def set_body(self, body):
-        if body is None:
-            body = ""
-        self.body = str(body)
+        """
+        Sets the body of the paste
+        :param body: String containing the content of the paste
+        :return:
+        """
+        self.body = str(body or "")
 
     def __str__(self):
-        paste_dict = self.to_dict()
-        return str(paste_dict)
+        return str(self.to_dict())
 
-    def __repr__(self):
-        return self.__str__()
+    __repr__ = __str__
 
     def to_dict(self):
-        paste_dict = {'scrape_url': self.scrape_url,
-                      'full_url': self.full_url,
-                      'date': self.date,
-                      'key': self.key,
-                      'size': self.size,
-                      'expire': self.expire,
-                      'title': self.title,
-                      'syntax': self.syntax,
-                      'user': self.user,
-                      'body': self.body}
-        return paste_dict
+        """
+        Generates a dict out of the paste
+        :return: Paste as dict
+        """
+        return self.__dict__.copy()

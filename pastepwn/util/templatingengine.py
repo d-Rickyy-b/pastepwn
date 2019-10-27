@@ -19,6 +19,11 @@ class TemplatingEngine(object):
         """
         paste_dict = paste.to_dict()
         paste_dict["analyzer_name"] = analyzer_name
+
+        # Fallback if the template string is empty or non existent
+        if template_string is None or template_string == "":
+            template_string = "New paste matched by analyzer '${analyzer_name}' - Link: ${full_url}"
+
         template = Template(template_string)
         text = template.safe_substitute(DictWrapper(paste_dict))
         return text
