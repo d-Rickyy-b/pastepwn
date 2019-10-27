@@ -45,7 +45,7 @@ class MyTestCase(unittest.TestCase):
         result = ga.match(mock_paste)
 
         # Make sure the analyzer method was called
-        mock_exception.assert_called()
+        self.assertTrue(mock_exception.call_count > 0, msg="The mock has not been called!")
 
         # Make sure the analyzer returned false as result
         self.assertFalse(result, msg="The analyzer returned true although an exception was raised!")
