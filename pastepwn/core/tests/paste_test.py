@@ -43,7 +43,7 @@ class PasteTest(unittest.TestCase):
         self.assertEqual(self.p.get("syntax"), self.paste.syntax)
         self.assertEqual(self.p.get("scrape_url"), self.paste.scrape_url)
         self.assertEqual(self.p.get("full_url"), self.paste.full_url)
-        self.assertEqual(None, self.paste.body)
+        self.assertEqual("", self.paste.body)
 
     def test_set_body(self):
         my_body = "This is a test for pastepwn"
