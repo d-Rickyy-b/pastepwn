@@ -17,6 +17,7 @@ from .facebookaccesstokenanalyzer import FacebookAccessTokenAnalyzer
 from .genericanalyzer import GenericAnalyzer
 from .googleapikeyanalyzer import GoogleApiKeyAnalyzer
 from .googleoauthkeyanalyzer import GoogleOAuthKeyAnalyzer
+from .hashanalyzer import HashAnalyzer
 from .ibananalyzer import IBANAnalyzer
 from .logicalanalyzers import AndAnalyzer
 from .logicalanalyzers import LogicalBaseAnalyzer
@@ -60,6 +61,7 @@ __all__ = (
     'GenericAnalyzer',
     'GoogleApiKeyAnalyzer',
     'GoogleOAuthKeyAnalyzer',
+    'HashAnalyzer',  
     'IBANAnalyzer',
     'LogicalBaseAnalyzer',
     'MailAnalyzer',
