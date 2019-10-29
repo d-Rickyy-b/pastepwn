@@ -47,8 +47,8 @@ class TestMicrosoftKeyAnalyzer(unittest.TestCase):
         # Invalid length
         self.paste.body = "PNT6B-DKH2Q-GW4J2-DDT6T-PDHT76"
         self.assertFalse(self.analyzer.match(self.paste))
-		
-		# Invalid length
+
+        # Invalid length
         self.paste.body = "PNT6B-DKH2Q-GW4J2-DDT6T-PDHT"
         self.assertFalse(self.analyzer.match(self.paste))
 

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import logging
-from string import Template
 
 import twitter
 
@@ -14,12 +13,12 @@ class TwitterAction(BasicAction):
     name = "TwitterAction"
 
     def __init__(
-        self,
-        consumer_key=None,
-        consumer_secret=None,
-        access_token_key=None,
-        access_token_secret=None,
-        template=None,
+            self,
+            consumer_key=None,
+            consumer_secret=None,
+            access_token_key=None,
+            access_token_secret=None,
+            template=None,
     ):
         super().__init__()
 

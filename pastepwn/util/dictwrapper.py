@@ -7,5 +7,6 @@ class DictWrapper(dict):
     A wrapper around dicts which returns the key as string when missing.
     Used for the templating engine
     """
+
     def __missing__(self, key):
         return '{' + key + '}'

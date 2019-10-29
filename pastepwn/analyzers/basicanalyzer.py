@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from pastepwn.util import listify
 import logging
+
+from pastepwn.util import listify
 
 
 class BasicAnalyzer(object):

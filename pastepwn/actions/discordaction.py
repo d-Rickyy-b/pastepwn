@@ -53,7 +53,7 @@ class DiscordAction(BasicAction):
             hello = json.loads(hello_str)
             if hello.get('op') != 10:
                 self.logger.warning('[ws] Expected Hello payload but received %s', hello_str)
-            
+
             # Send heartbeat and receive ACK
             yield from socket.send(json.dumps({"op": 1, "d": {}}))
             ack_str = yield from socket.recv()

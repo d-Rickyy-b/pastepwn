@@ -30,7 +30,7 @@ class TestSlackWebhookAnalyzer(unittest.TestCase):
 
         # part of a sentence
         self.paste.body = "here is the webhook url: The slack webhook key is " \
-                          "https://hooks.slack.com/services/T00000000/B00000000"\
+                          "https://hooks.slack.com/services/T00000000/B00000000" \
                           "/XXXXXXXXXXXXXXXXXXXXXXXX! how about that!"
         self.assertTrue(self.analyzer.match(self.paste))
 
@@ -53,7 +53,7 @@ class TestSlackWebhookAnalyzer(unittest.TestCase):
         # Invalid Length
         self.paste.body = "https://hooks.slack.com/services/T00000000/B0000000/XXXXXXXXXXXXXXXXXXXXXXXX"
         self.assertFalse(self.analyzer.match(self.paste))
-        
+
         # Invalid Format (/services/Z... vs /services/T...)
         self.paste.body = "https://hooks.slack.com/services/Z00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
         self.assertFalse(self.analyzer.match(self.paste))

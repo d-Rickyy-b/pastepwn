@@ -33,6 +33,7 @@ class TestFacebookAccessTokenAnalyzer(unittest.TestCase):
 
         self.obj = None
         self.assertFalse(self.analyzer.match(self.obj))
+
     def test_match_negative(self):
         # random string
         self.obj.body = "Test"

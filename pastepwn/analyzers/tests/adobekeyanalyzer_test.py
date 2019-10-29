@@ -47,8 +47,8 @@ class TestAdobeKeyAnalyzer(unittest.TestCase):
         # Invalid length
         self.paste.body = "1118-1470-8779-0264-4009-32445"
         self.assertFalse(self.analyzer.match(self.paste))
-		
-		# Invalid length
+
+        # Invalid length
         self.paste.body = "1118-1470-8779-0264-4009-324"
         self.assertFalse(self.analyzer.match(self.paste))
 
