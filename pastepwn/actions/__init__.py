@@ -3,8 +3,10 @@
 from .basicaction import BasicAction
 from .databaseaction import DatabaseAction
 from .discordaction import DiscordAction
+from .emailaction import EmailAction
 from .genericaction import GenericAction
 from .logaction import LogAction
+from .mispaction import MISPAction
 from .savefileaction import SaveFileAction
 from .savejsonaction import SaveJSONAction
 from .telegramaction import TelegramAction
@@ -20,4 +22,6 @@ __all__ = (
     "SaveJSONAction",
     "TwitterAction",
     "DiscordAction",
+    "MISPAction",
+    "EmailAction"
 )

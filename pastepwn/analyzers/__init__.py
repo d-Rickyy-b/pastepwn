@@ -4,6 +4,7 @@ from .alwaystrueanalyzer import AlwaysTrueAnalyzer
 from .awsaccesskeyanalyzer import AWSAccessKeyAnalyzer
 from .awssecretkeyanalyzer import AWSSecretKeyAnalyzer
 from .awssessiontokenanalyzer import AWSSessionTokenAnalyzer
+from .azuresubscriptionkeyanalyzer import AzureSubscriptionKeyAnalyzer
 from .base64analyzer import Base64Analyzer
 from .basicanalyzer import BasicAnalyzer
 from .battlenetkeyanalyzer import BattleNetKeyAnalyzer
@@ -14,7 +15,9 @@ from .dbconnstringanalyzer import DBConnAnalyzer
 from .emailpasswordpairanalyzer import EmailPasswordPairAnalyzer
 from .facebookaccesstokenanalyzer import FacebookAccessTokenAnalyzer
 from .genericanalyzer import GenericAnalyzer
+from .googleapikeyanalyzer import GoogleApiKeyAnalyzer
 from .googleoauthkeyanalyzer import GoogleOAuthKeyAnalyzer
+from .hashanalyzer import HashAnalyzer
 from .ibananalyzer import IBANAnalyzer
 from .logicalanalyzers import AndAnalyzer
 from .logicalanalyzers import LogicalBaseAnalyzer
@@ -45,6 +48,7 @@ __all__ = (
     'AWSSecretKeyAnalyzer',
     'AWSAccessKeyAnalyzer',
     'AWSSessionTokenAnalyzer',
+    'AzureSubscriptionKeyAnalyzer',
     'Base64Analyzer',
     'BasicAnalyzer',
     'BattleNetKeyAnalyzer',
@@ -55,7 +59,9 @@ __all__ = (
     'EmailPasswordPairAnalyzer',
     'FacebookAccessTokenAnalyzer',
     'GenericAnalyzer',
+    'GoogleApiKeyAnalyzer',
     'GoogleOAuthKeyAnalyzer',
+    'HashAnalyzer',  
     'IBANAnalyzer',
     'LogicalBaseAnalyzer',
     'MailAnalyzer',

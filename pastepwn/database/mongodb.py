@@ -28,7 +28,7 @@ class MongoDB(AbstractDB):
         self.collection.create_index([('key', pymongo.ASCENDING)], unique=True)
 
     def _insert_data(self, data):
-        self.collection.insert_one(data)
+        self.collection.update_one({'key': data['key']}, {'$set': data}, upsert=True)
 
     def _get_data(self, key, value):
         return self.collection.find({key: value})
