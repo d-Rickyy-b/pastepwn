@@ -59,8 +59,7 @@ class ActionHandler(object):
                     continue
 
                 for action in actions:
-                    self.logger.debug("Performing action '{0}' on paste '{1}' matched by analyzer '{2}'!".format(action.name, paste.key, analyzer.identifier))
-                    action.perform(paste, analyzer.identifier)
+                    self._perform_action_wrapper(action, paste, analyzer)
             except Empty:
                 if self.__stop_event.is_set():
                     self.logger.debug("orderly stopping ActionHandler")
@@ -70,3 +69,11 @@ class ActionHandler(object):
                     self.logger.critical("stopping ActionHandler due to exception in another thread")
                     self.running = False
                     break
+
+    def _perform_action_wrapper(self, action, paste, analyzer):
+        """A wrapper around the perform method to catch exceptions"""
+        try:
+            self.logger.debug("Performing action '{0}' on paste '{1}' matched by analyzer '{2}'!".format(action.name, paste.key, analyzer.identifier))
+            action.perform(paste, analyzer.identifier)
+        except Exception as e:
+            self.logger.error("While performing the action '{0}' the following exception occurred: '{1}'".format(action.name, e))
