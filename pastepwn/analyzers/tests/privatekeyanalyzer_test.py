@@ -22,7 +22,6 @@ class TestMailAnalyzer(unittest.TestCase):
         self.assertTrue(self.analyzer.match(self.paste))
         self.paste.body = "-----BEGIN OPENSSH PRIVATE KEY-----"
         self.assertTrue(self.analyzer.match(self.paste))
-        
 
     def test_match_negative(self):
         """Test if negatives are not recognized"""

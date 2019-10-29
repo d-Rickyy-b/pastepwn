@@ -7,9 +7,8 @@ from time import sleep
 
 from pastepwn.actions import DatabaseAction
 from pastepwn.analyzers import AlwaysTrueAnalyzer
-from pastepwn.core import ScrapingHandler, ActionHandler
-from pastepwn.core.pastedispatcher import PasteDispatcher
-from pastepwn.util.request import Request
+from pastepwn.core import ScrapingHandler, ActionHandler, PasteDispatcher
+from pastepwn.util import Request
 
 
 class PastePwn(object):
