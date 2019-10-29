@@ -5,6 +5,7 @@ python:
   - "3.5"
   - "3.6"
   - "3.7"
+
 # command to install dependencies
 install:
   - pip install -r requirements.txt
@@ -15,8 +16,9 @@ script:
   - python -m compileall ./
   - coverage run --omit='*/virtualenv/*,*/site-packages/*' -m unittest discover -s . -v -p "*_test.py"
 
+# create coverage for one python version
 after_success:
-  - coveralls
+  - test $TRAVIS_PYTHON_VERSION == "3.7" && coveralls
 
 notifications:
   email: false

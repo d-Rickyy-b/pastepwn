@@ -5,7 +5,7 @@ from unittest import mock
 from pastepwn.analyzers.privatekeyanalyzer import PrivateKeyAnalyzer
 
 
-class TestMailAnalyzer(unittest.TestCase):
+class TestPrivateKeyAnalyzer(unittest.TestCase):
     def setUp(self):
         self.analyzer = PrivateKeyAnalyzer(None)
         self.paste = mock.Mock()
