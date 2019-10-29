@@ -15,10 +15,14 @@ class SQLiteDB(AbstractDB):
         self.logger.debug("Initializing SQLite - {0}".format(dbpath))
 
         # Check if the folder path exists
-        if not os.path.exists(os.path.dirname(dbpath)):
+        if not os.path.exists(dbpath):
             # If not, create the path and the file
-            os.mkdir(os.path.dirname(dbpath))
+            dbdir = os.path.dirname(dbpath)
+            if dbdir != '':
+                os.mkdir(dbdir)
             open(self.dbpath, "a").close()
+        elif os.path.isdir(dbpath):
+            raise ValueError('\'{0}\' is a directory. Use different path/name for database.'.format(dbpath))
 
         try:
             self.db = sqlite3.connect(dbpath, check_same_thread=False)
@@ -63,6 +67,12 @@ class SQLiteDB(AbstractDB):
                              paste.body))
         self.db.commit()
 
+    def _update_data(self, paste):
+        self.cursor.execute("UPDATE pastes SET body = ? WHERE key = ?",
+                            (paste.body,
+                            paste.key))
+        self.db.commit()
+
     def _get_data(self, key, value):
         pass
 
@@ -80,6 +90,9 @@ class SQLiteDB(AbstractDB):
             self._insert_data(paste)
         except Exception as e:
             self.logger.debug("Exception '{0}'".format(e))
+            if "UNIQUE constraint failed: pastes.key" in str(e):
+                self.logger.debug("Doing upsert")
+                self._update_data(paste)
 
     def get(self, key):
         return self._get_data("key", key)
