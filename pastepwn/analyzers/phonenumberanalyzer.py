@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from .regexanalyzer import RegexAnalyzer
 
+
 class PhoneNumberAnalyzer(RegexAnalyzer):
     """Analyzer to match Phone Numbers"""
 
