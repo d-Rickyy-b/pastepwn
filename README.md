@@ -29,8 +29,8 @@ To use the pastepwn framework you need to follow these simple steps:
 
 There are 2 ways to use this tool behind a proxy:
 
-* Define the following environment variables: `HTTP_PROXY`, `HTTPS_PROXY`, `NO_PROXY`.
-* When initializing the PastePwn object, use the `proxies` argument. `proxies` is a dict as defined in [requests' documentation](http://docs.python-requests.org/en/master/user/advanced/#proxies).
+- Define the following environment variables: `HTTP_PROXY`, `HTTPS_PROXY`, `NO_PROXY`.
+- When initializing the PastePwn object, use the `proxies` argument. `proxies` is a dict as defined in [requests' documentation](http://docs.python-requests.org/en/master/user/advanced/#proxies).
 
 ### ToDos
 There are quite some features which will be implemented in the (near) future.

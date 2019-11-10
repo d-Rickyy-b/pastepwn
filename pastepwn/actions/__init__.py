@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 
 from .basicaction import BasicAction
-from .savefileaction import SaveFileAction
-from .telegramaction import TelegramAction
-from .logaction import LogAction
-from .genericaction import GenericAction
 from .databaseaction import DatabaseAction
+from .discordaction import DiscordAction
+from .emailaction import EmailAction
+from .ircaction import IrcAction
+from .genericaction import GenericAction
+from .logaction import LogAction
+from .mispaction import MISPAction
+from .savefileaction import SaveFileAction
 from .savejsonaction import SaveJSONAction
+from .telegramaction import TelegramAction
 from .twitteraction import TwitterAction
 
 __all__ = (
@@ -18,4 +22,8 @@ __all__ = (
     "DatabaseAction",
     "SaveJSONAction",
     "TwitterAction",
+    "DiscordAction",
+    "IrcAction",
+    "MISPAction",
+    "EmailAction"
 )

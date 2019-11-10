@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from threading import Thread, current_thread
 import logging
+from threading import Thread, current_thread
 
 
 def start_thread(target, name, exception_event, *args, **kwargs):
