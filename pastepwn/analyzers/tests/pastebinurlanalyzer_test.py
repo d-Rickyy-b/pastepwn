@@ -4,6 +4,7 @@ from unittest import mock
 
 from pastepwn.analyzers.pastebinurlanalyzer import PastebinURLAnalyzer
 
+
 class TestPastebinURLAnalyzer(unittest.TestCase):
     def setUp(self):
         self.analyzer = PastebinURLAnalyzer(None)
@@ -20,6 +21,10 @@ class TestPastebinURLAnalyzer(unittest.TestCase):
         self.assertTrue(self.analyzer.match(self.paste))
         self.paste.body = "https://pastebin.com/xyz  "
         self.assertTrue(self.analyzer.match(self.paste))
+        self.paste.body = "www.pastebin.com/xyz"
+        self.assertTrue(self.analyzer.match(self.paste))
+        self.paste.body = "pastebin.com/xyx"
+        self.assertTrue(self.analyzer.match(self.paste))
 
     def test_match_negative(self):
         self.paste.body = ""
@@ -27,10 +32,6 @@ class TestPastebinURLAnalyzer(unittest.TestCase):
         self.paste.body = None
         self.assertFalse(self.analyzer.match(self.paste))
         self.paste.body = "https://google.com/xyz"
-        self.assertFalse(self.analyzer.match(self.paste))
-        self.paste.body = "www.pastebin.com/xyz"
-        self.assertFalse(self.analyzer.match(self.paste))
-        self.paste.body = "pastebin.com/xyx"
         self.assertFalse(self.analyzer.match(self.paste))
         self.paste.body = "xyzpastebin.com/k"
         self.assertFalse(self.analyzer.match(self.paste))
@@ -42,3 +43,6 @@ class TestPastebinURLAnalyzer(unittest.TestCase):
         self.assertFalse(self.analyzer.match(self.paste))
         self.paste.body = "https:///pastebin.com/xyz"
         self.assertFalse(self.analyzer.match(self.paste))
+
+    if __name__ == '__main__':
+        unittest.main()
