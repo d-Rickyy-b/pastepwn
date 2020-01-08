@@ -1,4 +1,4 @@
-![Logo](hdttps://raw.githubusercontent.com/d-Rickyy-b/pastepwn/master/documentation/pastepwn_logo.png)
+![Logo](https://raw.githubusercontent.com/d-Rickyy-b/pastepwn/master/documentation/pastepwn_logo.png)
 
 
 # pastepwn - Paste-Scraping Python Framework
