@@ -1,11 +1,11 @@
-![Logo](https://raw.githubusercontent.com/d-Rickyy-b/pastepwn/master/documentation/pastepwn_logo.png)
-
+![Logo](hdttps://raw.githubusercontent.com/d-Rickyy-b/pastepwn/master/documentation/pastepwn_logo.png)
 
 
 # pastepwn - Paste-Scraping Python Framework
 [![Build Status](https://travis-ci.org/d-Rickyy-b/pastepwn.svg?branch=master)](https://travis-ci.org/d-Rickyy-b/pastepwn)
 [![PyPI version](https://badge.fury.io/py/pastepwn.svg)](https://badge.fury.io/py/pastepwn)
 [![Coverage Status](https://coveralls.io/repos/github/d-Rickyy-b/pastepwn/badge.svg?branch=master)](https://coveralls.io/github/d-Rickyy-b/pastepwn?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/513ae84197824ff89c0a60a5291c4425)](https://www.codacy.com/manual/d-Rickyy-b/pastepwn?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=d-Rickyy-b/pastepwn&amp;utm_campaign=Badge_Grade)
 
 [Pastebin](https://pastebin.com) is a very helpful tool to store or rather share ascii encoded data online. In the world of OSINT, pastebin is being used by [researchers all around the world](https://www.troyhunt.com/introducing-paste-searches-and/) to retreive e.g. leaked account data, in order to find indicators about security breaches.
 
