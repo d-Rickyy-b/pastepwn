@@ -4,6 +4,7 @@ from .basicaction import BasicAction
 from .databaseaction import DatabaseAction
 from .discordaction import DiscordAction
 from .emailaction import EmailAction
+from .ircaction import IrcAction
 from .genericaction import GenericAction
 from .logaction import LogAction
 from .mispaction import MISPAction
@@ -22,6 +23,7 @@ __all__ = (
     "SaveJSONAction",
     "TwitterAction",
     "DiscordAction",
+    "IrcAction",
     "MISPAction",
     "EmailAction"
 )
