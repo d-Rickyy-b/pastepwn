@@ -5,7 +5,7 @@ from unittest import mock
 from pastepwn.analyzers.emailpasswordpairanalyzer import EmailPasswordPairAnalyzer
 
 
-class TestWordAnalyzer(unittest.TestCase):
+class TestEmailPasswordPairAnalyzer(unittest.TestCase):
     def setUp(self):
         self.obj = mock.Mock()
 
