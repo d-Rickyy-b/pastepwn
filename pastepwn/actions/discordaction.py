@@ -98,7 +98,7 @@ class DiscordAction(BasicAction):
         loop.run_until_complete(self._identify(ws_url))
         self.identified = True
 
-    def perform(self, paste, analyzer_name=None):
+    def perform(self, paste, analyzer_name=None, matches=None):
         """Send a message via Discord to a specified channel, without checking for errors"""
         r = Request()
         if self.template is None:

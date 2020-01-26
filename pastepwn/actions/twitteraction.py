@@ -32,7 +32,7 @@ class TwitterAction(BasicAction):
         )
         self.template = template
 
-    def perform(self, paste, analyzer_name=None):
+    def perform(self, paste, analyzer_name=None, matches=None):
         """Tweet a message"""
         text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template)
         self.twitter_api.PostUpdate(text)

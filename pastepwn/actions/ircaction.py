@@ -25,7 +25,7 @@ class IrcAction(BasicAction):
         self.port = port
         self.nick = nick
 
-    def perform(self, paste, analyzer_name=None):
+    def perform(self, paste, analyzer_name=None, matches=None):
         """Perform the action on the passed paste"""
         if self.template is None:
             text = "New paste matched by analyzer '{0}' - Link: {1}".format(analyzer_name, paste.full_url)

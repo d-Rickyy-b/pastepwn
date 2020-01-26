@@ -16,4 +16,4 @@ class PasteTitleAnalyzer(BasicAnalyzer):
     def match(self, paste):
         """Match the title of a paste via regex. Return true if regex matches"""
         paste_title = paste.title or ""
-        return self.regex.search(paste_title) is not None
+        return self.regex.findall(paste_title)

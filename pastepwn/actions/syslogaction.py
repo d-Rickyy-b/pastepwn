@@ -24,11 +24,11 @@ class SyslogAction(BasicAction):
         handler = logging.handlers.SysLogHandler(address=syslog_address)
         self.logger.addHandler(handler)
 
-    def perform(self, paste, analyzer_name=None):
+    def perform(self, paste, analyzer_name=None, matches=None):
         """
         Logs a paste to the syslog
         :param paste:
         :param analyzer_name:
-        :return:
+        :param matches: List of matches returned by the analyzer
         """
         self.logger.debug("New Paste matched: {0}".format(paste))

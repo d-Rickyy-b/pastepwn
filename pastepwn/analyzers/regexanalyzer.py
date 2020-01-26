@@ -18,4 +18,4 @@ class RegexAnalyzer(BasicAnalyzer):
             return False
 
         paste_content = paste.body or ""
-        return self.regex.search(paste_content) is not None
+        return self.regex.findall(paste_content)

@@ -22,7 +22,7 @@ class TelegramAction(BasicAction):
         self.custom_payload = custom_payload
         self.template = template
 
-    def perform(self, paste, analyzer_name=None):
+    def perform(self, paste, analyzer_name=None, matches=None):
         """Send a message via a Telegram bot to a specified user, without checking for errors"""
         r = Request()
         text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template)

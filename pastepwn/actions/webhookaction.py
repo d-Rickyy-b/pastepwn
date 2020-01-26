@@ -17,11 +17,12 @@ class WebhookAction(BasicAction):
         self.url = url
         self.post_data = post_data
 
-    def perform(self, paste, analyzer_name=None):
+    def perform(self, paste, analyzer_name=None, matches=None):
         """
         Trigger the webhook
         :param paste: The paste passed by the ActionHandler
         :param analyzer_name: The name of the analyzer which matched the paste
+        :param matches: List of matches returned by the analyzer
         :return: None
         """
         if self.post_data is None:
