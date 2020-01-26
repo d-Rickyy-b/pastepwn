@@ -8,7 +8,7 @@ class TemplatingEngine(object):
     """Wrapper class around the python templating feature"""
 
     @staticmethod
-    def fill_template(paste, analyzer_name, template_string):
+    def fill_template(paste, analyzer_name, template_string, **kwargs):
         """
         Returns a templated text with paste contents inserted into the template string
         Use ${key_name} in the template_string to insert paste contents into it
@@ -19,6 +19,10 @@ class TemplatingEngine(object):
         """
         paste_dict = paste.to_dict()
         paste_dict["analyzer_name"] = analyzer_name
+
+        # Possibility to insert own/custom values into the paste_dict thus gives more control over the template string
+        for name, value in kwargs.items():
+            paste_dict[name] = value
 
         # Fallback if the template string is empty or non existent
         if template_string is None or template_string == "":
