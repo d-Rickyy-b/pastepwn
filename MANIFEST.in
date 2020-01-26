@@ -1,1 +1,1 @@
-include LICENSE requirements_minimum.txt
+include LICENSE requirements.txt requirements_minimum.txt
