@@ -12,7 +12,7 @@ def requirements():
     """Build the requirements list for this project"""
     requirements_list = []
 
-    with open(os.path.join(setup_path, "requirements.txt")) as reqs:
+    with open(os.path.join(setup_path, "requirements_minimum.txt")) as reqs:
         for install in reqs:
             requirements_list.append(install.strip())
 

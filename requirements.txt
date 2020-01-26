@@ -1,5 +1,5 @@
-pymongo
 mysql-connector-python
-requests
+pymongo
 python-twitter
+requests
 websockets>=7.0,<8
