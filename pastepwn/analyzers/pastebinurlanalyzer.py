@@ -7,5 +7,5 @@ class PastebinURLAnalyzer(URLAnalyzer):
     name = "PastebinURLAnalyzer"
 
     def __init__(self, actions, resolve=False):
-        regex = r"((?:https?:\/\/)?pastebin.com\/[a-zA-Z0-9]{3,})"
+        regex = r"((?:https?:\/\/)?pastebin\.com\/[a-zA-Z0-9]{3,})"
         super().__init__(actions, regex, resolve)
