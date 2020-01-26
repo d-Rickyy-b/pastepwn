@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from unittest import TestCase
+import unittest
 
 from pastepwn import Paste
 
 
-class PasteTest(TestCase):
+class PasteTest(unittest.TestCase):
 
     def setUp(self):
         p = {"scrape_url": "https://scrape.pastebin.com/api_scrape_item.php?i=0CeaNm8Y",
@@ -49,6 +49,8 @@ class PasteTest(TestCase):
         my_body = "This is a test for pastepwn"
         self.paste.set_body(my_body)
         self.assertEqual(my_body, self.paste.body)
+
+    def test_empty_body(self):
         empty_body = ""
         self.paste.set_body(None)
         self.assertEqual(empty_body, self.paste.body) 
@@ -59,7 +61,3 @@ class PasteTest(TestCase):
 
         paste_dict = self.paste.to_dict()
         self.assertEqual(self.p, paste_dict)
-        
-    def test_str(self):
-        string_of_dict = str(self.p)
-        self.assertEqual(string_of_dict, str(self.paste))
