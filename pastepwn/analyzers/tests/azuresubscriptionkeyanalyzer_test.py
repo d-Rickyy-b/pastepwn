@@ -57,5 +57,6 @@ class TestAzureSubscriptionKeyAnalyzer(unittest.TestCase):
         self.paste.body = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         self.assertFalse(self.analyzer.match(self.paste))
 
+
 if __name__ == '__main__':
     unittest.main()

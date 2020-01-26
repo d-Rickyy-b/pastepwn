@@ -27,8 +27,9 @@ class SyslogAction(BasicAction):
     def perform(self, paste, analyzer_name=None, matches=None):
         """
         Logs a paste to the syslog
-        :param paste:
-        :param analyzer_name:
+        :param paste: The paste passed by the ActionHandler
+        :param analyzer_name: The name of the analyzer which matched the paste
         :param matches: List of matches returned by the analyzer
+        :return: None
         """
         self.logger.debug("New Paste matched: {0}".format(paste))

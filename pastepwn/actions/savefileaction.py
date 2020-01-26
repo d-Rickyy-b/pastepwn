@@ -15,9 +15,10 @@ class SaveFileAction(BasicAction):
     def perform(self, paste, analyzer_name=None, matches=None):
         """
         Stores the paste as a file
-        :param paste: The paste to be stored
-        :param analyzer_name: The analyzer
+        :param paste: The paste passed by the ActionHandler
+        :param analyzer_name: The name of the analyzer which matched the paste
         :param matches: List of matches returned by the analyzer
+        :return: None
         """
         if not os.path.exists(self.path):
             os.makedirs(self.path)

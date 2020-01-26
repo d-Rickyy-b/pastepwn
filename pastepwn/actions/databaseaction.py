@@ -11,4 +11,5 @@ class DatabaseAction(BasicAction):
         self.database = database
 
     def perform(self, paste, analyzer_name=None, matches=None):
+        """Store an incoming paste in the database"""
         self.database.store(paste)
