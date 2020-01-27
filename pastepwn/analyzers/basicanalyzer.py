@@ -33,3 +33,8 @@ class BasicAnalyzer(object):
         :return: :obj:`bool` if the paste has been matched
         """
         raise NotImplementedError("Your analyzer must implement the match method!")
+
+    def __repr__(self):
+        if self.identifier is None:
+            self.identifier = self.__class__.__name__
+        return self.identifier
