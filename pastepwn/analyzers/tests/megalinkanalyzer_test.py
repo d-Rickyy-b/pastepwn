@@ -36,6 +36,14 @@ class TestMegaLinkAnalyzer(unittest.TestCase):
         self.paste.body = "check out this file:https://mega.nz/#F!PB8SSawR!SUokSlF2Zy8CR004DNFfNw!LQtniCoa"
         self.assertTrue(self.analyzer.match(self.paste))
 
+        # multiple in one paste
+        self.paste.body = "check out this file:https://mega.nz/#F!PB8SSawR!SUokSlF2Zy8CR004DNFfNw!LQtniCoa also use this link for other stuff:" \
+                          "mega.nz/#F!XTQVEAZZ!eqxlOvTxJKnvAkYvjC0O8g"
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("https://mega.nz/#F!PB8SSawR!SUokSlF2Zy8CR004DNFfNw!LQtniCoa", match[0])
+        self.assertEqual("mega.nz/#F!XTQVEAZZ!eqxlOvTxJKnvAkYvjC0O8g", match[1])
+
     def test_match_negative(self):
         """Test if negatives are not recognized"""
         self.paste.body = ""
