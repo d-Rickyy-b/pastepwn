@@ -7,31 +7,35 @@ from .regexanalyzer import RegexAnalyzer
 class IBANAnalyzer(RegexAnalyzer):
     """Analyzer to match International Bank Account Numbers (IBAN)"""
     name = "IBANAnalyzer"
+    VALIDATE_ANY = 0
+    VALIDATE_ALL = 1
 
-    def __init__(self, actions, validate=False):
+    def __init__(self, actions, validate=False, validate_method=0):
         # Regex adapted from https://stackoverflow.com/a/44657292/3621482
         regex = r"(?:[A-Z]{2}[ \-]?[0-9]{2})(?!=(?:[ \-]?[A-Z0-9]){9,30}$)" \
                 r"(?:(?:[ \-]?[A-Z0-9]{3,5}){2,7})(?:[ \-]?[A-Z0-9]{1,3})?"
         super().__init__(actions, regex)
         self.validate = validate
+        self.validate_method = validate_method
 
-    def match(self, paste):
-        """
-        Matches any IBAN contained in a paste
-        :param paste: A :class:`pastepwn.core.paste` object which should be matched
-        :return: :obj:`bool` if an IBAN was found in the paste
-        """
-        paste_content = paste.body or ""
-        search_result = self.regex.search(paste_content)
+    def verify(self, results):
+        """Method to perform additional checks to test if the matches are actually valid"""
+        if not self.validate:
+            return True
 
-        if search_result is None:
+        # This currently checks if all found IBANs are valid. This might require another setting to gain more power on how this analyzer should work.
+        if self.validate_method == self.VALIDATE_ANY:
+            # We check all given matches and return True if any of them is a validated IBAN
+            for result in results:
+                if self._validate_iban(result):
+                    return True
             return False
-
-        if self.validate:
-            matched_string = search_result.group()
-            return self._validate_iban(matched_string)
-
-        return True
+        elif self.validate_method == self.VALIDATE_ALL:
+            # We check all given matches and return True if all of them are validated IBANs
+            for result in results:
+                if not self._validate_iban(result):
+                    return False
+            return True
 
     def _validate_iban(self, potential_iban):
         """Checks if the given string could be a valid IBAN. Adapted from https://rosettacode.org/wiki/IBAN#Python."""

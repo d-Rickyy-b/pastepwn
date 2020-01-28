@@ -17,6 +17,7 @@ class TestIBANAnalyzer(unittest.TestCase):
         self.assertTrue(self.cut._validate_iban("NL20INGB0001234567"))
 
     def test_validation_negative(self):
+        """Test to check that no false IBANS are matched"""
         self.assertFalse(self.cut._validate_iban("FR14 2004 1010 0505 0001 3"))
         self.assertFalse(self.cut._validate_iban("XX00 1234 5678 9012 3456 7890 1234 5678 90"))
         self.assertFalse(self.cut._validate_iban("YY00123456789012345678901234567890"))
@@ -51,6 +52,29 @@ class TestIBANAnalyzer(unittest.TestCase):
         self.cut = IBANAnalyzer(None, True)
         self.obj.body = "This is inside FR14 2004 1010 0505 0001 3 a paste."
         self.assertFalse(self.cut.match(self.obj))
+
+    def test_match_validate_any(self):
+        """Test if the analyzer matches if any IBAN is correct"""
+        self.analyzer = IBANAnalyzer(None, True, IBANAnalyzer.VALIDATE_ANY)
+        self.obj.body = "Mutlipe IBANS: DE89 3704 0044 0532 0130 00 and FR14 2004 1010 0505 0001 3 should not match"
+        match = self.analyzer.match(self.obj)
+        self.assertTrue(match)
+        self.assertEqual(2, len(match))
+        self.assertEqual("DE89 3704 0044 0532 0130 00", match[0])
+        self.assertEqual("FR14 2004 1010 0505 0001 3", match[1])
+
+    def test_match_validate_all(self):
+        """Test if the analyzer only matches if all IBANs are correct"""
+        self.analyzer = IBANAnalyzer(None, True, IBANAnalyzer.VALIDATE_ALL)
+        self.obj.body = "Mutlipe IBANS: DE89 3704 0044 0532 0130 00 and FR14 2004 1010 0505 0001 3 should not match"
+        self.assertFalse(self.analyzer.match(self.obj))
+
+        self.obj.body = "Mutlipe IBANS: DE89 3704 0044 0532 0130 00 and AT61 1904 3002 3457 3201 should not match"
+        match = self.analyzer.match(self.obj)
+        self.assertTrue(match)
+        self.assertEqual(2, len(match))
+        self.assertEqual("DE89 3704 0044 0532 0130 00", match[0])
+        self.assertEqual("AT61 1904 3002 3457 3201", match[1])
 
 
 if __name__ == '__main__':
