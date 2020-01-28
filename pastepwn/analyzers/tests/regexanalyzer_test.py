@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
-from unittest import mock
+from unittest.mock import Mock
 import re
 
 from pastepwn.analyzers.regexanalyzer import RegexAnalyzer
@@ -10,7 +10,7 @@ class TestRegexAnalyzer(unittest.TestCase):
 
     def setUp(self):
         """Set's up a paste mock object"""
-        self.paste = mock.Mock()
+        self.paste = Mock()
 
     def test_matchWord(self):
         analyzer = RegexAnalyzer(None, regex="word")
@@ -70,6 +70,23 @@ class TestRegexAnalyzer(unittest.TestCase):
         self.paste.body = ""
         self.assertFalse(analyzer.match(self.paste), "The regex does match, although it shouldn't!")
         self.assertEqual([], analyzer.match(self.paste))
+
+    def test_verify(self):
+        class TestAnalyzer(RegexAnalyzer):
+            """Test analyzer for testing the verify method"""
+            verify = Mock(return_value=True)
+
+            def __init__(self, actions, regex):
+                super().__init__(actions, regex)
+
+        mock_paste = Mock()
+        mock_paste.body = "Test aBc Test"
+        t = TestAnalyzer([], r"aBc")
+        result = t.match(mock_paste)
+        t.verify.assert_called_with(["aBc"])
+
+        self.assertTrue(result)
+        self.assertEqual("aBc", result[0])
 
 
 if __name__ == '__main__':
