@@ -34,7 +34,10 @@ class TestMicrosoftKeyAnalyzer(unittest.TestCase):
 
         # Newline seperated microsoft key
         self.paste.body = "N3B2Q-F9GQF-PTDBG-KKRR7-7QTXV\nN6C37-P8DW3-YVG9X-BRW77-9BQ67"
-        self.assertTrue(self.analyzer.match(self.paste))
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertTrue("N3B2Q-F9GQF-PTDBG-KKRR7-7QTXV", match[0])
+        self.assertTrue("N6C37-P8DW3-YVG9X-BRW77-9BQ67", match[1])
 
     def test_match_negative(self):
         """Test if negatives are not recognized"""
