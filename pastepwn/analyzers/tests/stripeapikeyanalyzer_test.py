@@ -33,6 +33,22 @@ class TestStripeApiKeyAnalyzer(unittest.TestCase):
         self.paste.body = "sk_test_YUTGF76uyh876Tyg87T786Tu"
         self.assertTrue(self.analyzer.match(self.paste))
 
+    def test_intext(self):
+        """Test if matches inside text are recognized"""
+        self.paste.body = "There is my api key: sk_test_YUTGF76uyh876Tyg87T786Tu - take good care of it"
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("sk_test_YUTGF76uyh876Tyg87T786Tu", match[0])
+
+    def test_multiple(self):
+        """Test if multiple matches are recognized"""
+        self.paste.body = "There is my api key: sk_test_YUTGF76uyh876Tyg87T786Tu - take good care of it. The other one is sk_live_4fsrdffsdf345345dfgfg34i"
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual(2, len(match))
+        self.assertEqual("sk_test_YUTGF76uyh876Tyg87T786Tu", match[0])
+        self.assertEqual("sk_live_4fsrdffsdf345345dfgfg34i", match[1])
+
     def test_match_negative(self):
         """Test if negatives are not recognized"""
         self.paste.body = ""
