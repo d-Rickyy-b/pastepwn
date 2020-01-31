@@ -28,9 +28,22 @@ class TestSlackTokenAnalyzer(unittest.TestCase):
         self.paste.body = "xoxa-999999999999-999999999999-999999999999-99999999999999999999999999999999"
         self.assertTrue(self.analyzer.match(self.paste))
 
-        # sentance segment slack key
+    def test_intext(self):
+        """Test if matches inside text are recognized"""
         self.paste.body = "my token is: xoxo-999999999999-999999999999-999999999999-99999999999999abc999999999999999"
-        self.assertTrue(self.analyzer.match(self.paste))
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("xoxo-999999999999-999999999999-999999999999-99999999999999abc999999999999999", match[0])
+
+    def test_multiple(self):
+        """Test if multiple matches are recognized"""
+        self.paste.body = "my token is: xoxo-999999999999-999999999999-999999999999-99999999999999abc999999999999999. Please also" \
+                          "take xoxa-999999999999-999999999999-999999999999-99999999999999999999999999999999!"
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual(2, len(match))
+        self.assertEqual("xoxo-999999999999-999999999999-999999999999-99999999999999abc999999999999999", match[0])
+        self.assertEqual("xoxa-999999999999-999999999999-999999999999-99999999999999999999999999999999", match[1])
 
     def test_match_negative(self):
         """Test if negatives are not recognized"""
