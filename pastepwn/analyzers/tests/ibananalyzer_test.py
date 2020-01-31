@@ -45,6 +45,7 @@ class TestIBANAnalyzer(unittest.TestCase):
         self.assertTrue(self.cut.match(self.obj))
 
     def test_match_validation(self):
+        """Test if the validation feature works"""
         self.cut = IBANAnalyzer(None, False)
         self.obj.body = "This is inside FR14 2004 1010 0505 0001 3 a paste."
         self.assertTrue(self.cut.match(self.obj))
@@ -55,26 +56,14 @@ class TestIBANAnalyzer(unittest.TestCase):
 
     def test_match_validate_any(self):
         """Test if the analyzer matches if any IBAN is correct"""
-        self.analyzer = IBANAnalyzer(None, True, IBANAnalyzer.VALIDATE_ANY)
+        self.analyzer = IBANAnalyzer(None, validate=True)
         self.obj.body = "Mutlipe IBANS: DE89 3704 0044 0532 0130 00 and FR14 2004 1010 0505 0001 3 should not match"
         match = self.analyzer.match(self.obj)
         self.assertTrue(match)
-        self.assertEqual(2, len(match))
-        self.assertEqual("DE89 3704 0044 0532 0130 00", match[0])
-        self.assertEqual("FR14 2004 1010 0505 0001 3", match[1])
 
-    def test_match_validate_all(self):
-        """Test if the analyzer only matches if all IBANs are correct"""
-        self.analyzer = IBANAnalyzer(None, True, IBANAnalyzer.VALIDATE_ALL)
-        self.obj.body = "Mutlipe IBANS: DE89 3704 0044 0532 0130 00 and FR14 2004 1010 0505 0001 3 should not match"
-        self.assertFalse(self.analyzer.match(self.obj))
-
-        self.obj.body = "Mutlipe IBANS: DE89 3704 0044 0532 0130 00 and AT61 1904 3002 3457 3201 should not match"
-        match = self.analyzer.match(self.obj)
-        self.assertTrue(match)
-        self.assertEqual(2, len(match))
+        # The validate method should filter the wrong FR IBAN out
+        self.assertEqual(1, len(match))
         self.assertEqual("DE89 3704 0044 0532 0130 00", match[0])
-        self.assertEqual("AT61 1904 3002 3457 3201", match[1])
 
 
 if __name__ == '__main__':
