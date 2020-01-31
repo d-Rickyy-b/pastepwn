@@ -33,6 +33,24 @@ class TestGoogleApiKeyAnalyzer(unittest.TestCase):
         self.paste.body = "api key: AIza00000000000000000000000000000000000"
         self.assertTrue(self.analyzer.match(self.paste))
 
+    def test_intext(self):
+        """Test if matches inside text are recognized"""
+        self.paste.body = "A key inside a AIzaSyBKNst9JE89f4lHuNXQFTUgZKh8VZpvR6M medium sized text!"
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual(1, len(match))
+        self.assertEqual("AIzaSyBKNst9JE89f4lHuNXQFTUgZKh8VZpvR6M", match[0])
+
+    def test_multiple(self):
+        """Test if multiple matches are recognized"""
+        self.paste.body = "A key inside a AIzaSyBKNst9JE89f4lHuNXQFTUgZKh8VZpvR6M medium sized text! Also how about " \
+                          "that one: AIzaSyCTmst6SvsOAQanZKNt-2pt6nuLoFf2kSA"
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual(2, len(match))
+        self.assertEqual("AIzaSyBKNst9JE89f4lHuNXQFTUgZKh8VZpvR6M", match[0])
+        self.assertEqual("AIzaSyCTmst6SvsOAQanZKNt-2pt6nuLoFf2kSA", match[1])
+
     def test_match_negative(self):
         """Test if negatives are not recognized"""
         self.paste.body = ""
@@ -56,6 +74,7 @@ class TestGoogleApiKeyAnalyzer(unittest.TestCase):
         # Invalid length
         self.paste.body = "AIzammmmmmmmm"
         self.assertFalse(self.analyzer.match(self.paste))
+
 
 if __name__ == '__main__':
     unittest.main()
