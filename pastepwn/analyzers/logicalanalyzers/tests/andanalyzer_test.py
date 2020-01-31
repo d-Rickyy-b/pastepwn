@@ -7,7 +7,7 @@ from pastepwn.analyzers import AndAnalyzer
 
 class TestAndAnalyzer(unittest.TestCase):
     def setUp(self):
-        self.obj = mock.Mock()
+        self.paste = mock.Mock()
         self.gt = mock.Mock()
         self.gt.match = mock.Mock(return_value=True)
 
@@ -15,39 +15,39 @@ class TestAndAnalyzer(unittest.TestCase):
         self.gf.match = mock.Mock(return_value=False)
 
     def test_match_positive(self):
-        self.obj.body = "Test"
+        self.paste.body = "Test"
         analyzer = AndAnalyzer(None, [self.gt])
-        self.assertTrue(analyzer.match(self.obj))
+        self.assertTrue(analyzer.match(self.paste))
 
         analyzer = AndAnalyzer(None, [self.gt, self.gt, self.gt])
-        self.assertTrue(analyzer.match(self.obj))
+        self.assertTrue(analyzer.match(self.paste))
 
         # Check if the analyzer returns false if there is at least one false result
         analyzer = AndAnalyzer([], [self.gt, self.gf])
-        self.assertFalse(analyzer.match(self.obj))
+        self.assertFalse(analyzer.match(self.paste))
 
         analyzer = AndAnalyzer([], [self.gf, self.gf])
-        self.assertFalse(analyzer.match(self.obj))
+        self.assertFalse(analyzer.match(self.paste))
 
         analyzer = AndAnalyzer([], [self.gf, self.gf, self.gf, self.gt])
-        self.assertFalse(analyzer.match(self.obj))
+        self.assertFalse(analyzer.match(self.paste))
 
     def test_negative(self):
-        self.obj.body = ""
+        self.paste.body = ""
 
         analyzer = AndAnalyzer([], None)
-        self.assertFalse(analyzer.match(self.obj))
+        self.assertFalse(analyzer.match(self.paste))
 
         analyzer = AndAnalyzer([], [])
-        self.assertFalse(analyzer.match(self.obj))
+        self.assertFalse(analyzer.match(self.paste))
 
     def test_actions_present(self):
-        analyzer = AndAnalyzer(self.obj, None)
-        self.assertEqual([self.obj], analyzer.actions)
+        analyzer = AndAnalyzer(self.paste, None)
+        self.assertEqual([self.paste], analyzer.actions)
 
     def test_analyzers_present(self):
-        analyzer = AndAnalyzer(None, self.obj)
-        self.assertEqual([self.obj], analyzer.analyzers)
+        analyzer = AndAnalyzer(None, self.paste)
+        self.assertEqual([self.paste], analyzer.analyzers)
 
 
 if __name__ == '__main__':

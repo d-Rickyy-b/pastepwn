@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import unittest
-from unittest import mock
 
 from pastepwn.util.dictwrapper import DictWrapper
 
@@ -8,7 +7,6 @@ from pastepwn.util.dictwrapper import DictWrapper
 class TestDictwrapper(unittest.TestCase):
     def setUp(self):
         self.test_dict = {"key1": "value1", "key2": "value2"}
-        self.obj = mock.Mock()
 
     def test_existing_key(self):
         test_wrapped = DictWrapper(self.test_dict)
