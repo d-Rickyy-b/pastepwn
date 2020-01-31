@@ -15,7 +15,7 @@ class RegexAnalyzer(BasicAnalyzer):
     def verify(self, results):
         """Method to perform additional checks to test if the matches are actually valid"""
         # This method can be overwritten by subclasses in order to perform more checks within the analyzer
-        return True
+        return results
 
     def match(self, paste):
         """Match the content of a paste via regex. Return true if regex matches"""
@@ -24,6 +24,5 @@ class RegexAnalyzer(BasicAnalyzer):
 
         paste_content = paste.body or ""
         matches = self.regex.findall(paste_content)
-        if not self.verify(matches):
-            return False
-        return matches
+
+        return self.verify(matches)
