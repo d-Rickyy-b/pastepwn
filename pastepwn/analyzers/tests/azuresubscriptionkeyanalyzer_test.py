@@ -29,9 +29,22 @@ class TestAzureSubscriptionKeyAnalyzer(unittest.TestCase):
         self.paste.body = "a32324343543bcdea32324343543bcde"
         self.assertTrue(self.analyzer.match(self.paste))
 
+    def test_intext(self):
+        """Test if matches inside text are recognized"""
         # key appearing in the middle of a string
         self.paste.body = "my azure key is: a32324343543bcdea32324343543bcde, aaaa"
-        self.assertTrue(self.analyzer.match(self.paste))
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("a32324343543bcdea32324343543bcde", match[0])
+
+    def test_multiple(self):
+        """Test if multiple matches are recognized"""
+        self.paste.body = "There are multiple keys: a32324343543bcdea32324343543bcde, " \
+                          "aaaand also aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!"
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("a32324343543bcdea32324343543bcde", match[0])
+        self.assertEqual("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", match[1])
 
     def test_match_negative(self):
         """Test if negatives are not recognized"""
