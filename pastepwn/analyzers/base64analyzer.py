@@ -7,7 +7,7 @@ class Base64Analyzer(RegexAnalyzer):
     name = "Base64Analyzer"
 
     def __init__(self, actions, min_len=1):
-        regex = r"^(?:[A-Za-z0-9+\/]{4})+(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=)?$"
+        regex = r"(?<![A-Za-z0-9+\/=])(?:[A-Za-z0-9+\/]{4})+(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=)?(?![A-Za-z0-9+\/=])"
         self.min_len = min_len
         super().__init__(actions, regex)
 
