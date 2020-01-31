@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
+import re
 import unittest
 from unittest import mock
-import re
 
 from pastepwn.analyzers.pastetitleanalyzer import PasteTitleAnalyzer
 
