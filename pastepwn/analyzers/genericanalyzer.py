@@ -26,11 +26,10 @@ class GenericAnalyzer(BasicAnalyzer):
         """Method to perform additional checks to test if the matches are actually valid"""
         # If no custom verify method is specified, we return True
         if self.verify_func is None:
-            return True
+            return results
 
         # Otherwise we try to execute the verify method
         try:
-            print(results)
             return self.verify_func(results)
         except Exception as e:
             logging.getLogger(__name__).warning("Executing custom verify function '{}' raised an exception! {}".format(self.verify_func.__name__, e))

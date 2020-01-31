@@ -15,5 +15,5 @@ class EmailPasswordPairAnalyzer(RegexAnalyzer):
     def verify(self, results):
         """Method to perform additional checks to test if the matches are actually valid"""
         if len(results) >= self.min_amount:
-            return True
+            return results
         return False
