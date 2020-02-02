@@ -83,10 +83,10 @@ class PasteDispatcher(object):
 
             if matches:
                 # If the analyzer just returns a boolean, we pass an empty list
-                if type(matches) == bool:
+                if isinstance(matches) == bool:
                     # matches == True, hence we pass an empty list
                     matches = []
-                elif type(matches) != list:
+                elif isinstance(matches) != list:
                     # when matches is not a bool, we pass the object as list
                     matches = [matches]
                 actions = analyzer.actions

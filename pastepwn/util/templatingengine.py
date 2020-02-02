@@ -17,6 +17,7 @@ class TemplatingEngine(object):
         :param template_string: A template string describing how the variables should be filled in
         :return: Filled template
         """
+
         paste_dict = paste.to_dict()
         paste_dict["analyzer_name"] = analyzer_name
 

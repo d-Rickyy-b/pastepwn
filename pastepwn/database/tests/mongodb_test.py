@@ -14,7 +14,7 @@ class MongoDBTest(unittest.TestCase):
 
     def setUp(self):
         rand_text = list()
-        for i in range(3):
+        for _ in range(3):
             rand_text.append(''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(8)))
 
         p = {"scrape_url": "https://scrape.pastebin.com/api_scrape_item.php?i=" + rand_text[0],
