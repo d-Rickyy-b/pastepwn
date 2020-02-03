@@ -15,7 +15,8 @@ class IrcAction(BasicAction):
             server=None,
             channel=None,
             port=6667,
-            nick="pastepwn"
+            nick="pastepwn",
+            template=None
     ):
         super().__init__()
 
@@ -24,6 +25,7 @@ class IrcAction(BasicAction):
         self.channel = channel
         self.port = port
         self.nick = nick
+        self.template = template
 
     def perform(self, paste, analyzer_name=None, matches=None):
         """Perform the action on the passed paste"""
