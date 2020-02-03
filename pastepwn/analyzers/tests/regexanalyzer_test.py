@@ -72,9 +72,15 @@ class TestRegexAnalyzer(unittest.TestCase):
         self.assertEqual([], analyzer.match(self.paste))
 
     def test_verify(self):
+        """Check that the verify method gets called correctly"""
+
+        def _verify_method(matches):
+            self.test = ""
+            return matches
+
         class TestAnalyzer(RegexAnalyzer):
             """Test analyzer for testing the verify method"""
-            verify = Mock(return_value=True)
+            verify = Mock(side_effect=_verify_method)
 
             def __init__(self, actions, regex):
                 super().__init__(actions, regex)
@@ -86,6 +92,7 @@ class TestRegexAnalyzer(unittest.TestCase):
         t.verify.assert_called_with(["aBc"])
 
         self.assertTrue(result)
+        self.assertEqual(1, len(result))
         self.assertEqual("aBc", result[0])
 
 
