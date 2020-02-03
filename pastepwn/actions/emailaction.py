@@ -38,7 +38,7 @@ class EmailAction(BasicAction):
         :param matches: A list of matches, on which the analyzer matched on
         :return: None
         """
-        text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template)
+        text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template, matches=matches)
 
         email = MIMEMultipart()
         email['From'] = self.username
