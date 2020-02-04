@@ -10,7 +10,7 @@ class TelegramAction(BasicAction):
     """Action to send a Telegram message to a certain user or group"""
     name = "TelegramAction"
 
-    def __init__(self, token, receiver, custom_payload=None, template=None):
+    def __init__(self, token, receiver, template=None):
         super().__init__()
         self.logger = logging.getLogger(__name__)
 
@@ -19,7 +19,6 @@ class TelegramAction(BasicAction):
 
         self.token = token
         self.receiver = receiver
-        self.custom_payload = custom_payload
         self.template = template
 
     def perform(self, paste, analyzer_name=None, matches=None):
