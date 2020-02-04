@@ -24,7 +24,54 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Using non-capturing groups in regex for various analyzers. This is done so that the analyzer can return a matched string and at the same time it fixed some issues with analyzers not matching properly
 
 ## [1.1.0] - 2019-11-11
-TBD
+### Added
+- Implement TemplatingEngine for filling template strings with content (8481036cc664011bfa5e778a845051426426f134)
+- Add custom request headers in request.py (5043e0cc05867b92cc058225a331b9e2450cd1e7)
+- Add flags to RegexAnalyzer to handle e.g. case insensitive matching (ddd0dcaae707de4c6fe9c1f08fe7d7334e0584f6)
+- logger object now usable from within any analyzer (d21532ef2553ee8a1dca3f41f54b1ab0a0ac37bc)
+- Implement logical analyzers (and/or) (94fc691c0ddba7f201501e74ed0c629e8f219458)
+- Implement listify method to create lists from a given input (e935122aa04a729a4abb82a65880e99345b5051f)
+- Implement support for onstart handlers (25b531393eefdec4441ac353e17c42aeb0c2475b)
+- Create docker-compose file (83014be091b9f96bc9537d094c49f44cb947489c)
+- New Action: TwitterAction for posting tweets when a paste matched (2056c3c43a1457e9fd898efc78dc28557efb379f)
+- New Action: DiscordAction (eafdc1c2cca851dda202edeed1967bf380460dd3)
+- New Action: MISPAction (8dabe5dd126034c0161ce23bb32932a27eb9e5dd)
+- New Action: EmailAction (9cfba96e6a34595a9deaf18fc494d8f731b01b3b)
+- New Action: IrcAction (fc1d1ab0271e0a62d3da32ea9e344ffacd6be761)
+- New Analyzer: PrivateKeyAnalyzer (a8746f1a5cd8939b277c8c668dc9def334e9e620)
+- New Analyzer: DatabaseDumpAnalyzer (0aa63ada49cf55039bdce0c793df181e661886a5)
+- New Analyzer: DBConnAnalyzer (e940630a6347c24afcd4f11f1e302db02b8a5e1c)
+- New Analyzer: PhoneNumberAnalyzer (9ff58b9d22b0eaae1b0c9f4d4cabd2dcf94d3ef6)
+- New Analyzer: OriginKeyAnalyzer (d0d715d9851ebf289717c63b10ccf1759f1df957)
+- New Analyzer: SteamKeyAnalyzer (27273a6f32039641456985c7fe01cf53d5152b75)
+- New Analyzer: UplayKeyAnalyzer (38097ac8225369326455e19a68c0465545fea3d2)
+- New Analyzer: EpicKeyAnalyzer (da122dad37395a67003073161ef8b7d6b6cca090)
+- New Analyzer: BattleNetKeyAnalyzer (8927204d901ed4275e2995239d2be66fc3e74925)
+- New Analyzer: MicrosoftKeyAnalyzer (8927204d901ed4275e2995239d2be66fc3e74925)
+- New Analyzer: AWSAccessKeyAnalyzer (ebc6eab54a11fd7ad9dd1959cdc29f314efd9d82)
+- New Analyzer: AWSSecretKeyAnalyzer (d07021a93ac0f64a86393aa3955771643b8e23e5)
+- New Analyzer: SlackWebhookAnalyzer (c40c3647489e8fc6e5e3b0c3e3f9dc5a1d2fd5cb)
+- New Analyzer: GoogleOAuthKeyAnalyzer (fbfb8bf30e1acab0375b3d388cf92e13af696fd5)
+- New Analyzer: FacebookAccessTokenAnalyzer (bb51e3e82d954a4a75f478c675e7a7f2c2b9761d)
+- New Analyzer: Base64Analyzer (8d50fbe23a31e7e9e4418c4d95dd281c863b9887)
+- New Analyzer: AdobeKeyAnalyzer (4e52345b63ded044ea13744901c728fec7f57aab)
+- New Analyzer: EmailPasswordPairAnalyzer (f0af9cbe660c322db7de31676a92186b49f6fa36)
+- New Analyzer: HashAnalyzer (87080c2c3fe1b7ff9f5d200b484061f3b9e6c8e0)
+- New Analyzer: SlackTokenAnalyzer (d68616917fd36f33030741a71c0037dc3274d9f4)
+- New Analyzer: MailChimpApiKeyAnalyzer (2e5302d6faed2acf1e626950b6f0d91fa88e2a09)
+- New Analyzer: MegaLinkAnalyzer (c884cb60dd17c191aba637dcb8dc4d6675dfc101)
+- New Analyzer: StripeApiKeyAnalyzer (f9bd202d0813aebb6bc3f189a43158227ca2bdea)
+- New Analyzer: AzureSubscriptionKeyAnalyzer (b010cb58979c009be943e9f5dd36432e834bda41)
+- New Analyzer: GoogleApiKeyAnalyzer (635a5e4f1357e458d2d35c7dbd8732d756694ec1)
+
+### Changed
+- Add pastebinscraper by default (d00fc83dbf094e4fadedb4c5d9b22ad6e8733ace)
+- Remove unused custom_payload from DiscordAction (7b13d757242af33ddc9ce1c2c3e5e3d7618cd4b5)
+
+### Fixed
+- SHA hash analyzer can now accept multiple length hashes (494d1af5871629bbfd2ee6c859e360e90042ae18)
+- Use empty string if paste.body is set to None in URL- and IBANAnalyzer (09f6763892f22dc6488abfd9d03f73eab232e4ca)
+- Include some changes when creating a sqlite file (0eb3504e9ad67cea4cd808fd7edb7f4ec862264d)
 
 ## [1.0.16] - 2019-09-08
 ### Added
