@@ -85,8 +85,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Ability to restart running scrapers after adding a new one ([de99892](https://github.com/d-Rickyy-b/pastepwn/commit/de99892f56e0933fee2939bac83c91fad3782994))
 - Ability to register error handlers ([1fae47e](https://github.com/d-Rickyy-b/pastepwn/commit/1fae47e0b97f5d42966775d305a6b5561db1dc73))
 ### Fixed
-- Check if paste is None before analyzing it ([2fd7b39](https://github.com/d-Rickyy-b/pastepwn/commit/2fd7b398ab13c3d891b4f0164625ce38f25f205f
-), [f4bfa46](https://github.com/d-Rickyy-b/pastepwn/commit/f4bfa466c27329839e7155b7f625ef18575ab1a8))
+- Check if paste is None before analyzing it ([2fd7b39](https://github.com/d-Rickyy-b/pastepwn/commit/2fd7b398ab13c3d891b4f0164625ce38f25f205f), [f4bfa46](https://github.com/d-Rickyy-b/pastepwn/commit/f4bfa466c27329839e7155b7f625ef18575ab1a8))
 - Broken behaviour for WordAnalyzer blacklist ([df2dd5b](https://github.com/d-Rickyy-b/pastepwn/commit/df2dd5b1627915f1b3996e7c4a10349ad837f7e2))
 - Reduced sleep time in order to shut down pastepwn faster ([55bb18d](https://github.com/d-Rickyy-b/pastepwn/commit/55bb18d17ee27e443b244dcd3ea2a0362fc5853a))
 - Add check in GenericAnalyzer if parameter is callable ([781d6d0](https://github.com/d-Rickyy-b/pastepwn/commit/781d6d0324fb73d93f9d8789aa08a0e72a597825))
