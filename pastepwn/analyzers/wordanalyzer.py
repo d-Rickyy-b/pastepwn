@@ -48,15 +48,16 @@ class WordAnalyzer(BasicAnalyzer):
         if self._blacklist_word_found(paste_content):
             return False
 
+        _matches = []
         if self.case_sensitive:
             for word in self.words:
                 # Never use 'return word in paste_content' - otherwise you will
                 # return false before all words have been checked
                 if word in paste_content:
-                    return True
+                    _matches.append(word)
         else:
             for word in self.words:
                 if word.lower() in paste_content.lower():
-                    return True
+                    _matches.append(word)
 
-        return False
+        return _matches

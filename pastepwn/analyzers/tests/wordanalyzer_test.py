@@ -109,10 +109,16 @@ class TestWordAnalyzer(unittest.TestCase):
         self.assertFalse(analyzer.match(self.paste))
 
         self.paste.body = "This is a Test for case sensitivity"
-        self.assertTrue(analyzer.match(self.paste))
+        match = analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual(1, len(match))
+        self.assertEqual("Test", match[0])
 
         self.paste.body = "This is a test for case sensitivity. It's the first of its kind."
-        self.assertTrue(analyzer.match(self.paste))
+        match = analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual(1, len(match))
+        self.assertEqual("first", match[0])
 
     def test_match_none(self):
         analyzer = WordAnalyzer(None, "Test")
