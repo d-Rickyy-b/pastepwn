@@ -7,19 +7,19 @@ from pastepwn.analyzers.logicalanalyzers import LogicalBaseAnalyzer
 
 class TestLogicalBaseAnalyzer(unittest.TestCase):
     def setUp(self):
-        self.obj = mock.Mock()
+        self.paste = mock.Mock()
 
     def test_exception(self):
         analyzer = LogicalBaseAnalyzer([], [])
         self.assertRaises(NotImplementedError, analyzer.match, mock.Mock())
 
     def test_actions_present(self):
-        analyzer = LogicalBaseAnalyzer(self.obj, None)
-        self.assertEqual([self.obj], analyzer.actions)
+        analyzer = LogicalBaseAnalyzer(self.paste, None)
+        self.assertEqual([self.paste], analyzer.actions)
 
     def test_analyzers_present(self):
-        analyzer = LogicalBaseAnalyzer(None, self.obj)
-        self.assertEqual([self.obj], analyzer.analyzers)
+        analyzer = LogicalBaseAnalyzer(None, self.paste)
+        self.assertEqual([self.paste], analyzer.analyzers)
 
     def test_merge_actions(self):
         action1 = mock.Mock()

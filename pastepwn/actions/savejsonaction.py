@@ -12,12 +12,13 @@ class SaveJSONAction(SaveFileAction):
     def __init__(self, path):
         super().__init__(path)
 
-    def perform(self, paste, analyzer_name=None):
+    def perform(self, paste, analyzer_name=None, matches=None):
         """
         Store the paste in a json file
         :param paste: The paste to be stored
         :param analyzer_name: The analyzer that matched
-        :return:
+        :param matches: List of matches returned by the analyzer
+        :return: None
         """
         if not os.path.exists(self.path):
             os.makedirs(self.path)

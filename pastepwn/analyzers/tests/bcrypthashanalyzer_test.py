@@ -8,7 +8,7 @@ from pastepwn.analyzers.bcrypthashanalyzer import BcryptHashAnalyzer
 class TestBcryptHashAnalyzer(unittest.TestCase):
     def setUp(self):
         self.analyzer = BcryptHashAnalyzer(None)
-        self.obj = mock.Mock()
+        self.paste = mock.Mock()
 
     def test_match(self):
         valid_hashes = ["$2a$10$BIgnlSmYE8qYiONM0NQ53eRWBw5G4HIJEbXKzcsRVt.08IDnqH/V.",
@@ -32,27 +32,41 @@ class TestBcryptHashAnalyzer(unittest.TestCase):
                           "$2a$10$   asdf 1234 how are you?"]
 
         for test_hash in valid_hashes:
-            self.obj.body = test_hash
-            self.assertTrue(self.analyzer.match(self.obj), test_hash)
+            self.paste.body = test_hash
+            self.assertTrue(self.analyzer.match(self.paste), test_hash)
 
         for test_hash in invalid_hashes:
-            self.obj.body = test_hash
-            self.assertFalse(self.analyzer.match(self.obj), test_hash)
+            self.paste.body = test_hash
+            self.assertFalse(self.analyzer.match(self.paste), test_hash)
+
+    def test_intext(self):
+        """Test if matches inside text are recognized"""
+        self.paste.body = "We now have a hashe inside the text: $2a$11$EppiRqR0kG9EKy56edDWTOnsv/oGW0dqAJB9ucmn3augbmcm8v/iy and some text here!"
+        self.assertTrue(self.analyzer.match(self.paste))
+
+    def test_multiple(self):
+        """Test if multiple matches are recognized"""
+        self.paste.body = "We now have a hashe inside the text: $2a$11$EppiRqR0kG9EKy56edDWTOnsv/oGW0dqAJB9ucmn3augbmcm8v/iy and some text here!" \
+                          "Also there is $2a$10$OyrADUFmj9QEqsd8frkEDOEYSPQalW5qoI1s2z6taCWwgUsjKzk5m as another one"
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("$2a$11$EppiRqR0kG9EKy56edDWTOnsv/oGW0dqAJB9ucmn3augbmcm8v/iy", match[0])
+        self.assertEqual("$2a$10$OyrADUFmj9QEqsd8frkEDOEYSPQalW5qoI1s2z6taCWwgUsjKzk5m", match[1])
 
     def test_match_none(self):
-        self.obj.body = None
-        self.assertFalse(self.analyzer.match(self.obj))
+        self.paste.body = None
+        self.assertFalse(self.analyzer.match(self.paste))
 
-        self.obj = None
-        self.assertFalse(self.analyzer.match(self.obj))
+        self.paste = None
+        self.assertFalse(self.analyzer.match(self.paste))
 
     def test_match_empty(self):
-        self.obj.body = ""
-        self.assertFalse(self.analyzer.match(self.obj))
+        self.paste.body = ""
+        self.assertFalse(self.analyzer.match(self.paste))
 
     def test_actions_present(self):
-        analyzer = BcryptHashAnalyzer(self.obj)
-        self.assertEqual([self.obj], analyzer.actions)
+        analyzer = BcryptHashAnalyzer(self.paste)
+        self.assertEqual([self.paste], analyzer.actions)
 
 
 if __name__ == '__main__':

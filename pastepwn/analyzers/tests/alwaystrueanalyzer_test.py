@@ -8,24 +8,24 @@ from pastepwn.analyzers.alwaystrueanalyzer import AlwaysTrueAnalyzer
 class TestAlwaysTrueAnalyzer(unittest.TestCase):
     def setUp(self):
         self.analyzer = AlwaysTrueAnalyzer(None)
-        self.obj = mock.Mock()
+        self.paste = mock.Mock()
 
     def test_match(self):
-        self.obj.body = "Test"
-        self.assertTrue(self.analyzer.match(self.obj))
+        self.paste.body = "Test"
+        self.assertTrue(self.analyzer.match(self.paste))
 
-        self.obj.body = None
-        self.assertTrue(self.analyzer.match(self.obj))
+        self.paste.body = None
+        self.assertTrue(self.analyzer.match(self.paste))
 
-        self.obj.body = ""
-        self.assertTrue(self.analyzer.match(self.obj))
+        self.paste.body = ""
+        self.assertTrue(self.analyzer.match(self.paste))
 
-        self.obj = None
-        self.assertTrue(self.analyzer.match(self.obj))
+        self.paste = None
+        self.assertTrue(self.analyzer.match(self.paste))
 
     def test_actions_present(self):
-        analyzer = AlwaysTrueAnalyzer(self.obj)
-        self.assertEqual([self.obj], analyzer.actions)
+        analyzer = AlwaysTrueAnalyzer(self.paste)
+        self.assertEqual([self.paste], analyzer.actions)
 
 
 if __name__ == '__main__':

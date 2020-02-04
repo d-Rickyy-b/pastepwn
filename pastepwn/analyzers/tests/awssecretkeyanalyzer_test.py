@@ -28,15 +28,26 @@ class TestAWSSecretKeyAnalyzer(unittest.TestCase):
         self.paste.body = "9cf95dacd226dcf43da376cdb6cbba7035218921"
         self.assertTrue(self.analyzer.match(self.paste))
 
+    def test_match_intext(self):
+        """Test if matches inside text are recognized"""
         self.paste.body = "my super cool hash is 9cf95dacd226dcf43da376cdb6cbba7035218921 and here's some more text"
-        self.assertTrue(self.analyzer.match(self.paste))
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("9cf95dacd226dcf43da376cdb6cbba7035218921", match[0])
 
         self.paste.body = "AWS Secret Access Key [None]: HrNMIhjZDnvkH5YGJpwjq0Flmj8H+dvURedLRjsO"
-        self.assertTrue(self.analyzer.match(self.paste))
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("HrNMIhjZDnvkH5YGJpwjq0Flmj8H+dvURedLRjsO", match[0])
 
+    def test_multiple(self):
+        """Test if multiple matches are recognized"""
         # Newline-separated valid hashes
         self.paste.body = "ZGBMmoyRxdhMObx0EuANS9FiS2kG5FwDVLH2XY7y\nHrNMIhjZDnvkH5YGJpwjq0Flmj8H+dvURedLRjsO"
-        self.assertTrue(self.analyzer.match(self.paste))
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("ZGBMmoyRxdhMObx0EuANS9FiS2kG5FwDVLH2XY7y", match[0])
+        self.assertEqual("HrNMIhjZDnvkH5YGJpwjq0Flmj8H+dvURedLRjsO", match[1])
 
     def test_match_negative(self):
         """Test if negatives are not recognized"""

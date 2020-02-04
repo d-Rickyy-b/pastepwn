@@ -61,7 +61,7 @@ __all__ = (
     'GenericAnalyzer',
     'GoogleApiKeyAnalyzer',
     'GoogleOAuthKeyAnalyzer',
-    'HashAnalyzer',  
+    'HashAnalyzer',
     'IBANAnalyzer',
     'LogicalBaseAnalyzer',
     'MailAnalyzer',

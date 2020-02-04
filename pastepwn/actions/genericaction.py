@@ -10,5 +10,5 @@ class GenericAction(BasicAction):
         super().__init__()
         self.func = func
 
-    def perform(self, paste, analyzer_name=None):
+    def perform(self, paste, analyzer_name=None, matches=None):
         self.func(paste)

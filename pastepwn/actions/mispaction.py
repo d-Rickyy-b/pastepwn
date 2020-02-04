@@ -90,7 +90,7 @@ class MISPAction(BasicAction):
         event['Attribute'] = attrs
         return event
 
-    def perform(self, paste, analyzer_name=None):
+    def perform(self, paste, analyzer_name=None, matches=None):
         """
         Sends the event to the MISP instance.
         :param paste: The paste passed by the ActionHandler

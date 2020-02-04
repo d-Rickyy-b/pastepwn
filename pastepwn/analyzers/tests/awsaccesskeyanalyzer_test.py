@@ -28,15 +28,25 @@ class TestAWSAccessKeyAnalyzer(unittest.TestCase):
         self.paste.body = "AKIAIKSA47YZNJAY2H6A"
         self.assertTrue(self.analyzer.match(self.paste))
 
+    def test_match_intext(self):
         self.paste.body = "my super cool hash is AKIAJM4DOPAAJWLUJ2PQ and here's some more text"
-        self.assertTrue(self.analyzer.match(self.paste))
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("AKIAJM4DOPAAJWLUJ2PQ", match[0])
 
         self.paste.body = "AWS Access Key ID [None]: AKIAIX2GUZJMJFDZON4A"
-        self.assertTrue(self.analyzer.match(self.paste))
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("AKIAIX2GUZJMJFDZON4A", match[0])
 
+    def test_multiple(self):
         # Newline-separated valid hashes
         self.paste.body = "AKIAIKSA47YZNJAY2H6A\nAKIAJM4DOPAAJWLUJ2PQ"
         self.assertTrue(self.analyzer.match(self.paste))
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("AKIAIKSA47YZNJAY2H6A", match[0])
+        self.assertEqual("AKIAJM4DOPAAJWLUJ2PQ", match[1])
 
     def test_match_negative(self):
         """Test if negatives are not recognized"""

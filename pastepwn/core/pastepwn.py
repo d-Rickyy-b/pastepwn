@@ -90,10 +90,11 @@ class PastePwn(object):
         self.error_handlers.append(error_handler)
 
     def add_onstart_handler(self, onstart_handler):
+        """Add a function as onstart_handler"""
         if not callable(onstart_handler):
             self.logger.error("The onstart handler you passed is not a function!")
             return
-        
+
         self.onstart_handlers.append(onstart_handler)
 
     def start(self):

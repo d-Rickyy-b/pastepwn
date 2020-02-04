@@ -28,11 +28,26 @@ class TestSlackWebhookAnalyzer(unittest.TestCase):
         self.paste.body = "https://hooks.slack.com/services/TafdGEj9a/B9BdR2SLM/yJAk3gcguM8YzFEpaPnSvZ4Q"
         self.assertTrue(self.analyzer.match(self.paste))
 
-        # part of a sentence
+    def test_intext(self):
+        """Test if matches inside text are recognized"""
         self.paste.body = "here is the webhook url: The slack webhook key is " \
                           "https://hooks.slack.com/services/T00000000/B00000000" \
                           "/XXXXXXXXXXXXXXXXXXXXXXXX! how about that!"
-        self.assertTrue(self.analyzer.match(self.paste))
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX", match[0])
+
+    def test_multiple(self):
+        """Test if multiple matches are recognized"""
+        self.paste.body = "here is the webhook url: The slack webhook key is " \
+                          "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX! how about that! and now" \
+                          "there is another one https://hooks.slack.com/services/T00000000/B00000000/YYYYYYYYYYYYYYYYYYYYYYYY right here!" \
+                          "And an invalid url: https://hooks.slack.com/services/T00000000/B00000000/ZZZZZZZZZZ there!"
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual(2, len(match))
+        self.assertEqual("https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX", match[0])
+        self.assertEqual("https://hooks.slack.com/services/T00000000/B00000000/YYYYYYYYYYYYYYYYYYYYYYYY", match[1])
 
     def test_match_negative(self):
         """Test if negatives are not recognized"""

@@ -34,7 +34,10 @@ class TestOriginKeyAnalyzer(unittest.TestCase):
 
         # Newline seperated origin key
         self.paste.body = "87NN-Z277-KTHD-EDJL-7MVB\nDPMV-FZXD-GD2G-7U28-6S3D"
-        self.assertTrue(self.analyzer.match(self.paste))
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("87NN-Z277-KTHD-EDJL-7MVB", match[0])
+        self.assertEqual("DPMV-FZXD-GD2G-7U28-6S3D", match[1])
 
     def test_match_negative(self):
         """Test if negatives are not recognized"""

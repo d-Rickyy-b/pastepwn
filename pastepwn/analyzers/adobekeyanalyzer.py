@@ -11,6 +11,6 @@ class AdobeKeyAnalyzer(RegexAnalyzer):
         :param action: Single action or list of actions to be executed when a paste matches
         """
         # Tested Regex against https://pastebin.com/fxWBGf8t
-        regex = r"\b(?<!-)[0-9]{4}(-[0-9]{4}){5}\b(?!-)"
+        regex = r"\b(?<!-)[0-9]{4}(?:-[0-9]{4}){5}\b(?!-)"
 
         super().__init__(action, regex)

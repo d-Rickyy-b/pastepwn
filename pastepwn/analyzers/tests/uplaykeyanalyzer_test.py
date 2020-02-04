@@ -22,7 +22,10 @@ class TestUplayKeyAnalyzer(unittest.TestCase):
 
         # Newline seperated uplay key
         self.paste.body = "MB9C-LV3C-4RG8-FME8\nMB9C-LV3C-4RG8-FME8"
-        self.assertTrue(self.analyzer.match(self.paste))
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("MB9C-LV3C-4RG8-FME8", match[0])
+        self.assertEqual("MB9C-LV3C-4RG8-FME8", match[1])
 
     def test_match_negative(self):
         """Test if negatives are not recognized"""

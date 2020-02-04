@@ -15,18 +15,23 @@ class TestBattleNetKeyAnalyzer(unittest.TestCase):
         # working battlenet key in 4-4-5-4-4 format
         self.paste.body = "NGM5-XB9P-8TLTR-V8BH-QFSW"
         self.assertTrue(self.analyzer.match(self.paste))
+        self.assertEqual("NGM5-XB9P-8TLTR-V8BH-QFSW", self.analyzer.match(self.paste)[0])
 
         # key in 4-4-4-4 format
         self.paste.body = "MB9C-LV3C-4RG8-FME8"
         self.assertTrue(self.analyzer.match(self.paste))
+        self.assertEqual("MB9C-LV3C-4RG8-FME8", self.analyzer.match(self.paste)[0])
 
         # part of a sentence
         self.paste.body = "Hey, I have your key right here: MB9C-LV3C-4RG8-FME8!"
         self.assertTrue(self.analyzer.match(self.paste))
+        self.assertEqual("MB9C-LV3C-4RG8-FME8", self.analyzer.match(self.paste)[0])
 
         # Newline seperated keys
         self.paste.body = "MB9C-LV3C-4RG8-FME8\nNGM5-XB9P-8TLTR-V8BH-QFSW"
         self.assertTrue(self.analyzer.match(self.paste))
+        self.assertEqual("MB9C-LV3C-4RG8-FME8", self.analyzer.match(self.paste)[0])
+        self.assertEqual("NGM5-XB9P-8TLTR-V8BH-QFSW", self.analyzer.match(self.paste)[1])
 
     def test_match_negative(self):
         """Test if negatives are not recognized"""

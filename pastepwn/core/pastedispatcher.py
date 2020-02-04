@@ -79,9 +79,18 @@ class PasteDispatcher(object):
     def _process_paste(self, paste):
         self.logger.debug("Analyzing Paste: {0}".format(paste.key))
         for analyzer in self.analyzers:
-            if analyzer.match(paste):
+            matches = analyzer.match(paste)
+
+            if matches:
+                # If the analyzer just returns a boolean, we pass an empty list
+                if isinstance(matches, bool):
+                    # matches == True, hence we pass an empty list
+                    matches = []
+                elif not isinstance(matches, list):
+                    # when matches is not a bool, we pass the object as list
+                    matches = [matches]
                 actions = analyzer.actions
-                self.action_queue.put((actions, paste, analyzer))
+                self.action_queue.put((actions, paste, analyzer, matches))
 
     def stop(self):
         """Stops dispatching pastes to the analyzers"""

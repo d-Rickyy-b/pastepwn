@@ -3,6 +3,7 @@ from .regexanalyzer import RegexAnalyzer
 
 
 class GoogleApiKeyAnalyzer(RegexAnalyzer):
+    """Analyzer that matches Google API Keys via regex"""
 
     def __init__(self, actions):
         # https://cloud.google.com/docs/authentication/api-keys

@@ -1,5 +1,5 @@
-mysql-connector-python
-pymongo
-python-twitter
-requests
+pymongo==3.10.1
+mysql-connector-python==8.0.19
+requests==2.22.0
+python-twitter==3.5
 websockets>=7.0,<8

@@ -45,6 +45,21 @@ class TestBasicAnalyzer(unittest.TestCase):
         analyzer = BasicAnalyzer(actions)
         self.assertEqual([self.mock_action, mock_action2], analyzer.actions)
 
+    def test_logical_operators(self):
+        analyzer = self.analyzer & self.analyzer
+        self.assertTrue(isinstance(analyzer, BasicAnalyzer))
+
+        mock_action1 = mock.Mock()
+        mock_action2 = mock.Mock()
+        analyzer1 = BasicAnalyzer(mock_action1)
+        analyzer2 = BasicAnalyzer(mock_action2)
+
+        and_analyzer = analyzer1 & analyzer2
+        self.assertEqual(2, len(and_analyzer.actions))
+        self.assertIn(mock_action1, and_analyzer.actions)
+        self.assertIn(mock_action2, and_analyzer.actions)
+        self.assertEqual("(BasicAnalyzer && BasicAnalyzer)", and_analyzer.identifier)
+
 
 if __name__ == '__main__':
     unittest.main()

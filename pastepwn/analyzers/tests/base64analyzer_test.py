@@ -38,6 +38,50 @@ class TestBase64Analyzer(unittest.TestCase):
                           "zM2FSMnY1QSV0Ym4mXzd6Tk1ja0NQUmQmczgkd1c1QmVjQGFSTUNzQDRybj9jUng/YSZ5LVola24maDhhTHUqUg=="
         self.assertTrue(self.analyzer.match(self.paste))
 
+    def test_intext(self):
+        """Test if matches inside text are recognized"""
+        self.paste.body = "I wan to tel you tha TXY9Wkg/TkpyckJTZGh1cypLVmclNGRHNipDJnViP3NTZXEhVnJ6Q2JfLVFjWV5LV2Z4S3k4QUozPV41P2I2Tg== is " \
+                          "very important"
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("TXY9Wkg/TkpyckJTZGh1cypLVmclNGRHNipDJnViP3NTZXEhVnJ6Q2JfLVFjWV5LV2Z4S3k4QUozPV41P2I2Tg==", match[0])
+
+    def test_multiple(self):
+        """Test if multiple matches are recognized"""
+        # Needed to keep the words below 3 chars each. Otherwise they would match as well
+        self.paste.body = "I wan to tel you tha TXY9Wkg/TkpyckJTZGh1cypLVmclNGRHNipDJnViP3NTZXEhVnJ6Q2JfLVFjWV5LV2Z4S3k4QUozPV41P2I2Tg== is " \
+                          "ver imp.\nBut not onl tha, it's als MmZ3Wl9DVGpES3h1NDhGTENMWmNHZEIhc0VqNVhSUWg= and muc mor!"
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("TXY9Wkg/TkpyckJTZGh1cypLVmclNGRHNipDJnViP3NTZXEhVnJ6Q2JfLVFjWV5LV2Z4S3k4QUozPV41P2I2Tg==", match[0])
+        self.assertEqual("MmZ3Wl9DVGpES3h1NDhGTENMWmNHZEIhc0VqNVhSUWg=", match[1])
+
+    def test_multiple_min_len(self):
+        """Test if we can match multiple base64 strings in a longer text with min_len"""
+        analyzer = Base64Analyzer(None, min_len=8)
+        self.paste.body = "I wanted to tell you that TXY9Wkg/TkpyckJTZGh1cypLVmclNGRHNipDJnViP3NTZXEhVnJ6Q2JfLVFjWV5LV2Z4S3k4QUozPV41P2I2Tg== is " \
+                          "very important.\nBut not only that, it's also MmZ3Wl9DVGpES3h1NDhGTENMWmNHZEIhc0VqNVhSUWg= and much more!"
+        match = analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("TXY9Wkg/TkpyckJTZGh1cypLVmclNGRHNipDJnViP3NTZXEhVnJ6Q2JfLVFjWV5LV2Z4S3k4QUozPV41P2I2Tg==", match[0])
+        self.assertEqual("MmZ3Wl9DVGpES3h1NDhGTENMWmNHZEIhc0VqNVhSUWg=", match[1])
+
+    def test_min_len(self):
+        """Test if the min_len parameter works as expected"""
+        self.paste.body = "dGVz"
+        analyzer = Base64Analyzer(None, min_len=4)
+        match = analyzer.match(self.paste)
+        self.assertTrue(match)
+
+        self.paste.body = "dGVz"
+        analyzer = Base64Analyzer(None, min_len=5)
+        match = analyzer.match(self.paste)
+        self.assertFalse(match)
+
+        self.paste.body = "dGVzdFRoaXNTdHJpbmc="
+        match = analyzer.match(self.paste)
+        self.assertTrue(match)
+
     def test_match_negative(self):
         """Test if negatives are not recognized"""
         # test that when nothing, is provided nothing matches

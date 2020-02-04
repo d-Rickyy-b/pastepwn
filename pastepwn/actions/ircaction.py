@@ -15,7 +15,8 @@ class IrcAction(BasicAction):
             server=None,
             channel=None,
             port=6667,
-            nick="pastepwn"
+            nick="pastepwn",
+            template=None
     ):
         super().__init__()
 
@@ -24,13 +25,11 @@ class IrcAction(BasicAction):
         self.channel = channel
         self.port = port
         self.nick = nick
+        self.template = template
 
-    def perform(self, paste, analyzer_name=None):
+    def perform(self, paste, analyzer_name=None, matches=None):
         """Perform the action on the passed paste"""
-        if self.template is None:
-            text = "New paste matched by analyzer '{0}' - Link: {1}".format(analyzer_name, paste.full_url)
-        else:
-            text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template)
+        text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template, matches=matches)
 
         self.ircsock.connect((self.server, self.port))
         self.ircsock.send(bytes("USER " + self.nick + " " + self.nick + " " + self.nick + "n", "UTF-8"))

@@ -10,28 +10,22 @@ class IBANAnalyzer(RegexAnalyzer):
 
     def __init__(self, actions, validate=False):
         # Regex adapted from https://stackoverflow.com/a/44657292/3621482
-        regex = r"([A-Z]{2}[ \-]?[0-9]{2})(?!=(?:[ \-]?[A-Z0-9]){9,30}$)" \
-                r"((?:[ \-]?[A-Z0-9]{3,5}){2,7})([ \-]?[A-Z0-9]{1,3})?"
+        regex = r"(?:[A-Z]{2}[ \-]?[0-9]{2})(?!=(?:[ \-]?[A-Z0-9]){9,30}$)" \
+                r"(?:(?:[ \-]?[A-Z0-9]{3,5}){2,7})(?:[ \-]?[A-Z0-9]{1,3})?"
         super().__init__(actions, regex)
         self.validate = validate
 
-    def match(self, paste):
-        """
-        Matches any IBAN contained in a paste
-        :param paste: A :class:`pastepwn.core.paste` object which should be matched
-        :return: :obj:`bool` if an IBAN was found in the paste
-        """
-        paste_content = paste.body or ""
-        search_result = self.regex.search(paste_content)
+    def verify(self, results):
+        """Method to perform additional checks to test if the matches are actually valid"""
+        if not self.validate:
+            return results
 
-        if search_result is None:
-            return False
+        validated_ibans = []
+        for possible_iban in results:
+            if self._validate_iban(possible_iban):
+                validated_ibans.append(possible_iban)
 
-        if self.validate:
-            matched_string = search_result.group()
-            return self._validate_iban(matched_string)
-
-        return True
+        return validated_ibans
 
     def _validate_iban(self, potential_iban):
         """Checks if the given string could be a valid IBAN. Adapted from https://rosettacode.org/wiki/IBAN#Python."""

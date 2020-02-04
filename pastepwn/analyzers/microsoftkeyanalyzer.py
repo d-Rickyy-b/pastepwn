@@ -11,6 +11,6 @@ class MicrosoftKeyAnalyzer(RegexAnalyzer):
         :param action: Single action or list of actions to be executed when a paste matches
         """
         # Tested Regex against https://pastebin.com/r3QdpFJf
-        regex = r"\b(?<!-)[2346789BCDFGHJKMNPQRTVWXY]{5}(-[2346789BCDFGHJKMNPQRTVWXY]{5}){4}\b(?!-)"
+        regex = r"\b(?<!-)[2346789BCDFGHJKMNPQRTVWXY]{5}(?:-[2346789BCDFGHJKMNPQRTVWXY]{5}){4}\b(?!-)"
 
         super().__init__(action, regex)

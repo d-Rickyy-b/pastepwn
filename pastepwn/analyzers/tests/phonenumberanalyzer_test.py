@@ -23,6 +23,21 @@ class TestPhoneNumberAnalyzer(unittest.TestCase):
         self.paste.body = "+1 (811) 1272 103"
         self.assertTrue(self.analyzer.match(self.paste))
 
+    def test_intext(self):
+        """Test if matches inside text are recognized"""
+        self.paste.body = "Check out my new number: +1 (811) 1272 103 this is it"
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("+1 (811) 1272 103", match[0])
+
+    def test_multiple(self):
+        """Test if multiple matches are recognized"""
+        self.paste.body = "Check out all those numbers: +1 (811) 1272 103\n+357  81-127 29103 and many more"
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("+1 (811) 1272 103", match[0])
+        self.assertEqual("+357  81-127 29103", match[1])
+
     def test_match_negative(self):
         """Test if negatives are not recognized"""
         self.paste.body = ""

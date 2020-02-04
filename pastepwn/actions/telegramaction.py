@@ -10,7 +10,7 @@ class TelegramAction(BasicAction):
     """Action to send a Telegram message to a certain user or group"""
     name = "TelegramAction"
 
-    def __init__(self, token, receiver, custom_payload=None, template=None):
+    def __init__(self, token, receiver, template=None):
         super().__init__()
         self.logger = logging.getLogger(__name__)
 
@@ -19,13 +19,12 @@ class TelegramAction(BasicAction):
 
         self.token = token
         self.receiver = receiver
-        self.custom_payload = custom_payload
         self.template = template
 
-    def perform(self, paste, analyzer_name=None):
+    def perform(self, paste, analyzer_name=None, matches=None):
         """Send a message via a Telegram bot to a specified user, without checking for errors"""
         r = Request()
-        text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template)
+        text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template, matches=matches)
 
         api_url = "https://api.telegram.org/bot{0}/sendMessage?chat_id={1}&text={2}".format(self.token, self.receiver, text)
         r.get(api_url)

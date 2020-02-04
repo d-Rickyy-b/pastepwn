@@ -32,13 +32,23 @@ class TestSteamKeyAnalyzer(unittest.TestCase):
         self.paste.body = "1AB2C-D3FGH-456I7-JK8LM-NOP9Q"
         self.assertTrue(self.analyzer.match(self.paste))
 
+    def test_intext(self):
+        """Test if matches inside text are recognized"""
         # part of a sentence
         self.paste.body = "Hey, I have your key right here: EL0SY-DC710-X0C5W!"
-        self.assertTrue(self.analyzer.match(self.paste))
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual("EL0SY-DC710-X0C5W", match[0])
 
+    def test_multiple(self):
+        """Test if multiple matches are recognized"""
         # Newline seperated steam key
         self.paste.body = "E4XJ8-2MRI0-RX4I5\nCIZ36-WD38P-QZI6U"
-        self.assertTrue(self.analyzer.match(self.paste))
+        match = self.analyzer.match(self.paste)
+        self.assertTrue(match)
+        self.assertEqual(2, len(match))
+        self.assertEqual("E4XJ8-2MRI0-RX4I5", match[0])
+        self.assertEqual("CIZ36-WD38P-QZI6U", match[1])
 
     def test_match_negative(self):
         """Test if negatives are not recognized"""

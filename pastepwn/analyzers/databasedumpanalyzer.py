@@ -12,5 +12,5 @@ class DatabaseDumpAnalyzer(RegexAnalyzer):
         :param actions: A single action or a list of actions to be executed on every paste
         """
         # This regex match the columns of a database
-        regex = r"\(((`\w+`|\d)(\s?)+,(\s?)+)+(`\w+`|\d)\)"
+        regex = r"\((?:(?:`\w+`|\d)(?:\s?)+,(?:\s?)+)+(?:`\w+`|\d)\)"
         super().__init__(actions, regex)
