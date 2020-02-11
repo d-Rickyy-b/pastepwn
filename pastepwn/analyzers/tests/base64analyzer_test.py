@@ -109,6 +109,16 @@ class TestBase64Analyzer(unittest.TestCase):
                           "Dj448rhbNTJrKhRn7TPkYRubZLhmbCrg6bavDa9a"
         self.assertFalse(self.analyzer.match(self.paste))
 
+    def test_invalid_decodes(self):
+        """Test to make sure we match all base64 strings even ones that don't decode to ASCII."""
+        # base64 encoded string containing one non-ascii character: "This string contains a non-ascii character: ¤" (UTF-8)
+        self.paste.body = "VGhpcyBzdHJpbmcgY29udGFpbnMgYSBub24tYXNjaWkgY2hhcmFjdGVyOiDCpA=="
+        self.assertTrue(self.analyzer.match(self.paste))
+
+        # base64 encoded string containing only non-ascii characters: "ΗÈλλθ ωÖΓλÐ" (UTF-8)
+        self.paste.body = "zpfDiM67zrvOuCDPicOWzpPOu8OQ"
+        self.assertTrue(self.analyzer.match(self.paste))
+
 
 if __name__ == '__main__':
     unittest.main()
