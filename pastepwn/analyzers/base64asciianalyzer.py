@@ -8,7 +8,7 @@ class Base64AsciiAnalyzer(Base64Analyzer):
     """Analyzer to match base64 strings which decode to valid ASCII"""
     name = 'Base64AsciiAnalyzer'
 
-    def __init(self, actions, min_len=1):
+    def __init__(self, actions, min_len=1):
         super().__init__(actions, min_len)
 
     def verify(self, results):
