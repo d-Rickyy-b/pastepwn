@@ -132,8 +132,8 @@ class TestBase64AsciiAnalyzer(unittest.TestCase):
         self.assertEqual("Hello World", analyzer.match(self.paste)[0])
 
         # base64 encoded string: "Hello\nWorld" (UTF-8, LF)
-        self.paste.body = "SGVsbG9cbldvcmxk"
-        self.assertEqual(analyzer.match(self.paste)[0], "Hello\\nWorld")
+        self.paste.body = "SGVsbG8KV29ybGQ="
+        self.assertEqual("Hello\nWorld", analyzer.match(self.paste)[0])
 
         # base64 encoded string (32 chars): "2fwZ_CTjDKxu48FLCLZcGdB!sEj5XRQh" (UTF-8, LF)
         self.paste.body = "MmZ3Wl9DVGpES3h1NDhGTENMWmNHZEIhc0VqNVhSUWg="
