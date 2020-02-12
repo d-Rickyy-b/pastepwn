@@ -12,7 +12,7 @@ class Base64Analyzer(RegexAnalyzer):
         super().__init__(actions, regex)
 
     def verify(self, results):
-        """Method to perform additional checks to test if the found strings are of sufficient lenght"""
+        """Method to perform additional checks to test if the found strings are of sufficient length"""
         validated_strings = []
 
         for result in results:
