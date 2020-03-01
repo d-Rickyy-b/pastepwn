@@ -27,7 +27,7 @@ class IrcAction(BasicAction):
         text = text[:510]
         self.ircsock.connect((self.server, self.port))
         self.ircsock.send(bytes("NICK {}\r\n".format(self.nick), "UTF-8"))
-        self.ircsock.send(bytes("USER {} {} bla :{}\r\n".format(self.nick, self.server, self.nick), "UTF-8"))
+        self.ircsock.send(bytes("USER {} 0 * :{}\r\n".format(self.nick, self.nick), "UTF-8"))
         self.ircsock.send(bytes("JOIN {}\r\n".format(self.channel), "UTF-8"))
         self.ircsock.send(bytes("PRIVMSG {} :{}\r\n".format(self.channel, text), "UTF-8"))
         self.ircsock.send(bytes("QUIT\r\n", "UTF-8"))
