@@ -21,7 +21,8 @@ class IrcAction(BasicAction):
     def perform(self, paste, analyzer_name=None, matches=None):
         """Perform the action on the passed paste"""
         BUFF_SIZE = 1024
-        text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template, matches=matches).replace("\r", "").replace("\n", "")
+        text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template, matches=matches).replace("\r\n", " ") \
+            .replace("\r", " ").replace("\n", " ")
         # TODO RFC1459 says that each message can only be 512 bytes including the CR-LF character - this must be taken care of here
         # Currently we only cut off the text after 510 bytes (+CRLF = 512 bytes). It would be better to send all of text split up into multiple messages.
         text = text[:510]
