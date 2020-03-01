@@ -29,7 +29,7 @@ class IrcAction(BasicAction):
         self.ircsock.send(bytes("NICK {}\r\n".format(self.nick), "UTF-8"))
         self.ircsock.send(bytes("USER {} {} bla :{}\r\n".format(self.nick, self.server, self.nick), "UTF-8"))
         self.ircsock.send(bytes("JOIN {}\r\n".format(self.channel), "UTF-8"))
-        self.ircsock.send(bytes("PRIVMSG {} \r\n".format(self.channel, text), "UTF-8"))
+        self.ircsock.send(bytes("PRIVMSG {} :{}\r\n".format(self.channel, text), "UTF-8"))
         self.ircsock.send(bytes("QUIT\r\n", "UTF-8"))
         _ = self.ircsock.recv(BUFF_SIZE).decode("UTF-8")
         return
