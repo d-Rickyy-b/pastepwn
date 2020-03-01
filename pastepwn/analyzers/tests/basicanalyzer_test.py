@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
+import logging
 from unittest import mock
 
 from pastepwn.actions.basicaction import BasicAction
@@ -86,6 +87,18 @@ class TestBasicAnalyzer(unittest.TestCase):
         # If users pass a class instead of an instance, they should receive an exception
         with self.assertRaises(InvalidActionError, msg="BasicAnalyzer accepts classes as actions!"):
             _ = BasicAnalyzer(mock.Mock)
+
+    def test_error_logging_init_class(self):
+        """Check if an error is being logged when a passed action is a reference to a class"""
+        self.logger = logging.getLogger("BasicAnalyzer")
+
+        with self.assertLogs(self.logger, level="ERROR") as log:
+            try:
+                _ = BasicAnalyzer(mock.Mock)
+            except Exception:
+                pass
+
+            self.assertEqual(log.output, ["ERROR:BasicAnalyzer:You passed a class as action for 'BasicAnalyzer' but an instance of an action was expected!"])
 
 
 if __name__ == '__main__':
