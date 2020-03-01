@@ -19,7 +19,7 @@ class TestBasicAnalyzer(unittest.TestCase):
         self.assertEqual([self.mock_action], analyzer.actions)
 
         analyzer.add_action(mock_action2)
-        self.assertTrue(isinstance(analyzer.actions, list))
+        self.assertIsInstance(analyzer.actions, list)
         self.assertEqual([self.mock_action, mock_action2], analyzer.actions)
 
     def test_add_action_negative(self):
@@ -67,7 +67,7 @@ class TestBasicAnalyzer(unittest.TestCase):
     def test_logical_operators(self):
         """Check if using logical operators on analyzers works as intended"""
         analyzer = self.analyzer & self.analyzer
-        self.assertTrue(isinstance(analyzer, BasicAnalyzer))
+        self.assertIsInstance(analyzer, BasicAnalyzer)
 
         mock_action1 = mock.MagicMock(spec=BasicAction)
         mock_action2 = mock.MagicMock(spec=BasicAction)
