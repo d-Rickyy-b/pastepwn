@@ -61,7 +61,6 @@ class TestEmailPasswordPairAnalyzer(unittest.TestCase):
                           "Some comment\n" \
                           "test+test@gmail.com:abcd"
         match = analyzer.match(self.paste)
-        print(match)
         self.assertTrue(match)
         self.assertEqual("estocanam2@apple.com:Fireb§", match[0])
         self.assertEqual("g@bb.com:Firebird1@", match[1])

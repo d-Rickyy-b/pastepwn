@@ -18,7 +18,7 @@ class TestSaveFileAction(unittest.TestCase):
             shutil.rmtree(self.paste_path, ignore_errors=False)
         except FileNotFoundError as e:
             # Directory not there
-            print("Did not remove directory, because it wasn't there in the first place.")
+            pass
 
         # Create it again
         if not os.path.exists(self.paste_path):
