@@ -2,6 +2,7 @@
 import unittest
 from unittest import mock
 
+from pastepwn.actions.basicaction import BasicAction
 from pastepwn.analyzers.wordanalyzer import WordAnalyzer
 
 
@@ -134,8 +135,9 @@ class TestWordAnalyzer(unittest.TestCase):
         self.assertFalse(analyzer.match(self.paste))
 
     def test_actions_present(self):
-        analyzer = WordAnalyzer(self.paste, "Test")
-        self.assertEqual([self.paste], analyzer.actions)
+        action = mock.MagicMock(spec=BasicAction)
+        analyzer = WordAnalyzer(action, "Test")
+        self.assertEqual([action], analyzer.actions)
 
 
 if __name__ == '__main__':

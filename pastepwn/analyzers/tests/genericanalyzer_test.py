@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, MagicMock
 
+from pastepwn.actions.basicaction import BasicAction
 from pastepwn.analyzers import GenericAnalyzer
 
 
 class TestGenericAnalyzer(unittest.TestCase):
     def setUp(self):
-        self.mock_action = Mock()
+        self.mock_action = MagicMock(spec=BasicAction)
 
     def test_empty_match_func(self):
         """Check if a ValueError rises on empty match_func"""

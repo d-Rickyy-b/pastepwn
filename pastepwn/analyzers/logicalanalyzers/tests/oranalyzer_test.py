@@ -2,6 +2,7 @@
 import unittest
 from unittest import mock
 
+from pastepwn.actions.basicaction import BasicAction
 from pastepwn.analyzers.logicalanalyzers import OrAnalyzer
 
 
@@ -41,8 +42,9 @@ class TestOrAnalyzer(unittest.TestCase):
         self.assertFalse(analyzer.match(self.paste))
 
     def test_actions_present(self):
-        analyzer = OrAnalyzer(self.paste, None)
-        self.assertEqual([self.paste], analyzer.actions)
+        action = mock.MagicMock(spec=BasicAction)
+        analyzer = OrAnalyzer(action, None)
+        self.assertEqual([action], analyzer.actions)
 
     def test_analyzers_present(self):
         analyzer = OrAnalyzer(None, self.paste)

@@ -2,6 +2,7 @@
 import unittest
 from unittest import mock
 
+from pastepwn.actions.basicaction import BasicAction
 from pastepwn.analyzers.bcrypthashanalyzer import BcryptHashAnalyzer
 
 
@@ -65,8 +66,9 @@ class TestBcryptHashAnalyzer(unittest.TestCase):
         self.assertFalse(self.analyzer.match(self.paste))
 
     def test_actions_present(self):
-        analyzer = BcryptHashAnalyzer(self.paste)
-        self.assertEqual([self.paste], analyzer.actions)
+        action = mock.MagicMock(spec=BasicAction)
+        analyzer = BcryptHashAnalyzer(action)
+        self.assertEqual([action], analyzer.actions)
 
 
 if __name__ == '__main__':
