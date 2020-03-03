@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2020-03-03
+### Added
+- Implemented base64analyzer, which matches if a found base64 string decodes to valid ascii ([b535781](https://github.com/d-Rickyy-b/pastepwn/commit/b535781d7e1760c7f846432d7ef87b97784e2d49))
+- Implemented IrcAction - the previous implementation was not working ([546b87f](https://github.com/d-Rickyy-b/pastepwn/commit/546b87f508420da0a9ea6f54f1df65684b73648f))
+### Changed
+- SaveFileAction now got a parameter to set the file ending and a template ([c3d75f7](https://github.com/d-Rickyy-b/pastepwn/commit/c3d75f72036fa1284eebc8f3c1967a4374428dca))
+### Fixed
+- Analyzers now check if a passed action is a subclass of BasicAction, which prevents issues such as [#175](https://github.com/d-Rickyy-b/pastepwn/issues/175)
+- The DiscordAction now also uses the templating engine - it was forgotten in a previous update ([#176](https://github.com/d-Rickyy-b/pastepwn/issues/176
+))
+- The SaveFileAction does now store each paste in a different file as it should be ([#179](https://github.com/d-Rickyy-b/pastepwn/issues/179))
+- The IrcAction did not send the correct data. This was fixed and eventually the action was rewritten from scratch (see "Added")
+
 ## [1.2.0] - 2020-02-05
 ### Added
 - Analyzers can now return a boolean or **a list of matched results**
@@ -145,7 +158,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.8] - 2018-10-22
 First stable release
 
-[unreleased]: https://github.com/d-Rickyy-b/pastepwn/compare/v1.2.0...HEAD
+[unreleased]: https://github.com/d-Rickyy-b/pastepwn/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/d-Rickyy-b/pastepwn/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/d-Rickyy-b/pastepwn/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/d-Rickyy-b/pastepwn/compare/v1.0.16...v1.1.0
 [1.0.16]: https://github.com/d-Rickyy-b/pastepwn/compare/v1.0.15...v1.0.16
