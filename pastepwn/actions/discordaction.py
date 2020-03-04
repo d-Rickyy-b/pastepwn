@@ -14,6 +14,29 @@ class DiscordAction(BasicAction):
     name = "DiscordAction"
 
     def __init__(self, webhook_url=None, token=None, channel_id=None, template=None):
+        """
+        Action to send a Discord message to a certain webhook or channel.
+        Either the webhook parameter or the token & channel_id parameters are needed.
+
+        1) You can setup a webhook in the discord server settings. A webhook is tied to one server & text channel
+        > https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks
+
+
+        2) Setup a discord bot (token) in the developer portal:
+         > https://discordapp.com/developers/applications/
+         After creating an app you can obtain the token by going to
+         > https://discordapp.com/developers/applications/{your_app_id}/bot
+         Format:
+        > NTI5MzI1MzY4OTAyMDI1MjI3.DwvNFQ.5aNKUvYlAKqKKq6UJ1fRiARKNXQ
+
+        3) Obtain the channel_id (18 digit number):
+        > User Settings > Appearance > Enable Developer Mode and after that right click on any text channel to copy the ID
+
+        :param webhook_url: The url obtained from the server settings
+        :param token: A bot token obtained from the developer portal
+        :param channel_id: The channel ID of a text channel you want to send messages into
+        :param template: A template string describing how the paste variables should be filled in
+        """
         super().__init__()
         self.logger = logging.getLogger(__name__)
         self.bot_available = True
@@ -26,6 +49,7 @@ class DiscordAction(BasicAction):
 
         self.webhook_url = webhook_url
         if webhook_url is None:
+            # When there is no webhook_url, we need both token and channel_id
             if token is None or channel_id is None:
                 raise ValueError('Invalid arguments: requires either webhook_url or token+channel_id arguments')
 
@@ -84,6 +108,7 @@ class DiscordAction(BasicAction):
             raise NotImplementedError('Gateway initialization is only necessary for bot accounts.')
 
         # Call Get Gateway Bot to get the websocket URL
+        # https://discordapp.com/developers/docs/reference#authentication
         r = Request()
         r.headers = {'Authorization': 'Bot {}'.format(self.token)}
         res = json.loads(r.get('https://discordapp.com/api/gateway/bot'))
