@@ -13,7 +13,7 @@ class DiscordAction(BasicAction):
     """Action to send a Discord message to a certain webhook or channel."""
     name = "DiscordAction"
 
-    def __init__(self, webhook=None, token=None, channel_id=None, template=None):
+    def __init__(self, webhook_url=None, token=None, channel_id=None, template=None):
         super().__init__()
         self.logger = logging.getLogger(__name__)
         self.bot_available = True
@@ -24,10 +24,10 @@ class DiscordAction(BasicAction):
             self.logger.warning("Could not import 'websockets' module. So you can only use webhooks for discord.")
             self.bot_available = False
 
-        self.webhook = webhook
-        if webhook is None:
+        self.webhook_url = webhook_url
+        if webhook_url is None:
             if token is None or channel_id is None:
-                raise ValueError('Invalid arguments: requires either webhook or token+channel_id arguments')
+                raise ValueError('Invalid arguments: requires either webhook_url or token+channel_id arguments')
 
             if not self.bot_available:
                 raise NotImplementedError("You can't use bot functionality without the 'websockets' module. Please import it or use webhooks!")
@@ -80,7 +80,7 @@ class DiscordAction(BasicAction):
 
     def initialize_gateway(self):
         """Initialize the bot token so Discord identifies it properly."""
-        if self.webhook is not None:
+        if self.webhook_url is not None:
             raise NotImplementedError('Gateway initialization is only necessary for bot accounts.')
 
         # Call Get Gateway Bot to get the websocket URL
@@ -100,9 +100,9 @@ class DiscordAction(BasicAction):
         r = Request()
         text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template, matches=matches)
 
-        if self.webhook is not None:
+        if self.webhook_url is not None:
             # Send to a webhook (no authentication)
-            url = self.webhook
+            url = self.webhook_url
         else:
             # Send through Discord bot API (header-based authentication)
             url = 'https://discordapp.com/api/channels/{0}/messages'.format(self.channel_id)
@@ -115,7 +115,7 @@ class DiscordAction(BasicAction):
 
         res = json.loads(res)
 
-        if res.get('code') == 40001 and self.bot_available and self.webhook is None and not self.identified:
+        if res.get('code') == 40001 and self.bot_available and self.webhook_url is None and not self.identified:
             # Unauthorized access, bot token hasn't been identified to Discord Gateway
             self.logger.info('Accessing Discord Gateway to initialize token')
             self.initialize_gateway()
