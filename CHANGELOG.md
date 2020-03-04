@@ -15,8 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SaveFileAction now got a parameter to set the file ending and a template ([c3d75f7](https://github.com/d-Rickyy-b/pastepwn/commit/c3d75f72036fa1284eebc8f3c1967a4374428dca))
 ### Fixed
 - Analyzers now check if a passed action is a subclass of BasicAction, which prevents issues such as [#175](https://github.com/d-Rickyy-b/pastepwn/issues/175)
-- The DiscordAction now also uses the templating engine - it was forgotten in a previous update ([#176](https://github.com/d-Rickyy-b/pastepwn/issues/176
-))
+- The DiscordAction now also uses the templating engine - it was forgotten in a previous update ([#176](https://github.com/d-Rickyy-b/pastepwn/issues/176))
+- The SyslogAction now also uses the templating engine - it was forgotten in a previous update ([54d3652](https://github.com/d-Rickyy-b/pastepwn/commit/54d3652e4de3fdbaedfdd522f8750aa241890c3c))
 - The SaveFileAction does now store each paste in a different file as it should be ([#179](https://github.com/d-Rickyy-b/pastepwn/issues/179))
 - The IrcAction did not send the correct data. This was fixed and eventually the action was rewritten from scratch (see "Added")
 
