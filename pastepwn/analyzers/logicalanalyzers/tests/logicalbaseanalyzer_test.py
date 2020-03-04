@@ -2,6 +2,7 @@
 import unittest
 from unittest import mock
 
+from pastepwn.actions.basicaction import BasicAction
 from pastepwn.analyzers.logicalanalyzers import LogicalBaseAnalyzer
 
 
@@ -14,8 +15,9 @@ class TestLogicalBaseAnalyzer(unittest.TestCase):
         self.assertRaises(NotImplementedError, analyzer.match, mock.Mock())
 
     def test_actions_present(self):
-        analyzer = LogicalBaseAnalyzer(self.paste, None)
-        self.assertEqual([self.paste], analyzer.actions)
+        action = mock.MagicMock(spec=BasicAction)
+        analyzer = LogicalBaseAnalyzer(action, None)
+        self.assertEqual([action], analyzer.actions)
 
     def test_analyzers_present(self):
         analyzer = LogicalBaseAnalyzer(None, self.paste)

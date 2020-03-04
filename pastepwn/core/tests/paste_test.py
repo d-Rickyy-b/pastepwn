@@ -53,7 +53,7 @@ class PasteTest(unittest.TestCase):
     def test_empty_body(self):
         empty_body = ""
         self.paste.set_body(None)
-        self.assertEqual(empty_body, self.paste.body) 
+        self.assertEqual(empty_body, self.paste.body)
 
     def test_to_dict(self):
         my_body = "This is a test for pastepwn"
@@ -61,3 +61,7 @@ class PasteTest(unittest.TestCase):
 
         paste_dict = self.paste.to_dict()
         self.assertEqual(self.p, paste_dict)
+
+
+if __name__ == '__main__':
+    unittest.main()

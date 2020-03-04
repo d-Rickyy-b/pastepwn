@@ -3,9 +3,9 @@ import asyncio
 import json
 import logging
 import sys
-from string import Template
 
-from pastepwn.util import Request, DictWrapper
+from pastepwn.util import Request
+from pastepwn.util import TemplatingEngine
 from .basicaction import BasicAction
 
 
@@ -13,7 +13,30 @@ class DiscordAction(BasicAction):
     """Action to send a Discord message to a certain webhook or channel."""
     name = "DiscordAction"
 
-    def __init__(self, webhook=None, token=None, channel_id=None, template=None):
+    def __init__(self, webhook_url=None, token=None, channel_id=None, template=None):
+        """
+        Action to send a Discord message to a certain webhook or channel.
+        Either the webhook parameter or the token & channel_id parameters are needed.
+
+        1) You can setup a webhook in the discord server settings. A webhook is tied to one server & text channel
+        > https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks
+
+
+        2) Setup a discord bot (token) in the developer portal:
+         > https://discordapp.com/developers/applications/
+         After creating an app you can obtain the token by going to
+         > https://discordapp.com/developers/applications/{your_app_id}/bot
+         Format:
+        > NTI5MzI1MzY4OTAyMDI1MjI3.DwvNFQ.5aNKUvYlAKqKKq6UJ1fRiARKNXQ
+
+        3) Obtain the channel_id (18 digit number):
+        > User Settings > Appearance > Enable Developer Mode and after that right click on any text channel to copy the ID
+
+        :param webhook_url: The url obtained from the server settings
+        :param token: A bot token obtained from the developer portal
+        :param channel_id: The channel ID of a text channel you want to send messages into
+        :param template: A template string describing how the paste variables should be filled in
+        """
         super().__init__()
         self.logger = logging.getLogger(__name__)
         self.bot_available = True
@@ -24,10 +47,11 @@ class DiscordAction(BasicAction):
             self.logger.warning("Could not import 'websockets' module. So you can only use webhooks for discord.")
             self.bot_available = False
 
-        self.webhook = webhook
-        if webhook is None:
+        self.webhook_url = webhook_url
+        if webhook_url is None:
+            # When there is no webhook_url, we need both token and channel_id
             if token is None or channel_id is None:
-                raise ValueError('Invalid arguments: requires either webhook or token+channel_id arguments')
+                raise ValueError('Invalid arguments: requires either webhook_url or token+channel_id arguments')
 
             if not self.bot_available:
                 raise NotImplementedError("You can't use bot functionality without the 'websockets' module. Please import it or use webhooks!")
@@ -36,10 +60,7 @@ class DiscordAction(BasicAction):
             self.channel_id = channel_id
             self.identified = False
 
-        if template is not None:
-            self.template = Template(template)
-        else:
-            self.template = None
+        self.template = template
 
     @asyncio.coroutine
     def _identify(self, ws_url):
@@ -83,10 +104,11 @@ class DiscordAction(BasicAction):
 
     def initialize_gateway(self):
         """Initialize the bot token so Discord identifies it properly."""
-        if self.webhook is not None:
+        if self.webhook_url is not None:
             raise NotImplementedError('Gateway initialization is only necessary for bot accounts.')
 
         # Call Get Gateway Bot to get the websocket URL
+        # https://discordapp.com/developers/docs/reference#authentication
         r = Request()
         r.headers = {'Authorization': 'Bot {}'.format(self.token)}
         res = json.loads(r.get('https://discordapp.com/api/gateway/bot'))
@@ -101,16 +123,11 @@ class DiscordAction(BasicAction):
     def perform(self, paste, analyzer_name=None, matches=None):
         """Send a message via Discord to a specified channel, without checking for errors"""
         r = Request()
-        if self.template is None:
-            text = "New paste matched by analyzer '{0}' - Link: {1}".format(analyzer_name, paste.full_url)
-        else:
-            paste_dict = paste.to_dict()
-            paste_dict["analyzer_name"] = analyzer_name
-            text = self.template.safe_substitute(DictWrapper(paste_dict))
+        text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template, matches=matches)
 
-        if self.webhook is not None:
+        if self.webhook_url is not None:
             # Send to a webhook (no authentication)
-            url = self.webhook
+            url = self.webhook_url
         else:
             # Send through Discord bot API (header-based authentication)
             url = 'https://discordapp.com/api/channels/{0}/messages'.format(self.channel_id)
@@ -123,7 +140,7 @@ class DiscordAction(BasicAction):
 
         res = json.loads(res)
 
-        if res.get('code') == 40001 and self.bot_available and self.webhook is None and not self.identified:
+        if res.get('code') == 40001 and self.bot_available and self.webhook_url is None and not self.identified:
             # Unauthorized access, bot token hasn't been identified to Discord Gateway
             self.logger.info('Accessing Discord Gateway to initialize token')
             self.initialize_gateway()

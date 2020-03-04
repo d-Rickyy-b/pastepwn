@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
 
+from pastepwn.actions import BasicAction
+from pastepwn.errors import InvalidActionError
 from pastepwn.util import listify
 
 
@@ -14,9 +16,14 @@ class BasicAnalyzer(object):
         :param actions: A single action or a list of actions to be executed on every paste
         :param identifier: The name or unique identifier for this specific analyzer
         """
+        self.logger = logging.getLogger(__name__)
         self.actions = listify(actions)
         self.identifier = identifier or self.name
-        self.logger = logging.getLogger(self.name)
+
+        # Check if passed action is an instance of an analyzer and not a class - see #175
+        # Raises an error if any action is not an object inheriting from BasicAaction
+        for action in self.actions:
+            self._check_action(action)
 
     def add_action(self, action):
         """
@@ -24,6 +31,7 @@ class BasicAnalyzer(object):
         :param action: New action to add to the present actions
         :return: None
         """
+        self._check_action(action)
         self.actions.append(action)
 
     def match(self, paste):
@@ -33,6 +41,17 @@ class BasicAnalyzer(object):
         :return: :obj:`bool` if the paste has been matched
         """
         raise NotImplementedError("Your analyzer must implement the match method!")
+
+    def _check_action(self, action):
+        """Check if a passed action is a subclass of BasicAction"""
+        if not isinstance(action, BasicAction):
+            if isinstance(action, type):
+                error_msg = "You passed a class as action for '{}' but an instance of an action was expected!".format(self.identifier)
+            else:
+                error_msg = "You did not pass an action object - inheriting from BasicAction - to '{}'".format(self.identifier)
+
+            self.logger.error(error_msg)
+            raise InvalidActionError(error_msg)
 
     def __and__(self, other):
         return MergedAnalyzer(self, and_analyzer=other)

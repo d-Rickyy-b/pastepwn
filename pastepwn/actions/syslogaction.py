@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging.handlers
 
+from pastepwn.util import TemplatingEngine
 from .basicaction import BasicAction
 
 
@@ -8,7 +9,7 @@ class SyslogAction(BasicAction):
     """Action to log a paste to the syslog"""
     name = "SyslogAction"
 
-    def __init__(self, syslog_address="/dev/log"):
+    def __init__(self, syslog_address="/dev/log", template=None):
         """
         This sets up a syslogger, which defaults to /dev/log.
         That means that it will work on most linux systems,
@@ -18,6 +19,7 @@ class SyslogAction(BasicAction):
         /var/run/syslog
         """
         super().__init__()
+        self.template = template
         self.logger = logging.getLogger('SyslogLogger')
         self.logger.setLevel(logging.DEBUG)
 
@@ -32,4 +34,5 @@ class SyslogAction(BasicAction):
         :param matches: List of matches returned by the analyzer
         :return: None
         """
-        self.logger.debug("New Paste matched: {0}".format(paste))
+        text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template, matches=matches)
+        self.logger.debug(text)

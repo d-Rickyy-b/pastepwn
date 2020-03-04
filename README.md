@@ -18,11 +18,11 @@
 To use the pastepwn framework you need to follow these simple steps:
 
 1) **Make sure** to have a [Pastebin premium](https://pastebin.com/pro) account!
-2) Install pastepwn via pip (`pip install pastepwn`)¹
+2) Install pastepwn via pip (`pip3 install pastepwn`)¹
 3) Create a file (e.g. `main.py`) in your project root, where you put your code in²
 4) Fill that file with content - add analyzers and actions. Check the [example](https://github.com/d-Rickyy-b/pastepwn/tree/master/examples/example.py) implementation.
 
-¹ Note that pastepwn only works with python3.5 or higher (so better use pip3)  
+¹ Note that pastepwn **only works with python3.5 or above** (so better use pip3)  
 ² *(If you want to store all pastes, make sure to setup a `mongodb`, `mysql` or `sqlite` instance)*
 
 ### Behind a proxy
@@ -32,11 +32,12 @@ There are 2 ways to use this tool behind a proxy:
 - Define the following environment variables: `HTTP_PROXY`, `HTTPS_PROXY`, `NO_PROXY`.
 - When initializing the PastePwn object, use the `proxies` argument. `proxies` is a dict as defined in [requests' documentation](http://docs.python-requests.org/en/master/user/advanced/#proxies).
 
-### ToDos
-There are quite some features which will be implemented in the (near) future.
+### Troubleshooting
+If you are having troubles, check out the [wiki pages](https://github.com/d-Rickyy-b/pastepwn/wiki) first.
+If your question/issue is not resolved there, feel free to [create an issue](https://github.com/d-Rickyy-b/pastepwn/issues/new/choose) or [contact me on Telegram](https://t.me/d_Rickyy_b).
+
+### Roadmap and ToDos
 Check the [bug tracker](https://github.com/d-Rickyy-b/pastepwn/issues) on GitHub to get an up-to-date status about features and ToDos.
 
-- REST API for querying paste data
-- Adding more analyzers and actions, based on community input
-- Adding support for other paste sites
+- REST API for querying paste data (will be another project)
 - Add a helpful wiki with instructions and examples
