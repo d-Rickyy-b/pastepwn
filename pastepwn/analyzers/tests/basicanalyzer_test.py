@@ -90,15 +90,14 @@ class TestBasicAnalyzer(unittest.TestCase):
 
     def test_error_logging_init_class(self):
         """Check if an error is being logged when a passed action is a reference to a class"""
-        self.logger = logging.getLogger("BasicAnalyzer")
-
+        self.logger = logging.getLogger("pastepwn.analyzers.basicanalyzer")
         with self.assertLogs(self.logger, level="ERROR") as log:
             try:
                 _ = BasicAnalyzer(mock.Mock)
             except Exception:
                 pass
 
-            self.assertEqual(log.output, ["ERROR:BasicAnalyzer:You passed a class as action for 'BasicAnalyzer' but an instance of an action was expected!"])
+            self.assertEqual(log.output, ["ERROR:pastepwn.analyzers.basicanalyzer:You passed a class as action for 'BasicAnalyzer' but an instance of an action was expected!"])
 
 
 if __name__ == '__main__':

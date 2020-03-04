@@ -16,7 +16,7 @@ class BasicAnalyzer(object):
         :param actions: A single action or a list of actions to be executed on every paste
         :param identifier: The name or unique identifier for this specific analyzer
         """
-        self.logger = logging.getLogger(self.name)
+        self.logger = logging.getLogger(__name__)
         self.actions = listify(actions)
         self.identifier = identifier or self.name
 
