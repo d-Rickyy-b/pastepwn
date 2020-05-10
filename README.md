@@ -13,7 +13,10 @@
 
 **Please note:** This framework is **not** to be used for illegal actions. It can be used for querying public Pastebin pastes for e.g. your username or email address in order to increase your own security.
 
-### Setup pastepwn
+### ⚠️ Important note
+In April 2020 Pastebin [disabled access to their scraping API](https://twitter.com/rnd_infosec_guy/status/1248310762227093509) for a short period of time. At first people weren't able to access the scraping API in any way, but later on they re-enabled access to the API setup page. But since then it isn't possible to scrape "text" pastes. Only pastes with any kind of syntax set. That reduces the amount of pastes to a minimum, which reduced the usefulness of this tool.
+
+### Setting up pastepwn
 
 To use the pastepwn framework you need to follow these simple steps:
 
