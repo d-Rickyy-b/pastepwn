@@ -22,7 +22,7 @@ Check a few selected examples to get an idea:
 ## Create own analyzer
 Check out the implementations of a few analyzers and you'll get an idea on how to get started.
 
-```
+```python
 # -*- coding: utf-8 -*-
 from .basicanalyzer import BasicAnalyzer
 
@@ -40,7 +40,9 @@ class MyAnalyzer(BasicAnalyzer):
     def match(self, paste):
         # Here our pastes get matched. We can access all fields of the paste object
         paste_title = paste.title or ""
-        return self.regex.findall(paste_title)
+
+        # We can for example check if the paste title contains a certain string
+        return "Secret" in paste_title
 ```
  
 ## Combining analyzers
