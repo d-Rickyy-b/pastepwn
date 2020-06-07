@@ -47,7 +47,7 @@ class MyAnalyzer(BasicAnalyzer):
 To combine multiple analyzers and hence multiple conditions, you can use bitwise operators.
 Those bitwise operators act as a logical operators by creating a new `MergedAnalyzer` class that handles the individual analyzers internally. 
 
-`&` - bitwise AND for combining analyzers with a logical AND
+`&` - bitwise AND for combining analyzers with a logical AND  
 `|` - bitwise OR for combining analyzers with a logical OR
 
 ```
