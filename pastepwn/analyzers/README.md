@@ -52,7 +52,7 @@ Those bitwise operators act as a logical operators by creating a new `MergedAnal
 `&` - bitwise AND for combining analyzers with a logical AND  
 `|` - bitwise OR for combining analyzers with a logical OR
 
-```
+```python
 analyzer1 = SomeAnalyzer(...)
 analyzer2 = SomeOtherAnalyzer(...)
 analyzer3 = ThirdAnalyzer(...)
