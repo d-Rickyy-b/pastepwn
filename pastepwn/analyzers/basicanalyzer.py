@@ -66,7 +66,10 @@ class BasicAnalyzer(object):
 
 
 class MergedAnalyzer(BasicAnalyzer):
-    """Basic analyzer class"""
+    """
+    Combination class to combine multiple analyzers into a single one
+    Doesn't need to be created manually - use the binary operators (& and |) to combine multiple analyzers.
+    """
     name = "MergedAnalyzer"
 
     def __init__(self, base_analyzer, and_analyzer=None, or_analyzer=None):
