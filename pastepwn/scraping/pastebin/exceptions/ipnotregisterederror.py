@@ -3,6 +3,7 @@ import re
 
 
 class IPNotRegisteredError(Exception):
+    """Exception class indicating that your IP is not witelisted on pastebin"""
 
     def __init__(self, body):
         ip = re.search("YOUR IP: (.*?) DOES NOT HAVE ACCESS", body).group(1)

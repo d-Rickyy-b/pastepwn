@@ -37,9 +37,9 @@ class PastebinScraper(BasicScraper):
 
     def _check_error(self, body, key=None):
         """Checks if an error occurred and raises an exception if it did"""
-        pattern = r"YOUR IP: \d{1,3}.\d{1,3}.\d{1,3}.\d{1,3} DOES NOT HAVE ACCESS\.\s+VISIT: https:\/\/pastebin\.com\/doc_scraping_api TO GET ACCESS!"
+        pattern = r"^YOUR IP: ((\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})|((([0-9A-Fa-f]{1,4}:){7})([0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,6}:)(([0-9A-Fa-f]{1,4}:){0,4})([0-9A-Fa-f]{1,4}))) DOES NOT HAVE ACCESS\.\s+VISIT: https:\/\/pastebin\.com\/doc_scraping_api TO GET ACCESS!"
 
-        if 107 >= len(body) >= 99 and re.match(pattern, body):
+        if 131 >= len(body) and re.match(pattern, body):
             self._exception_event.set()
             raise IPNotRegisteredError(body)
 
