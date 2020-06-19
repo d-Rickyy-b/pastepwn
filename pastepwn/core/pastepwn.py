@@ -71,7 +71,7 @@ class PastePwn(object):
     def add_analyzer(self, analyzer):
         """
         Adds a new analyzer to the list of analyzers
-        :param analyzer: Instance of an BasicAnalyzer
+        :param analyzer: Instance of a BasicAnalyzer
         :return: None
         """
 
