@@ -8,18 +8,19 @@ from time import sleep
 from pastepwn.actions import DatabaseAction
 from pastepwn.analyzers import AlwaysTrueAnalyzer
 from pastepwn.core import ScrapingHandler, ActionHandler, PasteDispatcher
-from pastepwn.util import Request
+from pastepwn.util import Request, enforce_ip_version
 
 
 class PastePwn(object):
     """Represents an instance of the pastepwn core module"""
 
-    def __init__(self, database=None, proxies=None, store_all_pastes=True):
+    def __init__(self, database=None, proxies=None, store_all_pastes=True, ip_version=None):
         """
         Basic PastePwn object handling the connection to pastebin and all the analyzers and actions
         :param database: Database object extending AbstractDB
         :param proxies: Dict of proxies as defined in the requests documentation
         :param store_all_pastes: Bool to decide if all pastes should be stored into the db
+        :param ip_version: The IP version pastepwn should use (4|6)
         """
         self.logger = logging.getLogger(__name__)
         self.is_idle = False
@@ -30,6 +31,9 @@ class PastePwn(object):
         self.onstart_handlers = list()
         self.__exception_event = Event()
         self.__request = Request(proxies)  # initialize singleton
+
+        # We are trying to enforce a certain version of the Internet Protocol
+        enforce_ip_version(ip_version)
 
         # Usage of ipify to get the IP - Uses the X-Forwarded-For Header which might
         # lead to issues with proxies
