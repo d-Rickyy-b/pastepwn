@@ -26,9 +26,7 @@ class TemplatingEngine(object):
             paste_dict["matches"] = ""
         else:
             # When there are elements in the matches object, we want them to be formatted as single string
-            matches_str = ""
-            for element in matches:
-                matches_str += "{}\n".format(element)
+            matches_str = "\n".join(matches)
             paste_dict["matches"] = matches_str
 
         # Possibility to insert own/custom values into the paste_dict thus gives more control over the template string
