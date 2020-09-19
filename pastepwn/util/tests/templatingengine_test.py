@@ -43,7 +43,7 @@ class TestTemplatingEngine(unittest.TestCase):
     def test_fill_template_matches(self):
         """Checks if templating engine inserts the matches correctly into the template"""
         template = "Matches are: ${matches}"
-        expected = "Matches are: +123456789\n+987654321\n"
+        expected = "Matches are: +123456789\n+987654321"
         matches = ["+123456789", "+987654321"]
         result = TemplatingEngine.fill_template(paste=self.paste, analyzer_name=None, template_string=template, matches=matches)
         self.assertEqual(expected, result, msg="Filled template string is not the same as the expected result!")

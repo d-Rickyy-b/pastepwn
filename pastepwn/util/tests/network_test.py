@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+import os
 import unittest
 from unittest.mock import Mock
 
@@ -7,6 +9,7 @@ import socket
 import requests.packages.urllib3.util.connection as urllib3_cn
 
 
+@unittest.skipIf("TRAVIS" in os.environ and os.environ["TRAVIS"] == "true", "Skipping this test on Travis CI.")
 class TestNetwork(unittest.TestCase):
     """Tests for the network utils - these tests might fail on CI"""
 
