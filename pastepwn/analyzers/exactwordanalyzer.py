@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 from .basicanalyzer import BasicAnalyzer
+from ..util import listify
 
 
 class ExactWordAnalyzer(BasicAnalyzer):
@@ -10,13 +11,7 @@ class ExactWordAnalyzer(BasicAnalyzer):
     def __init__(self, actions, words, blacklist=None, case_sensitive=False):
         super().__init__(actions, "{0} ({1})".format(self.name, words))
 
-        if words is None:
-            self.words = []
-        elif isinstance(words, list):
-            self.words = words
-        else:
-            self.words = [words]
-
+        self.words = listify(words)
         self.blacklist = blacklist or []
         self.case_sensitive = case_sensitive
 
