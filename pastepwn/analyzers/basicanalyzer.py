@@ -34,13 +34,24 @@ class BasicAnalyzer(object):
         self._check_action(action)
         self.actions.append(action)
 
-    def match(self, paste):
+    def match(self, paste, unique_matches=False):
         """
         Checks if a certain paste is matched by the conditions set for this analyzer
         :param paste: A :class:`pastepwn.core.paste` object which should be matched
+        :param unique_matches: A boolean that specifies if matches should be unique.
+            defaults to False
         :return: :obj:`bool` if the paste has been matched
         """
         raise NotImplementedError("Your analyzer must implement the match method!")
+    
+    @staticmethod
+    def unique(matches):
+        """
+        Takes a list of matches and returns a list with no duplicates.
+        :param matches: A list of matches
+        :return: A filtered list of matches retaining order
+        """
+        return sorted(set(matches), key=matches.index)
 
     def _check_action(self, action):
         """Check if a passed action is a subclass of BasicAction"""
