@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 from .basicanalyzer import BasicAnalyzer
-from ..util import listify
+from pastepwn.util import listify
 
 
 class ExactWordAnalyzer(BasicAnalyzer):
