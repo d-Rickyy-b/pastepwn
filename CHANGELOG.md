@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Implemented ExactWordAnalyzer to match words exactly rather than partially ([08ebdbc](https://github.com/d-Rickyy-b/pastepwn/commits/08ebdbc3fb5c8431486f8367e039e8580c67770a))
 
+- Implemented BasicAnalyzer.unique(), which can be used to filter out duplicate matches from BasicAnalyzer.match() ([18dee8a](https://github.com/d-Rickyy-b/pastepwn/commits/18dee8ae3026b187a46afe044360305197341f7e))
+
 ## [1.3.1] - 2020-06-20
 ### Fixed
 - The PastebinScraper could not recognize error messages with IPv6 addresses.
