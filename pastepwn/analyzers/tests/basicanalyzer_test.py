@@ -99,6 +99,27 @@ class TestBasicAnalyzer(unittest.TestCase):
 
             self.assertEqual(log.output, ["ERROR:pastepwn.analyzers.basicanalyzer:You passed a class as action for 'BasicAnalyzer' but an instance of an action was expected!"])
 
+    def test_unique(self):
+        """Check if running unique() on a list of matches returns a list with
+         no duplicates"""
+        # Some lists with and without duplicates
+        test_lists = [
+            [],
+            ["a", "a"],
+            ["a", "b"],
+            ["a", "b", "a"]
+        ]
+        self.assertEqual(BasicAnalyzer.unique(test_lists[0]), [],
+            msg="BasicAnalyzer.unique() left a duplicate!")
+        self.assertEqual(BasicAnalyzer.unique(test_lists[1]), ["a"],
+            msg="BasicAnalyzer.unique() left a duplicate!")
+        # Should preserve order
+        self.assertEqual(BasicAnalyzer.unique(test_lists[2]), ["a", "b"],
+            msg="BasicAnalyzer.unique() left a duplicate!")
+        self.assertEqual(BasicAnalyzer.unique(test_lists[3]), ["a", "b"],
+            msg="BasicAnalyzer.unique() left a duplicate!")
+
+
 
 if __name__ == '__main__':
     unittest.main()
