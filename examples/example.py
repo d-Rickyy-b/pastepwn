@@ -1,19 +1,20 @@
 # -*- coding: utf-8 -*-
 
 import logging.handlers
-import os
+import pathlib
 
 from pastepwn import PastePwn
 from pastepwn.actions import TelegramAction
 from pastepwn.analyzers import MailAnalyzer, WordAnalyzer
 from pastepwn.database import MongoDB
 
-# Setting up the logging
-logdir_path = os.path.dirname(os.path.abspath(__file__))
-logfile_path = os.path.join(logdir_path, "logs", "pastepwn.log")
+# Setting up the logging to a file in ./logs/
+logdir_path = pathlib.Path(__file__).parent.joinpath("logs").absolute()
+logfile_path = logdir_path.joinpath("pastepwn.log")
 
-if not os.path.exists(os.path.join(logdir_path, "logs")):
-    os.makedirs(os.path.join(logdir_path, "logs"))
+# Creates ./logs/ if it doesn't exist
+if not logdir_path.exists():
+    logdir_path.mkdir()
 
 logfile_handler = logging.handlers.WatchedFileHandler(logfile_path, "a", "utf-8")
 
