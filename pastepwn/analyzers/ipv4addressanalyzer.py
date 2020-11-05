@@ -7,6 +7,13 @@ class IPv4AddressAnalyzer(RegexAnalyzer):
     name = "IPv4AddressAnalyzer"
 
     def __init__(self, actions):
+        """
+        Initialize actions.
+
+        Args:
+            self: (todo): write your description
+            actions: (todo): write your description
+        """
         regex = r"\b\d{1,3}(?:\.\d{1,3}){3}\b"
         super().__init__(actions, regex)
 

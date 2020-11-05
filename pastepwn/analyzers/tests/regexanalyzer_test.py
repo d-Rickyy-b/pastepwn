@@ -13,6 +13,12 @@ class TestRegexAnalyzer(unittest.TestCase):
         self.paste = Mock()
 
     def test_matchWord(self):
+        """
+        * match match *
+
+        Args:
+            self: (todo): write your description
+        """
         analyzer = RegexAnalyzer(None, regex="word")
         self.paste.body = "This text contains the word 'word'!"
         self.assertTrue(analyzer.match(self.paste), "The regex does not match, although it should!")
@@ -21,6 +27,12 @@ class TestRegexAnalyzer(unittest.TestCase):
         self.assertEqual(2, len(analyzer.match(self.paste)))
 
     def test_matchPattern(self):
+        """
+        * match match match * match *
+
+        Args:
+            self: (todo): write your description
+        """
         analyzer = RegexAnalyzer(None, regex=r"\d{4}-123-\d{2}")
         self.paste.body = "This text contains 4444-123-55 a nice pattern!"
         self.assertTrue(analyzer.match(self.paste), "The regex does not match, although it should!")
@@ -35,6 +47,12 @@ class TestRegexAnalyzer(unittest.TestCase):
         self.assertEqual([], analyzer.match(self.paste))
 
     def test_multiple(self):
+        """
+        Analyze the match.
+
+        Args:
+            self: (todo): write your description
+        """
         analyzer = RegexAnalyzer(None, regex=r"\d{4}-123-\d{2}")
         self.paste.body = "This text contains 4444-123-55 and 1864-123-11 and 1649-123-00 which in total are three nice patterns!"
         self.assertEqual(3, len(analyzer.match(self.paste)))
@@ -75,6 +93,12 @@ class TestRegexAnalyzer(unittest.TestCase):
         """Check that the verify method gets called correctly"""
 
         def _verify_method(matches):
+            """
+            Verifies the method matches.
+
+            Args:
+                matches: (list): write your description
+            """
             self.test = ""
             return matches
 
@@ -83,6 +107,14 @@ class TestRegexAnalyzer(unittest.TestCase):
             verify = Mock(side_effect=_verify_method)
 
             def __init__(self, actions, regex):
+                """
+                Initialize actions.
+
+                Args:
+                    self: (todo): write your description
+                    actions: (todo): write your description
+                    regex: (bool): write your description
+                """
                 super().__init__(actions, regex)
 
         mock_paste = Mock()

@@ -7,6 +7,12 @@ from pastepwn.analyzers.md5hashanalyzer import MD5HashAnalyzer
 
 class TestMD5HashAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the mock.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = MD5HashAnalyzer(None)
         self.paste = mock.Mock()
 

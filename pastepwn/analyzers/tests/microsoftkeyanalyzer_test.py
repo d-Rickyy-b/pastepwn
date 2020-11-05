@@ -7,6 +7,12 @@ from pastepwn.analyzers.microsoftkeyanalyzer import MicrosoftKeyAnalyzer
 
 class TestMicrosoftKeyAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the cursor.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = MicrosoftKeyAnalyzer(None)
         self.paste = mock.Mock()
 

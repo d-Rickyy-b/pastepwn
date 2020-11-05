@@ -7,6 +7,12 @@ from pastepwn.analyzers.privatekeyanalyzer import PrivateKeyAnalyzer
 
 class TestPrivateKeyAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the cursor.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = PrivateKeyAnalyzer(None)
         self.paste = mock.Mock()
 

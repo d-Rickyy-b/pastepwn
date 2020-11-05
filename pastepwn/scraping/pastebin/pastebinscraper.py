@@ -23,6 +23,15 @@ class PastebinScraper(BasicScraper):
     api_base_url = "https://scrape.pastebin.com"
 
     def __init__(self, paste_queue=None, exception_event=None, api_hit_rate=None):
+        """
+        Initialize the queue.
+
+        Args:
+            self: (todo): write your description
+            paste_queue: (todo): write your description
+            exception_event: (todo): write your description
+            api_hit_rate: (float): write your description
+        """
         super().__init__(exception_event)
         self.logger = logging.getLogger(__name__)
         self._last_scrape_time = 0

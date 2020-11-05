@@ -8,6 +8,12 @@ from pastepwn.analyzers.azuresubscriptionkeyanalyzer import AzureSubscriptionKey
 class TestAzureSubscriptionKeyAnalyzer(unittest.TestCase):
 
     def setUp(self):
+        """
+        Sets the subscription.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = AzureSubscriptionKeyAnalyzer(None)
         self.paste = mock.Mock()
 

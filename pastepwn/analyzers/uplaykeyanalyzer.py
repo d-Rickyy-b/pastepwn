@@ -9,5 +9,12 @@ class UplayKeyAnalyzer(RegexAnalyzer):
     name = "UplayKeyAnalyzer"
 
     def __init__(self, actions):
+        """
+        Initialize actions.
+
+        Args:
+            self: (todo): write your description
+            actions: (todo): write your description
+        """
         regex = r"\b(?<!-)[A-Z0-9]{4}\-[A-Z0-9]{4}\-[A-Z0-9]{4}\-[A-Z0-9]{4}\b(?!-)"
         super().__init__(actions, regex)

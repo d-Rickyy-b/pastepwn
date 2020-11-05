@@ -8,6 +8,12 @@ from pastepwn.analyzers.mailchimpapikeyanalyzer import MailChimpApiKeyAnalyzer
 class TestMailChimpApiKeyAnalyzer(unittest.TestCase):
 
     def setUp(self):
+        """
+        Sets the mock.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = MailChimpApiKeyAnalyzer(None)
         self.paste = mock.Mock()
 

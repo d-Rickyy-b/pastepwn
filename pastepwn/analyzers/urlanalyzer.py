@@ -15,6 +15,15 @@ class URLAnalyzer(BasicAnalyzer):
     name = "URLAnalyzer"
 
     def __init__(self, actions, regex, resolve=False):
+        """
+        Initialize actions.
+
+        Args:
+            self: (todo): write your description
+            actions: (todo): write your description
+            regex: (bool): write your description
+            resolve: (todo): write your description
+        """
         super().__init__(actions, regex)
         self.regex = re.compile(regex)
         self.resolve = resolve  # Should we try to resolve the URLs?

@@ -16,6 +16,17 @@ class IrcAction(BasicAction):
     name = "IrcAction"
 
     def __init__(self, server=None, channel=None, port=6667, nick="pastepwn", template=None):
+        """
+        Initialize the consumer.
+
+        Args:
+            self: (todo): write your description
+            server: (todo): write your description
+            channel: (todo): write your description
+            port: (int): write your description
+            nick: (str): write your description
+            template: (str): write your description
+        """
         super().__init__()
         self.logger = logging.getLogger(__name__)
         self._msg_queue = Queue()
@@ -204,6 +215,12 @@ class IrcAction(BasicAction):
         self._msg_queue.put(msg)
 
     def __del__(self):
+        """
+        Stops the background thread.
+
+        Args:
+            self: (todo): write your description
+        """
         self._stop_event.set()
         join_threads([self._thread])
 

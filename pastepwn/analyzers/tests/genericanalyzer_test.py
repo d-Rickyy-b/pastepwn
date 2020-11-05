@@ -8,6 +8,12 @@ from pastepwn.analyzers import GenericAnalyzer
 
 class TestGenericAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Set the mock for the mock is a mock.
+
+        Args:
+            self: (todo): write your description
+        """
         self.mock_action = MagicMock(spec=BasicAction)
 
     def test_empty_match_func(self):

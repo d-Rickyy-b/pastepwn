@@ -7,6 +7,12 @@ from pastepwn.errors.errors import PastepwnError
 
 class TestErrors(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the result of this thread.
+
+        Args:
+            self: (todo): write your description
+        """
         pass
 
     def test_PastepwnError(self):

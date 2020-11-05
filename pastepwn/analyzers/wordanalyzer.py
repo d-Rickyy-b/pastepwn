@@ -7,6 +7,16 @@ class WordAnalyzer(BasicAnalyzer):
     name = "WordAnalyzer"
 
     def __init__(self, actions, words, blacklist=None, case_sensitive=False):
+        """
+        Initialize the list.
+
+        Args:
+            self: (todo): write your description
+            actions: (todo): write your description
+            words: (todo): write your description
+            blacklist: (todo): write your description
+            case_sensitive: (bool): write your description
+        """
         super().__init__(actions, "{0} ({1})".format(self.name, words))
 
         if words is None:
@@ -20,6 +30,13 @@ class WordAnalyzer(BasicAnalyzer):
         self.case_sensitive = case_sensitive
 
     def _blacklist_word_found(self, text):
+        """
+        Return true if text contains blacklist.
+
+        Args:
+            self: (todo): write your description
+            text: (str): write your description
+        """
         if not self.case_sensitive:
             text = text.lower()
             self.blacklist = [x.lower() for x in self.blacklist]

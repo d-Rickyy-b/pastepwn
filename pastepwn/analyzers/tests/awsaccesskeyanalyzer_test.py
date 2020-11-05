@@ -7,6 +7,12 @@ from pastepwn.analyzers.awsaccesskeyanalyzer import AWSAccessKeyAnalyzer
 
 class TestAWSAccessKeyAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the mock.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = AWSAccessKeyAnalyzer(None)
         self.paste = mock.Mock()
 
@@ -29,6 +35,12 @@ class TestAWSAccessKeyAnalyzer(unittest.TestCase):
         self.assertTrue(self.analyzer.match(self.paste))
 
     def test_match_intext(self):
+        """
+        Test if the match match.
+
+        Args:
+            self: (todo): write your description
+        """
         self.paste.body = "my super cool hash is AKIAJM4DOPAAJWLUJ2PQ and here's some more text"
         match = self.analyzer.match(self.paste)
         self.assertTrue(match)
@@ -40,6 +52,12 @@ class TestAWSAccessKeyAnalyzer(unittest.TestCase):
         self.assertEqual("AKIAIX2GUZJMJFDZON4A", match[0])
 
     def test_multiple(self):
+        """
+        Create the match.
+
+        Args:
+            self: (todo): write your description
+        """
         # Newline-separated valid hashes
         self.paste.body = "AKIAIKSA47YZNJAY2H6A\nAKIAJM4DOPAAJWLUJ2PQ"
         self.assertTrue(self.analyzer.match(self.paste))

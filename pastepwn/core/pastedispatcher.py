@@ -12,6 +12,15 @@ class PasteDispatcher(object):
     """The PasteDispatcher dispatches the downloaded pastes to the analyzers"""
 
     def __init__(self, paste_queue, action_queue=None, exception_event=None):
+        """
+        Initialize the queue.
+
+        Args:
+            self: (todo): write your description
+            paste_queue: (todo): write your description
+            action_queue: (todo): write your description
+            exception_event: (todo): write your description
+        """
         self.logger = logging.getLogger(__name__)
         self.paste_queue = paste_queue
         self.action_queue = action_queue or Queue()
@@ -25,6 +34,12 @@ class PasteDispatcher(object):
         self.__stop_event = Event()
 
     def _pool_thread(self):
+        """
+        Pool thread that are running.
+
+        Args:
+            self: (todo): write your description
+        """
         while True:
             pass
 
@@ -57,6 +72,12 @@ class PasteDispatcher(object):
             return self.action_queue
 
     def _start_analyzing(self):
+        """
+        Starts the main loop.
+
+        Args:
+            self: (todo): write your description
+        """
         while self.running:
             try:
                 # Get paste from queue
@@ -77,6 +98,13 @@ class PasteDispatcher(object):
                 continue
 
     def _process_paste(self, paste):
+        """
+        Processes the action.
+
+        Args:
+            self: (todo): write your description
+            paste: (todo): write your description
+        """
         self.logger.debug("Analyzing Paste: {0}".format(paste.key))
         for analyzer in self.analyzers:
             matches = analyzer.match(paste)

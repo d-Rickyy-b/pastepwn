@@ -20,6 +20,17 @@ class TwitterAction(BasicAction):
             access_token_secret=None,
             template=None,
     ):
+        """
+        Initialize a new token.
+
+        Args:
+            self: (todo): write your description
+            consumer_key: (str): write your description
+            consumer_secret: (str): write your description
+            access_token_key: (str): write your description
+            access_token_secret: (str): write your description
+            template: (str): write your description
+        """
         super().__init__()
 
         self.logger = logging.getLogger(__name__)

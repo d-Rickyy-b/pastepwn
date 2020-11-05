@@ -9,4 +9,11 @@ class DictWrapper(dict):
     """
 
     def __missing__(self, key):
+        """
+        Returns true if key
+
+        Args:
+            self: (todo): write your description
+            key: (str): write your description
+        """
         return '${' + key + '}'

@@ -9,6 +9,13 @@ class BattleNetKeyAnalyzer(RegexAnalyzer):
     name = "BattleNetKeyAnalyzer"
 
     def __init__(self, actions):
+        """
+        Initialize actions.
+
+        Args:
+            self: (todo): write your description
+            actions: (todo): write your description
+        """
         # battle.net activation page shows 4-4-4-4 format, but there are also codes in the 4-4-5-4-4 format which work
         regex = r"\b(?<!-)([A-Z0-9]{4}\-[A-Z0-9]{4}\-[A-Z0-9]{4}\-[A-Z0-9]{4}|[A-Z0-9]{4}\-[A-Z0-9]{4}\-[A-Z0-9]{5}\-[A-Z0-9]{4}\-[A-Z0-9]{4})\b(?!-)"
         super().__init__(actions, regex)

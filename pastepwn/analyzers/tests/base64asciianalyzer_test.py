@@ -7,6 +7,12 @@ from pastepwn.analyzers.base64asciianalyzer import Base64AsciiAnalyzer
 
 class TestBase64AsciiAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the mock.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = Base64AsciiAnalyzer(None)
         self.paste = mock.Mock()
 

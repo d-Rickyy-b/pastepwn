@@ -10,6 +10,13 @@ class SaveJSONAction(SaveFileAction):
     name = "SaveJSONAction"
 
     def __init__(self, path):
+        """
+        Initialize the specified path.
+
+        Args:
+            self: (todo): write your description
+            path: (str): write your description
+        """
         super().__init__(path)
 
     def perform(self, paste, analyzer_name=None, matches=None):

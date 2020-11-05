@@ -7,6 +7,12 @@ from pastepwn.analyzers.epickeyanalyzer import EpicKeyAnalyzer
 
 class TestEpicKeyAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the mock.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = EpicKeyAnalyzer(None)
         self.paste = mock.Mock()
 

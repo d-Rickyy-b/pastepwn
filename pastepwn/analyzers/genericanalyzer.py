@@ -9,6 +9,15 @@ class GenericAnalyzer(BasicAnalyzer):
     name = "GenericAnalyzer"
 
     def __init__(self, actions, match_func, verify_func=None):
+        """
+        Initialize the actions.
+
+        Args:
+            self: (todo): write your description
+            actions: (todo): write your description
+            match_func: (todo): write your description
+            verify_func: (todo): write your description
+        """
         super().__init__(actions)
 
         if match_func is None:

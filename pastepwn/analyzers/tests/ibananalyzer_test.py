@@ -7,10 +7,22 @@ from pastepwn.analyzers.ibananalyzer import IBANAnalyzer
 
 class TestIBANAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the mock.
+
+        Args:
+            self: (todo): write your description
+        """
         self.cut = IBANAnalyzer(None, True)
         self.paste = mock.Mock()
 
     def test_validation_positive(self):
+        """
+        Test for validation and valid.
+
+        Args:
+            self: (todo): write your description
+        """
         self.assertTrue(self.cut._validate_iban("DE89 3704 0044 0532 0130 00"))
         self.assertTrue(self.cut._validate_iban("AT61 1904 3002 3457 3201"))
         self.assertTrue(self.cut._validate_iban("GB82-WEST-1234-5698-7654-32"))
@@ -25,22 +37,52 @@ class TestIBANAnalyzer(unittest.TestCase):
         self.assertFalse(self.cut._validate_iban("foo@i.ban"))
 
     def test_match_middle(self):
+        """
+        Called when the middleware.
+
+        Args:
+            self: (todo): write your description
+        """
         self.paste.body = "This is inside DE89 3704 0044 0532 0130 00 a long paste."
         self.assertTrue(self.cut.match(self.paste))
 
     def test_match_end(self):
+        """
+        Match the match match.
+
+        Args:
+            self: (todo): write your description
+        """
         self.paste.body = "This is at the beginning AT61 1904 3002 3457 3201"
         self.assertTrue(self.cut.match(self.paste))
 
     def test_match_beginning(self):
+        """
+        Match the match.
+
+        Args:
+            self: (todo): write your description
+        """
         self.paste.body = "NL20INGB0001234567 and this at the end."
         self.assertTrue(self.cut.match(self.paste))
 
     def test_match_single(self):
+        """
+        Matches the match.
+
+        Args:
+            self: (todo): write your description
+        """
         self.paste.body = "GB82-WEST-1234-5698-7654-32"
         self.assertTrue(self.cut.match(self.paste))
 
     def test_match_multiple(self):
+        """
+        Matches the match.
+
+        Args:
+            self: (todo): write your description
+        """
         self.paste.body = "This has DE89 3704 0044 0532 0130 00 two IBAN NL20INGB0001234567 in it."
         self.assertTrue(self.cut.match(self.paste))
 

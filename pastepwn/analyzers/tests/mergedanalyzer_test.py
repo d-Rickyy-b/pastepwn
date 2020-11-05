@@ -10,6 +10,13 @@ class TestMergedAnalyzer(unittest.TestCase):
         """Test Analyzer for testing mergedAnalyzer"""
 
         def __init__(self, return_value):
+            """
+            Initialize actions.
+
+            Args:
+                self: (todo): write your description
+                return_value: (bool): write your description
+            """
             super().__init__(actions=None)
             self.return_value = return_value
 

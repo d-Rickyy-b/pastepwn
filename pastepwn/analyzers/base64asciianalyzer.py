@@ -9,6 +9,15 @@ class Base64AsciiAnalyzer(Base64Analyzer):
     name = 'Base64AsciiAnalyzer'
 
     def __init__(self, actions, min_len=1, decode=False):
+        """
+        Initialize actions.
+
+        Args:
+            self: (todo): write your description
+            actions: (todo): write your description
+            min_len: (int): write your description
+            decode: (str): write your description
+        """
         super().__init__(actions, min_len)
         self.decode = decode
 

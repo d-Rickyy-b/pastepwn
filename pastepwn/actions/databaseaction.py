@@ -7,6 +7,13 @@ class DatabaseAction(BasicAction):
     name = "DatabaseAction"
 
     def __init__(self, database):
+        """
+        Initialize database
+
+        Args:
+            self: (todo): write your description
+            database: (str): write your description
+        """
         super().__init__()
         self.database = database
 

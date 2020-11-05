@@ -11,6 +11,14 @@ class ScrapingHandler(object):
     """Class to handle all the given scrapers to fetch pastes from different sources"""
 
     def __init__(self, paste_queue=None, exception_event=None):
+        """
+        Initialize the queue.
+
+        Args:
+            self: (todo): write your description
+            paste_queue: (todo): write your description
+            exception_event: (todo): write your description
+        """
         self.logger = logging.getLogger(__name__)
         self.running = False
         self.__exception_event = exception_event or Event()

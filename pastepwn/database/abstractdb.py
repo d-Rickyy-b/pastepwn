@@ -4,6 +4,12 @@
 class AbstractDB(object):
 
     def __init__(self):
+        """
+        Initialize the object
+
+        Args:
+            self: (todo): write your description
+        """
         pass
 
     def store(self, paste):

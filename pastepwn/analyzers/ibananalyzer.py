@@ -9,6 +9,14 @@ class IBANAnalyzer(RegexAnalyzer):
     name = "IBANAnalyzer"
 
     def __init__(self, actions, validate=False):
+        """
+        Initialize actions.
+
+        Args:
+            self: (todo): write your description
+            actions: (todo): write your description
+            validate: (bool): write your description
+        """
         # Regex adapted from https://stackoverflow.com/a/44657292/3621482
         regex = r"(?:[A-Z]{2}[ \-]?[0-9]{2})(?!=(?:[ \-]?[A-Z0-9]){9,30}$)" \
                 r"(?:(?:[ \-]?[A-Z0-9]{3,5}){2,7})(?:[ \-]?[A-Z0-9]{1,3})?"

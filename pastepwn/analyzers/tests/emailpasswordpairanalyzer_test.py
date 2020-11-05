@@ -7,6 +7,12 @@ from pastepwn.analyzers.emailpasswordpairanalyzer import EmailPasswordPairAnalyz
 
 class TestEmailPasswordPairAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the thread.
+
+        Args:
+            self: (todo): write your description
+        """
         self.paste = mock.Mock()
 
     def test_positive(self):

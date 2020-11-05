@@ -9,6 +9,16 @@ class PasteTitleAnalyzer(BasicAnalyzer):
     name = "PasteTitleAnalyzer"
 
     def __init__(self, actions, regex, flags=0, blacklist=None):
+        """
+        Add blacklist.
+
+        Args:
+            self: (todo): write your description
+            actions: (todo): write your description
+            regex: (bool): write your description
+            flags: (int): write your description
+            blacklist: (todo): write your description
+        """
         super().__init__(actions, self.name)
         self.regex = re.compile(regex, flags)
         self.blacklist = blacklist or []

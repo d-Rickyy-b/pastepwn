@@ -9,5 +9,12 @@ class AWSSessionTokenAnalyzer(RegexAnalyzer):
     name = "AWSSessionTokenAnalyzer"
 
     def __init__(self, actions):
+        """
+        Initialize actions.
+
+        Args:
+            self: (todo): write your description
+            actions: (todo): write your description
+        """
         regex = r"(?:(?:\\\"|'|`)?(?:i?aws)?_?(?:i?session)?_?(?:i?token)?(?:\\\"|'|`)?\\\\s{0,50}(?::|=>|=)\\\\s{0,50}(?:\\\"|'|`)?[A-Za-z0-9/+=]{16,}(?:\\\"|'|`)?)"
         super().__init__(actions, regex)

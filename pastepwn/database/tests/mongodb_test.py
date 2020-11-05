@@ -13,6 +13,12 @@ from pastepwn.database import MongoDB
 class MongoDBTest(unittest.TestCase):
 
     def setUp(self):
+        """
+        Sets a random list of the database.
+
+        Args:
+            self: (todo): write your description
+        """
         rand_text = list()
         for _ in range(3):
             rand_text.append(''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(8)))
@@ -43,9 +49,21 @@ class MongoDBTest(unittest.TestCase):
         self.database = MongoDB(collectionname="pastepwn_test")
 
     def tearDown(self):
+        """
+        Tear down the database.
+
+        Args:
+            self: (todo): write your description
+        """
         self.database.db.drop_collection("pastepwn_test")
 
     def test_insert_same_key(self):
+        """
+        Inserts the same key into the cache.
+
+        Args:
+            self: (todo): write your description
+        """
         for body_text in self.p['body']:
             self.paste.set_body(body_text)
             self.database.store(self.paste)
