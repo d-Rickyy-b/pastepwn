@@ -9,6 +9,14 @@ class EmailPasswordPairAnalyzer(RegexAnalyzer):
     name = "EmailPasswordPairAnalyzer"
 
     def __init__(self, actions, min_amount=0):
+        """
+        Initialize actions.
+
+        Args:
+            self: (todo): write your description
+            actions: (todo): write your description
+            min_amount: (int): write your description
+        """
         super().__init__(actions, _EMAIL_PASSWORD_REGEX)
         self.min_amount = min_amount
 

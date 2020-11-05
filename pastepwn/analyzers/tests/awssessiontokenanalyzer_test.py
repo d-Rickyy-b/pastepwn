@@ -8,6 +8,12 @@ from pastepwn.analyzers.awssessiontokenanalyzer import AWSSessionTokenAnalyzer
 class TestAWSSessionTokenAnalyzer(unittest.TestCase):
 
     def setUp(self):
+        """
+        Sets the mock.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = AWSSessionTokenAnalyzer(None)
         self.paste = mock.Mock()
 

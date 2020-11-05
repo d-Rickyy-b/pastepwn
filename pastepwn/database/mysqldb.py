@@ -9,6 +9,19 @@ from .abstractdb import AbstractDB
 class MysqlDB(AbstractDB):
 
     def __init__(self, ip="127.0.0.1", port=3306, unix_socket=None, dbname="pastepwn", username=None, password=None, timeout=10):
+        """
+        Initialize the database.
+
+        Args:
+            self: (todo): write your description
+            ip: (str): write your description
+            port: (int): write your description
+            unix_socket: (todo): write your description
+            dbname: (str): write your description
+            username: (str): write your description
+            password: (str): write your description
+            timeout: (int): write your description
+        """
         super().__init__()
         self.logger = logging.getLogger(__name__)
         self.logger.debug("Initializing MySQLDB - {0}:{1}".format(ip, port))
@@ -39,6 +52,13 @@ class MysqlDB(AbstractDB):
         self.logger.debug("Connected to database!")
 
     def _create_db(self, dbname):
+        """
+        Create a new database.
+
+        Args:
+            self: (todo): write your description
+            dbname: (str): write your description
+        """
         # Currently I found no other way to insert the database name into the sql statement
         # With the following code a simple SQL Injection would be possible - question is, why would a user do this to his own database?
         # Nevertheless I don't want to put this into production that way. I'll keep the code but remove the call to it.
@@ -48,6 +68,12 @@ class MysqlDB(AbstractDB):
         self.db.commit()
 
     def _create_tables(self):
+        """
+        Create all tables and tables.
+
+        Args:
+            self: (todo): write your description
+        """
         # Although the length of 'key' should never exceed 8 chars,
         # making it longer prevents from future issues.
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS `pastes` (
@@ -65,6 +91,13 @@ class MysqlDB(AbstractDB):
         self.db.commit()
 
     def _insert_data(self, paste):
+        """
+        Inserts data to the database.
+
+        Args:
+            self: (todo): write your description
+            paste: (todo): write your description
+        """
         self.cursor.execute("INSERT INTO `pastes` (`key`, `title`, `user`, `size`, `date`, `expire`, `syntax`, `scrape_url`, `full_url`, `body`) "
                             "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",
                             (paste.key,
@@ -80,16 +113,45 @@ class MysqlDB(AbstractDB):
         self.db.commit()
 
     def _get_data(self, key, value):
+        """
+        Returns the value of a key.
+
+        Args:
+            self: (todo): write your description
+            key: (str): write your description
+            value: (todo): write your description
+        """
         raise NotImplementedError
 
     def count(self, key, value):
+        """
+        Return the number of values in the set stored at key.
+
+        Args:
+            self: (todo): write your description
+            key: (str): write your description
+            value: (todo): write your description
+        """
         # TODO add filter to counting
         return self.cursor.execute("SELECT count(*) FROM pastes")
 
     def count_all(self):
+        """
+        Counts all the number of results
+
+        Args:
+            self: (todo): write your description
+        """
         return self.cursor.execute("SELECT count(*) FROM pastes")
 
     def store(self, paste):
+        """
+        Stores the contents into the clipboard.
+
+        Args:
+            self: (todo): write your description
+            paste: (todo): write your description
+        """
         self.logger.debug("Storing paste {0}".format(paste.key))
 
         try:
@@ -98,4 +160,11 @@ class MysqlDB(AbstractDB):
             self.logger.debug("Exception '{0}'".format(e))
 
     def get(self, key):
+        """
+        Returns the value of the key.
+
+        Args:
+            self: (todo): write your description
+            key: (todo): write your description
+        """
         return self._get_data("key", key)

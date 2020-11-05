@@ -9,6 +9,13 @@ from .abstractdb import AbstractDB
 class SQLiteDB(AbstractDB):
 
     def __init__(self, dbpath="pastepwn"):
+        """
+        Initialize the database.
+
+        Args:
+            self: (todo): write your description
+            dbpath: (str): write your description
+        """
         super().__init__()
         self.dbpath = dbpath
         self.logger = logging.getLogger(__name__)
@@ -36,6 +43,12 @@ class SQLiteDB(AbstractDB):
         self.logger.debug("Connected to database!")
 
     def _create_tables(self):
+        """
+        Create all tables. tables in the database.
+
+        Args:
+            self: (todo): write your description
+        """
         open(self.dbpath, "a").close()
 
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS 'pastes' (
@@ -53,6 +66,13 @@ class SQLiteDB(AbstractDB):
         self.db.commit()
 
     def _insert_data(self, paste):
+        """
+        Inserts data to the database.
+
+        Args:
+            self: (todo): write your description
+            paste: (todo): write your description
+        """
         self.cursor.execute("INSERT INTO pastes (key, title, user, size, date, expire, syntax, scrape_url, full_url, body) "
                             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                             (paste.key,
@@ -68,22 +88,58 @@ class SQLiteDB(AbstractDB):
         self.db.commit()
 
     def _update_data(self, paste):
+        """
+        Updates data from db
+
+        Args:
+            self: (todo): write your description
+            paste: (todo): write your description
+        """
         self.cursor.execute("UPDATE pastes SET body = ? WHERE key = ?",
                             (paste.body,
                             paste.key))
         self.db.commit()
 
     def _get_data(self, key, value):
+        """
+        Gets the value of a key.
+
+        Args:
+            self: (todo): write your description
+            key: (str): write your description
+            value: (todo): write your description
+        """
         pass
 
     def count(self, key, value):
+        """
+        Return the number of values in the set stored at key.
+
+        Args:
+            self: (todo): write your description
+            key: (str): write your description
+            value: (todo): write your description
+        """
         # TODO add filter to counting
         return self.cursor.execute("SELECT count(*) FROM pastes")
 
     def count_all(self):
+        """
+        Counts all the number of results
+
+        Args:
+            self: (todo): write your description
+        """
         return self.cursor.execute("SELECT count(*) FROM pastes")
 
     def store(self, paste):
+        """
+        Stores data into the clipboard
+
+        Args:
+            self: (todo): write your description
+            paste: (todo): write your description
+        """
         self.logger.debug("Storing paste {0}".format(paste.key))
 
         try:
@@ -95,4 +151,11 @@ class SQLiteDB(AbstractDB):
                 self._update_data(paste)
 
     def get(self, key):
+        """
+        Returns the value of the key.
+
+        Args:
+            self: (todo): write your description
+            key: (todo): write your description
+        """
         return self._get_data("key", key)

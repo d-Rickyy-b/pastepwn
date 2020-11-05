@@ -12,6 +12,12 @@ class Request(object):
     _lock = Lock()
 
     def __new__(cls, *args, **kwargs):
+        """
+        Return a new instance of this : class : newinstance.
+
+        Args:
+            cls: (todo): write your description
+        """
         # override method to implement singleton
         # source: http://alacret.blogspot.com/2015/04/python-thread-safe-singleton-pattern.html
         if Request._instance is None:
@@ -21,6 +27,14 @@ class Request(object):
         return Request._instance
 
     def __init__(self, proxies=None, headers=None):
+        """
+        Initialize the http requests.
+
+        Args:
+            self: (todo): write your description
+            proxies: (dict): write your description
+            headers: (list): write your description
+        """
         if not self._initialized:
             self.logger = logging.getLogger(__name__)
             self.session = Session()
@@ -31,6 +45,14 @@ class Request(object):
             self._initialized = True
 
     def _request_wrapper(self, data, timeout, *args, **kwargs):
+        """
+        Make a http request.
+
+        Args:
+            self: (todo): write your description
+            data: (str): write your description
+            timeout: (float): write your description
+        """
         headers = {
             "User-Agent": "pastepwn (https://github.com/d-Rickyy-b/pastepwn)"
         }
@@ -48,13 +70,49 @@ class Request(object):
         return response_data
 
     def get(self, url, data=None, timeout=5):
+        """
+        Make a get request.
+
+        Args:
+            self: (todo): write your description
+            url: (todo): write your description
+            data: (todo): write your description
+            timeout: (int): write your description
+        """
         return self._request_wrapper(method="GET", url=url, data=data, timeout=timeout)
 
     def post(self, url, data=None, timeout=5):
+        """
+        Make a post request.
+
+        Args:
+            self: (todo): write your description
+            url: (todo): write your description
+            data: (array): write your description
+            timeout: (float): write your description
+        """
         return self._request_wrapper(method="POST", url=url, data=data, timeout=timeout)
 
     def put(self, url, data=None, timeout=5):
+        """
+        Make a put request.
+
+        Args:
+            self: (todo): write your description
+            url: (todo): write your description
+            data: (array): write your description
+            timeout: (float): write your description
+        """
         return self._request_wrapper(method="PUT", url=url, data=data, timeout=timeout)
 
     def delete(self, url, data=None, timeout=5):
+        """
+        Make a delete request.
+
+        Args:
+            self: (todo): write your description
+            url: (str): write your description
+            data: (array): write your description
+            timeout: (float): write your description
+        """
         return self._request_wrapper(method="DELETE", url=url, data=data, timeout=timeout)

@@ -5,6 +5,21 @@ class Paste(object):
     """Representation of a paste object used for example by pastebin"""
 
     def __init__(self, key, title, user, size, date, expire, syntax, scrape_url, full_url):
+        """
+        Initialize key.
+
+        Args:
+            self: (todo): write your description
+            key: (str): write your description
+            title: (str): write your description
+            user: (str): write your description
+            size: (int): write your description
+            date: (todo): write your description
+            expire: (float): write your description
+            syntax: (todo): write your description
+            scrape_url: (str): write your description
+            full_url: (str): write your description
+        """
         self.key = key
         self.title = title
         self.user = user
@@ -25,6 +40,12 @@ class Paste(object):
         self.body = str(body or "")
 
     def __str__(self):
+        """
+        Return a string representation of this object.
+
+        Args:
+            self: (todo): write your description
+        """
         return str(self.to_dict())
 
     __repr__ = __str__

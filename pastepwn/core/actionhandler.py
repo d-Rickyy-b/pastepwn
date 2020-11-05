@@ -12,6 +12,15 @@ class ActionHandler(object):
     """Handler to execute all the actions, if an analyzer matches a paste"""
 
     def __init__(self, action_queue=None, exception_event=None, stop_event=None):
+        """
+        Initialize the event loop.
+
+        Args:
+            self: (todo): write your description
+            action_queue: (todo): write your description
+            exception_event: (todo): write your description
+            stop_event: (todo): write your description
+        """
         self.logger = logging.getLogger(__name__)
         self.action_queue = action_queue or Queue()
         self.__exception_event = exception_event or Event()
@@ -51,6 +60,12 @@ class ActionHandler(object):
         self.__threads = []
 
     def _start(self):
+        """
+        Starts the main loop.
+
+        Args:
+            self: (todo): write your description
+        """
         while self.running:
             try:
                 # Get paste from queue

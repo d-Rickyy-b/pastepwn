@@ -7,6 +7,12 @@ from pastepwn.analyzers.steamkeyanalyzer import SteamKeyAnalyzer
 
 class TestSteamKeyAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the mock.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = SteamKeyAnalyzer(None)
         self.paste = mock.Mock()
 

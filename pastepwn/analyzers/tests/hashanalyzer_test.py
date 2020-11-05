@@ -7,6 +7,12 @@ from pastepwn.analyzers.hashanalyzer import HashAnalyzer
 
 class TestHashAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the mock.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = HashAnalyzer(None, [
             b"hunter2",
             b"SuperSecurePassword!123",
@@ -15,6 +21,12 @@ class TestHashAnalyzer(unittest.TestCase):
         self.paste = mock.Mock()
 
     def test_match(self):
+        """
+        Check for match of the match.
+
+        Args:
+            self: (todo): write your description
+        """
         md5_hashes = ['2ab96390c7dbe3439de74d0c9b0b1767',
                       '0fceb0a9f3d9e4a454df92965c7d9f3e',
                       'd41d8cd98f00b204e9800998ecf8427e']
@@ -39,12 +51,24 @@ class TestHashAnalyzer(unittest.TestCase):
             self.assertFalse(self.analyzer.match(self.paste), test_hash)
 
     def test_match_case_insensitive(self):
+        """
+        * match case case case match.
+
+        Args:
+            self: (todo): write your description
+        """
         self.paste.body = '2ab96390c7dbe3439de74d0c9b0b1767'
         self.assertTrue(self.analyzer.match(self.paste), 'lowercase hash')
         self.paste.body = '2AB96390C7DBE3439DE74D0C9B0B1767'
         self.assertTrue(self.analyzer.match(self.paste), 'uppercase hash')
 
     def test_match_md5_only(self):
+        """
+        Test for md5 md5 checks.
+
+        Args:
+            self: (todo): write your description
+        """
         md5_analyzer = HashAnalyzer(
             None, [b"hunter2", b"SuperSecurePassword!123", b""], ['md5'])
         self.paste.body = '0fceb0a9f3d9e4a454df92965c7d9f3e'
@@ -53,10 +77,22 @@ class TestHashAnalyzer(unittest.TestCase):
         self.assertFalse(md5_analyzer.match(self.paste), 'SHA-1 hash')
 
     def test_unavailable_algorithms(self):
+        """
+        Test if the test test.
+
+        Args:
+            self: (todo): write your description
+        """
         with self.assertRaises(ValueError):
             HashAnalyzer(None, [b"hunter2"], ["super_algorithm_not_available"])
 
     def test_single_password_input(self):
+        """
+        Analyzes password input.
+
+        Args:
+            self: (todo): write your description
+        """
         single_password_analyzer = HashAnalyzer(None, b"hunter2")
         self.paste.body = 'f52fbd32b2b3b86ff88ef6c490628285f482af15ddcb29541f94bcf526a3f6c7'
         self.assertTrue(single_password_analyzer.match(

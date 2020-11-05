@@ -7,6 +7,12 @@ from pastepwn.analyzers.uplaykeyanalyzer import UplayKeyAnalyzer
 
 class TestUplayKeyAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Set the mock.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = UplayKeyAnalyzer(None)
         self.paste = mock.Mock()
 

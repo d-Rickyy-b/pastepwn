@@ -7,6 +7,12 @@ from pastepwn.analyzers.battlenetkeyanalyzer import BattleNetKeyAnalyzer
 
 class TestBattleNetKeyAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the thread.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = BattleNetKeyAnalyzer(None)
         self.paste = mock.Mock()
 

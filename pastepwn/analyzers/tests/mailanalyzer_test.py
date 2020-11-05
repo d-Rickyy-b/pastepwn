@@ -7,6 +7,12 @@ from pastepwn.analyzers.mailanalyzer import MailAnalyzer
 
 class TestMailAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the mock.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = MailAnalyzer(None)
         self.paste = mock.Mock()
 

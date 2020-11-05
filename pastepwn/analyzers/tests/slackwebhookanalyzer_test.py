@@ -7,6 +7,12 @@ from pastepwn.analyzers.slackwebhookanalyzer import SlackWebhookAnalyzer
 
 class TestSlackWebhookAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the webhook hook.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = SlackWebhookAnalyzer(None)
         self.paste = mock.Mock()
 

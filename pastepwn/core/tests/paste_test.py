@@ -8,6 +8,12 @@ from pastepwn import Paste
 class PasteTest(unittest.TestCase):
 
     def setUp(self):
+        """
+        Set thread to set of - thread.
+
+        Args:
+            self: (todo): write your description
+        """
         p = {"scrape_url": "https://scrape.pastebin.com/api_scrape_item.php?i=0CeaNm8Y",
              "full_url": "https://pastebin.com/0CeaNm8Y",
              "date": "1442911802",
@@ -31,9 +37,21 @@ class PasteTest(unittest.TestCase):
                            p.get("full_url"))
 
     def tearDown(self):
+        """
+        Tear down the next callable.
+
+        Args:
+            self: (todo): write your description
+        """
         pass
 
     def test_init_paste(self):
+        """
+        Method to initialize results
+
+        Args:
+            self: (todo): write your description
+        """
         self.assertEqual(self.p.get("key"), self.paste.key)
         self.assertEqual(self.p.get("title"), self.paste.title)
         self.assertEqual(self.p.get("user"), self.paste.user)
@@ -46,16 +64,34 @@ class PasteTest(unittest.TestCase):
         self.assertEqual("", self.paste.body)
 
     def test_set_body(self):
+        """
+        Set the body of the body.
+
+        Args:
+            self: (todo): write your description
+        """
         my_body = "This is a test for pastepwn"
         self.paste.set_body(my_body)
         self.assertEqual(my_body, self.paste.body)
 
     def test_empty_body(self):
+        """
+        Set the body of the body.
+
+        Args:
+            self: (todo): write your description
+        """
         empty_body = ""
         self.paste.set_body(None)
         self.assertEqual(empty_body, self.paste.body)
 
     def test_to_dict(self):
+        """
+        Test if this body to a dictionary.
+
+        Args:
+            self: (todo): write your description
+        """
         my_body = "This is a test for pastepwn"
         self.paste.set_body(my_body)
 

@@ -8,10 +8,22 @@ from pastepwn.analyzers.bcrypthashanalyzer import BcryptHashAnalyzer
 
 class TestBcryptHashAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the thread.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = BcryptHashAnalyzer(None)
         self.paste = mock.Mock()
 
     def test_match(self):
+        """
+        Validate the match.
+
+        Args:
+            self: (todo): write your description
+        """
         valid_hashes = ["$2a$10$BIgnlSmYE8qYiONM0NQ53eRWBw5G4HIJEbXKzcsRVt.08IDnqH/V.",
                         "$2a$11$EppiRqR0kG9EKy56edDWTOnsv/oGW0dqAJB9ucmn3augbmcm8v/iy",
                         "$2b$10$FpOpno43SIE8e1hWnlOdR.9hG2J8dd5FD1kQq8hn4zLdKa5eIiFUO",
@@ -55,6 +67,12 @@ class TestBcryptHashAnalyzer(unittest.TestCase):
         self.assertEqual("$2a$10$OyrADUFmj9QEqsd8frkEDOEYSPQalW5qoI1s2z6taCWwgUsjKzk5m", match[1])
 
     def test_match_none(self):
+        """
+        Matches any match * match.
+
+        Args:
+            self: (todo): write your description
+        """
         self.paste.body = None
         self.assertFalse(self.analyzer.match(self.paste))
 
@@ -62,10 +80,22 @@ class TestBcryptHashAnalyzer(unittest.TestCase):
         self.assertFalse(self.analyzer.match(self.paste))
 
     def test_match_empty(self):
+        """
+        Test if the paste match.
+
+        Args:
+            self: (todo): write your description
+        """
         self.paste.body = ""
         self.assertFalse(self.analyzer.match(self.paste))
 
     def test_actions_present(self):
+        """
+        Ensure that all actions have expired.
+
+        Args:
+            self: (todo): write your description
+        """
         action = mock.MagicMock(spec=BasicAction)
         analyzer = BcryptHashAnalyzer(action)
         self.assertEqual([action], analyzer.actions)

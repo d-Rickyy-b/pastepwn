@@ -7,21 +7,52 @@ from pastepwn.scraping.pastebin.exceptions import IPNotRegisteredError, PasteDel
 class TestPastebinscraper(unittest.TestCase):
 
     def setUp(self) -> None:
+        """
+        Sets the currently running.
+
+        Args:
+            self: (todo): write your description
+        """
         self.pastebinscraper = PastebinScraper()
 
     def test_empty(self):
+        """
+        Check if the test is empty.
+
+        Args:
+            self: (todo): write your description
+        """
         with self.assertRaises(PasteEmptyException):
             self.pastebinscraper._check_error("")
 
     def test_not_ready(self):
+        """
+        Check if the test is ready.
+
+        Args:
+            self: (todo): write your description
+        """
         with self.assertRaises(PasteNotReadyException):
             self.pastebinscraper._check_error("File is not ready for scraping yet. Try again in 1 minute.")
 
     def test_deleted(self):
+        """
+        Test if the test was deleted.
+
+        Args:
+            self: (todo): write your description
+        """
         with self.assertRaises(PasteDeletedException):
             self.pastebinscraper._check_error("Error, we cannot find this paste.")
 
     def _check_ip_not_registered(self, ip_list):
+        """
+        Check ip address is not in ip
+
+        Args:
+            self: (todo): write your description
+            ip_list: (list): write your description
+        """
         shell = "YOUR IP: {} DOES NOT HAVE ACCESS. VISIT: https://pastebin.com/doc_scraping_api TO GET ACCESS!"
         for ip in ip_list:
             with self.assertRaises(IPNotRegisteredError):
@@ -36,6 +67,12 @@ class TestPastebinscraper(unittest.TestCase):
         self._check_ip_not_registered(ipv4_test)
 
     def test_ipv6_not_registered(self):
+        """
+        All ipv6 addresses
+
+        Args:
+            self: (todo): write your description
+        """
         ipv6_test = ["fe80::21d8:f50:c295:c4be", "2001:cdba:0000:0000:0000:0000:3257:9652", "2001:cdba:0:0:0:0:3257:9652", "2001:cdba::3257:9652",
                      "2001:cdba::1222", "21DA:D3:0:2F3B:2AA:FF:FE28:9C5A", "2001:cdba::1:2:3:3257:9652", "FE80::8329", "FE80::FFFF:8329",
                      "FE80::B3FF:FFFF:8329", "FE80::0202:B3FF:FFFF:8329", "FE80:0000:0000:0000:0202:B3FF:FFFF:8329"]

@@ -15,6 +15,18 @@ class EmailAction(BasicAction):
     name = "EmailAction"
 
     def __init__(self, username, password, receiver, hostname, port=465, template=None):
+        """
+        Initialize a new receiver.
+
+        Args:
+            self: (todo): write your description
+            username: (str): write your description
+            password: (str): write your description
+            receiver: (callable): write your description
+            hostname: (str): write your description
+            port: (int): write your description
+            template: (str): write your description
+        """
         super().__init__()
         mail_regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
         if username is None or not re.match(mail_regex, username):

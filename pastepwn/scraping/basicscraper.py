@@ -8,6 +8,13 @@ class BasicScraper(object):
     name = "BasicScraper"
 
     def __init__(self, exception_event=None):
+        """
+        Initialize the event.
+
+        Args:
+            self: (todo): write your description
+            exception_event: (todo): write your description
+        """
         self.running = False
         self._stop_event = Event()
         self._exception_event = exception_event or Event()

@@ -12,16 +12,34 @@ class TestPasteTitleAnalyzer(unittest.TestCase):
         self.paste = mock.Mock()
 
     def test_matchWord(self):
+        """
+        * match the document
+
+        Args:
+            self: (todo): write your description
+        """
         analyzer = PasteTitleAnalyzer(None, regex=r"word")
         self.paste.title = "This text contains the word 'word'!"
         self.assertTrue(analyzer.match(self.paste), "Title does not match, although it should!")
 
     def test_matchPattern(self):
+        """
+        * match match *
+
+        Args:
+            self: (todo): write your description
+        """
         analyzer = PasteTitleAnalyzer(None, regex=r"\d{2}-\d{2}-\d{4}")
         self.paste.title = "This is a date 24-01-2020 inside the title"
         self.assertTrue(analyzer.match(self.paste), "Title does not match pattern!")
 
     def test_matchPattern2(self):
+        """
+        * match match * match *
+
+        Args:
+            self: (todo): write your description
+        """
         analyzer = PasteTitleAnalyzer(None, regex=r"^The title")
         self.paste.title = "The title is cool!"
         self.assertTrue(analyzer.match(self.paste), "Title does not match pattern!")
@@ -43,6 +61,12 @@ class TestPasteTitleAnalyzer(unittest.TestCase):
         self.assertTrue(analyzer.match(self.paste), "The regex does not match in multiline strings, although it should!")
 
     def test_emptyTitle(self):
+        """
+        Test if empty empty empty empty empty.
+
+        Args:
+            self: (todo): write your description
+        """
         analyzer = PasteTitleAnalyzer(None, regex=r"Any \d pattern")
         self.paste.title = ""
         self.assertFalse(analyzer.match(self.paste), "Empty title does match pattern, although it  shouldn't!")

@@ -11,6 +11,13 @@ class AzureSubscriptionKeyAnalyzer(RegexAnalyzer):
     name = "AzureSubscriptionKeyAnalyzer"
 
     def __init__(self, actions):
+        """
+        Initialize actions.
+
+        Args:
+            self: (todo): write your description
+            actions: (todo): write your description
+        """
         # https://docs.microsoft.com/en-us/azure/api-management/api-management-subscriptions
         regex = r"\b[a-f0-9]{32}\b"
         super().__init__(actions, regex)

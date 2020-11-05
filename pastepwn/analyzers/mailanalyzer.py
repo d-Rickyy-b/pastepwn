@@ -7,6 +7,13 @@ class MailAnalyzer(RegexAnalyzer):
     name = "MailAnalyzer"
 
     def __init__(self, actions):
+        """
+        Initialize actions.
+
+        Args:
+            self: (todo): write your description
+            actions: (todo): write your description
+        """
         # Regex taken from http://emailregex.com/
         regex = r"([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)"
         super().__init__(actions, regex)

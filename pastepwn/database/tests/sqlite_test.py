@@ -13,6 +13,12 @@ from pastepwn.database import SQLiteDB
 class SQLiteDBTest(unittest.TestCase):
 
     def setUp(self):
+        """
+        Sets up the database.
+
+        Args:
+            self: (todo): write your description
+        """
         rand_text = list()
         for _ in range(3):
             rand_text.append(''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(8)))
@@ -43,9 +49,21 @@ class SQLiteDBTest(unittest.TestCase):
         self.database = SQLiteDB(dbpath="sqlite_test/pastepwn_test")
 
     def tearDown(self):
+        """
+        Tear down the database.
+
+        Args:
+            self: (todo): write your description
+        """
         shutil.rmtree(os.path.dirname(self.database.dbpath))
 
     def test_insert_same_key(self):
+        """
+        Inserts the same key into the cache.
+
+        Args:
+            self: (todo): write your description
+        """
         for body_text in self.p['body']:
             self.paste.set_body(body_text)
             self.database.store(self.paste)

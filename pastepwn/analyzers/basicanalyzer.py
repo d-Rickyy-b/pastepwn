@@ -54,12 +54,32 @@ class BasicAnalyzer(object):
             raise InvalidActionError(error_msg)
 
     def __and__(self, other):
+        """
+        Return a new dstream with the same elements.
+
+        Args:
+            self: (todo): write your description
+            other: (todo): write your description
+        """
         return MergedAnalyzer(self, and_analyzer=other)
 
     def __or__(self, other):
+        """
+        Shared version of self is_analyzer.
+
+        Args:
+            self: (todo): write your description
+            other: (todo): write your description
+        """
         return MergedAnalyzer(self, or_analyzer=other)
 
     def __repr__(self):
+        """
+        Return a unique identifier for a class.
+
+        Args:
+            self: (todo): write your description
+        """
         if self.identifier is None:
             self.identifier = self.__class__.__name__
         return self.identifier
@@ -73,6 +93,15 @@ class MergedAnalyzer(BasicAnalyzer):
     name = "MergedAnalyzer"
 
     def __init__(self, base_analyzer, and_analyzer=None, or_analyzer=None):
+        """
+        Initialize the action.
+
+        Args:
+            self: (todo): write your description
+            base_analyzer: (todo): write your description
+            and_analyzer: (todo): write your description
+            or_analyzer: (todo): write your description
+        """
         self._base_analyzer = base_analyzer
         self._and_analyzer = and_analyzer
         self._or_analyzer = or_analyzer

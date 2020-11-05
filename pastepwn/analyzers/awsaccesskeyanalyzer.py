@@ -11,6 +11,13 @@ class AWSAccessKeyAnalyzer(RegexAnalyzer):
     name = "AWSAccessKeyAnalyzer"
 
     def __init__(self, actions):
+        """
+        Initialize actions.
+
+        Args:
+            self: (todo): write your description
+            actions: (todo): write your description
+        """
         # https://people.eecs.berkeley.edu/~rohanpadhye/files/key_leaks-msr15.pdf
         regex = r"\b(?:A3T[A-Z0-9]|AKIA|AGPA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}\b"
         super().__init__(actions, regex)

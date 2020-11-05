@@ -7,6 +7,12 @@ from pastepwn.analyzers.megalinkanalyzer import MegaLinkAnalyzer
 
 class TestMegaLinkAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the mock.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = MegaLinkAnalyzer(None)
         self.paste = mock.Mock()
 

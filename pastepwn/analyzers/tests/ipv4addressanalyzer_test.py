@@ -8,10 +8,22 @@ from pastepwn.analyzers.ipv4addressanalyzer import IPv4AddressAnalyzer
 class TestIPv4AddressAnalyzer(unittest.TestCase):
 
     def setUp(self):
+        """
+        Set the ipv4 address.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = IPv4AddressAnalyzer([])
         self.paste = mock.Mock()
 
     def test_positive(self):
+        """
+        Analyze the test.
+
+        Args:
+            self: (todo): write your description
+        """
         self.paste.body = "255.255.255.255"
         self.assertTrue(self.analyzer.match(self.paste))
         self.paste.body = "255.255.255.0"
@@ -37,6 +49,12 @@ class TestIPv4AddressAnalyzer(unittest.TestCase):
         self.assertEqual("178.55.12.16", match[1])
 
     def test_negative(self):
+        """
+        Test if the body is true.
+
+        Args:
+            self: (todo): write your description
+        """
         self.paste.body = "111.123.1232.123"
         self.assertFalse(self.analyzer.match(self.paste))
         self.paste.body = "1111.123.123.123"

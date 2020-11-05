@@ -10,6 +10,12 @@ from pastepwn.errors import InvalidActionError
 
 class TestBasicAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the mock.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = BasicAnalyzer(None)
         self.mock_action = mock.MagicMock(spec=BasicAction)
 

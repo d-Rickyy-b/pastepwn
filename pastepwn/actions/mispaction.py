@@ -45,6 +45,13 @@ class MISPAction(BasicAction):
 
     @staticmethod
     def default_transformer(paste, analyzer_name=None):
+        """
+        Create a default transformer
+
+        Args:
+            paste: (str): write your description
+            analyzer_name: (str): write your description
+        """
         timestamp = time.gmtime(int(paste.date))
         attrs = []
         # Build event

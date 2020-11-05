@@ -8,6 +8,12 @@ from pastepwn.analyzers.googleapikeyanalyzer import GoogleApiKeyAnalyzer
 class TestGoogleApiKeyAnalyzer(unittest.TestCase):
 
     def setUp(self):
+        """
+        Sets the plugin.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = GoogleApiKeyAnalyzer(None)
         self.paste = mock.Mock()
 

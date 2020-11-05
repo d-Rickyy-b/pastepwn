@@ -8,6 +8,12 @@ from pastepwn.analyzers.stripeapikeyanalyzer import StripeApiKeyAnalyzer
 class TestStripeApiKeyAnalyzer(unittest.TestCase):
 
     def setUp(self):
+        """
+        Sets the plugin.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = StripeApiKeyAnalyzer(None)
         self.paste = mock.Mock()
 

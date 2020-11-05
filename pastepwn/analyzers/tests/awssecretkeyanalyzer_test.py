@@ -7,6 +7,12 @@ from pastepwn.analyzers.awssecretkeyanalyzer import AWSSecretKeyAnalyzer
 
 class TestAWSSecretKeyAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the mock.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = AWSSecretKeyAnalyzer(None)
         self.paste = mock.Mock()
 

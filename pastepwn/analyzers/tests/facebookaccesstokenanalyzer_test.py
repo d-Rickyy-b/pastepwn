@@ -7,10 +7,22 @@ from pastepwn.analyzers.facebookaccesstokenanalyzer import FacebookAccessTokenAn
 
 class TestFacebookAccessTokenAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the mock.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = FacebookAccessTokenAnalyzer(None)
         self.paste = mock.Mock()
 
     def test_match_negative(self):
+        """
+        * match match.
+
+        Args:
+            self: (todo): write your description
+        """
         # random string
         self.paste.body = "Test"
         self.assertFalse(self.analyzer.match(self.paste))
@@ -51,6 +63,12 @@ class TestFacebookAccessTokenAnalyzer(unittest.TestCase):
         self.assertEqual("EAACEdEose0cBAfacebooksucks", match[1])
 
     def test_match_positive(self):
+        """
+        Test if the match.
+
+        Args:
+            self: (todo): write your description
+        """
         # random valid string
         self.paste.body = "EAACEdEose0cBA0123456789ABCDEFabcdef"
         self.assertTrue(self.analyzer.match(self.paste))

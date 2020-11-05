@@ -8,9 +8,21 @@ from pastepwn.analyzers.wordanalyzer import WordAnalyzer
 
 class TestWordAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the thread.
+
+        Args:
+            self: (todo): write your description
+        """
         self.paste = mock.Mock()
 
     def test_match(self):
+        """
+        * match match.
+
+        Args:
+            self: (todo): write your description
+        """
         analyzer = WordAnalyzer(None, "Test")
         self.paste.body = "This is a Test"
         self.assertTrue(analyzer.match(self.paste))
@@ -26,6 +38,12 @@ class TestWordAnalyzer(unittest.TestCase):
         self.assertFalse(analyzer.match(self.paste))
 
     def test_blacklist(self):
+        """
+        Analyze blacklist.
+
+        Args:
+            self: (todo): write your description
+        """
         blacklist = ["fake", "bad"]
         analyzer = WordAnalyzer(None, "Test", blacklist=blacklist)
 
@@ -44,6 +62,12 @@ class TestWordAnalyzer(unittest.TestCase):
         self.assertTrue(analyzer.match(self.paste))
 
     def test_multiple_words(self):
+        """
+        Extract words from words.
+
+        Args:
+            self: (todo): write your description
+        """
         analyzer = WordAnalyzer(None, None)
         self.assertEqual(analyzer.words, [])
 
@@ -73,6 +97,12 @@ class TestWordAnalyzer(unittest.TestCase):
         self.assertTrue(analyzer2.match(self.paste))
 
     def test_add_word(self):
+        """
+        Add a word to see http :
+
+        Args:
+            self: (todo): write your description
+        """
         analyzer = WordAnalyzer(None, "Test")
         self.assertEqual(len(analyzer.words), 1)
         self.assertEqual(analyzer.words, ["Test"])
@@ -82,6 +112,12 @@ class TestWordAnalyzer(unittest.TestCase):
         self.assertEqual(analyzer.words, ["Test", "second"])
 
     def test_case_sensitive(self):
+        """
+        Test for case case.
+
+        Args:
+            self: (todo): write your description
+        """
         analyzer = WordAnalyzer(None, "Test", case_sensitive=True)
         self.paste.body = "This is a Test for case sensitivity"
         self.assertTrue(analyzer.match(self.paste))
@@ -122,6 +158,12 @@ class TestWordAnalyzer(unittest.TestCase):
         self.assertEqual("first", match[0])
 
     def test_match_none(self):
+        """
+        * match match match *
+
+        Args:
+            self: (todo): write your description
+        """
         analyzer = WordAnalyzer(None, "Test")
         self.paste.body = None
         self.assertFalse(analyzer.match(self.paste))
@@ -130,11 +172,23 @@ class TestWordAnalyzer(unittest.TestCase):
         self.assertFalse(analyzer.match(self.paste))
 
     def test_match_empty(self):
+        """
+        Analyzes the match.
+
+        Args:
+            self: (todo): write your description
+        """
         analyzer = WordAnalyzer(None, "Test")
         self.paste.body = ""
         self.assertFalse(analyzer.match(self.paste))
 
     def test_actions_present(self):
+        """
+        Ensure that actions.
+
+        Args:
+            self: (todo): write your description
+        """
         action = mock.MagicMock(spec=BasicAction)
         analyzer = WordAnalyzer(action, "Test")
         self.assertEqual([action], analyzer.actions)

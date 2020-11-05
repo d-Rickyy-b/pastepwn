@@ -9,6 +9,15 @@ class RegexAnalyzer(BasicAnalyzer):
     name = "RegexAnalyzer"
 
     def __init__(self, actions, regex, flags=0):
+        """
+        Initialize actions.
+
+        Args:
+            self: (todo): write your description
+            actions: (todo): write your description
+            regex: (bool): write your description
+            flags: (int): write your description
+        """
         super().__init__(actions)
         self.regex = re.compile(regex, flags)
 

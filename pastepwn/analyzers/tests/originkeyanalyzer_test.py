@@ -7,6 +7,12 @@ from pastepwn.analyzers.originkeyanalyzer import OriginKeyAnalyzer
 
 class TestOriginKeyAnalyzer(unittest.TestCase):
     def setUp(self):
+        """
+        Sets the mock.
+
+        Args:
+            self: (todo): write your description
+        """
         self.analyzer = OriginKeyAnalyzer(None)
         self.paste = mock.Mock()
 

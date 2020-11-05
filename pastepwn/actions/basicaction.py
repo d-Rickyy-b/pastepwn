@@ -6,6 +6,12 @@ class BasicAction(object):
     name = "BasicAction"
 
     def __init__(self):
+        """
+        Initialize the object
+
+        Args:
+            self: (todo): write your description
+        """
         pass
 
     def perform(self, paste, analyzer_name=None, matches=None):
