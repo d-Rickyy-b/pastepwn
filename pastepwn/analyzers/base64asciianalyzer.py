@@ -30,7 +30,7 @@ class Base64AsciiAnalyzer(Base64Analyzer):
 
             # Check if the valid base64 decodes to plain ascii
             try:
-                b64_ascii_string = decoded_string.decode('ascii')
+                b64_ascii_string = decoded_string.decode("ascii")
             except UnicodeDecodeError:
                 continue
 

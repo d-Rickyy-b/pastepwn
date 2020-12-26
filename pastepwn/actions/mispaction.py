@@ -87,7 +87,7 @@ class MISPAction(BasicAction):
                 "value": paste.body
                 })
         # Add attributes to the event
-        event['Attribute'] = attrs
+        event["Attribute"] = attrs
         return event
 
     def perform(self, paste, analyzer_name=None, matches=None):

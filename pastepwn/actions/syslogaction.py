@@ -20,7 +20,7 @@ class SyslogAction(BasicAction):
         """
         super().__init__()
         self.template = template
-        self.logger = logging.getLogger('SyslogLogger')
+        self.logger = logging.getLogger("SyslogLogger")
         self.logger.setLevel(logging.DEBUG)
 
         handler = logging.handlers.SysLogHandler(address=syslog_address)
