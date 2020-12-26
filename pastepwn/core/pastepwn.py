@@ -10,6 +10,7 @@ from pastepwn.actions import DatabaseAction
 from pastepwn.analyzers import AlwaysTrueAnalyzer
 from pastepwn.core import ScrapingHandler, ActionHandler, PasteDispatcher
 from pastepwn.util import Request, enforce_ip_version
+from pastepwn.scraping.pastebin import PastebinScraper
 
 
 class PastePwn(object):
@@ -108,7 +109,6 @@ class PastePwn(object):
             self.logger.error("An exception occured. Aborting the start of PastePwn!")
             sys.exit(1)
         if not self.scraping_handler.scrapers:
-            from pastepwn.scraping.pastebin import PastebinScraper
             pastebinscraper = PastebinScraper()
             self.add_scraper(pastebinscraper, True)
         self.scraping_handler.start()
