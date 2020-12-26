@@ -1,6 +1,6 @@
-name: Stylecheck
+name: Push Stylecheck
 
-on: [push]
+on: push
 
 jobs:
   build:
@@ -9,4 +9,4 @@ jobs:
 
     steps:
     - name: wemake-python-styleguide
-      uses: wemake-services/wemake-python-styleguide@0.14.1
+      uses: wemake-services/wemake-python-styleguide
