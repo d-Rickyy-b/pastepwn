@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
+import sys
 from queue import Queue
 from signal import signal, SIGINT, SIGTERM, SIGABRT
 from threading import Event
@@ -105,7 +106,7 @@ class PastePwn(object):
         """Starts the pastepwn instance"""
         if self.__exception_event.is_set():
             self.logger.error("An exception occured. Aborting the start of PastePwn!")
-            exit(1)
+            sys.exit(1)
         if not self.scraping_handler.scrapers:
             from pastepwn.scraping.pastebin import PastebinScraper
             pastebinscraper = PastebinScraper()
