@@ -197,7 +197,7 @@ class PastebinScraper(BasicScraper):
                 self._known_pastes = self._known_pastes[start_index:]
 
             if self._stop_event.is_set() or self._exception_event.is_set():
-                self.logger.debug('stopping {0}'.format(self.name))
+                self.logger.debug("stopping {0}".format(self.name))
                 self.running = False
                 break
 

@@ -41,5 +41,5 @@ class TestMailAnalyzer(unittest.TestCase):
         self.assertFalse(self.analyzer.match(self.paste))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

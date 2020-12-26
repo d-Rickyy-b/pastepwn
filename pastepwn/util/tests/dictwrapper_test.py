@@ -22,5 +22,5 @@ class TestDictwrapper(unittest.TestCase):
         self.assertEqual(test_wrapped["key2"], "value2")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

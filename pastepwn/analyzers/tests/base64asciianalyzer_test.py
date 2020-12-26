@@ -157,5 +157,5 @@ class TestBase64AsciiAnalyzer(unittest.TestCase):
                          "_7zNMckCPRd&s8$wW5Bec@aRMCs@4rn?cRx?a&y-Z%kn&h8aLu*R", analyzer.match(self.paste)[0])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -66,5 +66,5 @@ class TestIBANAnalyzer(unittest.TestCase):
         self.assertEqual("DE89 3704 0044 0532 0130 00", match[0])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

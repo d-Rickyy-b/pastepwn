@@ -45,5 +45,5 @@ class TestNetwork(unittest.TestCase):
             enforce_ip_version(mock)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -65,5 +65,5 @@ class TestTemplatingEngine(unittest.TestCase):
         result = TemplatingEngine.fill_template(paste=self.paste, analyzer_name=None, template_string=template)
         self.assertEqual(expected, result, msg="Filled template string is not the same as the expected result!")
 
-    if __name__ == '__main__':
+    if __name__ == "__main__":
         unittest.main()

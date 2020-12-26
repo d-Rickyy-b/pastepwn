@@ -120,5 +120,5 @@ class TestBasicAnalyzer(unittest.TestCase):
                          msg="BasicAnalyzer.unique() left a duplicate!")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

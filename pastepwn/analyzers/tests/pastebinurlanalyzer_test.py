@@ -39,5 +39,5 @@ class TestPastebinURLAnalyzer(unittest.TestCase):
         self.paste.body = "https://pastebin.com/"
         self.assertFalse(self.analyzer.match(self.paste))
 
-    if __name__ == '__main__':
+    if __name__ == "__main__":
         unittest.main()

@@ -43,8 +43,8 @@ class MysqlDB(AbstractDB):
         # With the following code a simple SQL Injection would be possible - question is, why would a user do this to their own database?
         # Nevertheless I don't want to put this into production that way. I'll keep the code but remove the call to it.
         self.logger.info("Creating database '{0}' (if not exists)".format(self.dbname))
-        self.cursor.execute("""CREATE DATABASE IF NOT EXISTS %s;""" % self.dbname)
-        self.cursor.execute("""USE %s;""" % self.dbname)
+        self.cursor.execute("CREATE DATABASE IF NOT EXISTS %s;" % self.dbname)
+        self.cursor.execute("USE %s;" % self.dbname)
         self.db.commit()
 
     def _create_tables(self):

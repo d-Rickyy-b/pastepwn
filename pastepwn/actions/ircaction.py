@@ -105,7 +105,7 @@ class IrcAction(BasicAction):
             self.connected = True
             self._join()
 
-        elif words[1] == 'PRIVMSG' and words[2] == self.channel and '!status' in words[3] and self.connected:
+        elif words[1] == "PRIVMSG" and words[2] == self.channel and "!status" in words[3] and self.connected:
             # A little gimmick to check the status of pastepwn via IRC
             self._send_message("Pastepwn is still functional and operating!")
 

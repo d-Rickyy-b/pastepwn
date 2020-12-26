@@ -31,7 +31,7 @@ class IBANAnalyzer(RegexAnalyzer):
         """Checks if the given string could be a valid IBAN. Adapted from https://rosettacode.org/wiki/IBAN#Python."""
 
         # Ensure upper alphanumeric input
-        potential_iban = potential_iban.replace(' ', '').replace('\t', '').replace('-', '')
+        potential_iban = potential_iban.replace(" ", "").replace("\t", "").replace("-", "")
         if not re.match(r"^[\dA-Z]+$", potential_iban):
             return False
 
@@ -42,7 +42,7 @@ class IBANAnalyzer(RegexAnalyzer):
 
         # Official validation ( https://en.wikipedia.org/wiki/International_Bank_Account_Number#Validating_the_IBAN )
         rearranged_iban = potential_iban[4:] + potential_iban[:4]
-        integer_iban = int(''.join(str(int(ch, 36)) for ch in rearranged_iban))  # BASE 36: 0..9,A..Z -> 0..35
+        integer_iban = int("".join(str(int(ch, 36)) for ch in rearranged_iban))  # BASE 36: 0..9,A..Z -> 0..35
         return integer_iban % 97 == 1
 
     _iban_length_by_country = dict(

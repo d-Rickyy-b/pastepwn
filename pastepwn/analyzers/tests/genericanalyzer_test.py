@@ -103,5 +103,5 @@ class TestGenericAnalyzer(unittest.TestCase):
         self.assertFalse(result, msg="The analyzer returned true although an exception was raised!")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

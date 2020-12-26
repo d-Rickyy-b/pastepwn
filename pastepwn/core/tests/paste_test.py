@@ -63,5 +63,5 @@ class PasteTest(unittest.TestCase):
         self.assertEqual(self.p, paste_dict)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

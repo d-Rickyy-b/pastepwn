@@ -18,15 +18,15 @@ class SQLiteDB(AbstractDB):
         if not os.path.exists(dbpath):
             # If not, create the path and the file
             dbdir = os.path.dirname(dbpath)
-            if dbdir != '':
+            if dbdir != "":
                 os.mkdir(dbdir)
             open(self.dbpath, "a").close()
         elif os.path.isdir(dbpath):
-            raise ValueError('\'{0}\' is a directory. Use different path/name for database.'.format(dbpath))
+            raise ValueError("'{0}' is a directory. Use different path/name for database.".format(dbpath))
 
         try:
             self.db = sqlite3.connect(dbpath, check_same_thread=False)
-            self.db.text_factory = lambda x: str(x, 'utf-8', "ignore")
+            self.db.text_factory = lambda x: str(x, "utf-8", "ignore")
             self.cursor = self.db.cursor()
             self._create_tables()
         except Exception as e:

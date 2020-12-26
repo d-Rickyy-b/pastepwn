@@ -103,5 +103,5 @@ class TestSaveFileAction(unittest.TestCase):
         self._generic_file_ending_check("yml", ".yml")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

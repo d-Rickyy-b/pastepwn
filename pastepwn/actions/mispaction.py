@@ -49,7 +49,7 @@ class MISPAction(BasicAction):
         attrs = []
         # Build event
         event = {
-            "date": time.strftime('%Y-%m-%d', timestamp),
+            "date": time.strftime("%Y-%m-%d", timestamp),
             "info": "Sensitive information found on pastebin (type: %s)" % analyzer_name,
             "threat_level_id": 4,   # Undefined
             "published": False,     # Unpublished
@@ -100,21 +100,21 @@ class MISPAction(BasicAction):
         event = self.transformer(paste, analyzer_name)
         if self.attributes:
             # Add extra attributes
-            event['Attributes'].extend(self.attributes)
+            event["Attributes"].extend(self.attributes)
         data = json.dumps({"Event": event})
         # Send event to MISP instance
         r = Request()
-        r.headers = {'Authorization': self.access_key, 'Accept': 'application/json', 'Content-Type': 'application/json'}
+        r.headers = {"Authorization": self.access_key, "Accept": "application/json", "Content-Type": "application/json"}
         res = r.post(self.url + "/events", data=data)
         # Error handling
         if not res:
             self.logger.warning("Empty response when adding event")
         else:
             res = json.loads(res)
-            if 'Event' in res:
-                self.logger.info('Event #%s successfully added to MISP', res['Event']['id'])
+            if "Event" in res:
+                self.logger.info("Event #%s successfully added to MISP", res["Event"]["id"])
             else:
                 # An error has happened, but the 'errors' field is not always present
                 if 'errors' in res:
-                    self.logger.error('Error when adding event: %s', res['errors'])
-                self.logger.warning('Failed to add event: %s', res.get('message'))
+                    self.logger.error("Error when adding event: %s", res["errors"])
+                self.logger.warning("Failed to add event: %s", res.get("message"))

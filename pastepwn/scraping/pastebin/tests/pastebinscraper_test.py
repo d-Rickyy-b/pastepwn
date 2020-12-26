@@ -45,5 +45,5 @@ class TestPastebinscraper(unittest.TestCase):
         self._check_ip_not_registered(ipv6_test)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

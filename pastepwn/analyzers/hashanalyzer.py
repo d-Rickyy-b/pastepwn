@@ -9,7 +9,7 @@ class HashAnalyzer(RegexAnalyzer):
     name = "HashAnalyzer"
 
     def __init__(self, actions, passwords, algorithms=None):
-        """"Hashes given passwords with multiple algorithms and matches the output.
+        """Hashes given passwords with multiple algorithms and matches the output.
 
         :param actions: A single action or a list of actions to be executed on every paste
         :param passwords: A single password or a list of passwords to hash, as bytes
@@ -27,7 +27,7 @@ class HashAnalyzer(RegexAnalyzer):
             algorithms = set(algorithms).intersection(hashlib.algorithms_available)
 
         if not algorithms:
-            raise ValueError('No valid algorithm names specified')
+            raise ValueError("No valid algorithm names specified")
 
         # Compute hashes with all algorithms
         hashes = []
@@ -36,9 +36,9 @@ class HashAnalyzer(RegexAnalyzer):
             for password in passwords:
                 hash = hash_function.copy()
                 hash.update(password)
-                if hash_name == 'shake_128':
+                if hash_name == "shake_128":
                     digest = hash.hexdigest(128)
-                elif hash_name == 'shake_256':
+                elif hash_name == "shake_256":
                     digest = hash.hexdigest(256)
                 else:
                     digest = hash.hexdigest()

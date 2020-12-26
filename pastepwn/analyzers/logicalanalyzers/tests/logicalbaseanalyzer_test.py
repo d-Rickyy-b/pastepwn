@@ -38,5 +38,5 @@ class TestLogicalBaseAnalyzer(unittest.TestCase):
         self.assertEqual([action1, action2, action3], analyzer.actions, "Actions do not match!")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

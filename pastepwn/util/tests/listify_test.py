@@ -23,5 +23,5 @@ class ListifyTest(unittest.TestCase):
         self.assertEqual([obj], listify(obj), "Listify did not return single object as list!")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

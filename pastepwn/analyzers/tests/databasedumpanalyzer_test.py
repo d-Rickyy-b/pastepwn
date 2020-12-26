@@ -21,5 +21,5 @@ class TestDatabaseDumpAnalyzer(unittest.TestCase):
         self.assertEqual("""(`id`, `team_id`, `email`, `name`, `password`, `league`, `active`, `regdate`, `lan`, `lastlogin`, `birthdate`, `favclub`, `favmanager`, `description`, `pers_email`, `mess_id`, `iso`)""", match[0])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
