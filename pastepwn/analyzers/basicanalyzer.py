@@ -11,8 +11,7 @@ class BasicAnalyzer(object):
     name = "BasicAnalyzer"
 
     def __init__(self, actions, identifier=None):
-        """
-        Basic analyzer which is extended to create other analyzer subclasses
+        """Basic analyzer which is extended to create other analyzer subclasses.
         :param actions: A single action or a list of actions to be executed on every paste
         :param identifier: The name or unique identifier for this specific analyzer
         """
@@ -26,8 +25,7 @@ class BasicAnalyzer(object):
             self._check_action(action)
 
     def add_action(self, action):
-        """
-        Adds a new action to the already present actions
+        """Adds a new action to the already present actions.
         :param action: New action to add to the present actions
         :return: None
         """
@@ -35,8 +33,7 @@ class BasicAnalyzer(object):
         self.actions.append(action)
 
     def match(self, paste, unique_matches=False):
-        """
-        Checks if a certain paste is matched by the conditions set for this analyzer
+        """Checks if a certain paste is matched by the conditions set for this analyzer.
         :param paste: A :class:`pastepwn.core.paste` object which should be matched
         :param unique_matches: A boolean that specifies if matches should be unique.
             defaults to False
@@ -46,8 +43,7 @@ class BasicAnalyzer(object):
 
     @staticmethod
     def unique(matches):
-        """
-        Takes a list of matches and returns a list with no duplicates.
+        """Takes a list of matches and returns a list with no duplicates.
         :param matches: A list of matches
         :return: A filtered list of matches retaining order
         """
@@ -77,8 +73,7 @@ class BasicAnalyzer(object):
 
 
 class MergedAnalyzer(BasicAnalyzer):
-    """
-    Combination class to combine multiple analyzers into a single one
+    """Combination class to combine multiple analyzers into a single one.
     Doesn't need to be created manually - use the binary operators (& and |) to combine multiple analyzers.
     """
     name = "MergedAnalyzer"
@@ -102,8 +97,7 @@ class MergedAnalyzer(BasicAnalyzer):
         super().__init__(actions, identifier=identifier)
 
     def match(self, paste, unique_matches=False):
-        """
-        Checks if a certain paste is matched by the conditions set for this analyzer
+        """Checks if a certain paste is matched by the conditions set for this analyzer.
         :param paste: A :class:`pastepwn.core.paste` object which should be matched
         :param unique_matches: A boolean that specifies if matches should be unique - has currently NO effect on merged analyzers!
         :return: :obj:`bool` if the paste has been matched

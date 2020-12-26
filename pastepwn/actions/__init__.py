@@ -26,4 +26,4 @@ __all__ = [
     "IrcAction",
     "MISPAction",
     "EmailAction"
-]
+    ]

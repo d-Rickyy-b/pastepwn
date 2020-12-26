@@ -31,8 +31,7 @@ class EmailAction(BasicAction):
         self.template = template
 
     def perform(self, paste, analyzer_name=None, matches=None):
-        """
-        Sends an email to the specified receiver with the paste's content
+        """Sends an email to the specified receiver with the paste's content.
         :param paste: The paste passed by the ActionHandler
         :param analyzer_name: The name of the analyzer which matched the paste
         :param matches: A list of matches, on which the analyzer matched on

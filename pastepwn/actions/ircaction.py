@@ -41,8 +41,7 @@ class IrcAction(BasicAction):
         self._thread = start_thread(self._run_irc_client, "irc_client", exception_event=self._exception_event)
 
     def _run_irc_client(self):
-        """
-        Runs an IRC client, which handles sending messages and answering on Server PINGs
+        """Runs an IRC client, which handles sending messages and answering on Server PINGs.
         :return: None
         """
         # Connect to the IRC

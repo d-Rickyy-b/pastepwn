@@ -108,7 +108,7 @@ class TestBasicAnalyzer(unittest.TestCase):
             ["a", "a"],
             ["a", "b"],
             ["a", "b", "a"]
-        ]
+            ]
         self.assertEqual(BasicAnalyzer.unique(test_lists[0]), [],
                          msg="BasicAnalyzer.unique() left a duplicate!")
         self.assertEqual(BasicAnalyzer.unique(test_lists[1]), ["a"],

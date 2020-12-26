@@ -94,8 +94,8 @@ class DiscordAction(BasicAction):
                     "$os": sys.platform,
                     "$browser": "pastepwn",
                     "$device": "pastepwn"
+                    }
                 }
-            }
             yield from socket.send(json.dumps({"op": 2, "d": payload}))
 
             # Receive READY event

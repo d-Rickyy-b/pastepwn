@@ -18,7 +18,6 @@ class TemplatingEngine(object):
         :param matches: A list of matches that was returned from the analyzer
         :return: Filled template
         """
-
         paste_dict = paste.to_dict()
         paste_dict["analyzer_name"] = analyzer_name
 

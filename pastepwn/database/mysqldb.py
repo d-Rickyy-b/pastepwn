@@ -76,7 +76,9 @@ class MysqlDB(AbstractDB):
                              paste.syntax,
                              paste.scrape_url,
                              paste.full_url,
-                             paste.body))
+                             paste.body
+                             )
+                            )
         self.db.commit()
 
     def _get_data(self, key, value):

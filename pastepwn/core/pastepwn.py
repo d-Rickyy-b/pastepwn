@@ -65,22 +65,19 @@ class PastePwn(object):
             self.logger.info("Not storing all pastes!")
 
     def add_scraper(self, scraper, restart_scraping=False):
-        """
-        Adds a scraper to the list of scrapers. Scraping handler must be restarted for this to take effect.
+        """Adds a scraper to the list of scrapers. Scraping handler must be restarted for this to take effect.
         :param scraper: Instance of a BasicScraper
         :param restart_scraping: Indicates if the scraping handler should be restarted. Not setting this option results in your scraper not being started.
         :return: None
-         """
+        """
         scraper.init_exception_event(self.__exception_event)
         self.scraping_handler.add_scraper(scraper, restart_scraping)
 
     def add_analyzer(self, analyzer):
-        """
-        Adds a new analyzer to the list of analyzers
+        """Adds a new analyzer to the list of analyzers
         :param analyzer: Instance of a BasicAnalyzer
         :return: None
         """
-
         self.paste_dispatcher.add_analyzer(analyzer)
 
     def add_error_handler(self, error_handler):
@@ -135,8 +132,7 @@ class PastePwn(object):
         self.stop()
 
     def idle(self, stop_signals=(SIGINT, SIGTERM, SIGABRT)):
-        """
-        Blocks until one of the signals are received and stops the updater.
+        """Blocks until one of the signals are received and stops the updater.
         Thanks to the python-telegram-bot developers - https://github.com/python-telegram-bot/python-telegram-bot/blob/2cde878d1e5e0bb552aaf41d5ab5df695ec4addb/telegram/ext/updater.py#L514-L529
         :param stop_signals: The signals to which the code reacts to
         """

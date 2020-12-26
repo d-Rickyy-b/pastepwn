@@ -33,7 +33,7 @@ class Request(object):
     def _request_wrapper(self, data, timeout, *args, **kwargs):
         headers = {
             "User-Agent": "pastepwn (https://github.com/d-Rickyy-b/pastepwn)"
-        }
+            }
 
         if self.headers is not None:
             headers.update(self.headers)

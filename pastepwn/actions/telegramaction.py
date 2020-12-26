@@ -11,8 +11,7 @@ class TelegramAction(BasicAction):
     name = "TelegramAction"
 
     def __init__(self, token, receiver, template=None):
-        """
-        Action to send a Telegram message to a certain user or group/channel
+        """Action to send a Telegram message to a certain user or group/channel.
         :param token: The Telegram API token for your bot obtained by @BotFather
         :param receiver: The userID/groupID or channelID of the receiving entity
         :param template: A template string describing how the paste variables should be filled in

@@ -2,8 +2,8 @@
 
 
 def listify(obj):
-    """
-    Make sure the given object is a list
+    """Make sure the given object is a list
+
     :param obj: Any object - either None, a list of objects or a single object
     :return: The given object formatted as list
     """

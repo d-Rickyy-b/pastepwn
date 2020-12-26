@@ -56,28 +56,28 @@ class MISPAction(BasicAction):
             "analysis": 0,          # Not yet analyzed
             "distribution": 0,      # Shared with organization only
             "Attribute": []
-        }
+            }
         # Add link to the paste
         attrs.append({
             "type": "url",
             "category": "Network activity",
             "comment": "Link to pastebin paste containing information",
             "value": paste.full_url
-        })
+            })
         # Add username of the author
         attrs.append({
             "type": "text",
             "category": "Attribution",
             "comment": "Username of paste author",
             "value": paste.user
-        })
+            })
         # Add size of the paste
         attrs.append({
             "type": "size-in-bytes",
             "category": "Other",
             "comment": "Size of the paste",
             "value": paste.size
-        })
+            })
         # Attach full paste if it's small
         if int(paste.size) <= 1024 and paste.body is not None:
             attrs.append({
@@ -85,7 +85,7 @@ class MISPAction(BasicAction):
                 "category": "Artifacts dropped",
                 "comment": "Raw body of the paste",
                 "value": paste.body
-            })
+                })
         # Add attributes to the event
         event['Attribute'] = attrs
         return event

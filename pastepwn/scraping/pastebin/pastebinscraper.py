@@ -21,7 +21,7 @@ class PastebinScraper(BasicScraper):
     """Scraper class for pastebin"""
     name = "PastebinScraper"
     api_base_url = "https://scrape.pastebin.com"
-    pastebin_error_pattern = re.compile(r"^YOUR IP: ((\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})|((([0-9A-Fa-f]{1,4}:){7})([0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,6}:)(([0-9A-Fa-f]{1,4}:){0,4})([0-9A-Fa-f]{1,4}))) DOES NOT HAVE ACCESS\.\s+VISIT: https:\/\/pastebin\.com\/doc_scraping_api TO GET ACCESS!")
+    pastebin_error_pattern = re.compile(r"^YOUR IP: ((\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})|((([0-9A-Fa-f]{1,4}:){7})([0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,6}:)(([0-9A-Fa-f]{1,4}:){0,4})([0-9A-Fa-f]{1,4}))) DOES NOT HAVE ACCESS\.\s+VISIT: https://pastebin\.com/doc_scraping_api TO GET ACCESS!")
 
     def __init__(self, paste_queue=None, exception_event=None, api_hit_rate=None):
         super().__init__(exception_event)

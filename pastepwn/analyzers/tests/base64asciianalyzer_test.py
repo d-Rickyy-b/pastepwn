@@ -24,8 +24,7 @@ class TestBase64AsciiAnalyzer(unittest.TestCase):
         self.paste.body = "MmZ3Wl9DVGpES3h1NDhGTENMWmNHZEIhc0VqNVhSUWg="
         self.assertTrue(self.analyzer.match(self.paste))
 
-        # base64 encoded string (64 chars): "Mv=ZH?NJrrBSdhus*KVg%4dG6*C&ub?sSeq!VrzCb_-QcY^KWfxKy8AJ3=^5?b6N"
-        # (UTF-8, LF)
+        # base64 encoded string (64 chars): "Mv=ZH?NJrrBSdhus*KVg%4dG6*C&ub?sSeq!VrzCb_-QcY^KWfxKy8AJ3=^5?b6N" (UTF-8, LF)
         self.paste.body = "TXY9Wkg/TkpyckJTZGh1cypLVmclNGRHNipDJnViP3NTZXEhVnJ6Q2JfLVFjWV5LV2Z4S3k4QUozPV41P2I2Tg=="
         self.assertTrue(self.analyzer.match(self.paste))
 
