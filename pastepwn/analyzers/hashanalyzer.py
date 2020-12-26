@@ -34,14 +34,14 @@ class HashAnalyzer(RegexAnalyzer):
         for hash_name in algorithms:
             hash_function = hashlib.new(hash_name)
             for password in passwords:
-                hash = hash_function.copy()
-                hash.update(password)
+                hash_ = hash_function.copy()
+                hash_.update(password)
                 if hash_name == "shake_128":
-                    digest = hash.hexdigest(128)
+                    digest = hash_.hexdigest(128)
                 elif hash_name == "shake_256":
-                    digest = hash.hexdigest(256)
+                    digest = hash_.hexdigest(256)
                 else:
-                    digest = hash.hexdigest()
+                    digest = hash_.hexdigest()
                 hashes.append(digest)
 
         # Build regex
