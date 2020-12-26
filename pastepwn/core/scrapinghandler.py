@@ -33,7 +33,7 @@ class ScrapingHandler(object):
         with self.__lock:
             if not self.running:
                 # There needs to be at least one scraper
-                if len(self.scrapers) == 0:
+                if not self.scrapers:
                     self.logger.warning("No scrapers added! At least one scraper must be added prior to use!")
                     return None
 

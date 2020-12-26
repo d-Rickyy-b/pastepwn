@@ -16,7 +16,7 @@ class LogicalBaseAnalyzer(BasicAnalyzer):
         super().__init__(actions)
         self.analyzers = listify(analyzers)
 
-        if len(self.analyzers) == 0:
+        if not self.analyzers:
             self.logger.warning("You have not specified any analyzers inside '{}'".format(self.name))
 
         if merge_actions:

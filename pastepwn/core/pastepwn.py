@@ -106,7 +106,7 @@ class PastePwn(object):
         if self.__exception_event.is_set():
             self.logger.error("An exception occured. Aborting the start of PastePwn!")
             exit(1)
-        if len(self.scraping_handler.scrapers) == 0:
+        if not self.scraping_handler.scrapers:
             from pastepwn.scraping.pastebin import PastebinScraper
             pastebinscraper = PastebinScraper()
             self.add_scraper(pastebinscraper, True)
