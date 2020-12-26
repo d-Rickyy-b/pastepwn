@@ -8,6 +8,12 @@ from pastepwn.util import Request
 from pastepwn.util import TemplatingEngine
 from .basicaction import BasicAction
 
+try:
+    import websockets
+except ImportError:
+    websockets = None
+    websockets_available = False
+
 
 class DiscordAction(BasicAction):
     """Action to send a Discord message to a certain webhook or channel."""
@@ -41,9 +47,7 @@ class DiscordAction(BasicAction):
         self.logger = logging.getLogger(__name__)
         self.bot_available = True
 
-        try:
-            import websockets
-        except ImportError:
+        if websockets is None or not websockets_available or (sys.version_info.major == 3 and sys.version_info.minor >= 8):
             self.logger.warning("Could not import 'websockets' module. So you can only use webhooks for discord.")
             self.bot_available = False
 
