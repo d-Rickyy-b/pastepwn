@@ -192,7 +192,9 @@ class IrcAction(BasicAction):
         """
         # We need to remove all newlines in a message, so that the whole message can be sent
         # because RFC 1459 defines CRLF as End of Message
-        msg = msg.replace("\r\n", " ").replace("\r", " ").replace("\n", " ")
+        msg = msg.replace("\r\n", " ")
+        msg = msg.replace("\r", " ")
+        msg = msg.replace("\n", " ")
         if len(msg) > self._max_msg_size:
             # We need to split up the message into two parts and send it recursively
             self._send_message(msg[:self._max_msg_size])
