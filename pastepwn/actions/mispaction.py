@@ -113,8 +113,8 @@ class MISPAction(BasicAction):
             res = json.loads(res)
             if "Event" in res:
                 self.logger.info("Event #%s successfully added to MISP", res["Event"]["id"])
-            else:
-                # An error has happened, but the 'errors' field is not always present
-                if 'errors' in res:
-                    self.logger.error("Error when adding event: %s", res["errors"])
-                self.logger.warning("Failed to add event: %s", res.get("message"))
+                return
+            # An error has happened, but the 'errors' field is not always present
+            if "errors" in res:
+                self.logger.error("Error when adding event: %s", res["errors"])
+            self.logger.warning("Failed to add event: %s", res.get("message"))
