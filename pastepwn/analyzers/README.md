@@ -20,7 +20,7 @@ Check a few selected examples to get an idea:
 
 
 ## Create own analyzer
-Check out the implementations of a few analyzers and you'll get an idea on how to get started.
+Check out the implementations of a few analyzers, and you'll get an idea on how to get started.
 
 ```python
 # -*- coding: utf-8 -*-

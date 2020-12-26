@@ -26,7 +26,7 @@ To use the pastepwn framework you need to follow these simple steps:
 4) Fill that file with content - add analyzers and actions. Check the [example](https://github.com/d-Rickyy-b/pastepwn/tree/master/examples/example.py) implementation.
 
 ¹ Note that pastepwn **only works with python3.5 or above** (so better use pip3)  
-² *(If you want to store all pastes, make sure to setup a `mongodb`, `mysql` or `sqlite` instance)*
+² *(If you want to store all pastes, make sure to set up a `mongodb`, `mysql` or `sqlite` instance)*
 
 ### Behind a proxy
 
