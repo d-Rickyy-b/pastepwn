@@ -61,7 +61,7 @@ class TestGenericAnalyzer(unittest.TestCase):
         mock_func = Mock()
         non_callable_obj = "This is a string, not a function you idiot!"
         with self.assertRaises(ValueError, msg="No exception was raised although the verify_func is not callable"):
-            ga = GenericAnalyzer(self.mock_action, mock_func, non_callable_obj)
+            _ = GenericAnalyzer(self.mock_action, mock_func, non_callable_obj)
 
     def test_verify(self):
         """Test to check if a given verify_func will be executed when calling match()"""
@@ -93,7 +93,7 @@ class TestGenericAnalyzer(unittest.TestCase):
         mock_paste = Mock()
 
         # Initialize analyzer and execute match function
-        ga = GenericAnalyzer(self.mock_action, match_func=mock_match_func , verify_func=mock_verify_exception)
+        ga = GenericAnalyzer(self.mock_action, match_func=mock_match_func, verify_func=mock_verify_exception)
         result = ga.match(mock_paste)
 
         # Make sure the verify method was called

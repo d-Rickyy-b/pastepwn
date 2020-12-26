@@ -9,7 +9,7 @@ from .basicaction import BasicAction
 class MISPAction(BasicAction):
     """
     Action to add an event to a MISP instance on a matched paste
-    
+
     Documentation for adding events:
     https://www.circl.lu/doc/misp/automation/#post-events
 
@@ -29,7 +29,7 @@ class MISPAction(BasicAction):
         Init method for the MISPAction
         :param url:         string      URL of the MISP instance (complete with protocol and port)
         :param access_key:  string      MISP access key for authorization
-        :param transformer: Callable    Takes a Paste (and optional analyzer name) as parameter 
+        :param transformer: Callable    Takes a Paste (and optional analyzer name) as parameter
                                         and returns a MISP-formatted event as a dictionary
         :param attributes:  Iterable    List of fully defined attributes to add to events
         """
@@ -49,8 +49,8 @@ class MISPAction(BasicAction):
         attrs = []
         # Build event
         event = {
-            "date": time.strftime('%Y-%m-%d' , timestamp),
-            "info":"Sensitive information found on pastebin (type: %s)" % analyzer_name,
+            "date": time.strftime('%Y-%m-%d', timestamp),
+            "info": "Sensitive information found on pastebin (type: %s)" % analyzer_name,
             "threat_level_id": 4,   # Undefined
             "published": False,     # Unpublished
             "analysis": 0,          # Not yet analyzed

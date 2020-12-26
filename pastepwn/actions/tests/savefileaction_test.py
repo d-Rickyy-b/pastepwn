@@ -16,7 +16,7 @@ class TestSaveFileAction(unittest.TestCase):
         # Remove the directory
         try:
             shutil.rmtree(self.paste_path, ignore_errors=False)
-        except FileNotFoundError as e:
+        except FileNotFoundError:
             # Directory not there
             pass
 

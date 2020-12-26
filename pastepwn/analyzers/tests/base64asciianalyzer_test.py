@@ -151,9 +151,9 @@ class TestBase64AsciiAnalyzer(unittest.TestCase):
                           "ThHPXQ4ak1ZN2hnSkRaMmMheSEkIVhRQVRiazZmUUQycGErRWRRX3JmUF4mX0RLSjM0ZEZQY3VHakRCVHFkeF" \
                           "omPTNVJUBkbSY/SlcjK2tAbUIlYTNURm4lR0F6dWtMKy0lVFVUcT9mQWJBS3JAeSVMUEsrS0VteGVoK3JnNz9" \
                           "zM2FSMnY1QSV0Ym4mXzd6Tk1ja0NQUmQmczgkd1c1QmVjQGFSTUNzQDRybj9jUng/YSZ5LVola24maDhhTHUqUg=="
-        self.assertEqual("etFk!?m@A_vvdMT39Mgcynx_AFz6HY!4R8U3n_7JA?-rF=F3ehWat%4rKfhsuCc98G" \
-                         "=t8jMY7hgJDZ2c!y!$!XQATbk6fQD2pa+EdQ_rfP^&_DKJ34dFPcuGjDBTqdxZ&=3U%" \
-                         "@dm&?JW#+k@mB%a3TFn%GAzukL+-%TUTq?fAbAKr@y%LPK+KEmxeh+rg7?s3aR2v5A%tbn&" \
+        self.assertEqual("etFk!?m@A_vvdMT39Mgcynx_AFz6HY!4R8U3n_7JA?-rF=F3ehWat%4rKfhsuCc98G"
+                         "=t8jMY7hgJDZ2c!y!$!XQATbk6fQD2pa+EdQ_rfP^&_DKJ34dFPcuGjDBTqdxZ&=3U%"
+                         "@dm&?JW#+k@mB%a3TFn%GAzukL+-%TUTq?fAbAKr@y%LPK+KEmxeh+rg7?s3aR2v5A%tbn&"
                          "_7zNMckCPRd&s8$wW5Bec@aRMCs@4rn?cRx?a&y-Z%kn&h8aLu*R", analyzer.match(self.paste)[0])
 
 

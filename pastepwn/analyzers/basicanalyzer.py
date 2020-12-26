@@ -43,7 +43,7 @@ class BasicAnalyzer(object):
         :return: :obj:`bool` if the paste has been matched
         """
         raise NotImplementedError("Your analyzer must implement the match method!")
-    
+
     @staticmethod
     def unique(matches):
         """

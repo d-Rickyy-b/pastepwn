@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import unittest
 import logging
+import unittest
 from unittest import mock
 
 from pastepwn.actions.basicaction import BasicAction
@@ -110,15 +110,14 @@ class TestBasicAnalyzer(unittest.TestCase):
             ["a", "b", "a"]
         ]
         self.assertEqual(BasicAnalyzer.unique(test_lists[0]), [],
-            msg="BasicAnalyzer.unique() left a duplicate!")
+                         msg="BasicAnalyzer.unique() left a duplicate!")
         self.assertEqual(BasicAnalyzer.unique(test_lists[1]), ["a"],
-            msg="BasicAnalyzer.unique() left a duplicate!")
+                         msg="BasicAnalyzer.unique() left a duplicate!")
         # Should preserve order
         self.assertEqual(BasicAnalyzer.unique(test_lists[2]), ["a", "b"],
-            msg="BasicAnalyzer.unique() left a duplicate!")
+                         msg="BasicAnalyzer.unique() left a duplicate!")
         self.assertEqual(BasicAnalyzer.unique(test_lists[3]), ["a", "b"],
-            msg="BasicAnalyzer.unique() left a duplicate!")
-
+                         msg="BasicAnalyzer.unique() left a duplicate!")
 
 
 if __name__ == '__main__':

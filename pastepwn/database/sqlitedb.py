@@ -70,7 +70,7 @@ class SQLiteDB(AbstractDB):
     def _update_data(self, paste):
         self.cursor.execute("UPDATE pastes SET body = ? WHERE key = ?",
                             (paste.body,
-                            paste.key))
+                             paste.key))
         self.db.commit()
 
     def _get_data(self, key, value):
