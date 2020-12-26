@@ -51,10 +51,7 @@ class ExactWordAnalyzer(BasicAnalyzer):
             paste_content = paste_content.lower()
             words = [word.lower() for word in words]
 
-        return [
-            word for word in words
-            if self._word_in_text(word, paste_content)
-        ]
+        return [word for word in words if self._word_in_text(word, paste_content)]
 
     def _word_in_text(self, word, text):
         pattern = r"\b" + word + r"\b"
