@@ -18,11 +18,11 @@ class EmailAction(BasicAction):
         super().__init__()
         mail_regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
         if username is None or not re.match(mail_regex, username):
-            raise ValueError('Invalid username !')
+            raise ValueError("Invalid username !")
         else:
             self.username = username
         if receiver is None or not re.match(mail_regex, receiver):
-            raise ValueError('Invalid reciever address !')
+            raise ValueError("Invalid reciever address !")
         else:
             self.receiver = receiver
         self.password = password
@@ -41,10 +41,10 @@ class EmailAction(BasicAction):
         text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template, matches=matches)
 
         email = MIMEMultipart()
-        email['From'] = self.username
-        email['To'] = self.receiver
-        email['Subject'] = 'Paste matched by pastepwn via analyzer "{}"'.format(analyzer_name)
-        email.attach(MIMEText(text, 'plain'))
+        email["From"] = self.username
+        email["To"] = self.receiver
+        email["Subject"] = "Paste matched by pastepwn via analyzer '{}'".format(analyzer_name)
+        email.attach(MIMEText(text, "plain"))
 
         # TODO there should be a way to use starttls - check https://realpython.com/python-send-email/
         with smtplib.SMTP_SSL(self.hostname, self.port) as smtp:

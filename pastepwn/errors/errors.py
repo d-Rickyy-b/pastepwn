@@ -8,7 +8,7 @@ class PastepwnError(Exception):
         self.message = message
 
     def __str__(self):
-        return "%s" % self.message
+        return str(self.message)
 
 
 class InvalidActionError(PastepwnError):

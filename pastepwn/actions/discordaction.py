@@ -55,7 +55,7 @@ class DiscordAction(BasicAction):
         if webhook_url is None:
             # When there is no webhook_url, we need both token and channel_id
             if token is None or channel_id is None:
-                raise ValueError('Invalid arguments: requires either webhook_url or token+channel_id arguments')
+                raise ValueError("Invalid arguments: requires either webhook_url or token+channel_id arguments")
 
             if not self.bot_available:
                 raise NotImplementedError("You can't use bot functionality without the 'websockets' module. Please import it or use webhooks!")
@@ -71,20 +71,20 @@ class DiscordAction(BasicAction):
         """Connect to the Discord Gateway to identify the bot."""
         # Docs: https://discordapp.com/developers/docs/topics/gateway#connecting-to-the-gateway
         # Open connection to the Discord Gateway
-        socket = yield from websockets.connect(ws_url + '/?v=6&encoding=json')
+        socket = yield from websockets.connect(ws_url + "/?v=6&encoding=json")
         try:
             # Receive Hello
             hello_str = yield from socket.recv()
             hello = json.loads(hello_str)
             if hello.get('op') != 10:
-                self.logger.warning('[ws] Expected Hello payload but received %s', hello_str)
+                self.logger.warning("[ws] Expected Hello payload but received %s", hello_str)
 
             # Send heartbeat and receive ACK
             yield from socket.send(json.dumps({"op": 1, "d": {}}))
             ack_str = yield from socket.recv()
             ack = json.loads(ack_str)
-            if ack.get('op') != 11:
-                self.logger.warning('[ws] Expected Heartbeat ACK payload but received %s', ack_str)
+            if ack.get("op") != 11:
+                self.logger.warning("[ws] Expected Heartbeat ACK payload but received %s", ack_str)
 
             # Identify
             payload = {
@@ -100,8 +100,8 @@ class DiscordAction(BasicAction):
             # Receive READY event
             ready_str = yield from socket.recv()
             ready = json.loads(ready_str)
-            if ready.get('t') != 'READY':
-                self.logger.warning('[ws] Expected READY event but received %s', ready_str)
+            if ready.get("t") != "READY":
+                self.logger.warning("[ws] Expected READY event but received %s", ready_str)
         finally:
             # Close websocket connection
             yield from socket.close()
@@ -109,14 +109,14 @@ class DiscordAction(BasicAction):
     def initialize_gateway(self):
         """Initialize the bot token so Discord identifies it properly."""
         if self.webhook_url is not None:
-            raise NotImplementedError('Gateway initialization is only necessary for bot accounts.')
+            raise NotImplementedError("Gateway initialization is only necessary for bot accounts.")
 
         # Call Get Gateway Bot to get the websocket URL
         # https://discordapp.com/developers/docs/reference#authentication
         r = Request()
-        r.headers = {'Authorization': 'Bot {}'.format(self.token)}
-        res = json.loads(r.get('https://discordapp.com/api/gateway/bot'))
-        ws_url = res.get('url')
+        r.headers = {"Authorization": "Bot {}".format(self.token)}
+        res = json.loads(r.get("https://discordapp.com/api/gateway/bot"))
+        ws_url = res.get("url")
 
         # Start websocket client
         loop = asyncio.new_event_loop()
@@ -134,8 +134,8 @@ class DiscordAction(BasicAction):
             url = self.webhook_url
         else:
             # Send through Discord bot API (header-based authentication)
-            url = 'https://discordapp.com/api/channels/{0}/messages'.format(self.channel_id)
-            r.headers = {'Authorization': 'Bot {}'.format(self.token)}
+            url = "https://discordapp.com/api/channels/{0}/messages".format(self.channel_id)
+            r.headers = {"Authorization": "Bot {}".format(self.token)}
 
         res = r.post(url, {"content": text})
         if res == "":
@@ -144,9 +144,9 @@ class DiscordAction(BasicAction):
 
         res = json.loads(res)
 
-        if res.get('code') == 40001 and self.bot_available and self.webhook_url is None and not self.identified:
+        if res.get("code") == 40001 and self.bot_available and self.webhook_url is None and not self.identified:
             # Unauthorized access, bot token hasn't been identified to Discord Gateway
-            self.logger.info('Accessing Discord Gateway to initialize token')
+            self.logger.info("Accessing Discord Gateway to initialize token")
             self.initialize_gateway()
             # Retry action
             self.perform(paste, analyzer_name=analyzer_name)
