@@ -5,4 +5,4 @@ from .pastedeletedexception import PasteDeletedException
 from .pasteemptyexception import PasteEmptyException
 from .pastenotreadyexception import PasteNotReadyException
 
-__all__ = ('IPNotRegisteredError', 'PasteNotReadyException', 'PasteDeletedException', 'PasteEmptyException')
+__all__ = ["IPNotRegisteredError", "PasteNotReadyException", "PasteDeletedException", "PasteEmptyException"]
