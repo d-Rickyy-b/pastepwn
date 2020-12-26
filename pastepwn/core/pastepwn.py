@@ -27,8 +27,8 @@ class PastePwn(object):
         self.database = database
         self.paste_queue = Queue()
         self.action_queue = Queue()
-        self.error_handlers = list()
-        self.onstart_handlers = list()
+        self.error_handlers = []
+        self.onstart_handlers = []
         self.__exception_event = Event()
         self.__request = Request(proxies)  # initialize singleton
 

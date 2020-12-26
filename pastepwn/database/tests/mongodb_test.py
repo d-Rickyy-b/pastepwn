@@ -13,7 +13,7 @@ from pastepwn.database import MongoDB
 class MongoDBTest(unittest.TestCase):
 
     def setUp(self):
-        rand_text = list()
+        rand_text = []
         for _ in range(3):
             rand_text.append("".join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(8)))
 
