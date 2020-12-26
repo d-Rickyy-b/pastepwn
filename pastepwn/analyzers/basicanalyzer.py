@@ -101,10 +101,11 @@ class MergedAnalyzer(BasicAnalyzer):
 
         super().__init__(actions, identifier=identifier)
 
-    def match(self, paste):
+    def match(self, paste, unique_matches=False):
         """
         Checks if a certain paste is matched by the conditions set for this analyzer
         :param paste: A :class:`pastepwn.core.paste` object which should be matched
+        :param unique_matches: A boolean that specifies if matches should be unique - has currently NO effect on merged analyzers!
         :return: :obj:`bool` if the paste has been matched
         """
         if self._and_analyzer:
