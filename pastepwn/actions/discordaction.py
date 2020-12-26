@@ -10,6 +10,7 @@ from .basicaction import BasicAction
 
 try:
     import websockets
+    websockets_available = True
 except ImportError:
     websockets = None
     websockets_available = False
@@ -47,7 +48,7 @@ class DiscordAction(BasicAction):
         self.logger = logging.getLogger(__name__)
         self.bot_available = True
 
-        if websockets is None or not websockets_available or (sys.version_info.major == 3 and sys.version_info.minor >= 8):
+        if websockets is None or not websockets_available or (sys.version_info.major == 3 and sys.version_info.minor >= 10):
             self.logger.warning("Could not import 'websockets' module. So you can only use webhooks for discord.")
             self.bot_available = False
 
