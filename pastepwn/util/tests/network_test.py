@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import os
+import socket
 import unittest
 from unittest.mock import Mock
 
-from pastepwn.util import enforce_ip_version
-
-import socket
 import requests.packages.urllib3.util.connection as urllib3_cn
+
+from pastepwn.util import enforce_ip_version
 
 
 @unittest.skipIf("TRAVIS" in os.environ and os.environ["TRAVIS"] == "true", "Skipping this test on Travis CI.")

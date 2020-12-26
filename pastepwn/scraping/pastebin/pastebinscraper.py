@@ -77,7 +77,8 @@ class PastebinScraper(BasicScraper):
                                   expire=paste.get("expire"),
                                   syntax=paste.get("syntax"),
                                   scrape_url=paste.get("scrape_url"),
-                                  full_url=paste.get("full_url"))
+                                  full_url=paste.get("full_url")
+                                  )
                 pastes.append(paste_obj)
 
             return pastes

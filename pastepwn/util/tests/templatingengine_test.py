@@ -54,7 +54,8 @@ class TestTemplatingEngine(unittest.TestCase):
         expected = "Completely new parameter 'pastepwnIsCool' unrelated to paste data can be inserted into this string"
 
         result = TemplatingEngine.fill_template(paste=self.paste, analyzer_name=None, template_string=template, random_param="'pastepwnIsCool'",
-                                                ins="inserted")
+                                                ins="inserted"
+                                                )
         self.assertEqual(expected, result, msg="Filled template string is not the same as the expected result!")
 
     def test_fill_template_missing_param(self):

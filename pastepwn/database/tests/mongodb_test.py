@@ -38,7 +38,8 @@ class MongoDBTest(unittest.TestCase):
                            p.get("expire"),
                            p.get("syntax"),
                            p.get("scrape_url"),
-                           p.get("full_url"))
+                           p.get("full_url")
+                           )
 
         self.database = MongoDB(collectionname="pastepwn_test")
 

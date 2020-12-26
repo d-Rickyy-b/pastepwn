@@ -21,7 +21,7 @@ class MysqlDB(AbstractDB):
                 passwd=password,
                 unix_socket=unix_socket,
                 connection_timeout=timeout
-            )
+                )
         else:
             self.db = mysql.connector.connect(
                 host=ip,
@@ -30,7 +30,7 @@ class MysqlDB(AbstractDB):
                 passwd=password,
                 database=dbname,
                 connection_timeout=timeout
-            )
+                )
 
         self.cursor = self.db.cursor()
         # self._create_db(dbname) # Not used because of possible SQLI

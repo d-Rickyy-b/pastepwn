@@ -11,7 +11,7 @@ class TestHashAnalyzer(unittest.TestCase):
             b"hunter2",
             b"SuperSecurePassword!123",
             b""
-        ])
+            ])
         self.paste = mock.Mock()
 
     def test_match(self):

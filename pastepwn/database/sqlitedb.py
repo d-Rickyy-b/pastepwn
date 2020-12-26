@@ -64,13 +64,13 @@ class SQLiteDB(AbstractDB):
                              paste.syntax,
                              paste.scrape_url,
                              paste.full_url,
-                             paste.body))
+                             paste.body
+                             )
+                            )
         self.db.commit()
 
     def _update_data(self, paste):
-        self.cursor.execute("UPDATE pastes SET body = ? WHERE key = ?",
-                            (paste.body,
-                             paste.key))
+        self.cursor.execute("UPDATE pastes SET body = ? WHERE key = ?", (paste.body, paste.key))
         self.db.commit()
 
     def _get_data(self, key, value):

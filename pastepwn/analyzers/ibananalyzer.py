@@ -6,6 +6,7 @@ from .regexanalyzer import RegexAnalyzer
 
 class IBANAnalyzer(RegexAnalyzer):
     """Analyzer to match International Bank Account Numbers (IBAN)"""
+
     name = "IBANAnalyzer"
 
     def __init__(self, actions, validate=False):
@@ -53,4 +54,5 @@ class IBANAnalyzer(RegexAnalyzer):
         LV=21, LB=28, LI=21, LT=20, LU=20, MK=19, MT=31, MR=27,
         MU=30, MC=27, MD=24, ME=22, NL=18, NO=15, PK=24, PS=29,
         PL=28, PT=25, RO=24, SM=27, SA=24, RS=22, SK=24, SI=19,
-        ES=24, SE=24, CH=21, TN=24, TR=26, AE=23, GB=22, VG=24)
+        ES=24, SE=24, CH=21, TN=24, TR=26, AE=23, GB=22, VG=24
+        )

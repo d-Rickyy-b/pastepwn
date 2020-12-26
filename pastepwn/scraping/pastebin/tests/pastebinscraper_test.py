@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
+
 from pastepwn.scraping.pastebin import PastebinScraper
 from pastepwn.scraping.pastebin.exceptions import IPNotRegisteredError, PasteDeletedException, PasteNotReadyException, PasteEmptyException
 

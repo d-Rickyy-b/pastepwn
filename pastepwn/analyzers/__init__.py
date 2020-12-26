@@ -85,4 +85,4 @@ __all__ = [
     "WordAnalyzer",
     "UplayKeyAnalyzer",
     "URLAnalyzer",
-]
+    ]
