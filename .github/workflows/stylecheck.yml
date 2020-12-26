@@ -8,5 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Check out source code
+      uses: actions/checkout@v2
     - name: wemake-python-styleguide
       uses: wemake-services/wemake-python-styleguide@0.14.1
