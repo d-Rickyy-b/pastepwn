@@ -74,7 +74,7 @@ class DiscordAction(BasicAction):
         if websockets is None:
             raise ImportError("Couldn't import websockets!")
 
-        socket = yield from websockets.connect(ws_url + "/?v=6&encoding=json")
+        socket = yield from websockets.connect("{0}/?v=6&encoding=json".format(ws_url))
         try:
             # Receive Hello
             hello_str = yield from socket.recv()

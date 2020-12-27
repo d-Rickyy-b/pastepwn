@@ -30,11 +30,11 @@ class IrcAction(BasicAction):
         self.template = template
 
         if not channel.startswith("#"):
-            channel = "#" + channel
+            channel = "#{0}".format(channel)
         self.channel = channel
 
         # RFC1459 says that each message can only be 512 bytes including the CR-LF character
-        self._max_payload_size = MAX_MSG_SIZE - len("PRIVMSG {}".format(channel)) - len("\r\n")
+        self._max_payload_size = MAX_MSG_SIZE - len("PRIVMSG {0}".format(channel)) - len("\r\n")
 
         self._exception_event = Event()
         self._stop_event = Event()
@@ -83,8 +83,8 @@ class IrcAction(BasicAction):
             except Empty:
                 continue
 
-            self.logger.debug("New message on msg_queue: {}".format(msg))
-            self._send("PRIVMSG {} :{}".format(self.channel, msg))
+            self.logger.debug("New message on msg_queue: {0}".format(msg))
+            self._send("PRIVMSG {0} :{1}".format(self.channel, msg))
 
     def _handle_message(self, message):
         """
