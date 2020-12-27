@@ -110,7 +110,7 @@ class PastePwn(object):
             sys.exit(1)
         if not self.scraping_handler.scrapers:
             pastebinscraper = PastebinScraper()
-            self.add_scraper(pastebinscraper, True)
+            self.add_scraper(pastebinscraper, restart_scraping=True)
         self.scraping_handler.start()
         self.paste_dispatcher.start()
         self.action_handler.start()
