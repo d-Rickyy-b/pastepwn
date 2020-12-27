@@ -119,32 +119,32 @@ class PastebinScraper(BasicScraper):
 
                 # if paste is not known, download the body and put it on the queue and into the list
                 last_body_download_time = round(time.time(), 2)
-
-                try:
-                    body = self._get_paste_content(paste.key)
-                except PasteNotReadyException:
-                    self.logger.debug("Paste '{0}' is not ready for downloading yet. Enqueuing it again.".format(paste.key))
-                    # Make sure to wait a certain time. If only one element in the queue, this can lead to loops
-                    self._rate_limit_sleep(last_body_download_time)
-                    self._tmp_paste_queue.put(paste)
-                    continue
-                except PasteDeletedException:
-                    # We don't add a sleep here, because this can't lead to loops
-                    self.logger.info("Paste '{0}' has been deleted before we could download it! Skipping paste.".format(paste.key))
-                    continue
-                except PasteEmptyException:
-                    self.logger.info("Paste '{0}' is set to None! Skipping paste.".format(paste.key))
-                    continue
-                except Exception as e:
-                    self.logger.error("An exception occurred while downloading the paste '{0}'. Skipping this paste! Exception is: {1}".format(paste.key, e))
-                    continue
-
-                paste.set_body(body)
-                self.paste_queue.put(paste)
-
-                self._rate_limit_sleep(last_body_download_time)
             except Empty:
                 continue
+
+            try:
+                body = self._get_paste_content(paste.key)
+            except PasteNotReadyException:
+                self.logger.debug("Paste '{0}' is not ready for downloading yet. Enqueuing it again.".format(paste.key))
+                # Make sure to wait a certain time. If only one element in the queue, this can lead to loops
+                self._rate_limit_sleep(last_body_download_time)
+                self._tmp_paste_queue.put(paste)
+                continue
+            except PasteDeletedException:
+                # We don't add a sleep here, because this can't lead to loops
+                self.logger.info("Paste '{0}' has been deleted before we could download it! Skipping paste.".format(paste.key))
+                continue
+            except PasteEmptyException:
+                self.logger.info("Paste '{0}' is set to None! Skipping paste.".format(paste.key))
+                continue
+            except Exception as e:
+                self.logger.error("An exception occurred while downloading the paste '{0}'. Skipping this paste! Exception is: {1}".format(paste.key, e))
+                continue
+
+            paste.set_body(body)
+            self.paste_queue.put(paste)
+
+            self._rate_limit_sleep(last_body_download_time)
 
     def _rate_limit_sleep(self, last_body_download_time):
         """
