@@ -41,9 +41,12 @@ class PastePwn(object):
         # lead to issues with proxies
         try:
             ip = self.__request.get("https://api.ipify.org")
-            self.logger.info("Your public IP is {0}".format(ip))
         except Exception as e:
+            ip = None
             self.logger.warning("Could not fetch public IP via ipify: {0}".format(e))
+
+        if ip:
+            self.logger.info("Your public IP is {0}".format(ip))
 
         self.scraping_handler = ScrapingHandler(paste_queue=self.paste_queue,
                                                 exception_event=self.__exception_event)
