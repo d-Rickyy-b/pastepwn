@@ -40,12 +40,11 @@ class Request(object):
 
         try:
             response = self.session.request(headers=headers, proxies=self.proxies, data=data, timeout=timeout, *args, **kwargs)
-            response_data = response.content.decode("utf-8")
         except Timeout:
             self.logger.warning("Timeout while requesting {0}!".format(kwargs.get("url")))
             return ""
 
-        return response_data
+        return response.content.decode("utf-8")
 
     def get(self, url, data=None, timeout=5):
         return self._request_wrapper(method="GET", url=url, data=data, timeout=timeout)
