@@ -68,6 +68,11 @@ class SQLiteDB(AbstractDB):
     def _get_data(self, key, value):
         pass
 
+    def close_connection(self):
+        """Closes the connection to the sqlite database"""
+        self.cursor.close()
+        self.db.close()
+
     def count(self, key, value):
         # TODO add filter to counting
         return self.cursor.execute("SELECT count(*) FROM pastes")
