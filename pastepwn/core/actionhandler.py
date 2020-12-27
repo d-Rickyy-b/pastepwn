@@ -55,11 +55,6 @@ class ActionHandler(object):
             try:
                 # Get paste from queue
                 actions, paste, analyzer, matches = self.action_queue.get(True, 1)
-                if actions is None:
-                    continue
-
-                for action in actions:
-                    self._perform_action_wrapper(action, paste, analyzer, matches)
             except Empty:
                 if self.__stop_event.is_set():
                     self.logger.debug("orderly stopping ActionHandler")
@@ -69,6 +64,13 @@ class ActionHandler(object):
                     self.logger.critical("stopping ActionHandler due to exception in another thread")
                     self.running = False
                     break
+                continue
+
+            if actions is None:
+                continue
+
+            for action in actions:
+                self._perform_action_wrapper(action, paste, analyzer, matches)
 
     def _perform_action_wrapper(self, action, paste, analyzer, matches):
         """A wrapper around the perform method to catch exceptions"""
