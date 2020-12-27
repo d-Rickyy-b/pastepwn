@@ -38,10 +38,11 @@ class GenericAnalyzer(BasicAnalyzer):
         """Run the passed function and return its return value"""
         try:
             results = self.match_func(paste)
-            if not self.verify(results):
-                return False
         except Exception as e:
-            results = False
             logging.getLogger(__name__).warning("Executing custom match function '{}' raised an exception! {}".format(self.match_func.__name__, e))
+            return False
+
+        if not self.verify(results):
+            return False
 
         return results
