@@ -214,7 +214,7 @@ class IrcAction(BasicAction):
     def perform(self, paste, analyzer_name=None, matches=None):
         """Perform the action on the passed paste"""
         if self._exception_event.is_set():
-            self.logger.error("The exception event is set. The IRC action might not perform as it should! Messages will be buffered for the case of a "
-                              "reconnect.")
+            self.logger.error("The exception event is set. The IRC action might not perform as it should! Messages will"
+                              " be buffered for the case of a reconnect.")
         text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template, matches=matches)
         self._send_message(text)
