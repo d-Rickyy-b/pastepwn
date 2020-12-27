@@ -21,7 +21,7 @@ class URLAnalyzer(BasicAnalyzer):
         Returns False if the URL cannot be resolved.
         """
         # If the url doesn't start with a protocol, we'll test with http and https.
-        if not url.startswith("http"):
+        if not url.lower().startswith("http"):
             for protocol in ("http", "https"):
                 # If adding the protocol makes this resolve, the url works.
                 if self._resolve_url("{0}://{1}".format(protocol, url)):
