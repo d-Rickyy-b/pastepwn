@@ -4,8 +4,8 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-from .basicaction import BasicAction
 from pastepwn.util import TemplatingEngine
+from .basicaction import BasicAction
 
 
 class EmailAction(BasicAction):
