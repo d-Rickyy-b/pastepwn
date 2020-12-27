@@ -42,11 +42,9 @@ class URLAnalyzer(BasicAnalyzer):
         match = self.regex.search(paste_content)
         is_regex = match is not None
 
-        if match:
-            url = match.group(0)
-
         # Optionally check if the url resolves.
-        if is_regex and self.resolve:
+        if match and self.resolve:
+            url = match.group(0)
             return self._resolve_url(url)
 
         return is_regex
