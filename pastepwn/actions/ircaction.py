@@ -73,17 +73,18 @@ class IrcAction(BasicAction):
             if self._stop_event.is_set():
                 break
 
-            try:
-                # As long as we are not connected, we don't want to send any messages
-                if not self.connected:
-                    continue
+            # As long as we are not connected, we don't want to send any messages
+            if not self.connected:
+                continue
 
+            try:
                 # We don't need to speed up message sending - We are only allowed 1 message every 2 seconds according to RFC 1459
                 msg = self._msg_queue.get(True, 1)
-                self.logger.debug("New message on msg_queue: {}".format(msg))
-                self._send("PRIVMSG {} :{}".format(self.channel, msg))
             except Empty:
                 continue
+
+            self.logger.debug("New message on msg_queue: {}".format(msg))
+            self._send("PRIVMSG {} :{}".format(self.channel, msg))
 
     def _handle_message(self, message):
         """
