@@ -114,9 +114,9 @@ class IrcAction(BasicAction):
         :return: None
         """
         try:
-            self.ircsock.send(bytes(data + "\r\n", "UTF-8"))
+            self.ircsock.send(bytes("{0}\r\n".format(data), "UTF-8"))
         except ConnectionAbortedError as e:
-            self.logger.error("Connection to IRC server lost: " + str(e))
+            self.logger.error("Connection to IRC server lost: ", e)
             self._reconnect()
 
     def _reconnect(self):
@@ -131,7 +131,7 @@ class IrcAction(BasicAction):
             try:
                 self._connect()
             except Exception as e:
-                self.logger.error("Exception while trying to connect to the IRC server occurred: " + str(e))
+                self.logger.error("Exception while trying to connect to the IRC server occurred: ", e)
                 self.logger.info("Sleeping for 10 seconds before trying next reconnect!")
                 sleep(10)
             else:

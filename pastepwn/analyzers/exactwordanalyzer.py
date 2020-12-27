@@ -54,5 +54,5 @@ class ExactWordAnalyzer(BasicAnalyzer):
         return [word for word in words if self._word_in_text(word, paste_content)]
 
     def _word_in_text(self, word, text):
-        pattern = r"\b" + word + r"\b"
+        pattern = r"\b{0}\b".format(word)
         return re.search(pattern, text) is not None

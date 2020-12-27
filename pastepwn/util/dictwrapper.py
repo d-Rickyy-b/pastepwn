@@ -8,4 +8,4 @@ class DictWrapper(dict):
     """
 
     def __missing__(self, key):
-        return "${" + str(key) + "}"
+        return "${{{0}}}".format(key)
