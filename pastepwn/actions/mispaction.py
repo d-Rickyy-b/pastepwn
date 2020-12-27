@@ -2,6 +2,7 @@
 import json
 import logging
 import time
+
 from pastepwn.util import Request
 from .basicaction import BasicAction
 
@@ -110,12 +111,14 @@ class MISPAction(BasicAction):
         # Error handling
         if not res:
             self.logger.warning("Empty response when adding event")
-        else:
-            res = json.loads(res)
-            if "Event" in res:
-                self.logger.info("Event #%s successfully added to MISP", res["Event"]["id"])
-                return
-            # An error has happened, but the 'errors' field is not always present
-            if "errors" in res:
-                self.logger.error("Error when adding event: %s", res["errors"])
-            self.logger.warning("Failed to add event: %s", res.get("message"))
+            return
+
+        res = json.loads(res)
+        if "Event" in res:
+            event = res.get("Event")
+            self.logger.info("Event #%s successfully added to MISP", event.get("id"))
+            return
+        # An error has happened, but the 'errors' field is not always present
+        if "errors" in res:
+            self.logger.error("Error when adding event: %s", res.get("errors"))
+        self.logger.warning("Failed to add event: %s", res.get("message"))
