@@ -37,5 +37,4 @@ class TemplatingEngine(object):
             template_string = "New paste matched by analyzer '${analyzer_name}' - Link: ${full_url}\n\nMatches:\n${matches}"
 
         template = Template(template_string)
-        text = template.safe_substitute(DictWrapper(paste_dict))
-        return text
+        return template.safe_substitute(DictWrapper(paste_dict))
