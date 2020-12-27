@@ -86,7 +86,10 @@ class DiscordAction(BasicAction):
             yield from socket.send(json.dumps({"op": 1, "d": {}}))
             ack_str = yield from socket.recv()
             ack = json.loads(ack_str)
-            if ack.get("op") != 11:
+
+            # https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes
+            heartbeat_ack = 11
+            if ack.get("op") != heartbeat_ack:
                 self.logger.warning("[ws] Expected Heartbeat ACK payload but received %s", ack_str)
 
             # Identify
@@ -147,7 +150,9 @@ class DiscordAction(BasicAction):
 
         res = json.loads(res)
 
-        if res.get("code") == 40001 and self.bot_available and self.webhook_url is None and not self.identified:
+        # https://discord.com/developers/docs/topics/opcodes-and-status-codes#json-json-error-codes
+        unauthorized_code = 40001
+        if res.get("code") == unauthorized_code and self.bot_available and self.webhook_url is None and not self.identified:
             # Unauthorized access, bot token hasn't been identified to Discord Gateway
             self.logger.info("Accessing Discord Gateway to initialize token")
             self.initialize_gateway()
