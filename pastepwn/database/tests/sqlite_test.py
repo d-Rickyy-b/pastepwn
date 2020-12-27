@@ -43,6 +43,7 @@ class SQLiteDBTest(unittest.TestCase):
         self.database = SQLiteDB(dbpath="sqlite_test/pastepwn_test")
 
     def tearDown(self):
+        self.database.close_connection()
         shutil.rmtree(os.path.dirname(self.database.dbpath))
 
     def test_insert_same_key(self):
