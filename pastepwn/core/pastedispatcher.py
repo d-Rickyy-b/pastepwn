@@ -37,7 +37,7 @@ class PasteDispatcher(object):
         """Starts dispatching the downloaded pastes to the list of analyzers"""
         with self.__lock:
             if not self.running:
-                if len(self.analyzers) == 0:
+                if not self.analyzers:
                     self.logger.warning("No analyzers added! At least one analyzer must be added prior to use!")
                     return None
 
