@@ -47,8 +47,11 @@ class MongoDBTest(unittest.TestCase):
         self.database.db.drop_collection("pastepwn_test")
 
     def test_insert_same_key(self):
-        for body_text in self.p["body"]:
+        # Insert a paste two times with the same body
+        for body_text in self.p.get("body"):
             self.paste.set_body(body_text)
             self.database.store(self.paste)
 
-        self.assertEqual(self.database.get(self.p["key"]).next()["body"], self.p["body"][1])
+        stored_paste = self.database.get(self.p.get("key"))
+        comparison = self.p.get("body")[1]
+        self.assertEqual(stored_paste.next().get("body"), comparison)
