@@ -101,7 +101,8 @@ class MergedAnalyzer(BasicAnalyzer):
         :param unique_matches: A boolean that specifies if matches should be unique - has currently NO effect on merged analyzers!
         :return: A boolean that indicates if the paste has been matched
         """
+        base_analyzer_match = bool(self._base_analyzer.match(paste))
         if self._and_analyzer:
-            return bool(self._base_analyzer.match(paste)) and bool(self._and_analyzer.match(paste))
+            return base_analyzer_match and bool(self._and_analyzer.match(paste))
         elif self._or_analyzer:
-            return bool(self._base_analyzer.match(paste)) or bool(self._or_analyzer.match(paste))
+            return base_analyzer_match or bool(self._or_analyzer.match(paste))
