@@ -10,6 +10,8 @@ from pastepwn.util import TemplatingEngine
 from pastepwn.util.threadingutils import start_thread, join_threads
 from .basicaction import BasicAction
 
+MAX_MSG_SIZE = 512
+
 
 class IrcAction(BasicAction):
     """Action to send an irc message to a certain channel"""
@@ -32,7 +34,7 @@ class IrcAction(BasicAction):
         self.channel = channel
 
         # RFC1459 says that each message can only be 512 bytes including the CR-LF character
-        self._max_msg_size = 512 - len("PRIVMSG {}".format(channel)) - len("\r\n")
+        self._max_payload_size = MAX_MSG_SIZE - len("PRIVMSG {}".format(channel)) - len("\r\n")
 
         self._exception_event = Event()
         self._stop_event = Event()
@@ -195,10 +197,10 @@ class IrcAction(BasicAction):
         msg = msg.replace("\r\n", " ")
         msg = msg.replace("\r", " ")
         msg = msg.replace("\n", " ")
-        if len(msg) > self._max_msg_size:
+        if len(msg) > self._max_payload_size:
             # We need to split up the message into two parts and send it recursively
-            self._send_message(msg[:self._max_msg_size])
-            self._send_message(msg[self._max_msg_size:])
+            self._send_message(msg[:self._max_payload_size])
+            self._send_message(msg[self._max_payload_size:])
             return
 
         # Otherwise we can simply put it on the queue as a whole
