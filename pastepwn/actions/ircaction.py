@@ -57,7 +57,7 @@ class IrcAction(BasicAction):
             readables, writables, exceptionals = select.select([self.ircsock], [self.ircsock], [self.ircsock])
             # When we got a readable socket, we read it's content
             if len(readables) == 1:
-                data += self.ircsock.recv(512).decode("UTF-8")
+                data += self.ircsock.recv(MAX_MSG_SIZE).decode("UTF-8")
 
                 if len(data) == 0:
                     self.logger.error("The socket was disconnected!")
