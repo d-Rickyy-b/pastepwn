@@ -28,7 +28,7 @@ class Request(object):
             self.headers = headers
             self.logger.info("Using the following custom proxies: {}".format(proxies))
             self.logger.info("Using the following system proxies: {}".format(utils.get_environ_proxies("https://example.com")))
-            self._initialized = True
+            Request._initialized = True
 
     def _request_wrapper(self, data, timeout, *args, **kwargs):
         headers = {
