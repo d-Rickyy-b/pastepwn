@@ -61,10 +61,6 @@ class PasteDispatcher(object):
             try:
                 # Get paste from queue
                 paste = self.paste_queue.get(True, 1)
-
-                # TODO implement thread pool to limit number of parallel executed threads
-                # Don't add these threads to the list. Otherwise they will just block the list
-                start_thread(self._process_paste, "process_paste", paste=paste, exception_event=self.__exception_event)
             except Empty:
                 if self.__stop_event.is_set():
                     self.logger.debug("orderly stopping")
@@ -75,6 +71,10 @@ class PasteDispatcher(object):
                     self.running = False
                     break
                 continue
+
+            # TODO implement thread pool to limit number of parallel executed threads
+            # Don't add these threads to the list. Otherwise they will just block the list
+            start_thread(self._process_paste, "process_paste", paste=paste, exception_event=self.__exception_event)
 
     def _process_paste(self, paste):
         self.logger.debug("Analyzing Paste: {0}".format(paste.key))
