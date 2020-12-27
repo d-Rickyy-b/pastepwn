@@ -24,10 +24,6 @@ class PasteDispatcher(object):
         self.__exception_event = exception_event or Event()
         self.__stop_event = Event()
 
-    def _pool_thread(self):
-        while True:
-            pass
-
     def add_analyzer(self, analyzer):
         """Adds an analyzer to the list of analyzers"""
         with self.__lock:
