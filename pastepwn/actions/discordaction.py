@@ -8,9 +8,9 @@ from pastepwn.util import Request
 from pastepwn.util import TemplatingEngine
 from .basicaction import BasicAction
 
+websockets_available = True
 try:
     import websockets
-    websockets_available = True
 except ImportError:
     websockets = None
     websockets_available = False
@@ -71,6 +71,9 @@ class DiscordAction(BasicAction):
         """Connect to the Discord Gateway to identify the bot."""
         # Docs: https://discordapp.com/developers/docs/topics/gateway#connecting-to-the-gateway
         # Open connection to the Discord Gateway
+        if websockets is None:
+            raise ImportError("Couldn't import websockets!")
+
         socket = yield from websockets.connect(ws_url + "/?v=6&encoding=json")
         try:
             # Receive Hello
