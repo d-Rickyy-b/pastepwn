@@ -33,19 +33,9 @@ class MysqlDB(AbstractDB):
                 )
 
         self.cursor = self.db.cursor()
-        # self._create_db(dbname) # Not used because of possible SQLI
         self._create_tables()
 
         self.logger.debug("Connected to database!")
-
-    def _create_db(self, dbname):
-        # Currently I found no other way to insert the database name into the sql statement
-        # With the following code a simple SQL Injection would be possible - question is, why would a user do this to their own database?
-        # Nevertheless I don't want to put this into production that way. I'll keep the code but remove the call to it.
-        self.logger.info("Creating database '{0}' (if not exists)".format(self.dbname))
-        self.cursor.execute("CREATE DATABASE IF NOT EXISTS {0};".format(self.dbname))
-        self.cursor.execute("USE {};".format(self.dbname))
-        self.db.commit()
 
     def _create_tables(self):
         # Although the length of 'key' should never exceed 8 chars,
