@@ -75,11 +75,11 @@ class TestWordAnalyzer(unittest.TestCase):
     def test_add_word(self):
         analyzer = WordAnalyzer(None, "Test")
         self.assertEqual(len(analyzer.words), 1)
-        self.assertEqual(analyzer.words, ["Test"])
+        self.assertEqual(["Test"], analyzer.words)
 
         analyzer.add_word("second")
         self.assertEqual(len(analyzer.words), 2)
-        self.assertEqual(analyzer.words, ["Test", "second"])
+        self.assertEqual(["Test", "second"], analyzer.words)
 
     def test_case_sensitive(self):
         analyzer = WordAnalyzer(None, "Test", case_sensitive=True)
