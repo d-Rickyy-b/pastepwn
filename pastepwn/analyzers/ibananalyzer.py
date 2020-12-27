@@ -31,7 +31,9 @@ class IBANAnalyzer(RegexAnalyzer):
     def _validate_iban(self, potential_iban):
         """Checks if the given string could be a valid IBAN. Adapted from https://rosettacode.org/wiki/IBAN#Python."""
         # Ensure upper alphanumeric input
-        potential_iban = potential_iban.replace(" ", "").replace("\t", "").replace("-", "")
+        potential_iban = potential_iban.replace(" ", "")
+        potential_iban = potential_iban.replace("\t", "")
+        potential_iban = potential_iban.replace("-", "")
         if not re.match(r"^[\dA-Z]+$", potential_iban):
             return False
 
