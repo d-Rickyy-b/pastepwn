@@ -25,8 +25,7 @@ class MISPAction(BasicAction):
     name = "MISPAction"
 
     def __init__(self, url, access_key, transformer=None, attributes=None):
-        """
-        Init method for the MISPAction
+        """Init method for the MISPAction
         :param url:         string      URL of the MISP instance (complete with protocol and port)
         :param access_key:  string      MISP access key for authorization
         :param transformer: Callable    Takes a Paste (and optional analyzer name) as parameter

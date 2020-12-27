@@ -9,9 +9,7 @@ from pastepwn.util import TemplatingEngine
 
 
 class EmailAction(BasicAction):
-    """This action takes a username, password, receiver mail address,
-    hostname, port and when executed sends out an e-mail to the receiver
-    containing the paste"""
+    """This action sends out an e-mail to the receiver containing the paste, when executed"""
     name = "EmailAction"
 
     def __init__(self, username, password, receiver, hostname, port=465, template=None):

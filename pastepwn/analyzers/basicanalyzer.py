@@ -34,10 +34,9 @@ class BasicAnalyzer(object):
 
     def match(self, paste, unique_matches=False):
         """Checks if a certain paste is matched by the conditions set for this analyzer.
-        :param paste: A :class:`pastepwn.core.paste` object which should be matched
-        :param unique_matches: A boolean that specifies if matches should be unique.
-            defaults to False
-        :return: :obj:`bool` if the paste has been matched
+        :param paste: A Paste object which should be matched
+        :param unique_matches: A boolean that specifies if matches should be unique - has currently NO effect on merged analyzers!
+        :return: A boolean that indicates if the paste has been matched
         """
         raise NotImplementedError("Your analyzer must implement the match method!")
 
@@ -98,9 +97,9 @@ class MergedAnalyzer(BasicAnalyzer):
 
     def match(self, paste, unique_matches=False):
         """Checks if a certain paste is matched by the conditions set for this analyzer.
-        :param paste: A :class:`pastepwn.core.paste` object which should be matched
+        :param paste: A Paste object which should be matched
         :param unique_matches: A boolean that specifies if matches should be unique - has currently NO effect on merged analyzers!
-        :return: :obj:`bool` if the paste has been matched
+        :return: A boolean that indicates if the paste has been matched
         """
         if self._and_analyzer:
             return bool(self._base_analyzer.match(paste)) and bool(self._and_analyzer.match(paste))

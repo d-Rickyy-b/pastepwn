@@ -21,8 +21,7 @@ class DiscordAction(BasicAction):
     name = "DiscordAction"
 
     def __init__(self, webhook_url=None, token=None, channel_id=None, template=None):
-        """
-        Action to send a Discord message to a certain webhook or channel.
+        """Action to send a Discord message to a certain webhook or channel.
         Either the webhook parameter or the token & channel_id parameters are needed.
 
         1) You can setup a webhook in the discord server settings. A webhook is tied to one server & text channel
@@ -30,10 +29,10 @@ class DiscordAction(BasicAction):
 
 
         2) Setup a discord bot (token) in the developer portal:
-         > https://discordapp.com/developers/applications/
-         After creating an app you can obtain the token by going to
-         > https://discordapp.com/developers/applications/{your_app_id}/bot
-         Format:
+        > https://discordapp.com/developers/applications/
+        After creating an app you can obtain the token by going to
+        > https://discordapp.com/developers/applications/{your_app_id}/bot
+        Format:
         > NTI5MzI1MzY4OTAyMDI1MjI3.DwvNFQ.5aNKUvYlAKqKKq6UJ1fRiARKNXQ
 
         3) Obtain the channel_id (18 digit number):
