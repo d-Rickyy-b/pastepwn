@@ -106,21 +106,22 @@ class PastebinScraper(BasicScraper):
     def _body_downloader(self):
         """Downloads the body of pastes from pastebin, which have been put into the queue"""
         while self.running:
+            # Print current approx. size of paste queue
+            if self._tmp_paste_queue.qsize() > 0:
+                self.logger.debug("Queue size: {}".format(self._tmp_paste_queue.qsize()))
+
+            # Check if the stop event or exception events are set
+            if self._stop_event.is_set() or self._exception_event.is_set():
+                self.logger.debug("Stop or exception event is set!")
+                self.running = False
+                break
+
             try:
-                if self._tmp_paste_queue.qsize() > 0:
-                    self.logger.debug("Queue size: {}".format(self._tmp_paste_queue.qsize()))
-
-                if self._stop_event.is_set() or self._exception_event.is_set():
-                    self.logger.debug("Stop or exception event is set!")
-                    self.running = False
-                    break
-
                 paste = self._tmp_paste_queue.get(True, 1)
-
-                # if paste is not known, download the body and put it on the queue and into the list
-                last_body_download_time = round(time.time(), 2)
             except Empty:
                 continue
+
+            last_body_download_time = round(time.time(), 2)
 
             try:
                 body = self._get_paste_content(paste.key)
