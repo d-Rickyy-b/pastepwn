@@ -22,12 +22,22 @@ def requirements():
 with open(os.path.join(setup_path, "README.md"), "r", encoding="utf-8") as file:
     readme = file.read()
 
-# If present, take tag from travis and not locally
-travis_tag = os.environ.get("TRAVIS_TAG")
+# Check if we are running on CI
+CI = os.environ.get("CI")
 
-if travis_tag is not None:
-    # Travis versions can look like 'v1.5.2' - pypi versions look like '1.5.2'
-    version = travis_tag.replace("v", "")
+if CI:
+    version = ""
+    TRAVIS_TAG = os.environ.get("TRAVIS_TAG")
+    GITHUB_ACTIONS = os.environ.get("GITHUB_ACTIONS")
+
+    if TRAVIS_TAG:
+        print("Running on Travis!")
+        version = TRAVIS_TAG.replace("v", "")
+    elif GITHUB_ACTIONS:
+        print("Running on GitHub Actions!")
+        GITHUB_REF = os.environ.get("GITHUB_REF")
+        tag = GITHUB_REF.split("/")[-1]
+        version = tag.replace("v", "")
 else:
     # Taken from https://packaging.python.org/guides/single-sourcing-package-version/
     version_dict = {}
