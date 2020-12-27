@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
-import os
+import pathlib
 import sqlite3
 
 from .abstractdb import AbstractDB
@@ -10,22 +10,22 @@ class SQLiteDB(AbstractDB):
 
     def __init__(self, dbpath="pastepwn"):
         super().__init__()
-        self.dbpath = dbpath
+        self.dbpath = pathlib.Path(dbpath)
         self.logger = logging.getLogger(__name__)
-        self.logger.debug("Initializing SQLite - {0}".format(dbpath))
+        self.logger.debug("Initializing SQLite - {0}".format(self.dbpath))
 
         # Check if the folder path exists
-        if not os.path.exists(dbpath):
+        if not self.dbpath.exists():
             # If not, create the path and the file
-            dbdir = os.path.dirname(dbpath)
-            if dbdir != "":
-                os.mkdir(dbdir)
-            open(self.dbpath, "a").close()
-        elif os.path.isdir(dbpath):
-            raise ValueError("'{0}' is a directory. Use different path/name for database.".format(dbpath))
+            dbdir = self.dbpath.parent
+            if not dbdir.exists():
+                dbdir.mkdir()
+            self.dbpath.touch()
+        elif self.dbpath.is_dir():
+            raise ValueError("'{0}' is a directory. Use different path/name for database.".format(self.dbpath))
 
         try:
-            self.db = sqlite3.connect(dbpath, check_same_thread=False)
+            self.db = sqlite3.connect(str(self.dbpath), check_same_thread=False)
             self.db.text_factory = lambda x: str(x, "utf-8", "ignore")
             self.cursor = self.db.cursor()
             self._create_tables()
@@ -36,7 +36,7 @@ class SQLiteDB(AbstractDB):
         self.logger.debug("Connected to database!")
 
     def _create_tables(self):
-        open(self.dbpath, "a").close()
+        self.dbpath.touch()
 
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS 'pastes' (
                             'key'	TEXT NOT NULL UNIQUE,
