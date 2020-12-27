@@ -7,6 +7,7 @@ from .abstractdb import AbstractDB
 
 
 class SQLiteDB(AbstractDB):
+    """Database class representing an sqlite database instance"""
 
     def __init__(self, dbpath="pastepwn"):
         super().__init__()

@@ -148,8 +148,7 @@ class PastebinScraper(BasicScraper):
             self._rate_limit_sleep(last_body_download_time)
 
     def _rate_limit_sleep(self, last_body_download_time):
-        """
-        Sleeps a certain amount of seconds to prevent hitting API rate limits
+        """Sleeps a certain amount of seconds to prevent hitting API rate limits
         :param last_body_download_time: The time when the last paste was downloaded
         :return:
         """
