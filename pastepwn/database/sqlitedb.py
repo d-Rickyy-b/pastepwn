@@ -26,12 +26,13 @@ class SQLiteDB(AbstractDB):
 
         try:
             self.db = sqlite3.connect(str(self.dbpath), check_same_thread=False)
-            self.db.text_factory = lambda x: str(x, "utf-8", "ignore")
-            self.cursor = self.db.cursor()
-            self._create_tables()
         except Exception as e:
             self.logger.exception("An exception happened when initializing the database: {0}".format(e))
             raise
+
+        self.db.text_factory = lambda x: str(x, "utf-8", "ignore")
+        self.cursor = self.db.cursor()
+        self._create_tables()
 
         self.logger.debug("Connected to database!")
 
