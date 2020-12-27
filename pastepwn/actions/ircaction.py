@@ -59,7 +59,7 @@ class IrcAction(BasicAction):
             if len(readables) == 1:
                 data += self.ircsock.recv(MAX_MSG_SIZE).decode("UTF-8")
 
-                if len(data) == 0:
+                if data == 0:
                     self.logger.error("The socket was disconnected!")
                     self._reconnect()
 
