@@ -13,7 +13,8 @@ class MongoDB(AbstractDB):
         super().__init__()
         self.logger = logging.getLogger(__name__)
         self.logger.debug("Initializing MongoDB - {0}:{1}".format(ip, port))
-        self.db = pymongo.MongoClient(ip, port, serverSelectionTimeoutMS=5000)
+        timeout_ms = 5000
+        self.db = pymongo.MongoClient(ip, port, serverSelectionTimeoutMS=timeout_ms)
 
         try:
             self.db.admin.command("ismaster")
