@@ -26,16 +26,15 @@ class URLAnalyzer(BasicAnalyzer):
                 # If adding the protocol makes this resolve, the url works.
                 if self._resolve_url("{0}://{1}".format(protocol, url)):
                     return True
-            else:
-                return False
+            return False
 
         # Otherwise, let's just try resolving it.
-        else:
-            try:
-                urllib.request.urlopen(url)
-            except urllib.error.URLError:
-                return False
-            return True
+        try:
+            urllib.request.urlopen(url)
+        except urllib.error.URLError:
+            return False
+
+        return True
 
     def match(self, paste):
         """Check if the URL matches a certain regex, and then optionally try to resolve it."""
