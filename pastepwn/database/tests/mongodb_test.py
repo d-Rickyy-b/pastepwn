@@ -55,3 +55,7 @@ class MongoDBTest(unittest.TestCase):
         stored_paste = self.database.get(self.p.get("key"))
         comparison = self.p.get("body")[1]
         self.assertEqual(stored_paste.next().get("body"), comparison)
+
+
+if __name__ == "__main__":
+    unittest.main()
