@@ -72,8 +72,8 @@ class ActionHandler(object):
 
     def _perform_action_wrapper(self, action, paste, analyzer, matches):
         """A wrapper around the perform method to catch exceptions"""
+        self.logger.debug("Performing action '{0}' on paste '{1}' matched by analyzer '{2}'!".format(action.name, paste.key, analyzer.identifier))
         try:
-            self.logger.debug("Performing action '{0}' on paste '{1}' matched by analyzer '{2}'!".format(action.name, paste.key, analyzer.identifier))
             action.perform(paste, analyzer.identifier, matches)
         except Exception as e:
             self.logger.error("While performing the action '{0}' the following exception occurred: '{1}'".format(action.name, e))
