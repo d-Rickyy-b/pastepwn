@@ -10,7 +10,6 @@ from pastepwn.scraping import BasicScraper
 from pastepwn.scraping.pastebin.exceptions import IPNotRegisteredError, PasteDeletedException, PasteNotReadyException, PasteEmptyException
 from pastepwn.util import Request, start_thread
 
-
 # https://pastebin.com/doc_scraping_api#2
 # Your whitelisted IP should not run into any issues as long as you don't abuse our service.
 # We recommend not making more than 1 request per second, as there really is no need to do so.

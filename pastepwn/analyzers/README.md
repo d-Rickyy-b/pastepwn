@@ -61,4 +61,3 @@ realAnalyzer = (analyzer1 & analyzer2) | analyzer3
 ```
 
 The `realAnalyzer` only matches if either `analyzer1` and `analyzer2` both match, or if `analyzer3` matches.
-
