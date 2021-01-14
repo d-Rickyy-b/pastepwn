@@ -9,7 +9,7 @@ from pastepwn import Paste
 from pastepwn.database import MongoDB
 
 
-@unittest.skipIf("TRAVIS" in os.environ and os.environ["TRAVIS"] == "true", "Skipping this test on Travis CI.")
+@unittest.skipIf(os.environ.get("CI"), "Skipping this test on CI.")
 class MongoDBTest(unittest.TestCase):
 
     def setUp(self):
