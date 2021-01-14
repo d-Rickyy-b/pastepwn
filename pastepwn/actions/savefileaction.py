@@ -22,6 +22,13 @@ class SaveFileAction(BasicAction):
         self.file_ending = file_ending
         self.template = template or "${body}"
 
+    @staticmethod
+    def _remove_prefix(input_string, prefix):
+        """Remove a prefix from a certain string (e.g. remove '.' as prefix from '.txt')"""
+        if input_string.startswith(prefix):
+            return input_string[len(prefix):]
+        return input_string
+
     def perform(self, paste, analyzer_name=None, matches=None):
         """
         Stores the paste as a file
