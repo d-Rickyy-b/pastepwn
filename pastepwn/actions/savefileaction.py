@@ -29,6 +29,10 @@ class SaveFileAction(BasicAction):
             return input_string[len(prefix):]
         return input_string
 
+    def get_file_content(self, paste, analyzer_name, matches):
+        """Returns the content to be written to the file"""
+        return TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template, matches=matches)
+
     def perform(self, paste, analyzer_name=None, matches=None):
         """
         Stores the paste as a file
