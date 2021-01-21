@@ -89,9 +89,7 @@ class MergedAnalyzer(BasicAnalyzer):
             actions = base_analyzer.actions + self._or_analyzer.actions
             identifier = "({} || {})".format(base_analyzer.identifier, self._or_analyzer)
         else:
-            actions = []
-            identifier = "Broken analyzer"
-            self.logger.error("Neither and_analyzer nor or_analyzer are set!")
+            raise ValueError("Neither and_analyzer nor or_analyzer are set!")
 
         super().__init__(actions, identifier=identifier)
 
