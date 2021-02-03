@@ -1,4 +1,4 @@
-pymongo==3.11.2
+pymongo==3.11.3
 mysql-connector-python==8.0.22
 requests==2.25.1
 python-twitter==3.5
