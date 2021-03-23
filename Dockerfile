@@ -1,6 +1,6 @@
 FROM python:3.7-alpine
 
-LABEL maintainer="d-Rickyy-b <pastepwn@rickyy.de>"
+LABEL maintainer="d-Rickyy-b <pastepwn@rico-j.de>"
 LABEL site="https://github.com/d-Rickyy-b/pastepwn"
 
 # Create base & log directory
