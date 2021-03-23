@@ -1,4 +1,4 @@
-FROM python:3.5-alpine
+FROM python:3.7-alpine
 
 LABEL maintainer="d-Rickyy-b <pastepwn@rickyy.de>"
 LABEL site="https://github.com/d-Rickyy-b/pastepwn"
