@@ -10,5 +10,5 @@ jobs:
     steps:
     - name: Check out source code
       uses: actions/checkout@v2
-    - name: wemake-python-styleguide
-      uses: wemake-services/wemake-python-styleguide@0.14.1
+    - name: Run Flake8
+      uses: suo/flake8-github-action@v1
