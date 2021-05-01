@@ -21,5 +21,5 @@ jobs:
       with:
         checkName: 'build'   # NOTE: this needs to be the same as the job name
         reporter: 'github-pr-review'
-        env:
-          GITHUB_TOKEN: ${{ secrets.github_token }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.github_token }}
