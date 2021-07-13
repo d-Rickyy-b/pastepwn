@@ -6,10 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.0.0] - 2021-07-13
 ### Added
 - Implemented ExactWordAnalyzer to match words exactly rather than partially ([08ebdbc](https://github.com/d-Rickyy-b/pastepwn/commits/08ebdbc3fb5c8431486f8367e039e8580c67770a))
-
 - Implemented BasicAnalyzer.unique(), which can be used to filter out duplicate matches from BasicAnalyzer.match()
+- Ability to enforce IP version for the connection to pastepwn ([3483566](https://github.com/d-Rickyy-b/pastepwn/commits/3483566870e6fd852eb462e31074817b02d67bdf))
+
+### Changed
+- BREAKING: Dropped support for Python < 3.6
 
 ## [1.3.1] - 2020-06-20
 ### Fixed
@@ -169,7 +174,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.8] - 2018-10-22
 First stable release
 
-[unreleased]: https://github.com/d-Rickyy-b/pastepwn/compare/v1.3.1...HEAD
+[unreleased]: https://github.com/d-Rickyy-b/pastepwn/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/d-Rickyy-b/pastepwn/compare/v1.3.1...v2.0.0
 [1.3.1]: https://github.com/d-Rickyy-b/pastepwn/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/d-Rickyy-b/pastepwn/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/d-Rickyy-b/pastepwn/compare/v1.1.0...v1.2.0
