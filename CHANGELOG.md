@@ -8,10 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [2.0.0] - 2021-07-13
+### Fixed
+- Better protocol check in urlanalyzer ([a377aee](https://github.com/d-Rickyy-b/pastepwn/commit/a377aeea90a21dd47dac9b1408acc395464cfef3))
+- Use sys.exit() instead of exit() ([2d6cb67](https://github.com/d-Rickyy-b/pastepwn/commit/2d6cb6798b3f5cd3c8e41d4a7c80ad7905dda9da))
+- Add missing parameter 'unique_matches' for match function ([c9a2e99](https://github.com/d-Rickyy-b/pastepwn/commit/c9a2e9931c0d25b7645c0c9f2064246dbdcea188))
+
 ### Added
-- Implemented ExactWordAnalyzer to match words exactly rather than partially ([08ebdbc](https://github.com/d-Rickyy-b/pastepwn/commits/08ebdbc3fb5c8431486f8367e039e8580c67770a))
+- Implemented ExactWordAnalyzer to match words exactly rather than partially ([08ebdbc](https://github.com/d-Rickyy-b/pastepwn/commit/08ebdbc3fb5c8431486f8367e039e8580c67770a))
 - Implemented BasicAnalyzer.unique(), which can be used to filter out duplicate matches from BasicAnalyzer.match()
-- Ability to enforce IP version for the connection to pastepwn ([3483566](https://github.com/d-Rickyy-b/pastepwn/commits/3483566870e6fd852eb462e31074817b02d67bdf))
+- Ability to enforce IP version for the connection to pastepwn ([3483566](https://github.com/d-Rickyy-b/pastepwn/commit/3483566870e6fd852eb462e31074817b02d67bdf))
 
 ### Changed
 - BREAKING: Dropped support for Python < 3.6
