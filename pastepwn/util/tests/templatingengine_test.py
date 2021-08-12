@@ -43,7 +43,7 @@ class TestTemplatingEngine(unittest.TestCase):
     def test_fill_template_matches(self):
         """Checks if templating engine inserts the matches correctly into the template"""
         template = "Matches are: ${matches}"
-        expected = "Matches are: +123456789\n+987654321\n"
+        expected = "Matches are: +123456789\n+987654321"
         matches = ["+123456789", "+987654321"]
         result = TemplatingEngine.fill_template(paste=self.paste, analyzer_name=None, template_string=template, matches=matches)
         self.assertEqual(expected, result, msg="Filled template string is not the same as the expected result!")
@@ -54,7 +54,8 @@ class TestTemplatingEngine(unittest.TestCase):
         expected = "Completely new parameter 'pastepwnIsCool' unrelated to paste data can be inserted into this string"
 
         result = TemplatingEngine.fill_template(paste=self.paste, analyzer_name=None, template_string=template, random_param="'pastepwnIsCool'",
-                                                ins="inserted")
+                                                ins="inserted"
+                                                )
         self.assertEqual(expected, result, msg="Filled template string is not the same as the expected result!")
 
     def test_fill_template_missing_param(self):
@@ -65,5 +66,5 @@ class TestTemplatingEngine(unittest.TestCase):
         result = TemplatingEngine.fill_template(paste=self.paste, analyzer_name=None, template_string=template)
         self.assertEqual(expected, result, msg="Filled template string is not the same as the expected result!")
 
-    if __name__ == '__main__':
+    if __name__ == "__main__":
         unittest.main()

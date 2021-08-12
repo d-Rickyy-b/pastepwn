@@ -3,6 +3,7 @@ import unittest
 from unittest import mock
 
 from pastepwn.analyzers.basicanalyzer import BasicAnalyzer
+from pastepwn.analyzers.basicanalyzer import MergedAnalyzer
 
 
 class TestMergedAnalyzer(unittest.TestCase):
@@ -58,21 +59,26 @@ class TestMergedAnalyzer(unittest.TestCase):
         or_analyzer = self.true_analyzer | self.false_analyzer
         self.assertTrue(or_analyzer.match(self.paste_mock))
 
+    def test_none(self):
+        """Check that error is raised in case no value is given for and/or/not_analyzer"""
+        with self.assertRaises(ValueError):
+            MergedAnalyzer(base_analyzer=None)
+
     def test_long_chain(self):
         """Check if logical and/or both work fine in long combinations with each other"""
         # Long chain of true_analyzers must evaluate to True
         and_analyzer = self.true_analyzer & self.true_analyzer & self.true_analyzer & self.true_analyzer & \
-                       self.true_analyzer & self.true_analyzer & self.true_analyzer & self.true_analyzer
+            self.true_analyzer & self.true_analyzer & self.true_analyzer & self.true_analyzer
         self.assertTrue(and_analyzer.match(self.paste_mock))
 
         # A single false_analyzer must make the term evaluate to false
         and_analyzer2 = self.true_analyzer & self.true_analyzer & self.true_analyzer & self.false_analyzer & \
-                        self.true_analyzer & self.true_analyzer & self.true_analyzer & self.true_analyzer
+            self.true_analyzer & self.true_analyzer & self.true_analyzer & self.true_analyzer
         self.assertFalse(and_analyzer2.match(self.paste_mock))
 
         # Since one returns true, this should return True as well
         or_analyzer = self.false_analyzer | self.false_analyzer | self.false_analyzer | self.false_analyzer | \
-                      self.false_analyzer | self.true_analyzer | self.true_analyzer | self.true_analyzer
+            self.false_analyzer | self.true_analyzer | self.true_analyzer | self.true_analyzer
         self.assertTrue(or_analyzer.match(self.paste_mock))
 
     def test_list_and(self):
@@ -90,5 +96,5 @@ class TestMergedAnalyzer(unittest.TestCase):
         self.assertTrue(res)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import os
+import pathlib
 
 from pastepwn.util import TemplatingEngine
 from .basicaction import BasicAction
@@ -18,9 +18,20 @@ class SaveFileAction(BasicAction):
         :param template: A template string describing how the paste variables should be filled in
         """
         super().__init__()
-        self.path = path
+        self.path = pathlib.Path(path)
         self.file_ending = file_ending
         self.template = template or "${body}"
+
+    @staticmethod
+    def _remove_prefix(input_string, prefix):
+        """Remove a prefix from a certain string (e.g. remove '.' as prefix from '.txt')"""
+        if input_string.startswith(prefix):
+            return input_string[len(prefix):]
+        return input_string
+
+    def get_file_content(self, paste, analyzer_name, matches):
+        """Returns the content to be written to the file"""
+        return TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template, matches=matches)
 
     def perform(self, paste, analyzer_name=None, matches=None):
         """
@@ -30,16 +41,17 @@ class SaveFileAction(BasicAction):
         :param matches: List of matches returned by the analyzer
         :return: None
         """
-        if not os.path.exists(self.path):
-            os.makedirs(self.path)
+        if not self.path.exists():
+            self.path.mkdir(parents=True, exist_ok=True)
 
-        if self.file_ending.startswith("."):
-            file_name = "{0}{1}".format(paste.key, self.file_ending)
-        elif self.file_ending == "":
+        self.file_ending = self._remove_prefix(self.file_ending, ".")
+
+        if self.file_ending == "":
             file_name = str(paste.key)
         else:
             file_name = "{0}.{1}".format(paste.key, self.file_ending)
 
-        content = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template, matches=matches)
-        with open(os.path.join(self.path, file_name), "w", encoding="utf-8") as file:
+        file_path = self.path / file_name
+        content = self.get_file_content(paste, analyzer_name, matches)
+        with open(file_path, "w", encoding="utf-8") as file:
             file.write(content)

@@ -108,5 +108,5 @@ class TestEmailPasswordPairAnalyzer(unittest.TestCase):
         self.assertEqual("test+test@gmail.com:abcd", match[1])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

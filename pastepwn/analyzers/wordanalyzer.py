@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from pastepwn.util import listify
 from .basicanalyzer import BasicAnalyzer
 
 
@@ -8,13 +9,7 @@ class WordAnalyzer(BasicAnalyzer):
 
     def __init__(self, actions, words, blacklist=None, case_sensitive=False):
         super().__init__(actions, "{0} ({1})".format(self.name, words))
-
-        if words is None:
-            self.words = []
-        elif isinstance(words, list):
-            self.words = words
-        else:
-            self.words = [words]
+        self.words = listify(words)
 
         self.blacklist = blacklist or []
         self.case_sensitive = case_sensitive
@@ -31,8 +26,7 @@ class WordAnalyzer(BasicAnalyzer):
         return False
 
     def add_word(self, word):
-        """
-        Add a word to the analyzer
+        """Add a word to the analyzer.
         :param word: Word to be added
         :return:
         """

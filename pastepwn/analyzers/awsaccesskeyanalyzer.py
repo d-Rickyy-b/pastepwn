@@ -3,8 +3,7 @@ from .regexanalyzer import RegexAnalyzer
 
 
 class AWSAccessKeyAnalyzer(RegexAnalyzer):
-    """
-    Analyzer to match AWS Access Key via regex
+    """Analyzer to match AWS Access Key via regex.
 
     Keys are 20 character alphanumeric /+=
     """

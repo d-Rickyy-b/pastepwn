@@ -6,6 +6,7 @@ from .regexanalyzer import RegexAnalyzer
 
 class IBANAnalyzer(RegexAnalyzer):
     """Analyzer to match International Bank Account Numbers (IBAN)"""
+
     name = "IBANAnalyzer"
 
     def __init__(self, actions, validate=False):
@@ -29,9 +30,10 @@ class IBANAnalyzer(RegexAnalyzer):
 
     def _validate_iban(self, potential_iban):
         """Checks if the given string could be a valid IBAN. Adapted from https://rosettacode.org/wiki/IBAN#Python."""
-
         # Ensure upper alphanumeric input
-        potential_iban = potential_iban.replace(' ', '').replace('\t', '').replace('-', '')
+        potential_iban = potential_iban.replace(" ", "")
+        potential_iban = potential_iban.replace("\t", "")
+        potential_iban = potential_iban.replace("-", "")
         if not re.match(r"^[\dA-Z]+$", potential_iban):
             return False
 
@@ -42,7 +44,7 @@ class IBANAnalyzer(RegexAnalyzer):
 
         # Official validation ( https://en.wikipedia.org/wiki/International_Bank_Account_Number#Validating_the_IBAN )
         rearranged_iban = potential_iban[4:] + potential_iban[:4]
-        integer_iban = int(''.join(str(int(ch, 36)) for ch in rearranged_iban))  # BASE 36: 0..9,A..Z -> 0..35
+        integer_iban = int("".join(str(int(ch, 36)) for ch in rearranged_iban))  # BASE 36: 0..9,A..Z -> 0..35
         return integer_iban % 97 == 1
 
     _iban_length_by_country = dict(
@@ -53,4 +55,5 @@ class IBANAnalyzer(RegexAnalyzer):
         LV=21, LB=28, LI=21, LT=20, LU=20, MK=19, MT=31, MR=27,
         MU=30, MC=27, MD=24, ME=22, NL=18, NO=15, PK=24, PS=29,
         PL=28, PT=25, RO=24, SM=27, SA=24, RS=22, SK=24, SI=19,
-        ES=24, SE=24, CH=21, TN=24, TR=26, AE=23, GB=22, VG=24)
+        ES=24, SE=24, CH=21, TN=24, TR=26, AE=23, GB=22, VG=24
+        )

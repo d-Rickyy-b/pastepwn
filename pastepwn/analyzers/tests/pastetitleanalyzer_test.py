@@ -48,5 +48,5 @@ class TestPasteTitleAnalyzer(unittest.TestCase):
         self.assertFalse(analyzer.match(self.paste), "Empty title does match pattern, although it  shouldn't!")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -130,5 +130,5 @@ class TestDiscordAction(unittest.TestCase):
             _ = DiscordAction(webhook_url=None, token=None, channel_id=Mock())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

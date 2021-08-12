@@ -6,6 +6,7 @@ from .basicanalyzer import BasicAnalyzer
 
 class PasteTitleAnalyzer(BasicAnalyzer):
     """Analyzer to match Paste titles via regex"""
+
     name = "PasteTitleAnalyzer"
 
     def __init__(self, actions, regex, flags=0, blacklist=None):

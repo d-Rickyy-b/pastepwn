@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2021-07-13
+### Fixed
+- Better protocol check in urlanalyzer ([a377aee](https://github.com/d-Rickyy-b/pastepwn/commit/a377aeea90a21dd47dac9b1408acc395464cfef3))
+- Use sys.exit() instead of exit() ([2d6cb67](https://github.com/d-Rickyy-b/pastepwn/commit/2d6cb6798b3f5cd3c8e41d4a7c80ad7905dda9da))
+- Add missing parameter 'unique_matches' for match function ([c9a2e99](https://github.com/d-Rickyy-b/pastepwn/commit/c9a2e9931c0d25b7645c0c9f2064246dbdcea188))
+
+### Added
+- Implemented ExactWordAnalyzer to match words exactly rather than partially ([08ebdbc](https://github.com/d-Rickyy-b/pastepwn/commit/08ebdbc3fb5c8431486f8367e039e8580c67770a))
+- Implemented BasicAnalyzer.unique(), which can be used to filter out duplicate matches from BasicAnalyzer.match()
+- Ability to enforce IP version for the connection to pastepwn ([3483566](https://github.com/d-Rickyy-b/pastepwn/commit/3483566870e6fd852eb462e31074817b02d67bdf))
+
+### Changed
+- BREAKING: Dropped support for Python < 3.6
+
 ## [1.3.1] - 2020-06-20
 ### Fixed
 - The PastebinScraper could not recognize error messages with IPv6 addresses.
@@ -33,12 +47,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Actions now get passed a list of matched results by the analyzer
 - New Analyzer: PasteTitleAnalyzer - Analyzer to match Paste titles via regex
 - New Analyzer: IPv4AddressAnalyzer - Match IPv4 addresses via regex
-- Subclasses of RegexAnalyzer now got a method `def verify(results)` that can be overwritten to filter matches so you only return valid results
+- Subclasses of RegexAnalyzer now got a method `def verify(results)` that can be overwritten to filter matches, so you only return valid results
 - EmailPasswordPairAnalyzer has now an optional parameter `min_amount` to specify how many pairs must be found to actually match
 - Base64Analyzer got an optional parameter `min_len` to specify how long a detected string must be at least to actually match
 - Logical operators for analyzers - you can now connect multiple analyzers with logical operators to specify more precisely when a paste should match ([aed2dbf](https://github.com/d-Rickyy-b/pastepwn/commit/aed2dbf615e7be4586747f5ea6f437663b422f57))
 ### Changed
-- Analyzers can now return a boolean or a list of matched results
+- Analyzers can now return a boolean, or a list of matched results
 - Actions now get passed a list of matched results by the analyzer and can
 - IBANAnalyzer will now filter out wrong IBANs and return a list of validated IBANs if the `validate` parameter is set to `True`
 ### Fixed
@@ -48,7 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Implement TemplatingEngine for filling template strings with content ([8481036](https://github.com/d-Rickyy-b/pastepwn/commit/8481036cc664011bfa5e778a845051426426f134))
 - Add custom request headers in request.py ([5043e0c](https://github.com/d-Rickyy-b/pastepwn/commit/5043e0cc05867b92cc058225a331b9e2450cd1e7))
-- Add flags to RegexAnalyzer to handle e.g. case insensitive matching ([ddd0dca](https://github.com/d-Rickyy-b/pastepwn/commit/ddd0dcaae707de4c6fe9c1f08fe7d7334e0584f6))
+- Add flags to RegexAnalyzer to handle e.g. case-insensitive matching ([ddd0dca](https://github.com/d-Rickyy-b/pastepwn/commit/ddd0dcaae707de4c6fe9c1f08fe7d7334e0584f6))
 - logger object now usable from within any analyzer ([d21532e](https://github.com/d-Rickyy-b/pastepwn/commit/d21532ef2553ee8a1dca3f41f54b1ab0a0ac37bc))
 - Implement logical analyzers (and/or) ([94fc691](https://github.com/d-Rickyy-b/pastepwn/commit/94fc691c0ddba7f201501e74ed0c629e8f219458))
 - Implement listify method to create lists from a given input ([e935122](https://github.com/d-Rickyy-b/pastepwn/commit/e935122aa04a729a4abb82a65880e99345b5051f))
@@ -109,7 +123,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Broken behaviour for WordAnalyzer blacklist ([df2dd5b](https://github.com/d-Rickyy-b/pastepwn/commit/df2dd5b1627915f1b3996e7c4a10349ad837f7e2))
 - Reduced sleep time in order to shut down pastepwn faster ([55bb18d](https://github.com/d-Rickyy-b/pastepwn/commit/55bb18d17ee27e443b244dcd3ea2a0362fc5853a))
 - Add check in GenericAnalyzer if parameter is callable ([781d6d0](https://github.com/d-Rickyy-b/pastepwn/commit/781d6d0324fb73d93f9d8789aa08a0e72a597825))
-- WordAnalyzer not matching in case sensitive mode ([8762ddd](https://github.com/d-Rickyy-b/pastepwn/commit/8762dddc2a41f01db45549006d8a9707fa1203a6))
+- WordAnalyzer not matching in case-sensitive mode ([8762ddd](https://github.com/d-Rickyy-b/pastepwn/commit/8762dddc2a41f01db45549006d8a9707fa1203a6))
 
 ## [1.0.14] - 2019-09-04
 ### Added
@@ -165,7 +179,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.8] - 2018-10-22
 First stable release
 
-[unreleased]: https://github.com/d-Rickyy-b/pastepwn/compare/v1.3.1...HEAD
+[unreleased]: https://github.com/d-Rickyy-b/pastepwn/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/d-Rickyy-b/pastepwn/compare/v1.3.1...v2.0.0
 [1.3.1]: https://github.com/d-Rickyy-b/pastepwn/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/d-Rickyy-b/pastepwn/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/d-Rickyy-b/pastepwn/compare/v1.1.0...v1.2.0

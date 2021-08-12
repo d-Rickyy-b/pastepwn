@@ -67,5 +67,5 @@ class TestAdobeKeyAnalyzer(unittest.TestCase):
         self.assertEqual(list, type(self.analyzer.match(self.paste)))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

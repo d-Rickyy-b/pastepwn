@@ -15,8 +15,9 @@ class IPv4AddressAnalyzer(RegexAnalyzer):
         verified_ips = []
         for result in results:
             # Check each IP
+            octet_max_value = 255
             for octet in result.split("."):
-                if int(octet) > 255:
+                if int(octet) > octet_max_value:
                     break
             else:
                 # IP is valid

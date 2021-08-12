@@ -18,7 +18,6 @@ class TemplatingEngine(object):
         :param matches: A list of matches that was returned from the analyzer
         :return: Filled template
         """
-
         paste_dict = paste.to_dict()
         paste_dict["analyzer_name"] = analyzer_name
 
@@ -26,9 +25,7 @@ class TemplatingEngine(object):
             paste_dict["matches"] = ""
         else:
             # When there are elements in the matches object, we want them to be formatted as single string
-            matches_str = ""
-            for element in matches:
-                matches_str += "{}\n".format(element)
+            matches_str = "\n".join(matches)
             paste_dict["matches"] = matches_str
 
         # Possibility to insert own/custom values into the paste_dict thus gives more control over the template string
@@ -40,5 +37,4 @@ class TemplatingEngine(object):
             template_string = "New paste matched by analyzer '${analyzer_name}' - Link: ${full_url}\n\nMatches:\n${matches}"
 
         template = Template(template_string)
-        text = template.safe_substitute(DictWrapper(paste_dict))
-        return text
+        return template.safe_substitute(DictWrapper(paste_dict))

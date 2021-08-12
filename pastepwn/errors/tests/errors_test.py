@@ -23,5 +23,5 @@ class TestErrors(unittest.TestCase):
         self.assertEqual(str(mock), str(error))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -30,5 +30,5 @@ class TestAlwaysTrueAnalyzer(unittest.TestCase):
         self.assertEqual([action], analyzer.actions)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

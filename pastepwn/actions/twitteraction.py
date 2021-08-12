@@ -19,7 +19,7 @@ class TwitterAction(BasicAction):
             access_token_key=None,
             access_token_secret=None,
             template=None,
-    ):
+            ):
         super().__init__()
 
         self.logger = logging.getLogger(__name__)
@@ -29,7 +29,7 @@ class TwitterAction(BasicAction):
             consumer_secret=consumer_secret,
             access_token_key=access_token_key,
             access_token_secret=access_token_secret,
-        )
+            )
         self.template = template
 
     def perform(self, paste, analyzer_name=None, matches=None):

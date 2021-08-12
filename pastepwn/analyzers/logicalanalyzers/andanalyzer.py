@@ -8,7 +8,7 @@ class AndAnalyzer(LogicalBaseAnalyzer):
 
     def match(self, paste):
         """Returns True if all of the passed analyzers matched"""
-        if len(self.analyzers) == 0:
+        if not self.analyzers:
             return False
 
         for analyzer in self.analyzers:

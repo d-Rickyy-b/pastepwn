@@ -11,8 +11,7 @@ class BasicAnalyzer(object):
     name = "BasicAnalyzer"
 
     def __init__(self, actions, identifier=None):
-        """
-        Basic analyzer which is extended to create other analyzer subclasses
+        """Basic analyzer which is extended to create other analyzer subclasses.
         :param actions: A single action or a list of actions to be executed on every paste
         :param identifier: The name or unique identifier for this specific analyzer
         """
@@ -26,21 +25,28 @@ class BasicAnalyzer(object):
             self._check_action(action)
 
     def add_action(self, action):
-        """
-        Adds a new action to the already present actions
+        """Adds a new action to the already present actions.
         :param action: New action to add to the present actions
         :return: None
         """
         self._check_action(action)
         self.actions.append(action)
 
-    def match(self, paste):
-        """
-        Checks if a certain paste is matched by the conditions set for this analyzer
-        :param paste: A :class:`pastepwn.core.paste` object which should be matched
-        :return: :obj:`bool` if the paste has been matched
+    def match(self, paste, unique_matches=False):
+        """Checks if a certain paste is matched by the conditions set for this analyzer.
+        :param paste: A Paste object which should be matched
+        :param unique_matches: A boolean that specifies if matches should be unique - has currently NO effect on merged analyzers!
+        :return: A boolean that indicates if the paste has been matched
         """
         raise NotImplementedError("Your analyzer must implement the match method!")
+
+    @staticmethod
+    def unique(matches):
+        """Takes a list of matches and returns a list with no duplicates.
+        :param matches: A list of matches
+        :return: A filtered list of matches retaining order
+        """
+        return sorted(set(matches), key=matches.index)
 
     def _check_action(self, action):
         """Check if a passed action is a subclass of BasicAction"""
@@ -66,8 +72,7 @@ class BasicAnalyzer(object):
 
 
 class MergedAnalyzer(BasicAnalyzer):
-    """
-    Combination class to combine multiple analyzers into a single one
+    """Combination class to combine multiple analyzers into a single one.
     Doesn't need to be created manually - use the binary operators (& and |) to combine multiple analyzers.
     """
     name = "MergedAnalyzer"
@@ -84,19 +89,18 @@ class MergedAnalyzer(BasicAnalyzer):
             actions = base_analyzer.actions + self._or_analyzer.actions
             identifier = "({} || {})".format(base_analyzer.identifier, self._or_analyzer)
         else:
-            actions = []
-            identifier = "Broken analyzer"
-            self.logger.error("Neither and_analyzer nor or_analyzer are set!")
+            raise ValueError("Neither and_analyzer nor or_analyzer are set!")
 
         super().__init__(actions, identifier=identifier)
 
-    def match(self, paste):
+    def match(self, paste, unique_matches=False):
+        """Checks if a certain paste is matched by the conditions set for this analyzer.
+        :param paste: A Paste object which should be matched
+        :param unique_matches: A boolean that specifies if matches should be unique - has currently NO effect on merged analyzers!
+        :return: A boolean that indicates if the paste has been matched
         """
-        Checks if a certain paste is matched by the conditions set for this analyzer
-        :param paste: A :class:`pastepwn.core.paste` object which should be matched
-        :return: :obj:`bool` if the paste has been matched
-        """
+        base_analyzer_match = bool(self._base_analyzer.match(paste))
         if self._and_analyzer:
-            return bool(self._base_analyzer.match(paste)) and bool(self._and_analyzer.match(paste))
+            return base_analyzer_match and bool(self._and_analyzer.match(paste))
         elif self._or_analyzer:
-            return bool(self._base_analyzer.match(paste)) or bool(self._or_analyzer.match(paste))
+            return base_analyzer_match or bool(self._or_analyzer.match(paste))

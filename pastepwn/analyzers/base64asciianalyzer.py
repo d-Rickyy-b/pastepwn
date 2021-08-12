@@ -6,7 +6,7 @@ import binascii
 
 class Base64AsciiAnalyzer(Base64Analyzer):
     """Analyzer to match base64 strings which decode to valid ASCII"""
-    name = 'Base64AsciiAnalyzer'
+    name = "Base64AsciiAnalyzer"
 
     def __init__(self, actions, min_len=1, decode=False):
         super().__init__(actions, min_len)
@@ -30,7 +30,7 @@ class Base64AsciiAnalyzer(Base64Analyzer):
 
             # Check if the valid base64 decodes to plain ascii
             try:
-                b64_ascii_string = decoded_string.decode('ascii')
+                b64_ascii_string = decoded_string.decode("ascii")
             except UnicodeDecodeError:
                 continue
 

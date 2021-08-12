@@ -17,7 +17,7 @@ class Request(object):
         if Request._instance is None:
             with Request._lock:
                 if Request._instance is None:
-                    Request._instance = super(Request, cls).__new__(cls)
+                    Request._instance = super().__new__(cls)
         return Request._instance
 
     def __init__(self, proxies=None, headers=None):
@@ -28,24 +28,23 @@ class Request(object):
             self.headers = headers
             self.logger.info("Using the following custom proxies: {}".format(proxies))
             self.logger.info("Using the following system proxies: {}".format(utils.get_environ_proxies("https://example.com")))
-            self._initialized = True
+            Request._initialized = True
 
     def _request_wrapper(self, data, timeout, *args, **kwargs):
         headers = {
             "User-Agent": "pastepwn (https://github.com/d-Rickyy-b/pastepwn)"
-        }
+            }
 
         if self.headers is not None:
             headers.update(self.headers)
 
         try:
             response = self.session.request(headers=headers, proxies=self.proxies, data=data, timeout=timeout, *args, **kwargs)
-            response_data = response.content.decode("utf-8")
         except Timeout:
             self.logger.warning("Timeout while requesting {0}!".format(kwargs.get("url")))
             return ""
 
-        return response_data
+        return response.content.decode("utf-8")
 
     def get(self, url, data=None, timeout=5):
         return self._request_wrapper(method="GET", url=url, data=data, timeout=timeout)

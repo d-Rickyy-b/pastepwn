@@ -7,7 +7,7 @@ class WebhookAction(BasicAction):
     """Action to perform a Webhook on a matched paste"""
     name = "WebhookAction"
 
-    def __init__(self, url, post_data=None):
+    def __init__(self, url, post_data=True):
         """
         Init method for the WebhookAction
         :param url: string, URL to POST against

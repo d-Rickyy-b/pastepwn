@@ -10,6 +10,8 @@ from pastepwn.util import TemplatingEngine
 from pastepwn.util.threadingutils import start_thread, join_threads
 from .basicaction import BasicAction
 
+MAX_MSG_SIZE = 512
+
 
 class IrcAction(BasicAction):
     """Action to send an irc message to a certain channel"""
@@ -28,11 +30,11 @@ class IrcAction(BasicAction):
         self.template = template
 
         if not channel.startswith("#"):
-            channel = "#" + channel
+            channel = "#{0}".format(channel)
         self.channel = channel
 
         # RFC1459 says that each message can only be 512 bytes including the CR-LF character
-        self._max_msg_size = 512 - len("PRIVMSG {}".format(channel)) - len("\r\n")
+        self._max_payload_size = MAX_MSG_SIZE - len("PRIVMSG {0}".format(channel)) - len("\r\n")
 
         self._exception_event = Event()
         self._stop_event = Event()
@@ -41,8 +43,7 @@ class IrcAction(BasicAction):
         self._thread = start_thread(self._run_irc_client, "irc_client", exception_event=self._exception_event)
 
     def _run_irc_client(self):
-        """
-        Runs an IRC client, which handles sending messages and answering on Server PINGs
+        """Runs an IRC client, which handles sending messages and answering on Server PINGs.
         :return: None
         """
         # Connect to the IRC
@@ -56,9 +57,9 @@ class IrcAction(BasicAction):
             readables, writables, exceptionals = select.select([self.ircsock], [self.ircsock], [self.ircsock])
             # When we got a readable socket, we read it's content
             if len(readables) == 1:
-                data += self.ircsock.recv(512).decode("UTF-8")
+                data += self.ircsock.recv(MAX_MSG_SIZE).decode("UTF-8")
 
-                if len(data) == 0:
+                if data == 0:
                     self.logger.error("The socket was disconnected!")
                     self._reconnect()
 
@@ -72,17 +73,18 @@ class IrcAction(BasicAction):
             if self._stop_event.is_set():
                 break
 
-            try:
-                # As long as we are not connected, we don't want to send any messages
-                if not self.connected:
-                    continue
+            # As long as we are not connected, we don't want to send any messages
+            if not self.connected:
+                continue
 
+            try:
                 # We don't need to speed up message sending - We are only allowed 1 message every 2 seconds according to RFC 1459
                 msg = self._msg_queue.get(True, 1)
-                self.logger.debug("New message on msg_queue: {}".format(msg))
-                self._send("PRIVMSG {} :{}".format(self.channel, msg))
             except Empty:
                 continue
+
+            self.logger.debug("New message on msg_queue: {0}".format(msg))
+            self._send("PRIVMSG {0} :{1}".format(self.channel, msg))
 
     def _handle_message(self, message):
         """
@@ -105,7 +107,7 @@ class IrcAction(BasicAction):
             self.connected = True
             self._join()
 
-        elif words[1] == 'PRIVMSG' and words[2] == self.channel and '!status' in words[3] and self.connected:
+        elif words[1] == "PRIVMSG" and words[2] == self.channel and "!status" in words[3] and self.connected:
             # A little gimmick to check the status of pastepwn via IRC
             self._send_message("Pastepwn is still functional and operating!")
 
@@ -115,9 +117,9 @@ class IrcAction(BasicAction):
         :return: None
         """
         try:
-            self.ircsock.send(bytes(data + "\r\n", "UTF-8"))
+            self.ircsock.send(bytes("{0}\r\n".format(data), "UTF-8"))
         except ConnectionAbortedError as e:
-            self.logger.error("Connection to IRC server lost: " + str(e))
+            self.logger.error("Connection to IRC server lost: ", e)
             self._reconnect()
 
     def _reconnect(self):
@@ -132,7 +134,7 @@ class IrcAction(BasicAction):
             try:
                 self._connect()
             except Exception as e:
-                self.logger.error("Exception while trying to connect to the IRC server occurred: " + str(e))
+                self.logger.error("Exception while trying to connect to the IRC server occurred: ", e)
                 self.logger.info("Sleeping for 10 seconds before trying next reconnect!")
                 sleep(10)
             else:
@@ -193,11 +195,13 @@ class IrcAction(BasicAction):
         """
         # We need to remove all newlines in a message, so that the whole message can be sent
         # because RFC 1459 defines CRLF as End of Message
-        msg = msg.replace("\r\n", " ").replace("\r", " ").replace("\n", " ")
-        if len(msg) > self._max_msg_size:
+        msg = msg.replace("\r\n", " ")
+        msg = msg.replace("\r", " ")
+        msg = msg.replace("\n", " ")
+        if len(msg) > self._max_payload_size:
             # We need to split up the message into two parts and send it recursively
-            self._send_message(msg[:self._max_msg_size])
-            self._send_message(msg[self._max_msg_size:])
+            self._send_message(msg[:self._max_payload_size])
+            self._send_message(msg[self._max_payload_size:])
             return
 
         # Otherwise we can simply put it on the queue as a whole
@@ -210,7 +214,7 @@ class IrcAction(BasicAction):
     def perform(self, paste, analyzer_name=None, matches=None):
         """Perform the action on the passed paste"""
         if self._exception_event.is_set():
-            self.logger.error("The exception event is set. The IRC action might not perform as it should! Messages will be buffered for the case of a "
-                              "reconnect.")
+            self.logger.error("The exception event is set. The IRC action might not perform as it should! Messages will"
+                              " be buffered for the case of a reconnect.")
         text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template, matches=matches)
         self._send_message(text)

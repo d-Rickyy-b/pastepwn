@@ -17,7 +17,4 @@ class PhoneNumberAnalyzer(RegexAnalyzer):
         """Verify possible phone numbers"""
         # Currently we don't really do verifications - we only replace spaces in the end,
         # because our regex also matches whitespace in the end
-        verified_numbers = []
-        for result in results:
-            verified_numbers.append(result.rstrip())
-        return verified_numbers
+        return [result.rstrip() for result in results]

@@ -17,7 +17,8 @@ class PasteTest(unittest.TestCase):
              "title": "Once we all know when we goto function",
              "syntax": "java",
              "user": "admin",
-             "body": "This is a test for pastepwn"}
+             "body": "This is a test for pastepwn"
+             }
 
         self.p = p
         self.paste = Paste(p.get("key"),
@@ -28,7 +29,8 @@ class PasteTest(unittest.TestCase):
                            p.get("expire"),
                            p.get("syntax"),
                            p.get("scrape_url"),
-                           p.get("full_url"))
+                           p.get("full_url")
+                           )
 
     def tearDown(self):
         pass
@@ -63,5 +65,5 @@ class PasteTest(unittest.TestCase):
         self.assertEqual(self.p, paste_dict)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -4,6 +4,7 @@ from .regexanalyzer import RegexAnalyzer
 
 class MD5HashAnalyzer(RegexAnalyzer):
     """Analyzer to match MD5 password hashes via regex"""
+
     name = "MD5HashAnalyzer"
 
     def __init__(self, actions):

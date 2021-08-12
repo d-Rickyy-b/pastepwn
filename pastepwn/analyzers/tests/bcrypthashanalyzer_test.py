@@ -19,7 +19,8 @@ class TestBcryptHashAnalyzer(unittest.TestCase):
                         "$2a$10$59SNkcZ0rdC2VgeWaavVyea9PFget/xmtbV7.9IeJl3CUq.Q954i2",
                         "$2b$10$Y8CJ9YIwrxt1YYgMqqU1delCYoTpIl18SRtYYI2kyM3jduKPHvWMC",
                         "$2a$10$2tNCUb.FUpSutyhkbqmMBuNnLzhqI4q9Miqurnj6eu.XsiIjww7I6",
-                        "$2a$10$OyrADUFmj9QEqsd8frkEDOEYSPQalW5qoI1s2z6taCWwgUsjKzk5m"]
+                        "$2a$10$OyrADUFmj9QEqsd8frkEDOEYSPQalW5qoI1s2z6taCWwgUsjKzk5m"
+                        ]
 
         invalid_hashes = ["7168D46050573DDA4CE409FA1515638BD28E86346D45F686310ED0678172BABCD4117FD15DD380B964352FE879FB745B573A730D526BB1188B2790FBA06E8ACA",
                           "5FD924625F6AB16A19CC9807C7C506AE1813490E4BA675F843D5A10E0BAACDB8",
@@ -71,5 +72,5 @@ class TestBcryptHashAnalyzer(unittest.TestCase):
         self.assertEqual([action], analyzer.actions)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

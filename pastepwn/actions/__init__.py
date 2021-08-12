@@ -13,7 +13,7 @@ from .savejsonaction import SaveJSONAction
 from .telegramaction import TelegramAction
 from .twitteraction import TwitterAction
 
-__all__ = (
+__all__ = [
     "BasicAction",
     "SaveFileAction",
     "TelegramAction",
@@ -26,4 +26,4 @@ __all__ = (
     "IrcAction",
     "MISPAction",
     "EmailAction"
-)
+    ]

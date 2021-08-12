@@ -2,4 +2,4 @@
 
 from .pastebinscraper import PastebinScraper
 
-__all__ = ('PastebinScraper')
+__all__ = ["PastebinScraper"]

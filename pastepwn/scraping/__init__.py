@@ -2,4 +2,4 @@
 
 from .basicscraper import BasicScraper
 
-__all__ = ('BasicScraper')
+__all__ = ["BasicScraper"]

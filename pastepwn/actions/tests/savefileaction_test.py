@@ -1,107 +1,194 @@
 # -*- coding: utf-8 -*-
-import os
-import shutil
 import unittest
+from unittest.mock import Mock, patch
 
-from pastepwn import Paste
 from pastepwn.actions.savefileaction import SaveFileAction
 
 
 class TestSaveFileAction(unittest.TestCase):
+
     def setUp(self):
-        """Setup the environment to test the action"""
-        current_path = os.path.dirname(os.path.abspath(__file__))
-        self.paste_path = os.path.join(current_path, "pastes")
-
-        # Remove the directory
-        try:
-            shutil.rmtree(self.paste_path, ignore_errors=False)
-        except FileNotFoundError as e:
-            # Directory not there
-            pass
-
-        # Create it again
-        if not os.path.exists(self.paste_path):
-            os.makedirs(self.paste_path)
-
-    def tearDown(self):
-        """Reset the environment to a clean state"""
-        # Remove the directory
-        shutil.rmtree(self.paste_path, ignore_errors=True)
+        """Sets up the test case"""
+        self.action = SaveFileAction(path="")
+        self.paste = Mock()
+        self.path_mock = Mock()
+        self.path_mock.__truediv__ = Mock(side_effect=self.side_effect)
+        self.path_mock.exists = Mock(return_value=True)
 
     @staticmethod
-    def generate_paste():
-        """Returns a paste for testing"""
-        p = {"scrape_url": "https://scrape.pastebin.com/api_scrape_item.php?i=0CeaNm8Y",
-             "full_url": "https://pastebin.com/0CeaNm8Y",
-             "date": "1442911802",
-             "key": "0CeaNm8Y",
-             "size": "890",
-             "expire": "1442998159",
-             "title": "Once we all know when we goto function",
-             "syntax": "java",
-             "user": "admin",
-             "body": "This is a test for pastepwn"}
-
-        return Paste(p.get("key"), p.get("title"), p.get("user"), p.get("size"), p.get("date"), p.get("expire"), p.get("syntax"), p.get("scrape_url"),
-                     p.get("full_url"))
+    def side_effect(path):
+        return path
 
     def test_init(self):
-        """Check if initializing the action sets it up correctly"""
-        template = "this is a template"
-        file_ending = ".txt"
-        action = SaveFileAction(self.paste_path, file_ending=file_ending, template=template)
-        self.assertEqual(action.path, self.paste_path)
-        self.assertEqual(action.file_ending, file_ending)
-        self.assertEqual(action.template, template)
+        """Check if parameters are saved correctly"""
+        self.action = SaveFileAction(path="/this/is/a/test")
+        self.assertEqual("/this/is/a/test", self.action.path.as_posix())
 
-    def test_perform(self):
-        """Check if storing the paste works as expected"""
-        action = SaveFileAction(self.paste_path)
+        self.action = SaveFileAction(path="Test")
+        self.assertEqual("Test", self.action.path.as_posix())
 
-        paste = self.generate_paste()
-        file_path = os.path.join(self.paste_path, paste.key + ".txt")
+        # Check if multiple values for init are stored correctly
+        self.action = SaveFileAction(path="/test", file_ending=".txt", template="Template string")
+        self.assertEqual("/test", self.action.path.as_posix())
+        self.assertEqual(".txt", self.action.file_ending)
+        self.assertEqual("Template string", self.action.template)
 
-        # Perform the action == save the paste to the disk
-        action.perform(paste, analyzer_name="TestSaveFileAction")
+        # Check if
+        self.action = SaveFileAction(path="/test")
+        self.assertEqual(".txt", self.action.file_ending)
+        self.assertEqual("${body}", self.action.template)
 
-        # Make sure that the file named after the paste exists
-        file_exists = os.path.exists(file_path)
-        self.assertTrue(file_exists, msg="The file '{}' does not exist!".format(file_path))
+    @patch("builtins.open")
+    @patch("pastepwn.actions.savefileaction.TemplatingEngine")
+    def test_perform_path_not_exists(self, te_mock, open_mock):
+        """Check if calling perform with non existing path works as intended."""
+        te_mock.fill_template = Mock(return_value="This is some content")
 
-        with open(file_path, "r", encoding="utf-8") as f:
-            self.assertEqual(paste.body, f.read(), msg="The paste's content is different than expected!")
+        # Mock pathlib to be independent of filesystem for this test
+        self.path_mock.exists = Mock(return_value=False)
+        self.action.path = self.path_mock
 
-    def _generic_file_ending_check(self, file_ending, exp_file_ending=None):
-        """Generic function to test if the files are stored with their correct file endings"""
-        expected_file_ending = exp_file_ending or file_ending
-        action = SaveFileAction(self.paste_path, file_ending=file_ending)
-        paste = self.generate_paste()
+        # We need to make sure that the file's name is the key
+        self.paste.key = "thisIsTheRythmOfTheFile"
 
-        file_path = os.path.join(self.paste_path, paste.key + expected_file_ending)
+        self.action.perform(self.paste, "", [])
 
-        # Perform the action == save the paste to the disk
-        action.perform(paste, analyzer_name="TestSaveFileAction")
+        # Since the path didn't exist, we must have called "mkdir" once
+        self.action.path.mkdir.assert_called_once_with(parents=True, exist_ok=True)
 
-        file_exists = os.path.exists(file_path)
-        self.assertTrue(file_exists, msg="The file '{}' does not exist!".format(file_path))
+        # fill_template must be called for the perform method
+        te_mock.fill_template.assert_called_once()
 
-    def test_other_file_ending(self):
-        """Check if using another file ending works fine"""
-        self._generic_file_ending_check(".yml")
-        self._generic_file_ending_check(".test")
-        self._generic_file_ending_check(".text")
+        # Make sure that the file was opened and written
+        open_mock.assert_called_with("thisIsTheRythmOfTheFile.txt", "w", encoding="utf-8")
+        open_mock().__enter__().write.assert_called_with("This is some content")
 
-    def test_empty_file_ending(self):
-        """Check if using an empty file ending works fine"""
-        self._generic_file_ending_check("")
+    @patch("builtins.open")
+    @patch("pastepwn.actions.savefileaction.TemplatingEngine")
+    def test_perform_path_exists(self, te_mock, open_mock):
+        """Check if calling perform with non existing path works as intended."""
+        te_mock.fill_template = Mock(return_value="Some other content")
 
-    def test_missingdot_file_ending(self):
-        """Check if using a file ending without dot works fine"""
-        self._generic_file_ending_check("txt", ".txt")
-        self._generic_file_ending_check("test", ".test")
-        self._generic_file_ending_check("yml", ".yml")
+        # Mock pathlib to be independent of filesystem and write rights for this test
+        self.action.path = self.path_mock
+
+        # We need to make sure that the file's name is the key
+        self.paste.key = "myFile"
+
+        self.action.perform(self.paste, "", [])
+
+        # Since the path did exist, we mustn't call "mkdir"
+        self.action.path.mkdir.assert_not_called()
+
+        # fill_template must be called for the perform method
+        te_mock.fill_template.assert_called_once()
+
+        # Make sure that the file was opened and written
+        open_mock.assert_called_with("myFile.txt", "w", encoding="utf-8")
+        open_mock().__enter__().write.assert_called_with("Some other content")
+
+    @patch("builtins.open")
+    @patch("pastepwn.actions.savefileaction.TemplatingEngine")
+    def test_perform_file_ending_empty(self, te_mock, open_mock):
+        """Check if calling perform with non existing path works as intended."""
+        te_mock.fill_template = Mock(return_value="Again another content")
+
+        # Mock pathlib to be independent of filesystem and write rights for this test
+        self.action.path = self.path_mock
+        self.action.file_ending = ""
+
+        # We need to make sure that the file's name is the key
+        file_name = "nameOfAFile"
+        self.paste.key = Mock()
+        self.paste.key.__repr__ = Mock(return_value=file_name)
+
+        self.action.perform(self.paste, "", [])
+
+        # Since the path did exist, we mustn't call "mkdir"
+        self.action.path.mkdir.assert_not_called()
+
+        # fill_template must be called for the perform method
+        te_mock.fill_template.assert_called_once()
+
+        # We called str(paste.key) once
+        self.paste.key.__repr__.assert_called_once()
+
+        # Make sure that the file was opened and written
+        open_mock.assert_called_with(file_name, "w", encoding="utf-8")
+        open_mock().__enter__().write.assert_called_with("Again another content")
+
+    @patch("builtins.open")
+    @patch("pastepwn.actions.savefileaction.TemplatingEngine")
+    def test_perform_file_ending(self, te_mock, open_mock):
+        """Check if calling perform with non existing path works as intended."""
+        te_mock.fill_template = Mock(return_value="This is some content")
+
+        self.action.path = self.path_mock
+        self.action.file_ending = ".asdf"
+
+        # We need to make sure that the file's name is the key
+        self.paste.key = Mock()
+        self.paste.key.__repr__ = Mock(return_value="123456")
+
+        self.action.perform(self.paste, "", [])
+
+        self.action.path.mkdir.assert_not_called()
+        te_mock.fill_template.assert_called_once()
+        self.paste.key.__repr__.assert_called_once()
+
+        # Make sure that the file was opened and written
+        open_mock.assert_called_with("123456.asdf", "w", encoding="utf-8")
+        open_mock().__enter__().write.assert_called_with("This is some content")
+
+    @patch("pastepwn.actions.savefileaction.TemplatingEngine")
+    def test_get_file_content(self, te_mock):
+        """Check if the content of the file is returned correctly"""
+        te_mock.fill_template = Mock(return_value="This is the content")
+        content = self.action.get_file_content(self.paste, "", [])
+        self.assertEqual("This is the content", content)
+
+    def test__remove_prefix(self):
+        """Check if removing prefixes from a string works fine."""
+        input_string = ".txt"
+        prefix = "."
+        res = self.action._remove_prefix(input_string, prefix)
+        self.assertEqual("txt", res)
+
+        input_string = ".json"
+        prefix = "."
+        res = self.action._remove_prefix(input_string, prefix)
+        self.assertEqual("json", res)
+
+        input_string = ".txt"
+        prefix = "_"
+        res = self.action._remove_prefix(input_string, prefix)
+        self.assertEqual(".txt", res)
+
+        input_string = ""
+        prefix = "."
+        res = self.action._remove_prefix(input_string, prefix)
+        self.assertEqual("", res)
+
+        input_string = "..txt"
+        prefix = "."
+        res = self.action._remove_prefix(input_string, prefix)
+        self.assertEqual(".txt", res)
+
+        input_string = ".txt."
+        prefix = "."
+        res = self.action._remove_prefix(input_string, prefix)
+        self.assertEqual("txt.", res)
+
+        input_string = "This is a very long string without prefix"
+        prefix = "A"
+        res = self.action._remove_prefix(input_string, prefix)
+        self.assertEqual("This is a very long string without prefix", res)
+
+        input_string = "AAABBBCCC"
+        prefix = "A"
+        res = self.action._remove_prefix(input_string, prefix)
+        self.assertEqual("AABBBCCC", res)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

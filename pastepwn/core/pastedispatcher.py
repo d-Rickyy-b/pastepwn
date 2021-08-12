@@ -24,10 +24,6 @@ class PasteDispatcher(object):
         self.__exception_event = exception_event or Event()
         self.__stop_event = Event()
 
-    def _pool_thread(self):
-        while True:
-            pass
-
     def add_analyzer(self, analyzer):
         """Adds an analyzer to the list of analyzers"""
         with self.__lock:
@@ -37,7 +33,7 @@ class PasteDispatcher(object):
         """Starts dispatching the downloaded pastes to the list of analyzers"""
         with self.__lock:
             if not self.running:
-                if len(self.analyzers) == 0:
+                if not self.analyzers:
                     self.logger.warning("No analyzers added! At least one analyzer must be added prior to use!")
                     return None
 
@@ -61,10 +57,6 @@ class PasteDispatcher(object):
             try:
                 # Get paste from queue
                 paste = self.paste_queue.get(True, 1)
-
-                # TODO implement thread pool to limit number of parallel executed threads
-                # Don't add these threads to the list. Otherwise they will just block the list
-                start_thread(self._process_paste, "process_paste", paste=paste, exception_event=self.__exception_event)
             except Empty:
                 if self.__stop_event.is_set():
                     self.logger.debug("orderly stopping")
@@ -75,6 +67,10 @@ class PasteDispatcher(object):
                     self.running = False
                     break
                 continue
+
+            # TODO implement thread pool to limit number of parallel executed threads
+            # Don't add these threads to the list. Otherwise they will just block the list
+            start_thread(self._process_paste, "process_paste", paste=paste, exception_event=self.__exception_event)
 
     def _process_paste(self, paste):
         self.logger.debug("Analyzing Paste: {0}".format(paste.key))

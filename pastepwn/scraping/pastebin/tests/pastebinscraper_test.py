@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
+
 from pastepwn.scraping.pastebin import PastebinScraper
 from pastepwn.scraping.pastebin.exceptions import IPNotRegisteredError, PasteDeletedException, PasteNotReadyException, PasteEmptyException
 
@@ -45,5 +46,5 @@ class TestPastebinscraper(unittest.TestCase):
         self._check_ip_not_registered(ipv6_test)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

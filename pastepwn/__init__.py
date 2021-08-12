@@ -10,4 +10,4 @@ from .core.actionhandler import ActionHandler
 
 __author__ = "d-Rickyy-b (pastepwn@rico-j.de)"
 
-__all__ = ['PastePwn', 'Paste', 'PasteDispatcher', 'ScrapingHandler', 'ActionHandler']
+__all__ = ["PastePwn", "Paste", "PasteDispatcher", "ScrapingHandler", "ActionHandler"]

@@ -3,9 +3,7 @@ from .regexanalyzer import RegexAnalyzer
 
 
 class BattleNetKeyAnalyzer(RegexAnalyzer):
-    """
-    Analyzer to match battle.net keys via regex
-    """
+    """Analyzer to match battle.net keys via regex."""
     name = "BattleNetKeyAnalyzer"
 
     def __init__(self, actions):

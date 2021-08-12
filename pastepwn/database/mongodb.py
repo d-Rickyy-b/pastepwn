@@ -13,7 +13,8 @@ class MongoDB(AbstractDB):
         super().__init__()
         self.logger = logging.getLogger(__name__)
         self.logger.debug("Initializing MongoDB - {0}:{1}".format(ip, port))
-        self.db = pymongo.MongoClient(ip, port, serverSelectionTimeoutMS=5000)
+        timeout_ms = 5000
+        self.db = pymongo.MongoClient(ip, port, serverSelectionTimeoutMS=timeout_ms)
 
         try:
             self.db.admin.command("ismaster")
@@ -25,10 +26,10 @@ class MongoDB(AbstractDB):
 
         self.db = self.db[dbname]
         self.collection = self.db[collectionname]
-        self.collection.create_index([('key', pymongo.ASCENDING)], unique=True)
+        self.collection.create_index([("key", pymongo.ASCENDING)], unique=True)
 
     def _insert_data(self, data):
-        self.collection.update_one({'key': data['key']}, {'$set': data}, upsert=True)
+        self.collection.update_one({"key": data["key"]}, {"$set": data}, upsert=True)
 
     def _get_data(self, key, value):
         return self.collection.find({key: value})

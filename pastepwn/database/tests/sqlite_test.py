@@ -13,9 +13,9 @@ from pastepwn.database import SQLiteDB
 class SQLiteDBTest(unittest.TestCase):
 
     def setUp(self):
-        rand_text = list()
+        rand_text = []
         for _ in range(3):
-            rand_text.append(''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(8)))
+            rand_text.append("".join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(8)))
 
         p = {"scrape_url": "https://scrape.pastebin.com/api_scrape_item.php?i=" + rand_text[0],
              "full_url": "https://pastebin.com/" + rand_text[0],
@@ -43,11 +43,16 @@ class SQLiteDBTest(unittest.TestCase):
         self.database = SQLiteDB(dbpath="sqlite_test/pastepwn_test")
 
     def tearDown(self):
+        self.database.close_connection()
         shutil.rmtree(os.path.dirname(self.database.dbpath))
 
     def test_insert_same_key(self):
-        for body_text in self.p['body']:
+        for body_text in self.p["body"]:
             self.paste.set_body(body_text)
             self.database.store(self.paste)
 
-        self.assertEqual(self.database.cursor.execute("SELECT body FROM pastes WHERE key = \'{0}\'".format(self.p['key'])).fetchone()[0], self.p['body'][1])
+        self.assertEqual(self.database.cursor.execute("SELECT body FROM pastes WHERE key = \'{0}\'".format(self.p["key"])).fetchone()[0], self.p["body"][1])
+
+
+if __name__ == "__main__":
+    unittest.main()
