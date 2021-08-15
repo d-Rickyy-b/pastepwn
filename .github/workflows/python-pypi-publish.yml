@@ -23,7 +23,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install setuptools wheel twine pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          if [ -f requirements_flake8.txt ]; then pip install -r requirements_flake8; fi
+          if [ -f requirements_flake8.txt ]; then pip install -r requirements_flake8.txt; fi
       - name: Lint with flake8
         run: |
           # stop the build if there are Python syntax errors or undefined names
