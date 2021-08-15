@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
+import os
 import sys
 import unittest
 from unittest.mock import Mock
@@ -8,6 +9,7 @@ from pastepwn import Paste
 from pastepwn.actions.discordaction import DiscordAction
 
 
+@unittest.skipIf(os.getenv("CI"), "running on CI")
 class TestDiscordAction(unittest.TestCase):
     def setUp(self):
         """Setup the environment to test the action"""
