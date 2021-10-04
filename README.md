@@ -7,7 +7,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/d-Rickyy-b/pastepwn/badge.svg?branch=master)](https://coveralls.io/github/d-Rickyy-b/pastepwn?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/513ae84197824ff89c0a60a5291c4425)](https://www.codacy.com/manual/d-Rickyy-b/pastepwn?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=d-Rickyy-b/pastepwn&amp;utm_campaign=Badge_Grade)
 
-[Pastebin](https://pastebin.com) is a very helpful tool to store or rather share ascii encoded data online. In the world of OSINT, pastebin is being used by [researchers all around the world](https://www.troyhunt.com/introducing-paste-searches-and/) to retreive e.g. leaked account data, in order to find indicators about security breaches.
+[Pastebin](https://pastebin.com) is a very helpful tool to store or rather share ascii encoded data online. In the world of OSINT, pastebin is being used by [researchers all around the world](https://www.troyhunt.com/introducing-paste-searches-and/) to retrieve e.g. leaked account data, in order to find indicators about security breaches.
 
 *Pastepwn* is a framework to scrape pastes and scan them for certain indicators. There are several analyzers and actions to be used out-of-the-box, but it is also easily extensible - you can create your own analyzers and actions on the fly.
 
