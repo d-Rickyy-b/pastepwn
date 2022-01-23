@@ -38,6 +38,7 @@ if CI:
         GITHUB_REF = os.environ.get("GITHUB_REF")
         tag = GITHUB_REF.split("/")[-1]
         version = tag.replace("v", "")
+        print version
 else:
     # Taken from https://packaging.python.org/guides/single-sourcing-package-version/
     version_dict = {}
