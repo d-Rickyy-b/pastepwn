@@ -5,7 +5,10 @@ from .basicaction import BasicAction
 PASTEBIN_POST_URL = 'https://pastebin.com/api/api_post.php'
 
 class CreatePasteAction(BasicAction):
-    """Action to create a new Paste with custom content on PasteBin"""
+    """
+    Action to create a new Paste with custom content on Pastebin.
+    API Doc: https://pastebin.com/doc_api#2
+    """
     name = "CreatePasteAction"
 
     def __init__(self, dev_key, body='', title='', expire=None, syntax=None,
