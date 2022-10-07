@@ -5,10 +5,23 @@ from .basicaction import BasicAction
 PASTEBIN_POST_URL = 'https://pastebin.com/api/api_post.php'
 
 class CreatePasteAction(BasicAction):
+    """Action to create a new Paste with custom content on PasteBin"""
     name = "CreatePasteAction"
 
     def __init__(self, dev_key, body='', title='', expire=None, syntax=None,
                  user_key='', paste_private=None):
+        """
+        Action to create a new paste on Pastebin.
+        :param dev_key: The API Developer Key of a registered U{http://pastebin.com} account.
+        :param body: The String to paste to body of the U{http://pastebin.com} paste.
+        :param title: Title of the paste.
+        :param expire: New paste expiration date.
+        :param syntax: Programming language of the code being pasted.
+        :param user_key: The API User Key of a U{http://pastebin.com} registered user.
+        :param paste_private: Possible values: 'public', 'unlisted' and 'private'.
+
+        Contructs the payload required for the API.
+        """
         super().__init__()
         paste_priv_rel = {
             'public': 0,
@@ -34,6 +47,12 @@ class CreatePasteAction(BasicAction):
 
 
     def perform(self, paste, analyzer_name=None, matches=None):
+        """
+        Performs a POST request to Pastebin with the constructed payload.
+        :param paste: The paste passed by the ActionHandler
+        :param analyzer_name: The name of the analyzer which matched the paste
+        :param matches: List of matches returned by the analyzer
+        :return str: URL of the newly generated paste if successful else raises an exception."""
         r = Request()
         response = r.post(PASTEBIN_POST_URL, data=urlencode(self.api_payload))
 
