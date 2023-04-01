@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+### Added
+### Changed
+
+## [2.1.0] - 2023-04-01
+### Fixed
+- Properly log error and stop execution for non whitelisted IP
+
+### Changed
+- Updated syntax in DiscordAction
 
 ## [2.0.0] - 2021-07-13
 ### Fixed
@@ -179,7 +189,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.8] - 2018-10-22
 First stable release
 
-[unreleased]: https://github.com/d-Rickyy-b/pastepwn/compare/v2.0.0...HEAD
+[unreleased]: https://github.com/d-Rickyy-b/pastepwn/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/d-Rickyy-b/pastepwn/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/d-Rickyy-b/pastepwn/compare/v1.3.1...v2.0.0
 [1.3.1]: https://github.com/d-Rickyy-b/pastepwn/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/d-Rickyy-b/pastepwn/compare/v1.2.0...v1.3.0
