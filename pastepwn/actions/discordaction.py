@@ -66,25 +66,24 @@ class DiscordAction(BasicAction):
 
         self.template = template
 
-    @asyncio.coroutine
-    def _identify(self, ws_url):
+    async def _identify(self, ws_url):
         """Connect to the Discord Gateway to identify the bot."""
         # Docs: https://discordapp.com/developers/docs/topics/gateway#connecting-to-the-gateway
         # Open connection to the Discord Gateway
         if websockets is None:
             raise ImportError("Couldn't import websockets!")
 
-        socket = yield from websockets.connect("{0}/?v=6&encoding=json".format(ws_url))
+        socket = await websockets.connect("{0}/?v=6&encoding=json".format(ws_url))
         try:
             # Receive Hello
-            hello_str = yield from socket.recv()
+            hello_str = await socket.recv()
             hello = json.loads(hello_str)
             if hello.get("op") != 10:
                 self.logger.warning("[ws] Expected Hello payload but received %s", hello_str)
 
             # Send heartbeat and receive ACK
-            yield from socket.send(json.dumps({"op": 1, "d": {}}))
-            ack_str = yield from socket.recv()
+            await socket.send(json.dumps({"op": 1, "d": {}}))
+            ack_str = await socket.recv()
             ack = json.loads(ack_str)
 
             # https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes
@@ -101,16 +100,16 @@ class DiscordAction(BasicAction):
                     "$device": "pastepwn"
                     }
                 }
-            yield from socket.send(json.dumps({"op": 2, "d": payload}))
+            await socket.send(json.dumps({"op": 2, "d": payload}))
 
             # Receive READY event
-            ready_str = yield from socket.recv()
+            ready_str = await socket.recv()
             ready = json.loads(ready_str)
             if ready.get("t") != "READY":
                 self.logger.warning("[ws] Expected READY event but received %s", ready_str)
         finally:
             # Close websocket connection
-            yield from socket.close()
+            await socket.close()
 
     def initialize_gateway(self):
         """Initialize the bot token so Discord identifies it properly."""
