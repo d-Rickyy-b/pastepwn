@@ -32,6 +32,14 @@ class TestGoogleOAuthKeyAnalyzer(unittest.TestCase):
         # google key dump
         self.paste.body = "6242345234234234234234234233-jhgcawesuycgaweiufyugfaiwyesfbaw.apps.googleusercontent.com"
         self.assertTrue(self.analyzer.match(self.paste))
+        
+        # google key dump
+        self.paste.body = "624234523423-jhg843esu33ga43iu121ugf4iwy33fb5.apps.googleusercontent.com"
+        self.assertTrue(self.analyzer.match(self.paste))
+        
+        # google key dump
+        self.paste.body = "1234567890-jhg843udh462a43iu121ugf4iwy33fb5.apps.googleusercontent.com"
+        self.assertTrue(self.analyzer.match(self.paste))
 
     def test_match_negative(self):
         """Test if negatives are not recognized"""
