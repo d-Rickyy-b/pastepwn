@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Fixed
 ### Added
+- Implemented a JSON file save example ([031cecd](https://github.com/d-Rickyy-b/pastepwn/pull/231/commits/031cecdb19631673b03069b8ddc20ce5ed113c36))
 ### Changed
 
 ## [2.1.0] - 2023-04-01
