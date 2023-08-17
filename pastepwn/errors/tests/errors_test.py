@@ -6,6 +6,9 @@ from pastepwn.errors.errors import PastepwnError
 
 
 class TestErrors(unittest.TestCase):
+    def setUp(self):
+        pass
+
     def test_PastepwnError(self):
         """Test if the PastepwnError returns its string message"""
         msg = "This is a test message"
