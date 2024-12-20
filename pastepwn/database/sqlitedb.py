@@ -22,7 +22,8 @@ class SQLiteDB(AbstractDB):
                 dbdir.mkdir()
             self.dbpath.touch()
         elif self.dbpath.is_dir():
-            raise ValueError(f"'{self.dbpath}' is a directory. Use different path/name for database.")
+            msg = f"'{self.dbpath}' is a directory. Use different path/name for database."
+            raise ValueError(msg)
 
         try:
             self.db = sqlite3.connect(str(self.dbpath), check_same_thread=False)

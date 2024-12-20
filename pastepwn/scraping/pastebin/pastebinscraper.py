@@ -46,15 +46,18 @@ class PastebinScraper(BasicScraper):
             raise IPNotRegisteredError(ip_address)
 
         if body is None or body == "":
-            raise PasteEmptyException(f"The paste '{key}' or its body was set to None!")
+            msg = f"The paste '{key}' or its body was set to None!"
+            raise PasteEmptyException(msg)
         if body == "File is not ready for scraping yet. Try again in 1 minute.":
             # The pastebin API was not ready yet to deliver this paste -
             # We raise an exception to re-download it again after some time has passed
-            raise PasteNotReadyException(f"The paste '{key}' could not be fetched yet!")
+            msg = f"The paste '{key}' could not be fetched yet!"
+            raise PasteNotReadyException(msg)
         elif body == "Error, we cannot find this paste.":
             # The paste has been deleted before we could download it.
             # We raise an exception to delete the paste from the queue
-            raise PasteDeletedException(f"The paste '{key}' has been deleted!")
+            msg = f"The paste '{key}' has been deleted!"
+            raise PasteDeletedException(msg)
 
     def _get_recent(self, limit=100):
         """Downloads a list of the most recent pastes - the amount is limited by the <limit> parameter"""
