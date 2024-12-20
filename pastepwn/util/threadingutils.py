@@ -12,7 +12,7 @@ def start_thread(target, name, exception_event, *args, **kwargs):
     :param kwargs: Keyword-Arguments to be passed to the threaded method
     :return:
     """
-    thread = Thread(target=thread_wrapper, name=name, args=(target, exception_event) + args, kwargs=kwargs)
+    thread = Thread(target=thread_wrapper, name=name, args=(target, exception_event, *args), kwargs=kwargs)
     thread.start()
     return thread
 
