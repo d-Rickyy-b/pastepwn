@@ -1,0 +1,157 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools_scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pastepwn"
+description = "Python framework to scrape PasteBin pastes and analyze them."
+authors = [
+    {name = "d-Rickyy-b", email = "pastepwn@rico-j.de"},
+]
+readme = "README.md"
+license = { file = "LICENSE" }
+dynamic = ["version"]
+keywords = ["python", "pastebin", "scraping", "osint", "framework"]
+requires-python = ">=3.9"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Security",
+    "Topic :: Internet",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12"
+]
+dependencies = [
+    "pymongo>=3.11.3",
+    "mysql-connector-python>=8.0.24",
+    "requests>=2.31.0",
+    "python-twitter>=3.5",
+    "websockets>=9.1,<10",
+]
+
+[project.optional-dependencies]
+dev = ["ruff"]
+
+[project.urls]
+Homepage = "https://github.com/d-Rickyy-b/pastepwn"
+Issues = "https://github.com/d-Rickyy-b/pastepwn/issues"
+
+[tool.setuptools.dynamic]
+version = {attr = "pastepwn.version.__version__"}
+
+[tool.ruff]
+target-version = "py39"
+line-length = 180
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "ANN", # Annotations
+    "ARG002", # unused-method-argument
+    "BLE001", # Do not catch blind exception: `Exception`
+    "E501", # Line too long
+    "UP012",
+    "UP015",
+    "G004",
+    "COM812",
+    "T201",
+    "PLR1722",
+    "RET505",
+    "RET508",
+    "SLF001",
+    "PTH123",
+    "FBT001",
+    "FBT002",
+    "FBT003",
+    "D", # Disable all docstring related inspections for now
+    "D100", # undocumented-public-module
+    "D101", # undocumented-public-class
+    "D102", # undocumented-public-method
+    "D104", # undocumented-public-package
+    "D401", # non-imperative-mood
+    "D404", # docstring-starts-with-this
+    "D107", # undocumented-public-init
+    "D213", # multi-line-summary-second-line
+    "D203", # one-blank-line-before-class
+    "ERA001", # Found commented-out code
+    "FIX", # Disable all flake8-fixme warnings
+    "TD", # Disable all flake8-todos warnings
+    "SIM108", # Use ternary operator
+    "PT009", # pytest-unittest-assertion
+    "PT027", # pytest-unittest-raises-assertion
+    "PLR0911", # too-many-return-statements
+    "PLR0913", # too-many-arguments
+    "PIE790", # unnecessary-placeholder
+    "PERF203", # try-except-in-loop
+    "S311", # suspicious-non-cryptographic-random-usage
+    "TRY002", # raise-vanilla-class
+    "TRY003", # raise-vanilla-args
+    "N818", # error-suffix-on-exception-name
+    "EM101", # raw-string-in-exception
+]
+
+[tool.ruff.format]
+# Use `\n` line endings for all files
+line-ending = "lf"
+
+[tool.ruff.lint.per-file-ignores]
+"**_test.py" = [
+    "N802", # invalid-function-name
+    "B017", # assert-raises-exception
+    "SIM105", # suppressible-exception
+    "S110", # try-except-pass
+]
+"examples/**.py" = [
+    "INP001", # implicit-namespace-package
+    "F401", # unused-import
+]
+"pastepwn/analyzers/**.py" = [
+    "S105", # hardcoded-password-string
+    "RUF001", # ambiguous-unicode-character-string
+]
+"pastepwn/util/request.py" = [
+    "ARG003", # unused-class-method-argument
+]
+"pastepwn/analyzers/ibananalyzer.py" = [
+    "RUF012", # mutable-class-default
+    "C408", # unnecessary-collection-call
+]
+"pastepwn/analyzers/urlanalyzer.py" = [
+    "S310", # suspicious-url-open-usage
+]
+"pastepwn/core/__init__.py" = [
+    "I001", # unsorted-imports - prevent circular imports
+]
