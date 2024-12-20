@@ -1,6 +1,8 @@
 import re
-from .basicanalyzer import BasicAnalyzer
+
 from pastepwn.util import listify
+
+from .basicanalyzer import BasicAnalyzer
 
 
 class ExactWordAnalyzer(BasicAnalyzer):

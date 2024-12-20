@@ -1,6 +1,6 @@
 import logging
 from queue import Queue
-from threading import Lock, Event
+from threading import Event, Lock
 
 from pastepwn.util import start_thread
 

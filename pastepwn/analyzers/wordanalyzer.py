@@ -1,4 +1,5 @@
 from pastepwn.util import listify
+
 from .basicanalyzer import BasicAnalyzer
 
 

@@ -1,15 +1,15 @@
 import logging
 import sys
 from queue import Queue
-from signal import signal, SIGINT, SIGTERM, SIGABRT
+from signal import SIGABRT, SIGINT, SIGTERM, signal
 from threading import Event
 from time import sleep
 
 from pastepwn.actions import DatabaseAction
 from pastepwn.analyzers import AlwaysTrueAnalyzer
-from pastepwn.core import ScrapingHandler, ActionHandler, PasteDispatcher
-from pastepwn.util import Request, enforce_ip_version
+from pastepwn.core import ActionHandler, PasteDispatcher, ScrapingHandler
 from pastepwn.scraping.pastebin import PastebinScraper
+from pastepwn.util import Request, enforce_ip_version
 
 
 class PastePwn(object):

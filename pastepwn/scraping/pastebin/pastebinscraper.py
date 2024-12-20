@@ -2,11 +2,11 @@ import json
 import logging
 import re
 import time
-from queue import Queue, Empty
+from queue import Empty, Queue
 
 from pastepwn.core import Paste
 from pastepwn.scraping import BasicScraper
-from pastepwn.scraping.pastebin.exceptions import IPNotRegisteredError, PasteDeletedException, PasteNotReadyException, PasteEmptyException
+from pastepwn.scraping.pastebin.exceptions import IPNotRegisteredError, PasteDeletedException, PasteEmptyException, PasteNotReadyException
 from pastepwn.util import Request, start_thread
 
 # https://pastebin.com/doc_scraping_api#2

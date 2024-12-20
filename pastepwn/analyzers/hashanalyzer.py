@@ -1,5 +1,6 @@
 import hashlib
 import re
+
 from .regexanalyzer import RegexAnalyzer
 
 

@@ -1,4 +1,5 @@
 from pastepwn.util import Request
+
 from .basicaction import BasicAction
 
 

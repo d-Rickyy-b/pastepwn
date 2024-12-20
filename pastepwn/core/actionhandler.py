@@ -3,7 +3,7 @@ from queue import Empty, Queue
 from threading import Event, Lock
 from time import sleep
 
-from pastepwn.util import start_thread, join_threads
+from pastepwn.util import join_threads, start_thread
 
 
 class ActionHandler(object):

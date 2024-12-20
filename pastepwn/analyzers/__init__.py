@@ -19,9 +19,7 @@ from .googleapikeyanalyzer import GoogleApiKeyAnalyzer
 from .googleoauthkeyanalyzer import GoogleOAuthKeyAnalyzer
 from .hashanalyzer import HashAnalyzer
 from .ibananalyzer import IBANAnalyzer
-from .logicalanalyzers import AndAnalyzer
-from .logicalanalyzers import LogicalBaseAnalyzer
-from .logicalanalyzers import OrAnalyzer
+from .logicalanalyzers import AndAnalyzer, LogicalBaseAnalyzer, OrAnalyzer
 from .mailanalyzer import MailAnalyzer
 from .mailchimpapikeyanalyzer import MailChimpApiKeyAnalyzer
 from .md5hashanalyzer import MD5HashAnalyzer

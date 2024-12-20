@@ -3,8 +3,8 @@ import json
 import logging
 import sys
 
-from pastepwn.util import Request
-from pastepwn.util import TemplatingEngine
+from pastepwn.util import Request, TemplatingEngine
+
 from .basicaction import BasicAction
 
 websockets_available = True

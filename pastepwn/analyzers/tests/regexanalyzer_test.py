@@ -1,6 +1,6 @@
+import re
 import unittest
 from unittest.mock import Mock
-import re
 
 from pastepwn.analyzers.regexanalyzer import RegexAnalyzer
 

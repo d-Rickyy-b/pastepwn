@@ -1,6 +1,7 @@
-from .base64analyzer import Base64Analyzer
-from base64 import b64decode
 import binascii
+from base64 import b64decode
+
+from .base64analyzer import Base64Analyzer
 
 
 class Base64AsciiAnalyzer(Base64Analyzer):

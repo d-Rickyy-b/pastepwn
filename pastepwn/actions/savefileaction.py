@@ -1,6 +1,7 @@
 import pathlib
 
 from pastepwn.util import TemplatingEngine
+
 from .basicaction import BasicAction
 
 

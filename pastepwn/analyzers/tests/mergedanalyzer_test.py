@@ -1,8 +1,7 @@
 import unittest
 from unittest import mock
 
-from pastepwn.analyzers.basicanalyzer import BasicAnalyzer
-from pastepwn.analyzers.basicanalyzer import MergedAnalyzer
+from pastepwn.analyzers.basicanalyzer import BasicAnalyzer, MergedAnalyzer
 
 
 class TestMergedAnalyzer(unittest.TestCase):

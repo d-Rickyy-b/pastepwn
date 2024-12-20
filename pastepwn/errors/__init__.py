@@ -1,3 +1,3 @@
-from .errors import PastepwnError, InvalidActionError
+from .errors import InvalidActionError, PastepwnError
 
 __all__ = ["InvalidActionError", "PastepwnError"]

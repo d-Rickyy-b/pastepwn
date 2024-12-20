@@ -6,7 +6,8 @@ from threading import Event
 from time import sleep
 
 from pastepwn.util import TemplatingEngine
-from pastepwn.util.threadingutils import start_thread, join_threads
+from pastepwn.util.threadingutils import join_threads, start_thread
+
 from .basicaction import BasicAction
 
 MAX_MSG_SIZE = 512
