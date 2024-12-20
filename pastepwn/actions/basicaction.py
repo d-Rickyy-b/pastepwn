@@ -1,7 +1,6 @@
-
-
 class BasicAction(object):
     """Base class for actions which can be performed on pastes"""
+
     name = "BasicAction"
 
     def __init__(self):

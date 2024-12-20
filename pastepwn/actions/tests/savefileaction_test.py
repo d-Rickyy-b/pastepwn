@@ -5,7 +5,6 @@ from pastepwn.actions.savefileaction import SaveFileAction
 
 
 class TestSaveFileAction(unittest.TestCase):
-
     def setUp(self):
         """Sets up the test case"""
         self.action = SaveFileAction(path="")

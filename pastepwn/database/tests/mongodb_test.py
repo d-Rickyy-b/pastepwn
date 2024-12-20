@@ -1,4 +1,3 @@
-
 import os
 import random
 import string
@@ -10,35 +9,26 @@ from pastepwn.database import MongoDB
 
 @unittest.skipIf(os.environ.get("CI"), "Skipping this test on CI.")
 class MongoDBTest(unittest.TestCase):
-
     def setUp(self):
         rand_text = []
         for _ in range(3):
             rand_text.append("".join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(8)))
 
-        p = {"scrape_url": "https://scrape.pastebin.com/api_scrape_item.php?i=" + rand_text[0],
-             "full_url": "https://pastebin.com/" + rand_text[0],
-             "date": "1442911802",
-             "key": rand_text[0],
-             "size": "890",
-             "expire": "1442998159",
-             "title": "Once we all know when we goto function",
-             "syntax": "java",
-             "user": "admin",
-             "body": rand_text[1:],
-             }
+        p = {
+            "scrape_url": "https://scrape.pastebin.com/api_scrape_item.php?i=" + rand_text[0],
+            "full_url": "https://pastebin.com/" + rand_text[0],
+            "date": "1442911802",
+            "key": rand_text[0],
+            "size": "890",
+            "expire": "1442998159",
+            "title": "Once we all know when we goto function",
+            "syntax": "java",
+            "user": "admin",
+            "body": rand_text[1:],
+        }
 
         self.p = p
-        self.paste = Paste(p.get("key"),
-                           p.get("title"),
-                           p.get("user"),
-                           p.get("size"),
-                           p.get("date"),
-                           p.get("expire"),
-                           p.get("syntax"),
-                           p.get("scrape_url"),
-                           p.get("full_url")
-                           )
+        self.paste = Paste(p.get("key"), p.get("title"), p.get("user"), p.get("size"), p.get("date"), p.get("expire"), p.get("syntax"), p.get("scrape_url"), p.get("full_url"))
 
         self.database = MongoDB(collectionname="pastepwn_test")
 

@@ -42,8 +42,9 @@ class TestFacebookAccessTokenAnalyzer(unittest.TestCase):
 
     def test_multiple(self):
         """Test if multiple matches are recognized"""
-        self.paste.body = "This is my access token: EAACEdEose0cBA0123456789ABCDEFabcdef, please don't lose it! " \
-                          "Also there is another one: EAACEdEose0cBAfacebooksucks so I guess it's ok"
+        self.paste.body = (
+            "This is my access token: EAACEdEose0cBA0123456789ABCDEFabcdef, please don't lose it! Also there is another one: EAACEdEose0cBAfacebooksucks so I guess it's ok"
+        )
         match = self.analyzer.match(self.paste)
         self.assertTrue(match)
         self.assertEqual("EAACEdEose0cBA0123456789ABCDEFabcdef", match[0])

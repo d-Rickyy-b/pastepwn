@@ -1,4 +1,3 @@
-
 import unittest
 
 from pastepwn import Paste
@@ -6,30 +5,23 @@ from pastepwn.util.templatingengine import TemplatingEngine
 
 
 class TestTemplatingEngine(unittest.TestCase):
-
     def setUp(self):
         """Sets up the test case"""
-        p = {"scrape_url": "https://scrape.pastebin.com/api_scrape_item.php?i=0CeaNm8Y",
-             "full_url": "https://pastebin.com/0CeaNm8Y",
-             "date": "1442911802",
-             "key": "0CeaNm8Y",
-             "size": "890",
-             "expire": "1442998159",
-             "title": "Once we all know when we goto function",
-             "syntax": "java",
-             "user": "admin",
-             "body": "This is a test for pastepwn"}
+        p = {
+            "scrape_url": "https://scrape.pastebin.com/api_scrape_item.php?i=0CeaNm8Y",
+            "full_url": "https://pastebin.com/0CeaNm8Y",
+            "date": "1442911802",
+            "key": "0CeaNm8Y",
+            "size": "890",
+            "expire": "1442998159",
+            "title": "Once we all know when we goto function",
+            "syntax": "java",
+            "user": "admin",
+            "body": "This is a test for pastepwn",
+        }
 
         self.p = p
-        self.paste = Paste(p.get("key"),
-                           p.get("title"),
-                           p.get("user"),
-                           p.get("size"),
-                           p.get("date"),
-                           p.get("expire"),
-                           p.get("syntax"),
-                           p.get("scrape_url"),
-                           p.get("full_url"))
+        self.paste = Paste(p.get("key"), p.get("title"), p.get("user"), p.get("size"), p.get("date"), p.get("expire"), p.get("syntax"), p.get("scrape_url"), p.get("full_url"))
 
     def test_fill_template(self):
         """Checks if templating engine inserts paste data correctly into the template"""
@@ -52,9 +44,7 @@ class TestTemplatingEngine(unittest.TestCase):
         template = "Completely new parameter ${random_param} unrelated to paste data can be ${ins} into this string"
         expected = "Completely new parameter 'pastepwnIsCool' unrelated to paste data can be inserted into this string"
 
-        result = TemplatingEngine.fill_template(paste=self.paste, analyzer_name=None, template_string=template, random_param="'pastepwnIsCool'",
-                                                ins="inserted"
-                                                )
+        result = TemplatingEngine.fill_template(paste=self.paste, analyzer_name=None, template_string=template, random_param="'pastepwnIsCool'", ins="inserted")
         self.assertEqual(expected, result, msg="Filled template string is not the same as the expected result!")
 
     def test_fill_template_missing_param(self):

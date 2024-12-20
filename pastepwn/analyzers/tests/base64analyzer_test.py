@@ -31,16 +31,17 @@ class TestBase64Analyzer(unittest.TestCase):
         # base64 encoded string (256 chars): "etFk!?m@A_vvdMT39Mgcynx_AFz6HY!4R8U3n_7JA?-rF=F3ehWat%4rKfhsuCc98G
         # =t8jMY7hgJDZ2c!y!$!XQATbk6fQD2pa+EdQ_rfP^&_DKJ34dFPcuGjDBTqdxZ&=3U%@dm&?JW#+k@mB%a3TFn%GAzukL+-%TUTq?fAbAKr
         # @y%LPK+KEmxeh+rg7?s3aR2v5A%tbn&_7zNMckCPRd&s8$wW5Bec@aRMCs@4rn?cRx?a&y-Z%kn&h8aLu*R" (UTF-8, LF)
-        self.paste.body = "ZXRGayE/bUBBX3Z2ZE1UMzlNZ2N5bnhfQUZ6NkhZITRSOFUzbl83SkE/LXJGPUYzZWhXYXQlNHJLZmhzdUNjO" \
-                          "ThHPXQ4ak1ZN2hnSkRaMmMheSEkIVhRQVRiazZmUUQycGErRWRRX3JmUF4mX0RLSjM0ZEZQY3VHakRCVHFkeF" \
-                          "omPTNVJUBkbSY/SlcjK2tAbUIlYTNURm4lR0F6dWtMKy0lVFVUcT9mQWJBS3JAeSVMUEsrS0VteGVoK3JnNz9" \
-                          "zM2FSMnY1QSV0Ym4mXzd6Tk1ja0NQUmQmczgkd1c1QmVjQGFSTUNzQDRybj9jUng/YSZ5LVola24maDhhTHUqUg=="
+        self.paste.body = (
+            "ZXRGayE/bUBBX3Z2ZE1UMzlNZ2N5bnhfQUZ6NkhZITRSOFUzbl83SkE/LXJGPUYzZWhXYXQlNHJLZmhzdUNjO"
+            "ThHPXQ4ak1ZN2hnSkRaMmMheSEkIVhRQVRiazZmUUQycGErRWRRX3JmUF4mX0RLSjM0ZEZQY3VHakRCVHFkeF"
+            "omPTNVJUBkbSY/SlcjK2tAbUIlYTNURm4lR0F6dWtMKy0lVFVUcT9mQWJBS3JAeSVMUEsrS0VteGVoK3JnNz9"
+            "zM2FSMnY1QSV0Ym4mXzd6Tk1ja0NQUmQmczgkd1c1QmVjQGFSTUNzQDRybj9jUng/YSZ5LVola24maDhhTHUqUg=="
+        )
         self.assertTrue(self.analyzer.match(self.paste))
 
     def test_intext(self):
         """Test if matches inside text are recognized"""
-        self.paste.body = "I wan to tel you tha TXY9Wkg/TkpyckJTZGh1cypLVmclNGRHNipDJnViP3NTZXEhVnJ6Q2JfLVFjWV5LV2Z4S3k4QUozPV41P2I2Tg== is " \
-                          "very important"
+        self.paste.body = "I wan to tel you tha TXY9Wkg/TkpyckJTZGh1cypLVmclNGRHNipDJnViP3NTZXEhVnJ6Q2JfLVFjWV5LV2Z4S3k4QUozPV41P2I2Tg== is very important"
         match = self.analyzer.match(self.paste)
         self.assertTrue(match)
         self.assertEqual("TXY9Wkg/TkpyckJTZGh1cypLVmclNGRHNipDJnViP3NTZXEhVnJ6Q2JfLVFjWV5LV2Z4S3k4QUozPV41P2I2Tg==", match[0])
@@ -48,8 +49,10 @@ class TestBase64Analyzer(unittest.TestCase):
     def test_multiple(self):
         """Test if multiple matches are recognized"""
         # Needed to keep the words below 3 chars each. Otherwise they would match as well
-        self.paste.body = "I wan to tel you tha TXY9Wkg/TkpyckJTZGh1cypLVmclNGRHNipDJnViP3NTZXEhVnJ6Q2JfLVFjWV5LV2Z4S3k4QUozPV41P2I2Tg== is " \
-                          "ver imp.\nBut not onl tha, it's als MmZ3Wl9DVGpES3h1NDhGTENMWmNHZEIhc0VqNVhSUWg= and muc mor!"
+        self.paste.body = (
+            "I wan to tel you tha TXY9Wkg/TkpyckJTZGh1cypLVmclNGRHNipDJnViP3NTZXEhVnJ6Q2JfLVFjWV5LV2Z4S3k4QUozPV41P2I2Tg== is "
+            "ver imp.\nBut not onl tha, it's als MmZ3Wl9DVGpES3h1NDhGTENMWmNHZEIhc0VqNVhSUWg= and muc mor!"
+        )
         match = self.analyzer.match(self.paste)
         self.assertTrue(match)
         self.assertEqual("TXY9Wkg/TkpyckJTZGh1cypLVmclNGRHNipDJnViP3NTZXEhVnJ6Q2JfLVFjWV5LV2Z4S3k4QUozPV41P2I2Tg==", match[0])
@@ -58,8 +61,10 @@ class TestBase64Analyzer(unittest.TestCase):
     def test_multiple_min_len(self):
         """Test if we can match multiple base64 strings in a longer text with min_len"""
         analyzer = Base64Analyzer(None, min_len=8)
-        self.paste.body = "I wanted to tell you that TXY9Wkg/TkpyckJTZGh1cypLVmclNGRHNipDJnViP3NTZXEhVnJ6Q2JfLVFjWV5LV2Z4S3k4QUozPV41P2I2Tg== is " \
-                          "very important.\nBut not only that, it's also MmZ3Wl9DVGpES3h1NDhGTENMWmNHZEIhc0VqNVhSUWg= and much more!"
+        self.paste.body = (
+            "I wanted to tell you that TXY9Wkg/TkpyckJTZGh1cypLVmclNGRHNipDJnViP3NTZXEhVnJ6Q2JfLVFjWV5LV2Z4S3k4QUozPV41P2I2Tg== is "
+            "very important.\nBut not only that, it's also MmZ3Wl9DVGpES3h1NDhGTENMWmNHZEIhc0VqNVhSUWg= and much more!"
+        )
         match = analyzer.match(self.paste)
         self.assertTrue(match)
         self.assertEqual("TXY9Wkg/TkpyckJTZGh1cypLVmclNGRHNipDJnViP3NTZXEhVnJ6Q2JfLVFjWV5LV2Z4S3k4QUozPV41P2I2Tg==", match[0])
@@ -104,8 +109,7 @@ class TestBase64Analyzer(unittest.TestCase):
         self.assertFalse(self.analyzer.match(self.paste))
 
         # long string (129) not base64
-        self.paste.body = "sFm2XgxTt6fuErnWw9JZkae76sL7XDqyNvf2Wkatt9gkzVDxXTf6dCr3Yh6fT82fFzvNWG49P3KSR7XXngHJ5D9ba" \
-                          "Dj448rhbNTJrKhRn7TPkYRubZLhmbCrg6bavDa9a"
+        self.paste.body = "sFm2XgxTt6fuErnWw9JZkae76sL7XDqyNvf2Wkatt9gkzVDxXTf6dCr3Yh6fT82fFzvNWG49P3KSR7XXngHJ5D9baDj448rhbNTJrKhRn7TPkYRubZLhmbCrg6bavDa9a"
         self.assertFalse(self.analyzer.match(self.paste))
 
     def test_invalid_decodes(self):

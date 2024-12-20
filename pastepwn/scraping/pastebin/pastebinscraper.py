@@ -17,9 +17,12 @@ from pastepwn.util import Request, start_thread
 
 class PastebinScraper(BasicScraper):
     """Scraper class for pastebin"""
+
     name = "PastebinScraper"
     api_base_url = "https://scrape.pastebin.com"
-    pastebin_error_pattern = re.compile(r"YOUR IP: ((\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})|((([0-9A-Fa-f]{1,4}:){7})([0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,6}:)(([0-9A-Fa-f]{1,4}:){0,4})([0-9A-Fa-f]{1,4}))) DOES NOT HAVE ACCESS")
+    pastebin_error_pattern = re.compile(
+        r"YOUR IP: ((\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})|((([0-9A-Fa-f]{1,4}:){7})([0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,6}:)(([0-9A-Fa-f]{1,4}:){0,4})([0-9A-Fa-f]{1,4}))) DOES NOT HAVE ACCESS"
+    )
 
     def __init__(self, paste_queue=None, exception_event=None, api_hit_rate=None):
         super().__init__(exception_event)
@@ -69,16 +72,17 @@ class PastebinScraper(BasicScraper):
 
             # Loop through the response and create objects by the data
             for paste in pastes_dict:
-                paste_obj = Paste(key=paste.get("key"),
-                                  title=paste.get("title"),
-                                  user=paste.get("user"),
-                                  size=paste.get("size"),
-                                  date=paste.get("date"),
-                                  expire=paste.get("expire"),
-                                  syntax=paste.get("syntax"),
-                                  scrape_url=paste.get("scrape_url"),
-                                  full_url=paste.get("full_url")
-                                  )
+                paste_obj = Paste(
+                    key=paste.get("key"),
+                    title=paste.get("title"),
+                    user=paste.get("user"),
+                    size=paste.get("size"),
+                    date=paste.get("date"),
+                    expire=paste.get("expire"),
+                    syntax=paste.get("syntax"),
+                    scrape_url=paste.get("scrape_url"),
+                    full_url=paste.get("full_url"),
+                )
                 pastes.append(paste_obj)
 
             return pastes

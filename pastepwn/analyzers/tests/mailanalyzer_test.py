@@ -22,8 +22,7 @@ class TestMailAnalyzer(unittest.TestCase):
 
     def test_multiple(self):
         """Test if multiple matches are recognized"""
-        self.paste.body = "This is a test with a mail@address.com in the middle. Also we\n" \
-                          "want to have this asdf@testmail.com mail in here!"
+        self.paste.body = "This is a test with a mail@address.com in the middle. Also we\nwant to have this asdf@testmail.com mail in here!"
         match = self.analyzer.match(self.paste)
         self.assertTrue(match)
         self.assertEqual(2, len(match))

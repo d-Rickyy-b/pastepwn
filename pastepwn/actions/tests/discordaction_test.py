@@ -21,19 +21,20 @@ class TestDiscordAction(unittest.TestCase):
     @staticmethod
     def generate_paste():
         """Returns a paste for testing"""
-        p = {"scrape_url": "https://scrape.pastebin.com/api_scrape_item.php?i=0CeaNm8Y",
-             "full_url": "https://pastebin.com/0CeaNm8Y",
-             "date": "1442911802",
-             "key": "0CeaNm8Y",
-             "size": "890",
-             "expire": "1442998159",
-             "title": "Once we all know when we goto function",
-             "syntax": "java",
-             "user": "admin",
-             "body": "This is a test for pastepwn"}
+        p = {
+            "scrape_url": "https://scrape.pastebin.com/api_scrape_item.php?i=0CeaNm8Y",
+            "full_url": "https://pastebin.com/0CeaNm8Y",
+            "date": "1442911802",
+            "key": "0CeaNm8Y",
+            "size": "890",
+            "expire": "1442998159",
+            "title": "Once we all know when we goto function",
+            "syntax": "java",
+            "user": "admin",
+            "body": "This is a test for pastepwn",
+        }
 
-        return Paste(p.get("key"), p.get("title"), p.get("user"), p.get("size"), p.get("date"), p.get("expire"), p.get("syntax"), p.get("scrape_url"),
-                     p.get("full_url"))
+        return Paste(p.get("key"), p.get("title"), p.get("user"), p.get("size"), p.get("date"), p.get("expire"), p.get("syntax"), p.get("scrape_url"), p.get("full_url"))
 
     def test_init(self):
         """Check if initializing the action sets it up correctly"""
@@ -48,8 +49,7 @@ class TestDiscordAction(unittest.TestCase):
             # Make sure that the import is not present!
             sys.modules["websockets"] = None
             action = DiscordAction(webhook_url=webhook, token=token, channel_id=channel_id, template=template)
-            self.assertEqual(log.output,
-                             ["WARNING:pastepwn.actions.discordaction:Could not import 'websockets' module. So you can only use webhooks for discord."])
+            self.assertEqual(log.output, ["WARNING:pastepwn.actions.discordaction:Could not import 'websockets' module. So you can only use webhooks for discord."])
 
         self.assertEqual(action.webhook_url, webhook)
         self.assertEqual(action.template, template)
@@ -68,8 +68,7 @@ class TestDiscordAction(unittest.TestCase):
             # Make sure that the import is not present, so that we do log!
             sys.modules["websockets"] = None
             action = DiscordAction(webhook_url=webhook, token=token, channel_id=channel_id, template=template)
-            self.assertEqual(log.output,
-                             ["WARNING:pastepwn.actions.discordaction:Could not import 'websockets' module. So you can only use webhooks for discord."])
+            self.assertEqual(log.output, ["WARNING:pastepwn.actions.discordaction:Could not import 'websockets' module. So you can only use webhooks for discord."])
 
         self.assertEqual(action.webhook_url, webhook)
         self.assertEqual(action.template, template)

@@ -6,6 +6,7 @@ from .basicaction import BasicAction
 
 class SyslogAction(BasicAction):
     """Action to log a paste to the syslog"""
+
     name = "SyslogAction"
 
     def __init__(self, syslog_address="/dev/log", template=None):

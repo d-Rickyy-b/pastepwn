@@ -5,6 +5,7 @@ from pastepwn.util import listify
 
 class ExactWordAnalyzer(BasicAnalyzer):
     """Analyzer to match the content of a paste by words"""
+
     name = "ExactWordAnalyzer"
 
     def __init__(self, actions, words, blacklist=None, case_sensitive=False):

@@ -14,6 +14,7 @@ MAX_MSG_SIZE = 512
 
 class IrcAction(BasicAction):
     """Action to send an irc message to a certain channel"""
+
     name = "IrcAction"
 
     def __init__(self, server=None, channel=None, port=6667, nick="pastepwn", template=None):
@@ -64,8 +65,8 @@ class IrcAction(BasicAction):
 
                 # Split up the data in single IRC messages to handle them separately
                 while "\r\n" in data:
-                    message = data[:data.index("\r\n")]
-                    data = data[data.index("\r\n") + 2:]
+                    message = data[: data.index("\r\n")]
+                    data = data[data.index("\r\n") + 2 :]
                     self._handle_message(message)
 
             # We use the _stop_event to kill our thread
@@ -199,8 +200,8 @@ class IrcAction(BasicAction):
         msg = msg.replace("\n", " ")
         if len(msg) > self._max_payload_size:
             # We need to split up the message into two parts and send it recursively
-            self._send_message(msg[:self._max_payload_size])
-            self._send_message(msg[self._max_payload_size:])
+            self._send_message(msg[: self._max_payload_size])
+            self._send_message(msg[self._max_payload_size :])
             return
 
         # Otherwise we can simply put it on the queue as a whole
@@ -213,7 +214,6 @@ class IrcAction(BasicAction):
     def perform(self, paste, analyzer_name=None, matches=None):
         """Perform the action on the passed paste"""
         if self._exception_event.is_set():
-            self.logger.error("The exception event is set. The IRC action might not perform as it should! Messages will"
-                              " be buffered for the case of a reconnect.")
+            self.logger.error("The exception event is set. The IRC action might not perform as it should! Messages will be buffered for the case of a reconnect.")
         text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template, matches=matches)
         self._send_message(text)

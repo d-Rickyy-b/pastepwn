@@ -54,12 +54,10 @@ class SQLiteDB(AbstractDB):
         self.db.commit()
 
     def _insert_data(self, paste):
-        self.cursor.execute("INSERT INTO pastes (key, title, user, size, date, expire, syntax, scrape_url, full_url, body) "
-                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                            (paste.key, paste.title, paste.user, paste.size, paste.date, paste.expire, paste.syntax,
-                             paste.scrape_url, paste.full_url, paste.body
-                             )
-                            )
+        self.cursor.execute(
+            "INSERT INTO pastes (key, title, user, size, date, expire, syntax, scrape_url, full_url, body) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (paste.key, paste.title, paste.user, paste.size, paste.date, paste.expire, paste.syntax, paste.scrape_url, paste.full_url, paste.body),
+        )
         self.db.commit()
 
     def _update_data(self, paste):

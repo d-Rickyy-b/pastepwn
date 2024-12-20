@@ -1,5 +1,3 @@
-
-
 class IPNotRegisteredError(Exception):
     """Exception class indicating that your IP is not witelisted on pastebin"""
 

@@ -5,6 +5,7 @@ from .savefileaction import SaveFileAction
 
 class SaveJSONAction(SaveFileAction):
     """Action to save a json formatted file to the disk"""
+
     name = "SaveJSONAction"
 
     def __init__(self, path):

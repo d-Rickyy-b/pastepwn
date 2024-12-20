@@ -55,10 +55,7 @@ class TestEmailPasswordPairAnalyzer(unittest.TestCase):
     def test_match_multiple(self):
         """Test multiple matches in a single paste"""
         analyzer = EmailPasswordPairAnalyzer(None)
-        self.paste.body = "estocanam2@apple.com:Fireb§\n" \
-                          "g@bb.com:Firebird1@\n" \
-                          "Some comment\n" \
-                          "test+test@gmail.com:abcd"
+        self.paste.body = "estocanam2@apple.com:Fireb§\ng@bb.com:Firebird1@\nSome comment\ntest+test@gmail.com:abcd"
         match = analyzer.match(self.paste)
         self.assertTrue(match)
         self.assertEqual("estocanam2@apple.com:Fireb§", match[0])
@@ -68,10 +65,7 @@ class TestEmailPasswordPairAnalyzer(unittest.TestCase):
     def test_min_match(self):
         """Test if the setting for minimal matches works"""
         analyzer = EmailPasswordPairAnalyzer(None, min_amount=1)
-        self.paste.body = "estocanam2@apple.com:Fireb§\n" \
-                          "g@bb.com:Firebird1@\n" \
-                          "Some comment\n" \
-                          "test+test@gmail.com:abcd"
+        self.paste.body = "estocanam2@apple.com:Fireb§\ng@bb.com:Firebird1@\nSome comment\ntest+test@gmail.com:abcd"
         self.assertEqual(3, len(analyzer.match(self.paste)))
         self.assertTrue(analyzer.match(self.paste))
 

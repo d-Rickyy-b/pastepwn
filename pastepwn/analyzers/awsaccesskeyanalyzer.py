@@ -6,6 +6,7 @@ class AWSAccessKeyAnalyzer(RegexAnalyzer):
 
     Keys are 20 character alphanumeric /+=
     """
+
     name = "AWSAccessKeyAnalyzer"
 
     def __init__(self, actions):

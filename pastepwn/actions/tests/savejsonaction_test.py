@@ -1,4 +1,3 @@
-
 import unittest
 from unittest.mock import Mock, patch
 
@@ -6,7 +5,6 @@ from pastepwn.actions import SaveJSONAction
 
 
 class TestSaveJSONAction(unittest.TestCase):
-
     def setUp(self):
         """Sets up the test case"""
         self.action = SaveJSONAction(path="")

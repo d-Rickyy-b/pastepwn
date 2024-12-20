@@ -9,6 +9,7 @@ from .basicaction import BasicAction
 
 class EmailAction(BasicAction):
     """This action sends out an e-mail to the receiver containing the paste, when executed"""
+
     name = "EmailAction"
 
     def __init__(self, username, password, receiver, hostname, port=465, template=None):

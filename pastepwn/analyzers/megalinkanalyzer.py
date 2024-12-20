@@ -3,6 +3,7 @@ from .regexanalyzer import RegexAnalyzer
 
 class MegaLinkAnalyzer(RegexAnalyzer):
     """Analyzer to match mega links via regex."""
+
     name = "MegaLinkAnalyzer"
 
     def __init__(self, actions):

@@ -5,7 +5,6 @@ from pastepwn.analyzers.googleoauthkeyanalyzer import GoogleOAuthKeyAnalyzer
 
 
 class TestGoogleOAuthKeyAnalyzer(unittest.TestCase):
-
     def setUp(self):
         self.analyzer = GoogleOAuthKeyAnalyzer(None)
         self.paste = mock.Mock()

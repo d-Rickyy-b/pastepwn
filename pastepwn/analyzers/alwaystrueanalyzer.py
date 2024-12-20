@@ -3,6 +3,7 @@ from .basicanalyzer import BasicAnalyzer
 
 class AlwaysTrueAnalyzer(BasicAnalyzer):
     """Analyzer which always matches a paste to perform actions on every paste"""
+
     name = "AlwaysTrueAnalyzer"
 
     def __init__(self, actions):

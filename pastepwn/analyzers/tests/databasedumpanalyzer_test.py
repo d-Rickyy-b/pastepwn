@@ -17,7 +17,10 @@ class TestDatabaseDumpAnalyzer(unittest.TestCase):
         match = self.analyzer.match(self.paste)
         self.assertTrue(match)
         self.assertEqual(1, len(match))
-        self.assertEqual("""(`id`, `team_id`, `email`, `name`, `password`, `league`, `active`, `regdate`, `lan`, `lastlogin`, `birthdate`, `favclub`, `favmanager`, `description`, `pers_email`, `mess_id`, `iso`)""", match[0])
+        self.assertEqual(
+            """(`id`, `team_id`, `email`, `name`, `password`, `league`, `active`, `regdate`, `lan`, `lastlogin`, `birthdate`, `favclub`, `favmanager`, `description`, `pers_email`, `mess_id`, `iso`)""",
+            match[0],
+        )
 
 
 if __name__ == "__main__":

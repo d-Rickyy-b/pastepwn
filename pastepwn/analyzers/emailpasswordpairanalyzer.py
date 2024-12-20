@@ -1,10 +1,11 @@
 from .regexanalyzer import RegexAnalyzer
 
-_EMAIL_PASSWORD_REGEX = r'[\w\.\+_-]+@[\w\._-]+\.[a-zA-Z]*\:[\w\.\+\!\$\#\^&\*\(\)\{\}\[\]\_\-\@\%\=\§\\\/\'\`\´\?\<\>\;\"\:\|\,\~]+'
+_EMAIL_PASSWORD_REGEX = r"[\w\.\+_-]+@[\w\._-]+\.[a-zA-Z]*\:[\w\.\+\!\$\#\^&\*\(\)\{\}\[\]\_\-\@\%\=\§\\\/\'\`\´\?\<\>\;\"\:\|\,\~]+"
 
 
 class EmailPasswordPairAnalyzer(RegexAnalyzer):
     """Analyzer to match username:password pairs"""
+
     name = "EmailPasswordPairAnalyzer"
 
     def __init__(self, actions, min_amount=0):

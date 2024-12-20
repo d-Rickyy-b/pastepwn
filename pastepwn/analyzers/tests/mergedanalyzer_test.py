@@ -66,18 +66,28 @@ class TestMergedAnalyzer(unittest.TestCase):
     def test_long_chain(self):
         """Check if logical and/or both work fine in long combinations with each other"""
         # Long chain of true_analyzers must evaluate to True
-        and_analyzer = self.true_analyzer & self.true_analyzer & self.true_analyzer & self.true_analyzer & \
-            self.true_analyzer & self.true_analyzer & self.true_analyzer & self.true_analyzer
+        and_analyzer = (
+            self.true_analyzer & self.true_analyzer & self.true_analyzer & self.true_analyzer & self.true_analyzer & self.true_analyzer & self.true_analyzer & self.true_analyzer
+        )
         self.assertTrue(and_analyzer.match(self.paste_mock))
 
         # A single false_analyzer must make the term evaluate to false
-        and_analyzer2 = self.true_analyzer & self.true_analyzer & self.true_analyzer & self.false_analyzer & \
-            self.true_analyzer & self.true_analyzer & self.true_analyzer & self.true_analyzer
+        and_analyzer2 = (
+            self.true_analyzer & self.true_analyzer & self.true_analyzer & self.false_analyzer & self.true_analyzer & self.true_analyzer & self.true_analyzer & self.true_analyzer
+        )
         self.assertFalse(and_analyzer2.match(self.paste_mock))
 
         # Since one returns true, this should return True as well
-        or_analyzer = self.false_analyzer | self.false_analyzer | self.false_analyzer | self.false_analyzer | \
-            self.false_analyzer | self.true_analyzer | self.true_analyzer | self.true_analyzer
+        or_analyzer = (
+            self.false_analyzer
+            | self.false_analyzer
+            | self.false_analyzer
+            | self.false_analyzer
+            | self.false_analyzer
+            | self.true_analyzer
+            | self.true_analyzer
+            | self.true_analyzer
+        )
         self.assertTrue(or_analyzer.match(self.paste_mock))
 
     def test_list_and(self):

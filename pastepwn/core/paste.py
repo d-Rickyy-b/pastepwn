@@ -1,5 +1,3 @@
-
-
 class Paste(object):
     """Representation of a paste object used for example by pastebin"""
 

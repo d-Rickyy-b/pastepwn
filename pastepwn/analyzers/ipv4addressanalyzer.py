@@ -3,6 +3,7 @@ from .regexanalyzer import RegexAnalyzer
 
 class IPv4AddressAnalyzer(RegexAnalyzer):
     """Analyzer to match on ip addresses via regex"""
+
     name = "IPv4AddressAnalyzer"
 
     def __init__(self, actions):

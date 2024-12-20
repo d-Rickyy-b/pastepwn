@@ -5,6 +5,7 @@ from .regexanalyzer import RegexAnalyzer
 
 class HashAnalyzer(RegexAnalyzer):
     """Analyzer to match multiple hashes of user-given passwords."""
+
     name = "HashAnalyzer"
 
     def __init__(self, actions, passwords, algorithms=None):

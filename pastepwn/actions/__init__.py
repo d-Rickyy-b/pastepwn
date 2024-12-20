@@ -1,4 +1,3 @@
-
 from .basicaction import BasicAction
 from .databaseaction import DatabaseAction
 from .discordaction import DiscordAction
@@ -24,5 +23,5 @@ __all__ = [
     "DiscordAction",
     "IrcAction",
     "MISPAction",
-    "EmailAction"
-    ]
+    "EmailAction",
+]

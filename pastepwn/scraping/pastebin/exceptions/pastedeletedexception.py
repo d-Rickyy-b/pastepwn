@@ -3,4 +3,5 @@
 
 class PasteDeletedException(Exception):
     """Exception class indicating a paste as been deleted"""
+
     pass

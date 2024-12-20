@@ -1,4 +1,3 @@
-
 import logging
 from queue import Empty, Queue
 from threading import Event, Lock

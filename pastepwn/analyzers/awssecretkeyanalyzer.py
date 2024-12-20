@@ -7,6 +7,7 @@ class AWSSecretKeyAnalyzer(RegexAnalyzer):
 
     Keys are 40 character alphanumeric with a few symbols /+=
     """
+
     name = "AWSSecretKeyAnalyzer"
 
     def __init__(self, actions):

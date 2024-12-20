@@ -3,6 +3,7 @@ from .logicalbaseanalyzer import LogicalBaseAnalyzer
 
 class AndAnalyzer(LogicalBaseAnalyzer):
     """Meta analyzer which matches a paste if all of the passed analyzers match that paste"""
+
     name = "AndAnalyzer"
 
     def match(self, paste):

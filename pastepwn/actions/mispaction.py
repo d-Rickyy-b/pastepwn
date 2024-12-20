@@ -22,6 +22,7 @@ class MISPAction(BasicAction):
     parameter. Here is the documentation regarding types and categories:
     https://www.circl.lu/doc/misp/categories-and-types/
     """
+
     name = "MISPAction"
 
     def __init__(self, url, access_key, transformer=None, attributes=None):
@@ -50,41 +51,21 @@ class MISPAction(BasicAction):
         event = {
             "date": time.strftime("%Y-%m-%d", timestamp),
             "info": "Sensitive information found on pastebin (type: %s)" % analyzer_name,
-            "threat_level_id": 4,   # Undefined
-            "published": False,     # Unpublished
-            "analysis": 0,          # Not yet analyzed
-            "distribution": 0,      # Shared with organization only
-            "Attribute": []
-            }
+            "threat_level_id": 4,  # Undefined
+            "published": False,  # Unpublished
+            "analysis": 0,  # Not yet analyzed
+            "distribution": 0,  # Shared with organization only
+            "Attribute": [],
+        }
         # Add link to the paste
-        attrs.append({
-            "type": "url",
-            "category": "Network activity",
-            "comment": "Link to pastebin paste containing information",
-            "value": paste.full_url
-            })
+        attrs.append({"type": "url", "category": "Network activity", "comment": "Link to pastebin paste containing information", "value": paste.full_url})
         # Add username of the author
-        attrs.append({
-            "type": "text",
-            "category": "Attribution",
-            "comment": "Username of paste author",
-            "value": paste.user
-            })
+        attrs.append({"type": "text", "category": "Attribution", "comment": "Username of paste author", "value": paste.user})
         # Add size of the paste
-        attrs.append({
-            "type": "size-in-bytes",
-            "category": "Other",
-            "comment": "Size of the paste",
-            "value": paste.size
-            })
+        attrs.append({"type": "size-in-bytes", "category": "Other", "comment": "Size of the paste", "value": paste.size})
         # Attach full paste if it's small
         if int(paste.size) <= 1024 and paste.body is not None:
-            attrs.append({
-                "type": "attachment",
-                "category": "Artifacts dropped",
-                "comment": "Raw body of the paste",
-                "value": paste.body
-                })
+            attrs.append({"type": "attachment", "category": "Artifacts dropped", "comment": "Raw body of the paste", "value": paste.body})
         # Add attributes to the event
         event["Attribute"] = attrs
         return event

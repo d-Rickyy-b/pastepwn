@@ -17,6 +17,7 @@ except ImportError:
 
 class DiscordAction(BasicAction):
     """Action to send a Discord message to a certain webhook or channel."""
+
     name = "DiscordAction"
 
     def __init__(self, webhook_url=None, token=None, channel_id=None, template=None):
@@ -91,14 +92,7 @@ class DiscordAction(BasicAction):
                 self.logger.warning("[ws] Expected Heartbeat ACK payload but received %s", ack_str)
 
             # Identify
-            payload = {
-                "token": self.token,
-                "properties": {
-                    "$os": sys.platform,
-                    "$browser": "pastepwn",
-                    "$device": "pastepwn"
-                    }
-                }
+            payload = {"token": self.token, "properties": {"$os": sys.platform, "$browser": "pastepwn", "$device": "pastepwn"}}
             await socket.send(json.dumps({"op": 2, "d": payload}))
 
             # Receive READY event

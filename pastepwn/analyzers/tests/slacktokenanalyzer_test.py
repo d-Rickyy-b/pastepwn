@@ -36,8 +36,10 @@ class TestSlackTokenAnalyzer(unittest.TestCase):
 
     def test_multiple(self):
         """Test if multiple matches are recognized"""
-        self.paste.body = "my token is: xoxo-999999999999-999999999999-999999999999-99999999999999abc999999999999999. Please also" \
-                          "take xoxa-999999999999-999999999999-999999999999-99999999999999999999999999999999!"
+        self.paste.body = (
+            "my token is: xoxo-999999999999-999999999999-999999999999-99999999999999abc999999999999999. Please also"
+            "take xoxa-999999999999-999999999999-999999999999-99999999999999999999999999999999!"
+        )
         match = self.analyzer.match(self.paste)
         self.assertTrue(match)
         self.assertEqual(2, len(match))

@@ -28,8 +28,10 @@ class TestDBConnAnalyzer(unittest.TestCase):
         self.assertEqual("mongodb://router1.example.com:27017", self.analyzer.match(self.paste)[0])
 
     def test_match_multiple(self):
-        self.paste.body = "The db connection string is 'mongodb://router1.example.com:27017' but please keep this for yourself! Also make sure to use " \
-                          "postgresql://user:secret@localhost as postgres connection"
+        self.paste.body = (
+            "The db connection string is 'mongodb://router1.example.com:27017' but please keep this for yourself! Also make sure to use "
+            "postgresql://user:secret@localhost as postgres connection"
+        )
         match = self.analyzer.match(self.paste)
         self.assertTrue(match)
         self.assertEqual(2, len(match))

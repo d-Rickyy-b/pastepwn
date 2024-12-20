@@ -3,6 +3,7 @@ from .regexanalyzer import RegexAnalyzer
 
 class Base64Analyzer(RegexAnalyzer):
     """Analyzer to match base64 encoding via regex"""
+
     name = "Base64Analyzer"
 
     def __init__(self, actions, min_len=1):

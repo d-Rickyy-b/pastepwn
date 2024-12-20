@@ -29,19 +29,19 @@ class TestSlackWebhookAnalyzer(unittest.TestCase):
 
     def test_intext(self):
         """Test if matches inside text are recognized"""
-        self.paste.body = "here is the webhook url: The slack webhook key is " \
-                          "https://hooks.slack.com/services/T00000000/B00000000" \
-                          "/XXXXXXXXXXXXXXXXXXXXXXXX! how about that!"
+        self.paste.body = "here is the webhook url: The slack webhook key is https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX! how about that!"
         match = self.analyzer.match(self.paste)
         self.assertTrue(match)
         self.assertEqual("https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX", match[0])
 
     def test_multiple(self):
         """Test if multiple matches are recognized"""
-        self.paste.body = "here is the webhook url: The slack webhook key is " \
-                          "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX! how about that! and now" \
-                          "there is another one https://hooks.slack.com/services/T00000000/B00000000/YYYYYYYYYYYYYYYYYYYYYYYY right here!" \
-                          "And an invalid url: https://hooks.slack.com/services/T00000000/B00000000/ZZZZZZZZZZ there!"
+        self.paste.body = (
+            "here is the webhook url: The slack webhook key is "
+            "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX! how about that! and now"
+            "there is another one https://hooks.slack.com/services/T00000000/B00000000/YYYYYYYYYYYYYYYYYYYYYYYY right here!"
+            "And an invalid url: https://hooks.slack.com/services/T00000000/B00000000/ZZZZZZZZZZ there!"
+        )
         match = self.analyzer.match(self.paste)
         self.assertTrue(match)
         self.assertEqual(2, len(match))

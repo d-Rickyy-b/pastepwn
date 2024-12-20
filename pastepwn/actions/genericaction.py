@@ -3,6 +3,7 @@ from .basicaction import BasicAction
 
 class GenericAction(BasicAction):
     """Action to execute a custom function"""
+
     name = "GenericAction"
 
     def __init__(self, func):

@@ -3,6 +3,7 @@ from .regexanalyzer import RegexAnalyzer
 
 class MailAnalyzer(RegexAnalyzer):
     """Analyzer to match on email addresses via regex"""
+
     name = "MailAnalyzer"
 
     def __init__(self, actions):

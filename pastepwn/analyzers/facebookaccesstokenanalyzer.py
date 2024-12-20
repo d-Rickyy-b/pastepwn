@@ -3,6 +3,7 @@ from .regexanalyzer import RegexAnalyzer
 
 class FacebookAccessTokenAnalyzer(RegexAnalyzer):
     """Analyzer to match a Facebook Access Token"""
+
     name = "FacebookAccessTokenAnalyzer"
     regex = r"EAACEdEose0cBA[0-9A-Za-z]+"
 

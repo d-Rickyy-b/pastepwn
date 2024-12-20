@@ -4,6 +4,7 @@ from time import sleep
 
 class BasicScraper(object):
     """Abstract class for scraper instances"""
+
     name = "BasicScraper"
 
     def __init__(self, exception_event=None):

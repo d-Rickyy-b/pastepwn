@@ -5,7 +5,6 @@ from pastepwn.analyzers.awssessiontokenanalyzer import AWSSessionTokenAnalyzer
 
 
 class TestAWSSessionTokenAnalyzer(unittest.TestCase):
-
     def setUp(self):
         self.analyzer = AWSSessionTokenAnalyzer(None)
         self.paste = mock.Mock()
@@ -55,9 +54,11 @@ class TestAWSSessionTokenAnalyzer(unittest.TestCase):
 
     def test_multiple(self):
         """Test if multiple matches are recognized"""
-        self.paste.body = r"Please always use this session token: " \
-                          r"\\ssssssssssssssssssssss:\\ssssssssssssssss'auyhguywgerdbyubduiywebh'. Also we can use shorter" \
-                          r"tokens such as \\=\\'auyhguywgerdbyubduiywebh' which is quite handy."
+        self.paste.body = (
+            r"Please always use this session token: "
+            r"\\ssssssssssssssssssssss:\\ssssssssssssssss'auyhguywgerdbyubduiywebh'. Also we can use shorter"
+            r"tokens such as \\=\\'auyhguywgerdbyubduiywebh' which is quite handy."
+        )
         match = self.analyzer.match(self.paste)
         self.assertTrue(match)
         self.assertEqual(r"\\ssssssssssssssssssssss:\\ssssssssssssssss'auyhguywgerdbyubduiywebh'", match[0])

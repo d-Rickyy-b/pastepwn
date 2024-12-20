@@ -6,6 +6,7 @@ from .basicaction import BasicAction
 
 class SaveFileAction(BasicAction):
     """Action to save each paste as a file named '<pasteID>.txt'"""
+
     name = "SaveFileAction"
 
     def __init__(self, path, file_ending=".txt", template=None):
@@ -25,7 +26,7 @@ class SaveFileAction(BasicAction):
     def _remove_prefix(input_string, prefix):
         """Remove a prefix from a certain string (e.g. remove '.' as prefix from '.txt')"""
         if input_string.startswith(prefix):
-            return input_string[len(prefix):]
+            return input_string[len(prefix) :]
         return input_string
 
     def get_file_content(self, paste, analyzer_name, matches):

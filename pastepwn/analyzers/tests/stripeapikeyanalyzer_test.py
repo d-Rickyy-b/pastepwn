@@ -5,7 +5,6 @@ from pastepwn.analyzers.stripeapikeyanalyzer import StripeApiKeyAnalyzer
 
 
 class TestStripeApiKeyAnalyzer(unittest.TestCase):
-
     def setUp(self):
         self.analyzer = StripeApiKeyAnalyzer(None)
         self.paste = mock.Mock()

@@ -7,6 +7,7 @@ class SHAHashAnalyzer(RegexAnalyzer):
 
     Matches SHA 1, 224, 256, 384, and 512 hashes.
     """
+
     name = "SHAHashAnalyzer"
 
     def __init__(self, actions):

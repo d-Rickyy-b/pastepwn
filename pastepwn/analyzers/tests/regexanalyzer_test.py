@@ -6,7 +6,6 @@ from pastepwn.analyzers.regexanalyzer import RegexAnalyzer
 
 
 class TestRegexAnalyzer(unittest.TestCase):
-
     def setUp(self):
         """Set's up a paste mock object"""
         self.paste = Mock()
@@ -79,6 +78,7 @@ class TestRegexAnalyzer(unittest.TestCase):
 
         class TestAnalyzer(RegexAnalyzer):
             """Test analyzer for testing the verify method"""
+
             verify = Mock(side_effect=_verify_method)
 
             def __init__(self, actions, regex):

@@ -3,4 +3,5 @@
 
 class PasteNotReadyException(Exception):
     """Exception class indicating a paste is not ready for downloading yet"""
+
     pass

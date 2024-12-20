@@ -47,13 +47,9 @@ class PastePwn(object):
         if ip:
             self.logger.info(f"Your public IP is {ip}")
 
-        self.scraping_handler = ScrapingHandler(paste_queue=self.paste_queue,
-                                                exception_event=self.__exception_event)
-        self.paste_dispatcher = PasteDispatcher(paste_queue=self.paste_queue,
-                                                action_queue=self.action_queue,
-                                                exception_event=self.__exception_event)
-        self.action_handler = ActionHandler(action_queue=self.action_queue,
-                                            exception_event=self.__exception_event)
+        self.scraping_handler = ScrapingHandler(paste_queue=self.paste_queue, exception_event=self.__exception_event)
+        self.paste_dispatcher = PasteDispatcher(paste_queue=self.paste_queue, action_queue=self.action_queue, exception_event=self.__exception_event)
+        self.action_handler = ActionHandler(action_queue=self.action_queue, exception_event=self.__exception_event)
 
         if self.database is not None and store_all_pastes:
             # Save every paste to the database with the AlwaysTrueAnalyzer

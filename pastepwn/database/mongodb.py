@@ -7,7 +7,6 @@ from .abstractdb import AbstractDB
 
 
 class MongoDB(AbstractDB):
-
     def __init__(self, ip="127.0.0.1", port=27017, dbname="pastepwn", collectionname="pastes"):
         super().__init__()
         self.logger = logging.getLogger(__name__)

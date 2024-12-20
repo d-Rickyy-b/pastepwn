@@ -7,6 +7,7 @@ class AzureSubscriptionKeyAnalyzer(RegexAnalyzer):
 
     Keys are 32 character alphanumeric (lower case)
     """
+
     name = "AzureSubscriptionKeyAnalyzer"
 
     def __init__(self, actions):

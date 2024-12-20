@@ -4,6 +4,7 @@ from pastepwn.util import listify
 
 class LogicalBaseAnalyzer(BasicAnalyzer):
     """Meta analyzer used to combine analyzers via a logical operator"""
+
     name = "LogicalBaseAnalyzer"
 
     def __init__(self, actions, analyzers, merge_actions=False):

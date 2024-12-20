@@ -7,6 +7,7 @@ from pastepwn.util import listify
 
 class BasicAnalyzer(object):
     """Basic analyzer class"""
+
     name = "BasicAnalyzer"
 
     def __init__(self, actions, identifier=None):
@@ -74,6 +75,7 @@ class MergedAnalyzer(BasicAnalyzer):
     """Combination class to combine multiple analyzers into a single one.
     Doesn't need to be created manually - use the binary operators (& and |) to combine multiple analyzers.
     """
+
     name = "MergedAnalyzer"
 
     def __init__(self, base_analyzer, and_analyzer=None, or_analyzer=None):
@@ -103,3 +105,5 @@ class MergedAnalyzer(BasicAnalyzer):
             return base_analyzer_match and bool(self._and_analyzer.match(paste))
         elif self._or_analyzer:
             return base_analyzer_match or bool(self._or_analyzer.match(paste))
+
+        return False

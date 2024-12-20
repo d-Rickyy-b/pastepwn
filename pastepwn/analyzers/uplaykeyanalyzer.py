@@ -3,6 +3,7 @@ from .regexanalyzer import RegexAnalyzer
 
 class UplayKeyAnalyzer(RegexAnalyzer):
     """Analyzer to match uplay keys via regex."""
+
     name = "UplayKeyAnalyzer"
 
     def __init__(self, actions):

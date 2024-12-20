@@ -7,6 +7,7 @@ from .basicaction import BasicAction
 
 class TelegramAction(BasicAction):
     """Action to send a Telegram message to a certain user or group/channel"""
+
     name = "TelegramAction"
 
     def __init__(self, token, receiver, template=None):

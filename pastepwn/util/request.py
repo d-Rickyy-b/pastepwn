@@ -31,9 +31,7 @@ class Request(object):
             Request._initialized = True
 
     def _request_wrapper(self, data, timeout, *args, **kwargs):
-        headers = {
-            "User-Agent": "pastepwn (https://github.com/d-Rickyy-b/pastepwn)"
-            }
+        headers = {"User-Agent": "pastepwn (https://github.com/d-Rickyy-b/pastepwn)"}
 
         if self.headers is not None:
             headers.update(self.headers)
