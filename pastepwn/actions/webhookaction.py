@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from pastepwn.util import Request
 from .basicaction import BasicAction
 

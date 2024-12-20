@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 
 # https://stackoverflow.com/questions/19799609/leaving-values-blank-if-not-passed-in-str-format

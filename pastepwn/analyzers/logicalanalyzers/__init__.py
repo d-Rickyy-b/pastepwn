@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 from .andanalyzer import AndAnalyzer
 from .logicalbaseanalyzer import LogicalBaseAnalyzer

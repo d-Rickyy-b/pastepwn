@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from .adobekeyanalyzer import AdobeKeyAnalyzer
 from .alwaystrueanalyzer import AlwaysTrueAnalyzer
 from .awsaccesskeyanalyzer import AWSAccessKeyAnalyzer

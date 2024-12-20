@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from pastepwn.util import listify
 from .basicanalyzer import BasicAnalyzer
 

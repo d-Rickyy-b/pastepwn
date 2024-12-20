@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Do not mess with the order of the imports
 # Otherwise there will be circular imports -> bad
 

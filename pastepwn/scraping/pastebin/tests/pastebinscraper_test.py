@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import unittest
 
 from pastepwn.scraping.pastebin import PastebinScraper
