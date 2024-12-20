@@ -45,14 +45,10 @@ class WordAnalyzer(BasicAnalyzer):
 
         _matches = []
         if self.case_sensitive:
-            for word in self.words:
-                # Never use 'return word in paste_content' - otherwise you will
-                # return false before all words have been checked
-                if word in paste_content:
-                    _matches.append(word)
+            # Never use 'return word in paste_content' - otherwise you will
+            # return false before all words have been checked
+            _matches.extend(word for word in self.words if word in paste_content)
         else:
-            for word in self.words:
-                if word.lower() in paste_content.lower():
-                    _matches.append(word)
+            _matches.extend(word for word in self.words if word.lower() in paste_content.lower())
 
         return _matches

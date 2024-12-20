@@ -13,10 +13,4 @@ class Base64Analyzer(RegexAnalyzer):
 
     def verify(self, results):
         """Method to perform additional checks to test if the found strings are of sufficient length"""
-        validated_strings = []
-
-        for result in results:
-            if len(result) >= self.min_len:
-                validated_strings.append(result)
-
-        return validated_strings
+        return [result for result in results if len(result) >= self.min_len]

@@ -20,12 +20,7 @@ class IBANAnalyzer(RegexAnalyzer):
         if not self.validate:
             return results
 
-        validated_ibans = []
-        for possible_iban in results:
-            if self._validate_iban(possible_iban):
-                validated_ibans.append(possible_iban)
-
-        return validated_ibans
+        return [iban for iban in results if self._validate_iban(iban)]
 
     def _validate_iban(self, potential_iban):
         """Checks if the given string could be a valid IBAN. Adapted from https://rosettacode.org/wiki/IBAN#Python."""

@@ -27,7 +27,7 @@ class ExactWordAnalyzer(BasicAnalyzer):
             text = text.lower()
             blacklist = [word.lower() for word in blacklist]
 
-        return any((self._word_in_text(word, text) for word in blacklist))
+        return any(self._word_in_text(word, text) for word in blacklist)
 
     def add_word(self, word):
         """
