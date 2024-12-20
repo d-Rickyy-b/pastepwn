@@ -14,10 +14,10 @@ class GenericAnalyzer(BasicAnalyzer):
         if match_func is None:
             raise ValueError("Function to be called cannot be None")
         if not callable(match_func):
-            raise ValueError("Function you provided isn't callable")
+            raise TypeError("Function you provided isn't callable")
 
         if verify_func is not None and not callable(verify_func):
-            raise ValueError("Verify function you provided isn't callable")
+            raise TypeError("Verify function you provided isn't callable")
 
         self.verify_func = verify_func
         self.match_func = match_func

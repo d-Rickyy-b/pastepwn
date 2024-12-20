@@ -87,11 +87,11 @@ class PastebinScraper(BasicScraper):
                     full_url=paste.get("full_url"),
                 )
                 pastes.append(paste_obj)
-
-            return pastes
         except Exception:
             self.logger.exception("An exception occurred while downloading the recent pastes!")
             return None
+        else:
+            return pastes
 
     def _get_paste_content(self, key):
         """Downloads the content of a certain paste"""
@@ -173,6 +173,7 @@ class PastebinScraper(BasicScraper):
         """Start the scraping process and download the paste metadata"""
         self.paste_queue = paste_queue
         self.running = True
+        known_pastes_treshold = 1000
         start_thread(self._body_downloader, "BodyDownloader", self._exception_event)
 
         while self.running:
@@ -199,8 +200,8 @@ class PastebinScraper(BasicScraper):
                 self.logger.debug(f"{counter} new pastes fetched!")
 
             # Delete some of the last pastes to not run into memory/performance issues
-            if len(self._known_pastes) > 1000:
-                self.logger.debug("known_pastes > 1000 - cleaning up!")
+            if len(self._known_pastes) > known_pastes_treshold:
+                self.logger.debug("known_pastes > %s - cleaning up!", known_pastes_treshold)
                 start_index = len(self._known_pastes) - self._known_pastes_limit
                 self._known_pastes = self._known_pastes[start_index:]
 
@@ -213,7 +214,8 @@ class PastebinScraper(BasicScraper):
                 current_time = int(time.time())
                 diff = current_time - self._last_scrape_time
 
-                if diff > 60:
+                minute_in_seconds = 60
+                if diff > minute_in_seconds:
                     break
 
                 # if the last scraping happened less than 60 seconds ago,

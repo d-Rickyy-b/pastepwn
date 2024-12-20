@@ -11,8 +11,4 @@ class AndAnalyzer(LogicalBaseAnalyzer):
         if not self.analyzers:
             return False
 
-        for analyzer in self.analyzers:
-            if not analyzer.match(paste):
-                return False
-
-        return True
+        return all(analyzer.match(paste) for analyzer in self.analyzers)

@@ -20,11 +20,7 @@ class WordAnalyzer(BasicAnalyzer):
             text = text.lower()
             self.blacklist = [x.lower() for x in self.blacklist]
 
-        for word in self.blacklist:
-            if word in text:
-                return True
-
-        return False
+        return any(word in text for word in self.blacklist)
 
     def add_word(self, word):
         """Add a word to the analyzer.

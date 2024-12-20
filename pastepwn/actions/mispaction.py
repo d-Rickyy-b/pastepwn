@@ -64,8 +64,10 @@ class MISPAction(BasicAction):
         attrs.append({"type": "text", "category": "Attribution", "comment": "Username of paste author", "value": paste.user})
         # Add size of the paste
         attrs.append({"type": "size-in-bytes", "category": "Other", "comment": "Size of the paste", "value": paste.size})
+
         # Attach full paste if it's small
-        if int(paste.size) <= 1024 and paste.body is not None:
+        max_paste_size = 1024
+        if int(paste.size) <= max_paste_size and paste.body is not None:
             attrs.append({"type": "attachment", "category": "Artifacts dropped", "comment": "Raw body of the paste", "value": paste.body})
         # Add attributes to the event
         event["Attribute"] = attrs

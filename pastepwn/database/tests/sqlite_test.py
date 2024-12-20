@@ -1,8 +1,8 @@
-import os
 import random
 import shutil
 import string
 import unittest
+from pathlib import Path
 
 from pastepwn import Paste
 from pastepwn.database import SQLiteDB
@@ -10,9 +10,7 @@ from pastepwn.database import SQLiteDB
 
 class SQLiteDBTest(unittest.TestCase):
     def setUp(self):
-        rand_text = []
-        for _ in range(3):
-            rand_text.append("".join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(8)))
+        rand_text = ["".join(random.choices(string.ascii_letters + string.digits, k=8)) for _ in range(3)]
 
         p = {
             "scrape_url": "https://scrape.pastebin.com/api_scrape_item.php?i=" + rand_text[0],
@@ -34,14 +32,15 @@ class SQLiteDBTest(unittest.TestCase):
 
     def tearDown(self):
         self.database.close_connection()
-        shutil.rmtree(os.path.dirname(self.database.dbpath))
+
+        shutil.rmtree(Path(self.database.dbpath).parent)
 
     def test_insert_same_key(self):
         for body_text in self.p["body"]:
             self.paste.set_body(body_text)
             self.database.store(self.paste)
 
-        self.assertEqual(self.database.cursor.execute("SELECT body FROM pastes WHERE key = '{}'".format(self.p["key"])).fetchone()[0], self.p["body"][1])
+        self.assertEqual(self.database.cursor.execute("SELECT body FROM pastes WHERE key = ?", (self.p["key"],)).fetchone()[0], self.p["body"][1])
 
 
 if __name__ == "__main__":

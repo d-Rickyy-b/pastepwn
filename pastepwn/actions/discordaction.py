@@ -47,7 +47,7 @@ class DiscordAction(BasicAction):
         self.logger = logging.getLogger(__name__)
         self.bot_available = True
 
-        if websockets is None or not websockets_available or (sys.version_info.major == 3 and sys.version_info.minor >= 10):
+        if websockets is None or not websockets_available or (sys.version_info >= (3, 10)):
             self.logger.warning("Could not import 'websockets' module. So you can only use webhooks for discord.")
             self.bot_available = False
 
@@ -78,7 +78,8 @@ class DiscordAction(BasicAction):
             # Receive Hello
             hello_str = await socket.recv()
             hello = json.loads(hello_str)
-            if hello.get("op") != 10:
+            hello_opcode = 10
+            if hello.get("op") != hello_opcode:
                 self.logger.warning("[ws] Expected Hello payload but received %s", hello_str)
 
             # Send heartbeat and receive ACK

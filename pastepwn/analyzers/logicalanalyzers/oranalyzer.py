@@ -8,8 +8,4 @@ class OrAnalyzer(LogicalBaseAnalyzer):
 
     def match(self, paste):
         """Returns True if all of the passed analyzers matched"""
-        for analyzer in self.analyzers:
-            if analyzer.match(paste):
-                return True
-
-        return False
+        return any(analyzer.match(paste) for analyzer in self.analyzers)

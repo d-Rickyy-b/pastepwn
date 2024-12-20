@@ -119,7 +119,7 @@ class IrcAction(BasicAction):
         """
         try:
             self.ircsock.send(bytes(f"{data}\r\n", "UTF-8"))
-        except ConnectionAbortedError as e:
+        except ConnectionAbortedError:
             self.logger.exception("Connection to IRC server lost")
             self._reconnect()
 

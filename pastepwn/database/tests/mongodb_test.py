@@ -10,9 +10,7 @@ from pastepwn.database import MongoDB
 @unittest.skipIf(os.environ.get("CI"), "Skipping this test on CI.")
 class MongoDBTest(unittest.TestCase):
     def setUp(self):
-        rand_text = []
-        for _ in range(3):
-            rand_text.append("".join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(8)))
+        rand_text = ["".join(random.choices(string.ascii_letters + string.digits, k=8)) for _ in range(3)]
 
         p = {
             "scrape_url": "https://scrape.pastebin.com/api_scrape_item.php?i=" + rand_text[0],

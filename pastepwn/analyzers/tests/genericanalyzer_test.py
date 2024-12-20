@@ -15,13 +15,13 @@ class TestGenericAnalyzer(unittest.TestCase):
             GenericAnalyzer(self.mock_action, None)
 
     def test_not_callable_match_func(self):
-        """Check if ValueError rises on anything but a callable"""
+        """Check if TypeError rises on anything but a callable"""
         test_int = 1
-        with self.assertRaises(ValueError, msg="No exception was raised although the match_func is not callable"):
+        with self.assertRaises(TypeError, msg="No exception was raised although the match_func is not callable"):
             GenericAnalyzer(self.mock_action, test_int)
 
         test_string = "Test"
-        with self.assertRaises(ValueError, msg="No exception was raised although the match_func is not callable"):
+        with self.assertRaises(TypeError, msg="No exception was raised although the match_func is not callable"):
             GenericAnalyzer(self.mock_action, test_string)
 
     def test_perform(self):
@@ -56,10 +56,10 @@ class TestGenericAnalyzer(unittest.TestCase):
         self.assertEqual(ga.verify_func, None)
 
     def test_not_callable_verify_func(self):
-        """Check if ValueError rises on anything but a callable as verify_method (apart from None)"""
+        """Check if TypeError rises on anything but a callable as verify_method (apart from None)"""
         mock_func = Mock()
         non_callable_obj = "This is a string, not a function you idiot!"
-        with self.assertRaises(ValueError, msg="No exception was raised although the verify_func is not callable"):
+        with self.assertRaises(TypeError, msg="No exception was raised although the verify_func is not callable"):
             _ = GenericAnalyzer(self.mock_action, mock_func, non_callable_obj)
 
     def test_verify(self):
