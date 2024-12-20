@@ -6,7 +6,7 @@ from time import sleep
 from pastepwn.util import join_threads, start_thread
 
 
-class PasteDispatcher(object):
+class PasteDispatcher:
     """The PasteDispatcher dispatches the downloaded pastes to the analyzers"""
 
     def __init__(self, paste_queue, action_queue=None, exception_event=None):

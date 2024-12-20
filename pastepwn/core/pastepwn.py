@@ -12,7 +12,7 @@ from pastepwn.scraping.pastebin import PastebinScraper
 from pastepwn.util import Request, enforce_ip_version
 
 
-class PastePwn(object):
+class PastePwn:
     """Represents an instance of the pastepwn core module"""
 
     def __init__(self, database=None, proxies=None, store_all_pastes=True, ip_version=None):

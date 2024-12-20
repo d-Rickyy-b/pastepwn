@@ -5,7 +5,7 @@ from requests import Session, utils
 from requests.exceptions import Timeout
 
 
-class Request(object):
+class Request:
     _instance = None
     _initialized = False
     _lock = Lock()

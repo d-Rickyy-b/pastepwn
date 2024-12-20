@@ -1,4 +1,4 @@
-class Paste(object):
+class Paste:
     """Representation of a paste object used for example by pastebin"""
 
     def __init__(self, key, title, user, size, date, expire, syntax, scrape_url, full_url):

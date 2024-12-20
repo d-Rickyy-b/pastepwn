@@ -3,7 +3,7 @@ from string import Template
 from pastepwn.util import DictWrapper
 
 
-class TemplatingEngine(object):
+class TemplatingEngine:
     """Wrapper class around the python templating feature"""
 
     @staticmethod

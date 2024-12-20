@@ -5,7 +5,7 @@ from pastepwn.errors import InvalidActionError
 from pastepwn.util import listify
 
 
-class BasicAnalyzer(object):
+class BasicAnalyzer:
     """Basic analyzer class"""
 
     name = "BasicAnalyzer"

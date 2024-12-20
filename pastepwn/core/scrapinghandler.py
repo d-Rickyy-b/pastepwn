@@ -5,7 +5,7 @@ from threading import Event, Lock
 from pastepwn.util import start_thread
 
 
-class ScrapingHandler(object):
+class ScrapingHandler:
     """Class to handle all the given scrapers to fetch pastes from different sources"""
 
     def __init__(self, paste_queue=None, exception_event=None):

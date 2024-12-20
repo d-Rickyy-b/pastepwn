@@ -2,7 +2,7 @@ from threading import Event
 from time import sleep
 
 
-class BasicScraper(object):
+class BasicScraper:
     """Abstract class for scraper instances"""
 
     name = "BasicScraper"
