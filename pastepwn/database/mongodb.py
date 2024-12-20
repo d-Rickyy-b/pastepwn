@@ -19,7 +19,7 @@ class MongoDB(AbstractDB):
             self.db.admin.command("ismaster")
         except ConnectionFailure as e:
             self.logger.error(e)
-            raise e
+            raise
 
         self.logger.debug("Connected to database!")
 

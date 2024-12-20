@@ -95,9 +95,9 @@ class PastebinScraper(BasicScraper):
         self.logger.debug(f"Downloading paste {key}")
         try:
             response_data = r.get(api_url)
-        except Exception as e:
-            self.logger.error(e)
-            raise e
+        except Exception:
+            self.logger.exception("An exception occurred while downloading the paste content!")
+            raise
 
         self._check_error(response_data, key)
 
@@ -138,8 +138,8 @@ class PastebinScraper(BasicScraper):
             except PasteEmptyException:
                 self.logger.info("Paste '%s' is set to None! Skipping paste.", paste.key)
                 continue
-            except Exception as e:
-                self.logger.error(f"An exception occurred while downloading the paste '{paste.key}'. Skipping this paste! Exception is: {e}")
+            except Exception:
+                self.logger.exception("An exception occurred while downloading the paste '%s'. Skipping this paste!", paste.key)
                 continue
 
             paste.set_body(body)

@@ -35,7 +35,7 @@ class TestTemplatingEngine(unittest.TestCase):
         """Checks if templating engine inserts paste data correctly into the template"""
         analyzer_name = "TestAnalyzer"
         template = "Matched paste '${key}' by analyzer '${analyzer_name}'. URL is: '${full_url}'"
-        expected = "Matched paste '{0}' by analyzer '{1}'. URL is: '{2}'".format(self.p.get("key"), analyzer_name, self.p.get("full_url"))
+        expected = "Matched paste '{}' by analyzer '{}'. URL is: '{}'".format(self.p.get("key"), analyzer_name, self.p.get("full_url"))
         result = TemplatingEngine.fill_template(paste=self.paste, analyzer_name=analyzer_name, template_string=template)
         self.assertEqual(expected, result, msg="Filled template string is not the same as the expected result!")
 

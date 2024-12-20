@@ -50,7 +50,7 @@ class SQLiteDBTest(unittest.TestCase):
             self.paste.set_body(body_text)
             self.database.store(self.paste)
 
-        self.assertEqual(self.database.cursor.execute("SELECT body FROM pastes WHERE key = \'{0}\'".format(self.p["key"])).fetchone()[0], self.p["body"][1])
+        self.assertEqual(self.database.cursor.execute("SELECT body FROM pastes WHERE key = \'{}\'".format(self.p["key"])).fetchone()[0], self.p["body"][1])
 
 
 if __name__ == "__main__":
