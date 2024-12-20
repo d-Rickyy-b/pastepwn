@@ -50,7 +50,7 @@ class MISPAction(BasicAction):
         # Build event
         event = {
             "date": time.strftime("%Y-%m-%d", timestamp),
-            "info": "Sensitive information found on pastebin (type: %s)" % analyzer_name,
+            "info": f"Sensitive information found on pastebin (type: {analyzer_name})",
             "threat_level_id": 4,  # Undefined
             "published": False,  # Unpublished
             "analysis": 0,  # Not yet analyzed

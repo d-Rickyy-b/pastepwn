@@ -45,5 +45,5 @@ class HashAnalyzer(RegexAnalyzer):
                 hashes.append(digest)
 
         # Build regex
-        regex = r"\b(%s)\b" % "|".join(hashes)
+        regex = r"\b({})\b".format("|".join(hashes))
         super().__init__(actions, regex, re.IGNORECASE)
