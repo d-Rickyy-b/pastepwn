@@ -53,7 +53,7 @@ class PastebinScraper(BasicScraper):
             # We raise an exception to re-download it again after some time has passed
             msg = f"The paste '{key}' could not be fetched yet!"
             raise PasteNotReadyException(msg)
-        elif body == "Error, we cannot find this paste.":
+        if body == "Error, we cannot find this paste.":
             # The paste has been deleted before we could download it.
             # We raise an exception to delete the paste from the queue
             msg = f"The paste '{key}' has been deleted!"

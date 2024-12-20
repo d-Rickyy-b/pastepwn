@@ -18,12 +18,13 @@ class EmailAction(BasicAction):
         mail_regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
         if username is None or not re.match(mail_regex, username):
             raise ValueError("Invalid username !")
-        else:
-            self.username = username
+
+        self.username = username
+
         if receiver is None or not re.match(mail_regex, receiver):
             raise ValueError("Invalid reciever address !")
-        else:
-            self.receiver = receiver
+
+        self.receiver = receiver
         self.password = password
         self.hostname = hostname
         self.port = port
