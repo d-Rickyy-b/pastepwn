@@ -30,5 +30,5 @@ class TelegramAction(BasicAction):
         r = Request()
         text = TemplatingEngine.fill_template(paste, analyzer_name, template_string=self.template, matches=matches)
 
-        api_url = "https://api.telegram.org/bot{0}/sendMessage?chat_id={1}&text={2}".format(self.token, self.receiver, text)
+        api_url = f"https://api.telegram.org/bot{self.token}/sendMessage?chat_id={self.receiver}&text={text}"
         r.get(api_url)

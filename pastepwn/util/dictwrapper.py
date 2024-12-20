@@ -7,4 +7,4 @@ class DictWrapper(dict):
     """
 
     def __missing__(self, key):
-        return "${{{0}}}".format(key)
+        return f"${{{key}}}"

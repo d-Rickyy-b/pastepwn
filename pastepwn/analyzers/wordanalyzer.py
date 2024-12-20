@@ -7,7 +7,7 @@ class WordAnalyzer(BasicAnalyzer):
     name = "WordAnalyzer"
 
     def __init__(self, actions, words, blacklist=None, case_sensitive=False):
-        super().__init__(actions, "{0} ({1})".format(self.name, words))
+        super().__init__(actions, f"{self.name} ({words})")
         self.words = listify(words)
 
         self.blacklist = blacklist or []

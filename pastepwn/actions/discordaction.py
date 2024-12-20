@@ -72,7 +72,7 @@ class DiscordAction(BasicAction):
         if websockets is None:
             raise ImportError("Couldn't import websockets!")
 
-        socket = await websockets.connect("{0}/?v=6&encoding=json".format(ws_url))
+        socket = await websockets.connect(f"{ws_url}/?v=6&encoding=json")
         try:
             # Receive Hello
             hello_str = await socket.recv()
@@ -118,7 +118,7 @@ class DiscordAction(BasicAction):
         # Call Get Gateway Bot to get the websocket URL
         # https://discordapp.com/developers/docs/reference#authentication
         r = Request()
-        r.headers = {"Authorization": "Bot {}".format(self.token)}
+        r.headers = {"Authorization": f"Bot {self.token}"}
         res = json.loads(r.get("https://discordapp.com/api/gateway/bot"))
         ws_url = res.get("url")
 
@@ -138,8 +138,8 @@ class DiscordAction(BasicAction):
             url = self.webhook_url
         else:
             # Send through Discord bot API (header-based authentication)
-            url = "https://discordapp.com/api/channels/{0}/messages".format(self.channel_id)
-            r.headers = {"Authorization": "Bot {}".format(self.token)}
+            url = f"https://discordapp.com/api/channels/{self.channel_id}/messages"
+            r.headers = {"Authorization": f"Bot {self.token}"}
 
         res = r.post(url, {"content": text})
         if res == "":

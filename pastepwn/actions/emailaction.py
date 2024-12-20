@@ -39,7 +39,7 @@ class EmailAction(BasicAction):
         email = MIMEMultipart()
         email["From"] = self.username
         email["To"] = self.receiver
-        email["Subject"] = "Paste matched by pastepwn via analyzer '{}'".format(analyzer_name)
+        email["Subject"] = f"Paste matched by pastepwn via analyzer '{analyzer_name}'"
         email.attach(MIMEText(text, "plain"))
 
         # TODO there should be a way to use starttls - check https://realpython.com/python-send-email/

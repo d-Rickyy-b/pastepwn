@@ -8,7 +8,7 @@ class ExactWordAnalyzer(BasicAnalyzer):
     name = "ExactWordAnalyzer"
 
     def __init__(self, actions, words, blacklist=None, case_sensitive=False):
-        super().__init__(actions, "{0} ({1})".format(self.name, words))
+        super().__init__(actions, f"{self.name} ({words})")
 
         self.words = listify(words)
         self.blacklist = blacklist or []
@@ -53,5 +53,5 @@ class ExactWordAnalyzer(BasicAnalyzer):
         return [word for word in words if self._word_in_text(word, paste_content)]
 
     def _word_in_text(self, word, text):
-        pattern = r"\b{0}\b".format(word)
+        pattern = rf"\b{word}\b"
         return re.search(pattern, text) is not None

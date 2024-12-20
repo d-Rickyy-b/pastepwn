@@ -48,7 +48,7 @@ class SaveFileAction(BasicAction):
         if self.file_ending == "":
             file_name = str(paste.key)
         else:
-            file_name = "{0}.{1}".format(paste.key, self.file_ending)
+            file_name = f"{paste.key}.{self.file_ending}"
 
         file_path = self.path / file_name
         content = self.get_file_content(paste, analyzer_name, matches)

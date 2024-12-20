@@ -104,7 +104,7 @@ class MISPAction(BasicAction):
         # Send event to MISP instance
         r = Request()
         r.headers = {"Authorization": self.access_key, "Accept": "application/json", "Content-Type": "application/json"}
-        events_url = "{0}/events".format(self.url)
+        events_url = f"{self.url}/events"
         res = r.post(events_url, data=data)
 
         # Error handling

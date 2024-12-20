@@ -26,7 +26,7 @@ class TestPastebinscraper(unittest.TestCase):
         for ip in ip_list:
             with self.assertRaises(IPNotRegisteredError):
                 self.pastebinscraper._check_error(shell.format(ip))
-                print("The following IP was not detected: {}".format(ip))
+                print(f"The following IP was not detected: {ip}")
 
     def test_ipv4_not_registered(self):
         """Test if the _check_error method detects different IPv4 addresses. It's okay to also detect invalid addresses where an octed is > 255)"""

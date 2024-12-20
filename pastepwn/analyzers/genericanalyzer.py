@@ -31,14 +31,14 @@ class GenericAnalyzer(BasicAnalyzer):
         try:
             return self.verify_func(results)
         except Exception as e:
-            logging.getLogger(__name__).warning("Executing custom verify function '{}' raised an exception! {}".format(self.verify_func.__name__, e))
+            logging.getLogger(__name__).warning(f"Executing custom verify function '{self.verify_func.__name__}' raised an exception! {e}")
 
     def match(self, paste):
         """Run the passed function and return its return value"""
         try:
             results = self.match_func(paste)
         except Exception as e:
-            logging.getLogger(__name__).warning("Executing custom match function '{}' raised an exception! {}".format(self.match_func.__name__, e))
+            logging.getLogger(__name__).warning(f"Executing custom match function '{self.match_func.__name__}' raised an exception! {e}")
             return False
 
         if not self.verify(results):

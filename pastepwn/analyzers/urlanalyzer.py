@@ -23,7 +23,7 @@ class URLAnalyzer(BasicAnalyzer):
         if not url.lower().startswith("http"):
             for protocol in ("http", "https"):
                 # If adding the protocol makes this resolve, the url works.
-                if self._resolve_url("{0}://{1}".format(protocol, url)):
+                if self._resolve_url(f"{protocol}://{url}"):
                     return True
             return False
 

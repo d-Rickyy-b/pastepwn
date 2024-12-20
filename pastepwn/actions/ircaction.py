@@ -29,11 +29,11 @@ class IrcAction(BasicAction):
         self.template = template
 
         if not channel.startswith("#"):
-            channel = "#{0}".format(channel)
+            channel = f"#{channel}"
         self.channel = channel
 
         # RFC1459 says that each message can only be 512 bytes including the CR-LF character
-        self._max_payload_size = MAX_MSG_SIZE - len("PRIVMSG {0}".format(channel)) - len("\r\n")
+        self._max_payload_size = MAX_MSG_SIZE - len(f"PRIVMSG {channel}") - len("\r\n")
 
         self._exception_event = Event()
         self._stop_event = Event()
@@ -82,8 +82,8 @@ class IrcAction(BasicAction):
             except Empty:
                 continue
 
-            self.logger.debug("New message on msg_queue: {0}".format(msg))
-            self._send("PRIVMSG {0} :{1}".format(self.channel, msg))
+            self.logger.debug(f"New message on msg_queue: {msg}")
+            self._send(f"PRIVMSG {self.channel} :{msg}")
 
     def _handle_message(self, message):
         """
@@ -91,7 +91,7 @@ class IrcAction(BasicAction):
         :param message: A messare received from the IRC server
         :return:
         """
-        self.logger.debug("Server message: {}".format(message))
+        self.logger.debug(f"Server message: {message}")
         words = message.split(" ")
 
         if message.startswith("PING"):
@@ -116,7 +116,7 @@ class IrcAction(BasicAction):
         :return: None
         """
         try:
-            self.ircsock.send(bytes("{0}\r\n".format(data), "UTF-8"))
+            self.ircsock.send(bytes(f"{data}\r\n", "UTF-8"))
         except ConnectionAbortedError as e:
             self.logger.error("Connection to IRC server lost: ", e)
             self._reconnect()
@@ -145,7 +145,7 @@ class IrcAction(BasicAction):
         Connect to the IRC Server
         :return: None
         """
-        self.logger.debug("Connecting to IRC server '{}:{}' using nick {}.".format(self.server, self.port, self.nick))
+        self.logger.debug(f"Connecting to IRC server '{self.server}:{self.port}' using nick {self.nick}.")
         self.ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.ircsock.connect((self.server, self.port))
 
@@ -154,26 +154,26 @@ class IrcAction(BasicAction):
         Send login data to the IRC server
         :return:
         """
-        self._send("NICK {}".format(self.nick))
-        self._send("USER {} 8 * :{}".format(self.nick, self.nick))
+        self._send(f"NICK {self.nick}")
+        self._send(f"USER {self.nick} 8 * :{self.nick}")
 
     def _join(self):
         """
         Joins an IRC channel
         :return: None
         """
-        self.logger.debug("Joining channel '{}' on '{}:{}' using nick {}.".format(self.channel, self.server, self.port, self.nick))
-        self._send("JOIN {}".format(self.channel))
+        self.logger.debug(f"Joining channel '{self.channel}' on '{self.server}:{self.port}' using nick {self.nick}.")
+        self._send(f"JOIN {self.channel}")
 
     def _quit(self, msg=None):
         """
         Quit from an IRC server
         :return: None
         """
-        self.logger.info("Sending QUIT message to the server '{}:{}' from nick '{}'".format(self.server, self.port, self.nick))
+        self.logger.info(f"Sending QUIT message to the server '{self.server}:{self.port}' from nick '{self.nick}'")
         if msg is not None and msg != "":
             msg = msg.replace("\r\n", " ").replace("\r", " ").replace("\n", " ")
-            self._send("QUIT :{}".format(msg))
+            self._send(f"QUIT :{msg}")
         else:
             self._send("QUIT")
 
@@ -183,7 +183,7 @@ class IrcAction(BasicAction):
         :return: None
         """
         self.logger.debug("Server PING received. Replying to server with PONG.")
-        self._send("PONG :{}".format(self.nick))
+        self._send(f"PONG :{self.nick}")
 
     def _send_message(self, msg):
         """

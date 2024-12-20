@@ -72,7 +72,7 @@ class PasteDispatcher(object):
             start_thread(self._process_paste, "process_paste", paste=paste, exception_event=self.__exception_event)
 
     def _process_paste(self, paste):
-        self.logger.debug("Analyzing Paste: {0}".format(paste.key))
+        self.logger.debug(f"Analyzing Paste: {paste.key}")
         for analyzer in self.analyzers:
             matches = analyzer.match(paste)
 

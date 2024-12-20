@@ -12,7 +12,7 @@ class SQLiteDB(AbstractDB):
         super().__init__()
         self.dbpath = pathlib.Path(dbpath)
         self.logger = logging.getLogger(__name__)
-        self.logger.debug("Initializing SQLite - {0}".format(self.dbpath))
+        self.logger.debug(f"Initializing SQLite - {self.dbpath}")
 
         # Check if the folder path exists
         if not self.dbpath.exists():
@@ -22,12 +22,12 @@ class SQLiteDB(AbstractDB):
                 dbdir.mkdir()
             self.dbpath.touch()
         elif self.dbpath.is_dir():
-            raise ValueError("'{0}' is a directory. Use different path/name for database.".format(self.dbpath))
+            raise ValueError(f"'{self.dbpath}' is a directory. Use different path/name for database.")
 
         try:
             self.db = sqlite3.connect(str(self.dbpath), check_same_thread=False)
         except Exception as e:
-            self.logger.exception("An exception happened when initializing the database: {0}".format(e))
+            self.logger.exception(f"An exception happened when initializing the database: {e}")
             raise
 
         self.db.text_factory = lambda x: str(x, "utf-8", "ignore")
@@ -82,12 +82,12 @@ class SQLiteDB(AbstractDB):
         return self.cursor.execute("SELECT count(*) FROM pastes")
 
     def store(self, paste):
-        self.logger.debug("Storing paste {0}".format(paste.key))
+        self.logger.debug(f"Storing paste {paste.key}")
 
         try:
             self._insert_data(paste)
         except Exception as e:
-            self.logger.debug("Exception '{0}'".format(e))
+            self.logger.debug(f"Exception '{e}'")
             if "UNIQUE constraint failed: pastes.key" in str(e):
                 self.logger.debug("Doing upsert")
                 self._update_data(paste)

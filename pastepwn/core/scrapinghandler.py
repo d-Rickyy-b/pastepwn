@@ -60,8 +60,8 @@ class ScrapingHandler(object):
     def _join_threads(self):
         """End all threads and join them back into the main thread"""
         for thread in self.__threads:
-            self.logger.debug("Joining thread {0}".format(thread.name))
+            self.logger.debug(f"Joining thread {thread.name}")
             thread.join()
-            self.logger.debug("Thread {0} has ended".format(thread.name))
+            self.logger.debug(f"Thread {thread.name} has ended")
 
         self.__threads = []

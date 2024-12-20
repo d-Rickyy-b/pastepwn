@@ -10,7 +10,7 @@ class MysqlDB(AbstractDB):
     def __init__(self, ip="127.0.0.1", port=3306, unix_socket=None, dbname="pastepwn", username=None, password=None, timeout=10):
         super().__init__()
         self.logger = logging.getLogger(__name__)
-        self.logger.debug("Initializing MySQLDB - {0}:{1}".format(ip, port))
+        self.logger.debug(f"Initializing MySQLDB - {ip}:{port}")
 
         # https://dev.mysql.com/doc/connector-python/en/connector-python-connectargs.html
         if unix_socket:
@@ -81,12 +81,12 @@ class MysqlDB(AbstractDB):
         return self.cursor.execute("SELECT count(*) FROM pastes")
 
     def store(self, paste):
-        self.logger.debug("Storing paste {0}".format(paste.key))
+        self.logger.debug(f"Storing paste {paste.key}")
 
         try:
             self._insert_data(paste)
         except Exception as e:
-            self.logger.debug("Exception '{0}'".format(e))
+            self.logger.debug(f"Exception '{e}'")
 
     def get(self, key):
         return self._get_data("key", key)

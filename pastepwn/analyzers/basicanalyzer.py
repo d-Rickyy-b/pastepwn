@@ -51,9 +51,9 @@ class BasicAnalyzer(object):
         """Check if a passed action is a subclass of BasicAction"""
         if not isinstance(action, BasicAction):
             if isinstance(action, type):
-                error_msg = "You passed a class as action for '{}' but an instance of an action was expected!".format(self.identifier)
+                error_msg = f"You passed a class as action for '{self.identifier}' but an instance of an action was expected!"
             else:
-                error_msg = "You did not pass an action object - inheriting from BasicAction - to '{}'".format(self.identifier)
+                error_msg = f"You did not pass an action object - inheriting from BasicAction - to '{self.identifier}'"
 
             self.logger.error(error_msg)
             raise InvalidActionError(error_msg)
@@ -83,10 +83,10 @@ class MergedAnalyzer(BasicAnalyzer):
 
         if self._and_analyzer:
             actions = base_analyzer.actions + self._and_analyzer.actions
-            identifier = "({} && {})".format(base_analyzer.identifier, self._and_analyzer)
+            identifier = f"({base_analyzer.identifier} && {self._and_analyzer})"
         elif self._or_analyzer:
             actions = base_analyzer.actions + self._or_analyzer.actions
-            identifier = "({} || {})".format(base_analyzer.identifier, self._or_analyzer)
+            identifier = f"({base_analyzer.identifier} || {self._or_analyzer})"
         else:
             raise ValueError("Neither and_analyzer nor or_analyzer are set!")
 
