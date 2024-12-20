@@ -89,8 +89,8 @@ class PastebinScraper(BasicScraper):
                 pastes.append(paste_obj)
 
             return pastes
-        except Exception as e:
-            self.logger.error(e)
+        except Exception:
+            self.logger.exception("An exception occurred while downloading the recent pastes!")
             return None
 
     def _get_paste_content(self, key):

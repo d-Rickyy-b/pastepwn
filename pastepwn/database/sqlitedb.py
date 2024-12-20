@@ -27,8 +27,8 @@ class SQLiteDB(AbstractDB):
 
         try:
             self.db = sqlite3.connect(str(self.dbpath), check_same_thread=False)
-        except Exception as e:
-            self.logger.exception(f"An exception happened when initializing the database: {e}")
+        except Exception:
+            self.logger.exception("An exception happened when initializing the database")
             raise
 
         self.db.text_factory = lambda x: str(x, "utf-8", "ignore")

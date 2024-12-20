@@ -75,5 +75,5 @@ class ActionHandler:
         self.logger.debug(f"Performing action '{action.name}' on paste '{paste.key}' matched by analyzer '{analyzer.identifier}'!")
         try:
             action.perform(paste, analyzer.identifier, matches)
-        except Exception as e:
-            self.logger.error(f"While performing the action '{action.name}' the following exception occurred: '{e}'")
+        except Exception:
+            self.logger.exception(f"While performing the action '{action.name}' an exception occurred")

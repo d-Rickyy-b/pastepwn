@@ -17,7 +17,7 @@ class MongoDB(AbstractDB):
         try:
             self.db.admin.command("ismaster")
         except ConnectionFailure as e:
-            self.logger.error(e)
+            self.logger.exception("An exception occurred while initializing the database")
             raise
 
         self.logger.debug("Connected to database!")
