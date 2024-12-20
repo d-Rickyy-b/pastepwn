@@ -7,4 +7,4 @@ from .scrapinghandler import ScrapingHandler
 from .pastedispatcher import PasteDispatcher
 from .pastepwn import PastePwn
 
-__all__ = ["PastePwn", "ActionHandler", "ScrapingHandler", "PasteDispatcher", "Paste"]
+__all__ = ["ActionHandler", "Paste", "PasteDispatcher", "PastePwn", "ScrapingHandler"]
