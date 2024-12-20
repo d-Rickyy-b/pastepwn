@@ -1,4 +1,3 @@
-
 import logging
 from queue import Queue
 from threading import Lock, Event
@@ -44,6 +43,8 @@ class ScrapingHandler(object):
 
                 # Return the update queue so the main thread can insert updates
                 return self.paste_queue
+
+        return None
 
     def stop(self):
         """Stops scraping pastes"""
