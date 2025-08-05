@@ -23,7 +23,13 @@ logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s
 # Framework code
 database = MongoDB(ip="192.168.240.128")
 
-pastepwn = PastePwn(database)
+# Create PastePwn with thread pool configuration
+# max_workers=4 is the default, but you can adjust based on your needs:
+# - 2 workers: Conservative, good for low-resource environments
+# - 4 workers: Default, balanced performance  
+# - 8 workers: High concurrency, good for high-throughput scenarios
+# - 16+ workers: Maximum concurrency, use with caution
+pastepwn = PastePwn(database, max_workers=4)
 
 # Generic action to send Telegram messages on new matched pastes
 telegram_action = TelegramAction(token="token", receiver="-1001348376474")

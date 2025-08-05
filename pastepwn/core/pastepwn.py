@@ -15,13 +15,14 @@ from pastepwn.util import Request, enforce_ip_version
 class PastePwn:
     """Represents an instance of the pastepwn core module"""
 
-    def __init__(self, database=None, proxies=None, store_all_pastes=True, ip_version=None):
+    def __init__(self, database=None, proxies=None, store_all_pastes=True, ip_version=None, max_workers=4):
         """
         Basic PastePwn object handling the connection to pastebin and all the analyzers and actions
         :param database: Database object extending AbstractDB
         :param proxies: Dict of proxies as defined in the requests documentation
         :param store_all_pastes: Bool to decide if all pastes should be stored into the db
         :param ip_version: The IP version pastepwn should use (4|6)
+        :param max_workers: Maximum number of concurrent threads for paste processing (default: 4)
         """
         self.logger = logging.getLogger(__name__)
         self.is_idle = False
@@ -48,7 +49,7 @@ class PastePwn:
             self.logger.info(f"Your public IP is {ip}")
 
         self.scraping_handler = ScrapingHandler(paste_queue=self.paste_queue, exception_event=self.__exception_event)
-        self.paste_dispatcher = PasteDispatcher(paste_queue=self.paste_queue, action_queue=self.action_queue, exception_event=self.__exception_event)
+        self.paste_dispatcher = PasteDispatcher(paste_queue=self.paste_queue, action_queue=self.action_queue, exception_event=self.__exception_event, max_workers=max_workers)
         self.action_handler = ActionHandler(action_queue=self.action_queue, exception_event=self.__exception_event)
 
         if self.database is not None and store_all_pastes:
